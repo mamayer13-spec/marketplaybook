@@ -1,3 +1,15 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/form1",
+      "destination": "/form",
+      "permanent": true
+    },
+    {
+      "source": "/form_mailerlite",
+      "destination": "/form",
+      "permanent": true
+    }
+  ]
 }
