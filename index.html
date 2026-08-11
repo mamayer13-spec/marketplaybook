@@ -4,15 +4,7 @@
 
 <head>
     <link rel="icon" type="image/png" href="/favicon.png">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W87P1Z4F6X"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-W87P1Z4F6X');
-    </script>
+    <script src="/consent.js" defer></script>
     
     <meta charset="utf-8" />
     <title>Market Playbook</title>
@@ -6145,78 +6137,10 @@
             }, 100);
         });
     </script>
-    <!-- Cookie Banner -->
-    <div id="cookie-banner"
-        class="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:max-w-md z-[100] transform translate-y-full opacity-0 transition-all duration-700 ease-out">
-        <div class="glass-card p-6 rounded-2xl border border-primary/20 shadow-2xl overflow-hidden relative">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-container"></div>
-            <div class="flex items-start gap-4">
-                <div class="bg-primary/10 p-2 rounded-lg">
-                    <span class="material-symbols-outlined text-primary">cookie</span>
-                </div>
-                <div>
-                    <h4 class="text-on-surface font-bold mb-2 font-headline">Datenschutz & Cookies</h4>
-                    <p class="text-sm text-on-surface-variant leading-relaxed mb-4">
-                        Wir nutzen Cookies, um unsere Website zu analysieren und Ihr Erlebnis zu verbessern. Mit Ihrer
-                        Zustimmung helfen Sie uns, unser Angebot weiter zu optimieren.
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <button id="accept-cookies"
-                            class="gradient-button px-6 py-2 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer">Alle
-                            akzeptieren</button>
-                        <button id="reject-cookies"
-                            class="px-6 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border border-outline-variant/30 text-on-surface hover:bg-surface-container-low transition-all cursor-pointer">Ablehnen</button>
-                    </div>
-                    <p class="text-[10px] text-slate-500 mt-4">
-                        Mehr Infos in unserer <a href="datenschutz.html"
-                            class="underline hover:text-primary">Datenschutzerklärung</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Cookie-Banner und Analytics stecken in /consent.js, gemeinsam fuer
+         alle Seiten. trackEvent kommt von dort. -->
 
     <script>
-        // Analytics & Cookie Consent Logic
-        const GA_MEASUREMENT_ID = 'G-W87P1Z4F6X';
-
-        function trackEvent(name, params = {}) {
-            if (window.gtag) {
-                window.gtag('event', name, params);
-            }
-            // Mock-Tracking für die Konsole (hilfreich zum Testen)
-            console.log(`[Analytics Event] ${name}:`, params);
-        }
-
-        function initCookieBanner() {
-            const banner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const rejectBtn = document.getElementById('reject-cookies');
-            const consent = localStorage.getItem('cookie-consent');
-
-            if (!consent) {
-                // Banner nach einer kurzen Verzögerung einblenden
-                setTimeout(() => {
-                    banner.classList.remove('translate-y-full', 'opacity-0');
-                }, 1500);
-            } else if (consent === 'accepted') {
-                loadAnalytics();
-            }
-
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem('cookie-consent', 'accepted');
-                banner.classList.add('translate-y-full', 'opacity-0');
-                loadAnalytics();
-                trackEvent('consent_given', { type: 'all' });
-            });
-
-            rejectBtn.addEventListener('click', () => {
-                localStorage.setItem('cookie-consent', 'rejected');
-                banner.classList.add('translate-y-full', 'opacity-0');
-                console.log('Cookies rejected');
-            });
-        }
-
         // Tracking für die CTA Buttons ("Gespräch vereinbaren")
         function initCtaTracking() {
             document.querySelectorAll('a').forEach(link => {
@@ -6248,7 +6172,6 @@
 
         // Initialisierung
         document.addEventListener('DOMContentLoaded', () => {
-            initCookieBanner();
             initCtaTracking();
             initConversionTracking();
         });
