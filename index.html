@@ -4810,22 +4810,29 @@
 <body class="selection:bg-primary-container selection:text-white" data-mode="connect"
     style="--mouse-x: 491px; --mouse-y: 800px;">
     <!-- Dynamic Island Navigation -->
-    <header class="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-[90%] md:max-w-3xl dynamic-island z-[9999]"
+    <!-- Breite: Seit das Erfahrungs-Portal in der Navigation steht, sind es
+         sechs Punkte plus Wortmarke plus Button. In max-w-3xl (768px) brach
+         das um — "Market Playbook" und "Häufige Fragen" gingen auf zwei
+         Zeilen, "Magazin" lag unter dem Button. Ab lg deshalb max-w-5xl. -->
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-[90%] md:max-w-3xl lg:max-w-5xl dynamic-island z-[9999]"
         id="nav-island">
         <nav
             class="glass-header rounded-full border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.8),0_0_15px_rgba(29,100,242,0.1),0_0_10px_rgba(255,255,255,0.05)] px-4 py-2 flex items-center justify-between mx-auto">
             <!-- Logo -->
-            <a class="flex items-center pl-3" href="#">
-                <span class="text-lg md:text-xl font-bold tracking-tighter text-slate-50 font-headline">Market
-                    Playbook</span>
+            <a class="flex items-center pl-3 shrink-0" href="#">
+                <span class="text-lg md:text-xl font-bold tracking-tighter text-slate-50 font-headline whitespace-nowrap">Market Playbook</span>
             </a>
             <!-- Links -->
             <div
-                class="hidden md:flex items-center space-x-6 lg:space-x-8 font-['Space_Grotesk'] text-[13px] tracking-tight">
+                class="hidden md:flex items-center space-x-3 lg:space-x-5 xl:space-x-7 font-['Space_Grotesk'] text-[12px] lg:text-[13px] tracking-tight whitespace-nowrap">
                 <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#track-record">Ergebnisse</a>
                 <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#system">System</a>
                 <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#angebot">Angebot</a>
-                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#faq">Häufige Fragen</a>
+                <!-- Der laengste Punkt und zugleich der entbehrlichste: Er ist
+                     ein Sprungziel auf derselben Seite und steht zusaetzlich im
+                     Fuss. Zwischen 768 und 1023px weicht er, damit die anderen
+                     fuenf Punkte dort ueberhaupt Platz haben. -->
+                <a class="hidden lg:inline text-slate-400 hover:text-slate-100 transition-colors" href="#faq">Häufige Fragen</a>
                 <!-- Freigeschaltet am 15.8.2026, als das Erfahrungs-Portal
                      gebaut wurde. Ohne Schrägstrich am Ende, weil die Seite
                      mit cleanUrls arbeitet und alle übrigen URLs es genauso
@@ -4836,8 +4843,8 @@
                 <a class="text-slate-400 hover:text-slate-100 transition-colors" href="/magazin">Magazin</a>
             </div>
             <!-- Action -->
-            <div class="flex items-center pr-1">
-                <a class="gradient-button px-5 md:px-7 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold tracking-tight"
+            <div class="flex items-center pr-1 shrink-0">
+                <a class="gradient-button px-5 md:px-7 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold tracking-tight whitespace-nowrap"
                 href="/form.html">Kostenloser Videokurs</a>
             </div>
         </nav>
