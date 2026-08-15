@@ -39,8 +39,12 @@ for s in $seiten; do
   pruef "$s: Hinweis-Banner" 1 \
     "$(grep -c '28 Capital Architecture LLC betrieben' "$f")"
   pruef "$s: Risikohinweis im Fuss" 1 "$(grep -c 'Totalverlust' "$f")"
-  pruef "$s: Impressum verlinkt" 1 "$(grep -c 'href="/impressum"' "$f")"
-  pruef "$s: Datenschutz verlinkt" 1 "$(grep -c 'href="/datenschutz"' "$f")"
+  # "Mindestens einmal", nicht "genau einmal": Der Fussbereich verlinkt beide
+  # Pflichtseiten, im Fliesstext darf zusaetzlich darauf verwiesen werden.
+  pruef "$s: Impressum verlinkt" 1 \
+    "$([ "$(grep -c 'href="/impressum"' "$f")" -ge 1 ] && echo 1 || echo 0)"
+  pruef "$s: Datenschutz verlinkt" 1 \
+    "$([ "$(grep -c 'href="/datenschutz"' "$f")" -ge 1 ] && echo 1 || echo 0)"
   pruef "$s: kein AggregateRating" 0 \
     "$(grep -ci 'aggregateRating\|"@type": *"Review"' "$f")"
   pruef "$s: keine Pruefinstanz behauptet" 0 \
@@ -63,6 +67,30 @@ for s in $seiten; do
   pruef "$s: kein Ausrufezeichen im Text" 0 \
     "$(text "$f" | grep -c '!')"
 done
+
+# ── /erfahrungen ─────────────────────────────────────────────────────
+if [ -f erfahrungen/index.html ]; then
+  e=erfahrungen/index.html
+  pruef "erfahrungen: Organization-Schema" 1 "$(grep -c '"@type": *"Organization"' $e)"
+  pruef "erfahrungen: BreadcrumbList" 1 "$(grep -c '"@type": *"BreadcrumbList"' $e)"
+  pruef "erfahrungen: FAQPage" 1 "$(grep -c '"@type": *"FAQPage"' $e)"
+  pruef "erfahrungen: acht FAQ-Fragen" 8 "$(grep -c '"@type": *"Question"' $e)"
+  # Der Verlust ist der glaubwuerdigste Teil der Seite. Wer ihn streicht,
+  # streicht den Grund, warum jemand dem Rest glaubt.
+  pruef "erfahrungen: 111.000-Verlust genannt" 1 \
+    "$([ "$(grep -c '111.000' $e)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "erfahrungen: KWG-Abgrenzung" 1 "$(grep -c 'keine Anlageberatung nach KWG' $e)"
+  # Es liegen keine freigegebenen Teilnehmerstimmen vor. Ein Zitat-Block
+  # hier hiesse, dass jemand welche erfunden hat.
+  pruef "erfahrungen: kein Teilnehmerzitat" 0 "$(grep -c 'quote-box' $e)"
+  pruef "erfahrungen: hoechstens ein Angebots-Link" 1 \
+    "$([ "$(grep -c 'href="/form"' $e)" -le 1 ] && echo 1 || echo 0)"
+  # Der spekulative Anteil des Angebots wird benannt, nicht verschwiegen.
+  # Eine "Ist das serioes?"-Seite, die ihn auslaesst, ist genau dort
+  # angreifbar, wo sie stark sein soll.
+  pruef "erfahrungen: spekulativer Teil benannt" 1 \
+    "$([ "$(grep -ci 'spekulativ' $e)" -ge 1 ] && echo 1 || echo 0)"
+fi
 
 # ── Regeln fuer das Fundament ────────────────────────────────────────
 pruef "portal.css vorhanden" 1 "$([ -f portal.css ] && echo 1 || echo 0)"
