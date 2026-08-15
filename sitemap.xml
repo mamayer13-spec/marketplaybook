@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Die ersten sechs Eintraege bestanden vor dem Erfahrungs-Portal und
+     bleiben unveraendert. Ab /erfahrungen folgen die 14 Portalseiten,
+     angelegt am 15.8.2026. URLs ohne Schraegstrich am Ende, passend zu
+     cleanUrls in vercel.json. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.marketplaybook.de/</loc>
@@ -29,5 +33,93 @@
     <loc>https://www.marketplaybook.de/haftungsausschluss</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
+  </url>
+
+  <!-- Erfahrungs-Portal: Trust-Seiten -->
+  <url>
+    <loc>https://www.marketplaybook.de/erfahrungen</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/kosten</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/ist-market-playbook-serioes</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/claudio-fuersatz</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/fuer-wen</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/haeufige-fragen</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/ueber-uns</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/magazin</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Erfahrungs-Portal: Magazin-Artikel -->
+  <url>
+    <loc>https://www.marketplaybook.de/magazin/aktien-lernen-anfaenger</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/magazin/boersenkurs-serioes</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/magazin/finanzcoaching-serioes-erkennen</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/magazin/aktien-community-vergleich</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/magazin/portfolio-strategie-lernen</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.marketplaybook.de/magazin/investieren-ab-50</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

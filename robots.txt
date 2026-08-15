@@ -1,4 +1,26 @@
 User-agent: *
 Allow: /
 
+# KI-Crawler stehen einzeln drin, obwohl "*" sie formal schon einschliesst:
+# Manche werten nur einen Block aus, der sie namentlich nennt. Google-Extended
+# entscheidet gesondert, ob Google die Inhalte in KI-Antworten verwenden darf.
+# Gleiche Fassung wie auf den Ratgeberportalen.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://www.marketplaybook.de/sitemap.xml
