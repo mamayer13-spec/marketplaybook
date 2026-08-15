@@ -66,6 +66,14 @@ for s in $seiten; do
   # verstaerkt die Skepsis, statt sie aufzuloesen.
   pruef "$s: kein Ausrufezeichen im Text" 0 \
     "$(text "$f" | grep -c '!')"
+  # Die drei vorhandenen Fotos gehoeren nicht in den Trust-Bereich:
+  # Spiegel-Selfie im Hotelflur, Villa mit Infinity-Pool, Strandclub mit
+  # Sonnenbrille. Das Pool-Motiv auf einer "serioes"-Seite ist das Bild,
+  # das ein Kritiker als Erstes herausgreift. Erst ersetzen, dann nutzen.
+  # Auf src= eingegrenzt, nicht auf den blossen Dateinamen: Der Kommentar
+  # im Quelltext, der erklaert WARUM die Bilder fehlen, nennt sie selbst.
+  pruef "$s: keine ungeeigneten Fotos" 0 \
+    "$(grep -cE 'src="[^"]*(claudio-1\.jpg|claudio-2\.jpg|claudio-fuersatz\.webp)' "$f")"
 done
 
 # ── /erfahrungen ─────────────────────────────────────────────────────
