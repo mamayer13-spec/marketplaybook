@@ -28,7 +28,8 @@ pruef() { # name  erwartet  istwert
 text() { perl -0777 -pe 's/<!--.*?-->//gs; s/<script.*?<\/script>//gs; s/<[^>]*>/ /gs' "$1"; }
 
 # Alle Portalseiten. Waechst mit jeder Aufgabe des Umsetzungsplans.
-seiten="erfahrungen"
+seiten="erfahrungen kosten ist-market-playbook-serioes claudio-fuersatz \
+        fuer-wen haeufige-fragen ueber-uns magazin"
 
 # ── Regeln, die auf JEDER Portalseite gelten ─────────────────────────
 for s in $seiten; do
@@ -36,9 +37,16 @@ for s in $seiten; do
   if [ ! -f "$f" ]; then
     printf '%-54s FEHLER (Datei fehlt)\n' "$s"; fehler=1; continue
   fi
-  pruef "$s: Hinweis-Banner" 1 \
-    "$(grep -c '28 Capital Architecture LLC betrieben' "$f")"
-  pruef "$s: Risikohinweis im Fuss" 1 "$(grep -c 'Totalverlust' "$f")"
+  # Strukturell geprueft, nicht ueber die Textstelle: Beide Formulierungen
+  # duerfen im Fliesstext wieder vorkommen — auf /ist-market-playbook-serioes
+  # steht der Betreiber-Satz zu Recht auch in einer FAQ-Antwort. Geprueft
+  # wird deshalb, dass es GENAU EINEN Baustein gibt und der Wortlaut steht.
+  pruef "$s: Hinweis-Banner vorhanden" 1 "$(grep -c 'class="notice-banner"' "$f")"
+  pruef "$s: Banner-Wortlaut" 1 \
+    "$([ "$(grep -c '28 Capital Architecture LLC betrieben' "$f")" -ge 1 ] && echo 1 || echo 0)"
+  pruef "$s: Risikohinweis im Fuss" 1 "$(grep -c 'class="risiko"' "$f")"
+  pruef "$s: Risiko-Wortlaut" 1 \
+    "$([ "$(grep -c 'Totalverlust' "$f")" -ge 1 ] && echo 1 || echo 0)"
   # "Mindestens einmal", nicht "genau einmal": Der Fussbereich verlinkt beide
   # Pflichtseiten, im Fliesstext darf zusaetzlich darauf verwiesen werden.
   pruef "$s: Impressum verlinkt" 1 \
@@ -98,6 +106,81 @@ if [ -f erfahrungen/index.html ]; then
   # angreifbar, wo sie stark sein soll.
   pruef "erfahrungen: spekulativer Teil benannt" 1 \
     "$([ "$(grep -ci 'spekulativ' $e)" -ge 1 ] && echo 1 || echo 0)"
+fi
+
+# ── Seitenspezifische Regeln ─────────────────────────────────────────
+if [ -f kosten/index.html ]; then
+  k=kosten/index.html
+  pruef "kosten: Basic-Preis genannt" 1 \
+    "$([ "$(grep -c '3.500' $k)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "kosten: Widerruf behandelt" 1 \
+    "$([ "$(grep -ci 'widerruf' $k)" -ge 1 ] && echo 1 || echo 0)"
+  # Solange Laufzeit und Konditionen Platzhalter sind, waere ein
+  # Offer-Schema mit Preis eine Angabe, die wir nicht halten koennen.
+  pruef "kosten: kein Offer-Schema" 0 "$(grep -c '"@type": *"Offer"' $k)"
+fi
+
+if [ -f ist-market-playbook-serioes/index.html ]; then
+  d=ist-market-playbook-serioes/index.html
+  pruef "serioes: EIN genannt" 1 \
+    "$([ "$(grep -c '98-1959983' $d)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "serioes: Sitz genannt" 1 \
+    "$([ "$(grep -c 'Sheridan' $d)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "serioes: KWG-Abgrenzung" 1 \
+    "$([ "$(grep -c 'keine Anlageberatung nach KWG' $d)" -ge 1 ] && echo 1 || echo 0)"
+fi
+
+if [ -f claudio-fuersatz/index.html ]; then
+  c=claudio-fuersatz/index.html
+  pruef "claudio: Person-Schema" 1 "$(grep -c '"@type": *"Person"' $c)"
+  pruef "claudio: Verweis auf Personenseite" 1 \
+    "$([ "$(grep -c 'claudio-fuersatz\.de' $c)" -ge 1 ] && echo 1 || echo 0)"
+  # Kein erfundenes Zitat. Von Claudio liegt keines freigegeben vor.
+  pruef "claudio: kein Zitat-Block" 0 "$(grep -c 'quote-box' $c)"
+fi
+
+if [ -f fuer-wen/index.html ]; then
+  w=fuer-wen/index.html
+  pruef "fuer-wen: Kapitalanforderung genannt" 1 \
+    "$([ "$(grep -c '10.000' $w)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "fuer-wen: proscons vorhanden" 1 \
+    "$([ "$(grep -c 'proscons' $w)" -ge 1 ] && echo 1 || echo 0)"
+fi
+
+if [ -f haeufige-fragen/index.html ]; then
+  q=haeufige-fragen/index.html
+  pruef "faq: mindestens 15 Fragen" 1 \
+    "$([ "$(grep -c '"@type": *"Question"' $q)" -ge 15 ] && echo 1 || echo 0)"
+  pruef "faq: fuenf Gruppen" 5 "$(grep -c 'section-eyebrow' $q)"
+fi
+
+if [ -f ueber-uns/index.html ]; then
+  u=ueber-uns/index.html
+  pruef "ueber-uns: Betreiber genannt" 1 \
+    "$([ "$(grep -c '28 Capital Architecture LLC' $u)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "ueber-uns: keine Redaktion behauptet" 0 \
+    "$(grep -ciE 'unabhängige redaktion|unser redaktionsteam|unsere redaktion prüft' $u)"
+fi
+
+if [ -f magazin/index.html ]; then
+  m=magazin/index.html
+  pruef "magazin: sechs Karten" 6 "$(grep -c 'class="card"' $m)"
+  # "Zuletzt aktualisiert am" statt "redaktionell geprueft am": gleiches
+  # Aktualitaetssignal, aber ohne eine Pruefinstanz zu behaupten.
+  pruef "magazin: Aktualisierungsdatum" 1 \
+    "$([ "$(grep -c 'Zuletzt aktualisiert am' $m)" -ge 1 ] && echo 1 || echo 0)"
+  # Einspaltige Liste, kein Kachelraster — Kacheln lassen die Seite wie
+  # einen Shop aussehen, eine Liste wie ein Heft.
+  pruef "magazin: kein Kachelraster" 0 \
+    "$(grep -c 'grid-template-columns: *repeat(2' portal.css)"
+fi
+
+# Ein Suchbegriff, eine URL: Zwei Seiten mit derselben H1 kannibalisieren
+# sich in der Suche gegenseitig.
+if [ "$(ls */index.html 2>/dev/null | wc -l | tr -d ' ')" -gt 1 ]; then
+  pruef "keine doppelte H1 im Portal" 0 \
+    "$(grep -h -oE '<h1[^>]*>[^<]*' */index.html */*/index.html 2>/dev/null \
+       | sort | uniq -d | wc -l | tr -d ' ')"
 fi
 
 # ── Regeln fuer das Fundament ────────────────────────────────────────
