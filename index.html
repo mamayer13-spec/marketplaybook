@@ -4822,10 +4822,19 @@
             <!-- Links -->
             <div
                 class="hidden md:flex items-center space-x-6 lg:space-x-8 font-['Space_Grotesk'] text-[13px] tracking-tight">
-                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#track-record">Track Record</a>
+                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#track-record">Ergebnisse</a>
                 <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#system">System</a>
-                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#offer">Offer</a>
-                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#faq">FAQ</a>
+                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#angebot">Angebot</a>
+                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="#faq">Häufige Fragen</a>
+                <!-- ZUM FREISCHALTEN: Die beiden folgenden Punkte gehören zum
+                     Erfahrungs-Portal. Sie zeigen auf Seiten, die es noch nicht
+                     gibt — aktiv wären sie also 404. Sobald /erfahrungen/ und
+                     /magazin/ live sind, dieses Kommentarpaar entfernen. Der
+                     interne Link von der Startseite ist der Hauptgrund, warum
+                     Google die neuen Seiten überhaupt gut findet.
+                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="/erfahrungen/">Erfahrungen</a>
+                <a class="text-slate-400 hover:text-slate-100 transition-colors" href="/magazin/">Magazin</a>
+                -->
             </div>
             <!-- Action -->
             <div class="flex items-center pr-1">
@@ -4869,25 +4878,32 @@
             <!-- Proof Strip -->
             <div
                 class="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 px-12 glass-card rounded-2xl border border-outline-variant/10 reveal delay-500 active">
+                <!-- Jede Zahl trägt ihren Stichtag direkt darunter. Eine Kennzahl ohne
+                     Zeitbezug ist eine Behauptung, eine Kennzahl mit Stichtag ist eine
+                     Angabe — genau diesen Unterschied prüft der skeptische Besucher. -->
                 <div class="text-center">
                     <p class="text-2xl font-bold text-primary data-glow"><span class="counter"
                             data-target="515">0</span>%</p>
                     <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-1">Performance seit 2023</p>
+                    <p class="text-[9px] tracking-wide text-slate-500 mt-1">Stand: August 2026</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-2xl font-bold text-primary data-glow"><span class="counter" data-target="8">0</span>+
+                    <p class="text-2xl font-bold text-primary data-glow"><span class="counter" data-target="7">0</span>+
                     </p>
                     <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-1">Jahre Erfahrung</p>
+                    <p class="text-[9px] tracking-wide text-slate-500 mt-1">Stand: August 2026</p>
                 </div>
                 <div class="text-center">
                     <p class="text-2xl font-bold text-primary data-glow"><span class="counter"
                             data-target="3">0</span>/3</p>
                     <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-1">Crashes vorhergesagt</p>
+                    <p class="text-[9px] tracking-wide text-slate-500 mt-1">Nach eigenen Angaben, 2025</p>
                 </div>
                 <div class="text-center">
                     <p class="text-2xl font-bold text-primary data-glow"><span class="counter"
                             data-target="200">0</span>+</p>
                     <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-1">Aktive Mitglieder</p>
+                    <p class="text-[9px] tracking-wide text-slate-500 mt-1">Stand: August 2026</p>
                 </div>
             </div>
         </div>
@@ -4912,9 +4928,10 @@
                                 Marktzyklen um das Marktumfeld zu erkennen bevor die Masse es tut.
                             </p>
                             <p class="text-lg md:text-xl text-slate-700 font-light leading-relaxed max-w-none">
-                                Genau deshalb haben unsere Mitglieder 2025 beide großen Crashs vollständig vermieden und
-                                waren bei jedem wichtigen Wendepunkt korrekt positioniert. Wir helfen ernsthaften
-                                Investoren dabei ihr Kapital zu schützen und systematisch zu vermehren.
+                                Der Prozess zielt darauf, Marktphasen anhand von Makrodaten und On-Chain-Signalen
+                                einzuordnen: Risiken früh erkennen, statt auf einzelne Kursprognosen zu setzen. Wir
+                                helfen ernsthaften Investoren dabei, ihr Kapital bewusst und nach klaren Regeln zu
+                                steuern.
                             </p>
                         </div>
                     </div>
@@ -4930,9 +4947,9 @@
                         <span class="material-symbols-outlined text-primary mb-4 text-3xl">shield</span>
                         <h3 class="text-lg font-bold text-slate-900 mb-3 font-headline">Kapitalschutz zuerst</h3>
                         <p class="text-sm text-slate-700 leading-relaxed font-light flex-grow">Bevor wir über Gewinne
-                            reden, stellen wir sicher dass dein Kapital sicher ist. Unsere Mitglieder waren vor beiden
-                            Crashs 2025 bereits in Cash weil On-Chain Daten und Makro Signale uns Wochen vorher zum
-                            Ausstieg bewogen haben.</p>
+                            reden, reden wir über Risiko. On-Chain Daten und Makro Signale dienen uns als
+                            Frühindikatoren: Sie sollen anzeigen, wann ein Marktumfeld kippt — damit du deine Position
+                            bewusst wählst, statt auf den nächsten Kurs zu hoffen.</p>
                     </div>
                     <div
                         class="p-8 bg-white shadow-xl shadow-slate-200/50 rounded-2xl border border-slate-100 h-full flex flex-col reveal delay-200 delay-100">
@@ -5128,11 +5145,11 @@
             </div>
         </div>
     </section>
-    <!-- Track Record Section -->
+    <!-- Abschnitt: dokumentierte Makro-Entscheidungen -->
     <section class="py-32 px-6 md:px-24 overflow-hidden reveal" id="track-record">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-3xl md:text-5xl font-bold text-on-surface mb-6">Makro Track Record</h2>
+                <h2 class="text-3xl md:text-5xl font-bold text-on-surface mb-6">Makro-Entscheidungen 2025</h2>
                 <p class="text-on-surface-variant text-lg">Präzise BTC/USD Entscheidungen 2025 – Verifiziert durch
                     On-Chain Daten.</p>
             </div>
@@ -5611,8 +5628,8 @@
             </div>
         </div>
     </section>
-    <!-- Offers Section -->
-    <section class="py-32 px-6 md:px-24 reveal" id="offer">
+    <!-- Angebots-Abschnitt -->
+    <section class="py-32 px-6 md:px-24 reveal" id="angebot">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-20 reveal active">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 reveal-header">Wähle deinen Zugang</h2>
@@ -5912,8 +5929,10 @@
                         <div class="pt-4">Drei Dinge unterscheiden uns. Erstens vollständige Portfolio Transparenz —
                             Claudios Portfolio ist 24/7 live einsehbar, jede Entscheidung mit Timestamp dokumentiert und
                             öffentlich nachprüfbar. Zweitens keine blinden Signale sondern vollständige Analysen mit
-                            fertiger Einschätzung — du weißt nicht nur was, sondern auch warum. Drittens ein bewiesener
-                            Track Record: beide Crashs 2025 vermieden, alle drei Wendepunkte getroffen.</div>
+                            fertiger Einschätzung — du weißt nicht nur was, sondern auch warum. Drittens eine
+                            durchgehend dokumentierte Entscheidungshistorie: Jeder Ein- und Ausstieg
+                            ist mit Zeitstempel öffentlich nachvollziehbar — du musst uns nichts glauben,
+                            du kannst es nachlesen.</div>
                     </div>
                 </div>
                 <!-- FAQ Item 7 -->
@@ -5959,7 +5978,7 @@
                         <span class="material-symbols-outlined text-primary text-sm">add</span>
                     </button>
                     <div class="faq-answer text-sm text-on-surface-variant leading-relaxed">
-                        <div class="pt-4">Unser Track Record ist vollständig transparent und mit Beweisen dokumentiert.
+                        <div class="pt-4">Unsere Entscheidungshistorie ist vollständig einsehbar und mit Zeitstempel dokumentiert.
                             Jede Entscheidung ist öffentlich einsehbar und nachprüfbar.
                         </div>
                     </div>
@@ -5982,6 +6001,45 @@
             </div>
         </div>
     </section>
+    <!-- Rechtliche Einordnung.
+         Bewusst hier und nicht im Footer: Wer auf dieser Seite landet, weil er
+         "Market Playbook seriös" gesucht hat, sucht genau diese Auskunft. Sie
+         gehört an eine Stelle, an der man sie im Lesefluss findet.
+         Bewusst gesiezt bzw. neutral, obwohl die übrige Seite duzt: Eine
+         rechtliche Abgrenzung, die auf Kumpel macht, wirkt nicht wie eine. -->
+    <section class="py-20 px-6 md:px-24 border-t border-outline-variant/10 reveal" id="einordnung">
+        <div class="max-w-3xl mx-auto">
+            <label class="label-md uppercase tracking-[0.3em] text-primary mb-6 block font-semibold">Rechtliche
+                Einordnung</label>
+            <h2 class="text-2xl md:text-3xl font-bold text-on-surface mb-6">Was Market Playbook ist — und was nicht</h2>
+            <p class="text-on-surface-variant leading-relaxed font-light mb-8">
+                Market Playbook ist ein Bildungsangebot. Die Inhalte dienen der Information und der eigenen
+                Meinungsbildung. Anlageentscheidungen trifft jede Nutzerin und jeder Nutzer eigenverantwortlich.
+            </p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="p-4 glass-card rounded-xl border border-outline-variant/10">
+                    <p class="text-sm font-bold text-on-surface">Kein Broker</p>
+                    <p class="text-xs text-on-surface-variant font-light mt-1">Wir führen keine Wertpapiergeschäfte aus
+                        und vermitteln keine.</p>
+                </div>
+                <div class="p-4 glass-card rounded-xl border border-outline-variant/10">
+                    <p class="text-sm font-bold text-on-surface">Keine Anlageberatung nach KWG</p>
+                    <p class="text-xs text-on-surface-variant font-light mt-1">Es findet keine auf persönliche
+                        Verhältnisse zugeschnittene Empfehlung statt.</p>
+                </div>
+                <div class="p-4 glass-card rounded-xl border border-outline-variant/10">
+                    <p class="text-sm font-bold text-on-surface">Kein fremdes Kapital</p>
+                    <p class="text-xs text-on-surface-variant font-light mt-1">Wir verwalten kein Vermögen Dritter und
+                        nehmen keine Gelder entgegen.</p>
+                </div>
+                <div class="p-4 glass-card rounded-xl border border-outline-variant/10">
+                    <p class="text-sm font-bold text-on-surface">Keine Renditegarantie</p>
+                    <p class="text-xs text-on-surface-variant font-light mt-1">Es werden weder Gewinne noch bestimmte
+                        Wertentwicklungen zugesagt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Footer -->
     <footer class="bg-slate-950 w-full border-t border-slate-800/30 reveal active">
         <div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-24 py-12 max-w-7xl mx-auto">
@@ -5992,11 +6050,29 @@
             </div>
             <div
                 class="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 font-['Inter'] text-[10px] uppercase tracking-widest text-slate-500">
+                <!-- ZUM FREISCHALTEN: gehört zum Erfahrungs-Portal, die Seiten
+                     existieren noch nicht. Mit dem Portal-Livegang dieses
+                     Kommentarpaar entfernen.
+                <a class="hover:text-slate-200 transition-colors" href="/erfahrungen/">Erfahrungen</a>
+                <a class="hover:text-slate-200 transition-colors" href="/kosten/">Kosten</a>
+                <a class="hover:text-slate-200 transition-colors" href="/ueber-uns/">Über uns</a>
+                -->
+                <a class="hover:text-slate-200 transition-colors" href="#faq">Häufige Fragen</a>
                 <a class="hover:text-slate-200 transition-colors" href="impressum.html">Impressum</a>
                 <a class="hover:text-slate-200 transition-colors" href="agb.html">AGB</a>
                 <a class="hover:text-slate-200 transition-colors" href="datenschutz.html">Datenschutzerklärung</a>
                 <a class="hover:text-slate-200 transition-colors" href="haftungsausschluss.html">Haftungsausschluss</a>
             </div>
+        </div>
+        <!-- Risikohinweis. Die drei Ratgeberportale haben ihn, die Hauptdomain
+             hatte ihn bisher nicht. Neutral formuliert, nicht geduzt. -->
+        <div class="border-t border-slate-800/30">
+            <p class="max-w-7xl mx-auto px-6 md:px-24 py-8 font-['Inter'] text-[11px] leading-relaxed text-slate-500">
+                <span class="font-bold text-slate-400">Risikohinweis:</span> Investitionen an Kapitalmärkten sind mit
+                Verlustrisiken verbunden, bis zum Totalverlust des eingesetzten Kapitals. Vergangene Wertentwicklungen
+                sind kein verlässlicher Indikator für künftige Ergebnisse. Die Inhalte dieser Website dienen der
+                Information und Bildung und stellen keine Anlageberatung dar.
+            </p>
         </div>
     </footer>
     <script>
