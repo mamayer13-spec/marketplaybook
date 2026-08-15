@@ -27,6 +27,15 @@ pruef() { # name  erwartet  istwert
 # HTML-Kommentare ueberleben und schleppen ihr "<!--" in den Text.
 text() { perl -0777 -pe 's/<!--.*?-->//gs; s/<script.*?<\/script>//gs; s/<[^>]*>/ /gs' "$1"; }
 
+# Nur den Artikelteil zwischen <main> und </main>.
+# Wichtig fuer alles, was NICHT das Seitengeruest betrifft: Kopf, Portal-
+# Leiste und Fuss sind auf jeder Seite identisch und enthalten legitim
+# eigene h2-Ueberschriften sowie einen Fuss-Link auf /erfahrungen. Wer
+# diese Regeln gegen die ganze Datei laufen laesst, zwingt jede neue Seite
+# zu einem eigenen Umbau am gemeinsamen Geruest — und dann sieht jede
+# Seite anders aus.
+hauptteil() { perl -0777 -ne 'print $1 if /<main[^>]*>(.*?)<\/main>/s' "$1"; }
+
 # Alle Portalseiten. Waechst mit jeder Aufgabe des Umsetzungsplans.
 seiten="erfahrungen kosten ist-market-playbook-serioes claudio-fuersatz \
         fuer-wen haeufige-fragen ueber-uns magazin"
@@ -174,6 +183,55 @@ if [ -f magazin/index.html ]; then
   pruef "magazin: kein Kachelraster" 0 \
     "$(grep -c 'grid-template-columns: *repeat(2' portal.css)"
 fi
+
+# ── Magazin-Artikel ──────────────────────────────────────────────────
+# Diese Seiten muessen auch dann nuetzlich sein, wenn niemand
+# weiterklickt. Google fuehrt eine eigene Spam-Kategorie ("Doorway
+# abuse") fuer Seiten, die nur existieren, um Besucher weiterzuleiten —
+# daher die Deckelung auf hoechstens einen Verweis auf /erfahrungen und
+# das Verbot eines Links auf die Anmeldeseite.
+artikel="aktien-lernen-anfaenger boersenkurs-serioes \
+         finanzcoaching-serioes-erkennen aktien-community-vergleich \
+         portfolio-strategie-lernen investieren-ab-50"
+
+for a in $artikel; do
+  f="magazin/$a/index.html"
+  if [ ! -f "$f" ]; then
+    printf '%-54s FEHLER (Datei fehlt)\n' "magazin/$a"; fehler=1; continue
+  fi
+  # Gemeinsame Portalregeln gelten auch hier.
+  pruef "$a: Hinweis-Banner vorhanden" 1 "$(grep -c 'class="notice-banner"' "$f")"
+  pruef "$a: Risikohinweis im Fuss" 1 "$(grep -c 'class="risiko"' "$f")"
+  pruef "$a: keine Du-Ansprache" 0 \
+    "$(text "$f" | grep -oiE '\b(du|dir|dich|dein|deine|deinem|deinen|deiner|deines)\b' | wc -l | tr -d ' ')"
+  pruef "$a: kein Ausrufezeichen im Text" 0 "$(text "$f" | grep -c '!')"
+  pruef "$a: kein Betrug" 0 "$(grep -ci 'betrug' "$f")"
+  pruef "$a: keine englischen Begriffe" 0 \
+    "$(grep -ciE 'track record|>offer<|journey|mindset' "$f")"
+  pruef "$a: kein AggregateRating" 0 \
+    "$(grep -ci 'aggregateRating\|"@type": *"Review"' "$f")"
+  # Artikelspezifisch — NUR gegen <main>, nicht gegen die ganze Datei.
+  # Der Fuss traegt auf jeder Seite die Spaltenlabel "Anbieter",
+  # "Orientierung", "Rechtliches" als h2 und einen Link auf /erfahrungen.
+  # Solange diese Regeln die ganze Datei lasen, war die Pruefung fuer jeden
+  # Artikel nur durch einen Umbau am gemeinsamen Geruest erfuellbar — und
+  # jeder Artikel baute anders um.
+  pruef "$a: alle h2 sind Fragen" 0 \
+    "$(hauptteil "$f" | grep -oE '<h2[^>]*>[^<]*' | grep -vc '?')"
+  pruef "$a: hoechstens ein Verweis auf /erfahrungen" 1 \
+    "$([ "$(hauptteil "$f" | grep -c 'href="/erfahrungen"')" -le 1 ] && echo 1 || echo 0)"
+  # Geruest identisch wie auf allen Portalseiten. Faengt genau die
+  # Umgehungen ab, die die alten Regeln provoziert hatten.
+  pruef "$a: Fuss unveraendert (3 Spaltenlabel)" 3 \
+    "$(perl -0777 -ne 'if (/<footer.*?<\/footer>/s) { my $b=$&; my $c=()=$b=~/<h2>/g; print $c } else { print 0 }' "$f")"
+  pruef "$a: Wortmarke zeigt auf /erfahrungen" 1 \
+    "$(grep -c 'class="wordmark"><a href="/erfahrungen"' "$f")"
+  pruef "$a: kein Link auf die Anmeldeseite" 0 "$(grep -c 'href="/form"' "$f")"
+  pruef "$a: Ruecklink auf /magazin" 1 \
+    "$([ "$(grep -c 'href="/magazin"' "$f")" -ge 1 ] && echo 1 || echo 0)"
+  pruef "$a: mindestens 1200 Woerter" 1 \
+    "$([ "$(text "$f" | wc -w | tr -d ' ')" -ge 1200 ] && echo 1 || echo 0)"
+done
 
 # Ein Suchbegriff, eine URL: Zwei Seiten mit derselben H1 kannibalisieren
 # sich in der Suche gegenseitig.
