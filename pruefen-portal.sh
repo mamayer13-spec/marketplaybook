@@ -243,11 +243,43 @@ fi
 
 # ── Regeln fuer das Fundament ────────────────────────────────────────
 pruef "portal.css vorhanden" 1 "$([ -f portal.css ] && echo 1 || echo 0)"
-pruef "Schriften lokal" 5 "$(ls fonts/*.woff2 2>/dev/null | wc -l | tr -d ' ')"
+# Namentlich statt gezaehlt. Eine blosse Anzahl schlaegt an, sobald sich
+# der Schriftschnitt aendert, und sagt nichts darueber, ob die richtige
+# Datei da ist. Am 17.8.2026 ersetzte Space Grotesk die vier
+# Barlow-Schnitte — der Zaehler stand da auf 5 und war nur noch Laerm.
+for f in source-serif-4-var space-grotesk-var; do
+  pruef "Schrift $f liegt lokal" 1 "$([ -s "fonts/$f.woff2" ] && echo 1 || echo 0)"
+done
+
 # Kein "|| echo 0" hier: grep -c gibt bei null Treffern brav "0" aus und
 # beendet sich trotzdem mit Code 1 — der Fallback haengte ein zweites "0" an.
 pruef "portal.css laedt keine Fremdschriften" 0 \
   "$(grep -c '//fonts\.googleapis\|//fonts\.gstatic' portal.css 2>/dev/null)"
+
+# Die beiden folgenden Pruefungen gehen NICHT ueber $seiten: das sind
+# Ordnernamen und ausserdem ohne die sechs Magazin-Artikel. Eine
+# Portalseite ist, was portal.css laedt — damit waechst die Pruefung von
+# selbst mit und die Startseite (die vom Google-CDN laedt) bleibt aussen
+# vor, weil sie das Tailwind-Bundle benutzt.
+portalseiten=$(grep -rl 'href="/portal\.css"' --include='*.html' . 2>/dev/null)
+
+# Die Startseite laedt ihre Schriften vom Google-CDN und erzwingt sich
+# damit ein Cookie-Banner. Beim Angleichen des Designs ist genau das der
+# Griff, der sich anbietet und der nicht passieren darf.
+pruef "keine Portalseite laedt Fremdschriften" 0 \
+  "$(grep -l '//fonts\.googleapis\|//fonts\.gstatic' $portalseiten 2>/dev/null | wc -l | tr -d ' ')"
+
+# Ein preload auf eine geloeschte Datei bleibt still: die Seite sieht
+# richtig aus, holt aber bei jedem Aufruf eine 404. Nur die Konsole
+# meckert, und da schaut niemand nach.
+tote_preloads=0
+for f in $portalseiten; do
+  for ziel in $(perl -0777 -ne 'print "$1\n" while /rel="preload"[^>]*href="([^"]+)"/g' "$f"); do
+    [ -s ".$ziel" ] || tote_preloads=$((tote_preloads + 1))
+  done
+done
+pruef "jeder Schrift-preload zeigt auf eine Datei" 0 "$tote_preloads"
+pruef "alle 14 Portalseiten erfasst" 14 "$(echo $portalseiten | wc -w | tr -d ' ')"
 
 echo
 anzahl=$(echo $seiten | wc -w | tr -d ' ')
