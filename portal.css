@@ -148,22 +148,58 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .notice-banner .wrap { padding-top: 14px; padding-bottom: 14px; }
 
-/* ── Schmaler Portal-Balken ─────────────────────────────────────── */
+/* ── Bereichsleiste ───────────────────────────────────────────────
+   Ersetzt am 17.8.2026 den alten Balken, der nur drei Punkte hatte —
+   und einer davon fuehrte zurueck auf die Verkaufsseite. Wer im Portal
+   von /kosten nach /haeufige-fragen wollte, musste den Umweg ueber die
+   Startseite nehmen und wusste nebenbei nie, wo er gerade ist.
 
-.portal-bar {
+   Sie steht UNTER dem Titelkopf, nicht darueber: erst der Titel, dann
+   die Ressorts — so ist eine Zeitung aufgebaut, und der Kopf bleibt das
+   Erste, was jemand sieht.
+
+   Die laufende Seite traegt aria-current="page" und wird darueber
+   markiert, nicht ueber eine Extra-Klasse. Ein Screenreader sagt dann
+   dasselbe, was das Auge sieht.
+   ─────────────────────────────────────────────────────────────── */
+
+.portal-nav {
   background: var(--brand);
   color: var(--periwinkle);
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 13.5px;
 }
-.portal-bar .wrap {
+.portal-nav .wrap {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 16px; padding-top: 9px; padding-bottom: 9px; flex-wrap: wrap;
+  gap: 20px; flex-wrap: wrap;
 }
-.portal-bar a { color: var(--periwinkle); text-decoration: none; }
-.portal-bar a:hover { color: #ffffff; text-decoration: underline; }
-.portal-bar nav { display: flex; gap: 18px; }
-.portal-bar .portal-name { font-weight: 700; letter-spacing: -.01em; }
+.portal-nav ul {
+  display: flex; flex-wrap: wrap; gap: 2px;
+  list-style: none; margin: 0; padding: 0;
+}
+.portal-nav a {
+  display: block; padding: 11px 12px;
+  color: var(--periwinkle); text-decoration: none;
+  letter-spacing: .005em;
+}
+.portal-nav a:hover { color: #ffffff; background: rgba(255, 255, 255, .07); }
+
+/* Die laufende Seite. Der Balken darunter traegt die Markierung, nicht
+   eine Hintergrundflaeche — eine gefuellte Flaeche sieht nach Button
+   aus und das ist im Kopf einer Magazinseite das falsche Signal. */
+.portal-nav a[aria-current="page"] {
+  color: #ffffff; font-weight: 600;
+  box-shadow: inset 0 -3px 0 var(--akzent);
+}
+
+/* Der Weg heraus aus dem Portal, rechts abgesetzt. Bewusst kein
+   Punkt in der Reihe: er fuehrt auf die Verkaufsseite und gehoert
+   damit nicht in dieselbe Ordnung wie die Portalseiten. */
+.portal-nav .zur-startseite {
+  padding-left: 0; padding-right: 0;
+  color: #93a7d8; font-size: 12.5px; white-space: nowrap;
+}
+.portal-nav .zur-startseite:hover { background: none; color: #ffffff; }
 
 /* ── Haupt-Kopf ─────────────────────────────────────────────────── */
 
@@ -178,6 +214,17 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: -.035em; margin: 0; color: var(--brand);
 }
 .site-header .wordmark a { color: inherit; text-decoration: none; }
+
+/* Der Bereichsname hinter der Marke — "Market Playbook Erfahrungen"
+   bzw. "… Magazin". Ergaenzt am 17.8.2026, weil der Kopf auf allen 14
+   Seiten identisch war und niemand erkennen konnte, wo er gelandet ist.
+   Wie bei einem Zeitungsressort: die Marke traegt das Gewicht, der
+   Bereich steht leichter daneben und ist der veraenderliche Teil. */
+.site-header .bereich {
+  font-weight: 400; color: var(--akzent-tief); letter-spacing: -.02em;
+}
+.site-header .bereich a { color: inherit; text-decoration: none; }
+.site-header .bereich a:hover { text-decoration: underline; }
 .site-header .tagline {
   font-family: var(--sans); font-size: 13px; color: var(--muted);
   margin: 5px 0 0; letter-spacing: .02em;
@@ -439,6 +486,17 @@ figcaption {
   .data-box .row { grid-template-columns: 1fr; gap: 2px; }
   .proscons { grid-template-columns: 1fr; }
   .site-footer .cols { grid-template-columns: 1fr; }
-  .portal-bar .wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .portal-bar nav { flex-wrap: wrap; gap: 14px; }
+
+  /* Die Leiste scrollt seitlich, statt auf vier Zeilen umzubrechen —
+     ein vierzeiliger Navigationsblock schiebt auf dem Telefon den
+     ganzen Artikel unter die Falz. */
+  .portal-nav .wrap {
+    flex-wrap: nowrap; gap: 12px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .portal-nav .wrap::-webkit-scrollbar { display: none; }
+  .portal-nav ul { flex-wrap: nowrap; }
+  .portal-nav a { white-space: nowrap; padding: 10px 10px; }
+  .site-header .wordmark { font-size: 1.45rem; }
 }
