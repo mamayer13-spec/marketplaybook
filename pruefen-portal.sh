@@ -52,7 +52,7 @@ for s in $seiten; do
   # wird deshalb, dass es GENAU EINEN Baustein gibt und der Wortlaut steht.
   pruef "$s: Hinweis-Banner vorhanden" 1 "$(grep -c 'class="notice-banner"' "$f")"
   pruef "$s: Banner-Wortlaut" 1 \
-    "$([ "$(grep -c '28 Capital Architecture LLC betrieben' "$f")" -ge 1 ] && echo 1 || echo 0)"
+    "$([ "$(grep -c 'THE MARKET PLAYBOOK - FZCO betrieben' "$f")" -ge 1 ] && echo 1 || echo 0)"
   pruef "$s: Risikohinweis im Fuss" 1 "$(grep -c 'class="risiko"' "$f")"
   pruef "$s: Risiko-Wortlaut" 1 \
     "$([ "$(grep -c 'Totalverlust' "$f")" -ge 1 ] && echo 1 || echo 0)"
@@ -131,10 +131,10 @@ fi
 
 if [ -f ist-market-playbook-serioes/index.html ]; then
   d=ist-market-playbook-serioes/index.html
-  pruef "serioes: EIN genannt" 1 \
-    "$([ "$(grep -c '98-1959983' $d)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "serioes: Rechtsform genannt" 1 \
+    "$([ "$(grep -c 'Free Zone Company' $d)" -ge 1 ] && echo 1 || echo 0)"
   pruef "serioes: Sitz genannt" 1 \
-    "$([ "$(grep -c 'Sheridan' $d)" -ge 1 ] && echo 1 || echo 0)"
+    "$([ "$(grep -c 'Dubai' $d)" -ge 1 ] && echo 1 || echo 0)"
   pruef "serioes: KWG-Abgrenzung" 1 \
     "$([ "$(grep -c 'keine Anlageberatung nach KWG' $d)" -ge 1 ] && echo 1 || echo 0)"
 fi
@@ -166,7 +166,7 @@ fi
 if [ -f ueber-uns/index.html ]; then
   u=ueber-uns/index.html
   pruef "ueber-uns: Betreiber genannt" 1 \
-    "$([ "$(grep -c '28 Capital Architecture LLC' $u)" -ge 1 ] && echo 1 || echo 0)"
+    "$([ "$(grep -c 'THE MARKET PLAYBOOK - FZCO' $u)" -ge 1 ] && echo 1 || echo 0)"
   pruef "ueber-uns: keine Redaktion behauptet" 0 \
     "$(grep -ciE 'unabhängige redaktion|unser redaktionsteam|unsere redaktion prüft' $u)"
 fi
