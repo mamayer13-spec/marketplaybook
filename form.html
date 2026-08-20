@@ -6,6 +6,18 @@
 
     <script src="/consent.js" defer></script>
 
+    <!--
+      Vercel Web Analytics. Steht absichtlich AUSSERHALB der Consent-Weiche
+      in consent.js: Es setzt keine Cookies und legt nichts im Browser ab,
+      Besucher werden serverseitig über einen täglich wechselnden Hash
+      gezählt. Genau deshalb ist es hier eingebaut — Google Analytics läuft
+      erst nach aktivem "Akzeptieren" und zählt damit nur einen Bruchteil.
+      Für die Frage "kommen die Leute nach dem DM-Klick überhaupt an?"
+      braucht es aber eine Zahl über alle Besucher, nicht nur über die
+      Zustimmenden.
+    -->
+    <script defer src="/_vercel/insights/script.js"></script>
+
     <meta charset="utf-8" />
     <title>Market Playbook — Kostenloser Videokurs</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -284,7 +296,58 @@
       })(window, document, 'Vidalytics', 'vidalytics_embed_EJ7szpetQsCXyrfK', 'https://fast.vidalytics.com/embeds/8WlP4ITn/EJ7szpetQsCXyrfK/');
       </script>
 
-      <div data-tf-live="01KWCA6TY1V0SVA1RCZSWJ0TA2" class="reveal delay-300"></div><script src="//embed.typeform.com/next/embed.js"></script>
+      <script>
+        /* Rückmeldungen des Typeform-Embeds an GA4.
+         *
+         * Muss vor embed.js stehen: Typeform löst die Namen aus
+         * data-tf-on-ready / data-tf-on-submit auf window auf, und zwar in
+         * dem Moment, in dem embed.js das Element einliest.
+         *
+         * Vorher hing das Gegenstück am Seitenende als
+         * window.addEventListener("message", ...) und wartete auf
+         * event.data.type === "form-view" — einen Nachrichtentyp, den
+         * Typeform nicht sendet. Dazu rief es gtag() direkt auf; ohne
+         * erteilte Cookie-Zustimmung existiert gtag gar nicht, der Handler
+         * wäre also selbst beim richtigen Nachrichtentyp an einem
+         * ReferenceError gestorben. Beide Ereignisse haben deshalb, solange
+         * es die Seite gibt, kein einziges Mal gefeuert.
+         *
+         * window.trackEvent kommt aus consent.js und prüft selbst, ob gtag
+         * geladen ist. Die Prüfung hier oben drüber deckt den Fall ab, dass
+         * das Formular schneller bereit ist als das mit defer geladene
+         * consent.js.
+         *
+         * Diese Zahlen bleiben zustimmungsabhängig und zählen nur einen
+         * Teil der Besucher. Die vollständige Zahl kommt aus Vercel Web
+         * Analytics (cookielos, im <head>) und aus dem Typeform-Sammler im
+         * Cockpit, der Landungen und Abbrecher direkt aus der API holt. */
+        function melde(name, label, kategorie) {
+          if (typeof window.trackEvent !== "function") return;
+          window.trackEvent(name, { event_category: kategorie, event_label: label });
+        }
+        window.formularBereit = function () {
+          melde("form_start", "typeform_opened", "engagement");
+        };
+        window.formularAbgeschickt = function () {
+          melde("form_submit", "typeform_completed", "conversion");
+        };
+      </script>
+
+      <!--
+        data-tf-transitive-search-params reicht die UTM-Parameter aus der
+        Adresse dieser Seite an das Formular durch. Im Typeform sind
+        utm_source, utm_medium und utm_campaign seit dem 20.8.2026 als
+        Hidden Fields angelegt; damit steht in jeder Antwort, über welchen
+        Link sie hereinkam, und der Cockpit-Sammler schreibt sie mit.
+      -->
+      <div
+        data-tf-live="01KWCA6TY1V0SVA1RCZSWJ0TA2"
+        data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign"
+        data-tf-on-ready="formularBereit"
+        data-tf-on-submit="formularAbgeschickt"
+        class="reveal delay-300"
+      ></div>
+      <script src="//embed.typeform.com/next/embed.js"></script>
       <!-- Button oberhalb der Card -->
       <div class="flex flex-col items-center w-full max-w-2xl mb-8 gap-3 mt-6 reveal delay-300">
         <p
@@ -649,23 +712,6 @@
             }
           });
         }, 100);
-      });
-    </script>
-    <script>
-      window.addEventListener('message', function (event) {
-        if (!event.data || typeof event.data !== 'object') return;
-        if (event.data.type === 'form-view' || event.data.type === 'form_view') {
-          gtag('event', 'form_start', {
-            event_category: 'engagement',
-            event_label: 'typeform_opened',
-          });
-        }
-        if (event.data.type === 'form-submit' || event.data.type === 'form_submit') {
-          gtag('event', 'form_submit', {
-            event_category: 'conversion',
-            event_label: 'typeform_completed',
-          });
-        }
       });
     </script>
   </body>
