@@ -1,0 +1,386 @@
+/* ============================================================
+   Erfahrungs-Portal im Hausdesign, Entwurf vom 28.8.2026.
+
+   Ersetzt die bisherige portal.css und benutzt bewusst DIESELBEN
+   Klassennamen. Dadurch wechseln alle acht Portalseiten das Aussehen,
+   ohne dass eine einzige Zeile Text angefasst wird — bei Seiten, deren
+   Formulierungen rechtlich abgestimmt sind (Abgrenzung zu § 32 KWG,
+   Ausschlusskriterien, Risikohinweis), ist das keine Bequemlichkeit,
+   sondern die einzig vertretbare Vorgehensweise.
+
+   Gestaltungsgrundlage: brain/06-knowledge/cockpit-designsprache.md.
+   Schwarz, Haarlinien statt Kaesten, dünne Schrift, ein Akzent.
+
+   Zwei Dinge bleiben ausdruecklich laut, obwohl das Design leise ist:
+   der Anbieterhinweis oben (.notice-banner) und der Risikohinweis im
+   Fuss. Beide duerfen nicht ausgegraut werden, sonst dreht sich ihr
+   Zweck um.
+   ============================================================ */
+
+:root {
+  --grund: #000000;
+  --text: #f0f2f6;
+  --muted: #a2a8b5;
+  --leise: #6d7484;
+  --linie: rgba(240, 242, 246, 0.13);
+  --linie-fein: rgba(240, 242, 246, 0.07);
+  --akzent: #b3c5ff;
+  --warn: #e5b25f;
+  --weich: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--grund); }
+body {
+  margin: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--akzent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+/* ---------- Anbieterhinweis: bewusst nicht leise ---------- */
+.notice-banner {
+  background: rgba(229, 178, 95, 0.07);
+  border-bottom: 1px solid rgba(229, 178, 95, 0.35);
+  color: #f0e3cb;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 12px 0;
+}
+.notice-banner .wrap { max-width: 900px; }
+
+/* ---------- Portal-Navigation ---------- */
+.portal-nav {
+  border-bottom: 1px solid var(--linie-fein);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.portal-nav .wrap {
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.portal-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  flex: 1;
+}
+.portal-nav a {
+  font-size: 12.5px;
+  color: var(--muted);
+  transition: color 200ms var(--weich);
+}
+.portal-nav a:hover { color: var(--text); text-decoration: none; }
+.portal-nav .zur-startseite {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  white-space: nowrap;
+}
+.portal-nav .zur-startseite:hover { color: var(--text); text-decoration: none; }
+
+/* ---------- Kopf ---------- */
+.site-header {
+  padding: 40px 0 28px;
+  border-bottom: 1px solid var(--linie);
+}
+.site-header .wrap { max-width: 900px; }
+.site-header .wordmark {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+}
+.site-header .wordmark a { color: var(--text); }
+.site-header .wordmark a:hover { text-decoration: none; }
+.site-header .bereich {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--akzent);
+}
+.site-header .bereich a { color: var(--akzent); }
+.site-header .bereich a:hover { color: var(--text); }
+.site-header .tagline {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--leise);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Brotkrume ---------- */
+.breadcrumb {
+  padding: 18px 0 0;
+  font-size: 11px;
+  color: var(--leise);
+}
+.breadcrumb .wrap { max-width: 900px; }
+.breadcrumb a { color: var(--leise); }
+.breadcrumb a:hover { color: var(--text); text-decoration: none; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* ---------- Artikel ----------
+   Die Spaltenbreite muss hier stehen: <main class="article"> ist im
+   Markup kein Kind von .wrap, sondern traegt seine Breite selbst. */
+.article {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+@media (min-width: 720px) { .article { padding: 32px 32px 96px; } }
+.article p { margin: 0 0 20px; color: var(--muted); }
+.kicker {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--leise);
+  margin: 0 0 20px;
+}
+.article h1 {
+  font-weight: 200;
+  font-size: clamp(1.8rem, 5vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin: 0 0 24px;
+}
+.article h2 {
+  font-weight: 200;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  line-height: 1.16;
+  letter-spacing: -0.028em;
+  margin: 64px 0 20px;
+  padding-top: 28px;
+  border-top: 1px solid var(--linie);
+}
+.article h3 {
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  margin: 36px 0 10px;
+}
+.section-eyebrow {
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--akzent);
+  margin: 0 0 12px;
+}
+.lede {
+  font-size: 17px;
+  color: var(--text);
+  font-weight: 300;
+  line-height: 1.65;
+}
+.byline {
+  font-size: 11px;
+  color: var(--leise);
+  letter-spacing: 0.02em;
+  margin: 0 0 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--linie-fein);
+}
+figure { margin: 32px 0; }
+figcaption { font-size: 11.5px; color: var(--leise); margin-top: 10px; }
+
+/* ---------- Angabenkasten: Haarlinien statt Kasten ---------- */
+.data-box {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--linie);
+}
+.data-box h2, .data-box h3 {
+  margin: 0 0 18px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.data-box dl { margin: 0; }
+.data-box .row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linie-fein);
+}
+@media (min-width: 640px) {
+  .data-box .row { grid-template-columns: 210px 1fr; gap: 6px 24px; }
+}
+.data-box .row:last-child { border-bottom: 0; }
+.data-box dt {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  padding-top: 4px;
+}
+.data-box dd { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* ---------- Zusammenfassung ---------- */
+.summary-box {
+  margin: 32px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--linie);
+  border-bottom: 1px solid var(--linie);
+}
+.summary-box h2 {
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.summary-box .basis { font-size: 12px; color: var(--leise); margin: 0 0 16px; }
+.summary-box ul { margin: 0; padding-left: 1.1em; }
+.summary-box li { margin-bottom: 10px; color: var(--muted); }
+.summary-box li::marker { color: var(--leise); }
+
+/* ---------- Zitat ---------- */
+.quote-box {
+  margin: 32px 0;
+  padding-left: 20px;
+  border-left: 1px solid var(--linie);
+}
+.quote-box p { margin: 0 0 8px; color: var(--text); font-weight: 300; }
+.quote-box .attribution { font-size: 11.5px; color: var(--leise); }
+
+/* ---------- Vor- und Nachteile ---------- */
+.proscons { display: grid; gap: 28px; margin: 32px 0; }
+@media (min-width: 720px) { .proscons { grid-template-columns: 1fr 1fr; } }
+.proscons .pro, .proscons .con { padding-top: 18px; border-top: 1px solid var(--linie); }
+.proscons h3 { margin: 0 0 12px; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.2em; }
+.proscons .pro h3 { color: var(--akzent); }
+.proscons .con h3 { color: var(--warn); }
+.proscons ul { margin: 0; padding-left: 1.1em; }
+.proscons li { margin-bottom: 10px; color: var(--muted); font-size: 15px; }
+.proscons li::marker { color: var(--leise); }
+
+/* ---------- Fazit und Hinweise ---------- */
+.verdict-box {
+  margin: 40px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--linie);
+  border-bottom: 1px solid var(--linie);
+}
+.verdict-box h2 {
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--akzent);
+}
+.verdict-box p:last-child { margin-bottom: 0; }
+.note {
+  margin: 28px 0;
+  padding: 16px 0 16px 20px;
+  border-left: 1px solid var(--linie);
+  font-size: 14px;
+  color: var(--leise);
+}
+.note p:last-child { margin-bottom: 0; }
+
+/* ---------- FAQ ---------- */
+.faq-item { padding: 22px 0; border-bottom: 1px solid var(--linie-fein); }
+.faq-item:last-of-type { border-bottom: 0; }
+.faq-item h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 400; color: var(--text); }
+.faq-item p { margin: 0; font-size: 15px; }
+
+/* ---------- Kartenliste (Magazin) ---------- */
+.card-list { display: grid; gap: 0; margin: 32px 0; }
+.card {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--linie-fein);
+  transition: opacity 200ms var(--weich);
+}
+.card:hover { opacity: 0.82; }
+.card .label {
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  margin-bottom: 10px;
+}
+.card h2, .card h3 {
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  font-size: 1.15rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+.card h2 a, .card h3 a { color: var(--text); }
+.card h2 a:hover, .card h3 a:hover { color: var(--akzent); text-decoration: none; }
+.card p { margin: 0; font-size: 14.5px; }
+
+.meta-line { font-size: 11px; color: var(--leise); letter-spacing: 0.02em; }
+
+/* Offener Punkt: sichtbar als Platzhalter, nie als geschaetzter Wert. */
+.ph {
+  color: var(--warn);
+  font-style: normal;
+  border-bottom: 1px dotted rgba(229, 178, 95, 0.5);
+}
+
+/* ---------- Fuss ---------- */
+.site-footer {
+  border-top: 1px solid var(--linie);
+  padding: 40px 0 56px;
+}
+.site-footer .wrap { max-width: 900px; }
+.site-footer .risiko {
+  font-size: 12.5px;
+  color: var(--leise);
+  line-height: 1.65;
+  margin: 0 0 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--linie-fein);
+  max-width: 78ch;
+}
+.site-footer .cols { display: grid; gap: 28px; }
+@media (min-width: 640px) { .site-footer .cols { grid-template-columns: repeat(3, 1fr); } }
+.site-footer h2 {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  margin: 0 0 12px;
+  font-weight: 400;
+}
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin-bottom: 8px; }
+.site-footer a { font-size: 13.5px; color: var(--muted); }
+.site-footer a:hover { color: var(--text); text-decoration: none; }
+.site-footer .impressum-zeile {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linie-fein);
+  font-size: 11px;
+  color: var(--leise);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

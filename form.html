@@ -259,7 +259,7 @@
     >
       <div class="max-w-5xl w-full text-center mb-4 mx-auto">
         <h1
-          class="font-headline text-2xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-on-background mb-6 md:mb-8 leading-tight reveal"
+          class="font-headline text-2xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-on-background mb-4 sm:mb-6 md:mb-8 leading-tight reveal"
         >
           Wie du ein Portfolio <span class="text-primary italic">aufbaust</span>,
           <span class="text-primary italic">skalierst</span>
@@ -268,18 +268,28 @@
         </h1>
 
         <p
-          class="font-body text-xs sm:text-base md:text-lg text-on-surface-variant max-w-[85%] sm:max-w-2xl mx-auto leading-relaxed opacity-90 mb-4 reveal delay-100"
+          class="font-body text-xs sm:text-base md:text-lg text-on-surface-variant max-w-[85%] sm:max-w-2xl mx-auto leading-relaxed opacity-90 mb-3 sm:mb-4 reveal delay-100"
         >
           Ein <span class="text-primary font-semibold">kostenloser Videokurs</span> für alle, die ihr Kapital ernsthaft aufbauen wollen. Gebaut für jede Marktlage, erklärt in <span class="text-primary font-semibold">10 kurzen Videos</span>.
         </p>
-        <div class="flex flex-wrap justify-center gap-3 mt-6 mb-6 reveal delay-200">
+        <div class="flex flex-wrap justify-center gap-3 mt-4 mb-4 sm:mt-6 sm:mb-6 reveal delay-200">
           <span class="text-xs sm:text-sm font-medium px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/50 text-primary">Kein Vorwissen nötig</span>
           <span class="text-xs sm:text-sm font-medium px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/50 text-primary">Komplett kostenlos</span>
         </div>
       </div>
 
       <!-- VSL Video -->
-      <div class="w-full max-w-3xl mx-auto mb-8 reveal delay-250">
+      <!--
+        Die Zeile ueber dem Player steht dort seit dem 27.8.2026. Grund:
+        Ueberschrift und Player zusammen lasen sich wie „hier ist der Kurs" —
+        73 % schalten den Ton ein, schauen im Schnitt 74 von 270 Sekunden und
+        sind weg (Audit 02-audits/funnel/2026-08-24-form-seite-trichter.md).
+        Der Satz trennt Vorschau und Kurs, bevor das Video laeuft.
+      -->
+      <p class="font-body text-xs sm:text-sm text-on-surface-variant/80 text-center max-w-[85%] sm:max-w-xl mx-auto mb-3 reveal delay-200">
+        Kurze Einf&uuml;hrung von Claudio &mdash; <span class="text-primary font-semibold">die 10 Kursvideos bekommst du danach per Mail</span>.
+      </p>
+      <div class="w-full max-w-3xl mx-auto mb-4 reveal delay-250">
         <div class="vsl-embed rounded-2xl overflow-hidden">
           <div id="vidalytics_embed_EJ7szpetQsCXyrfK" style="width: 100%; position:relative; padding-top: 56.25%;"></div>
         </div>
@@ -340,6 +350,9 @@
         Hidden Fields angelegt; damit steht in jeder Antwort, über welchen
         Link sie hereinkam, und der Cockpit-Sammler schreibt sie mit.
       -->
+      <p class="font-body text-sm sm:text-base text-on-background text-center max-w-[85%] sm:max-w-xl mx-auto mb-3 sm:mb-4 reveal delay-250">
+        Kurs hier freischalten &mdash; dauert 30 Sekunden.
+      </p>
       <div
         data-tf-live="01KWCA6TY1V0SVA1RCZSWJ0TA2"
         data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign"

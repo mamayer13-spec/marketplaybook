@@ -1,0 +1,400 @@
+/* ============================================================
+   Startseite: Hero-Ring, Diagramme, Zeitleiste, Sparklines.
+   Ergaenzt haus.css, gilt nur fuer neu/index.html.
+   ============================================================ */
+
+/* ---------- Hero ---------- */
+.hero {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+  padding-top: 24px;
+}
+@media (min-width: 900px) {
+  .hero { grid-template-columns: 1.35fr 1fr; gap: 56px; padding-top: 48px; min-height: 600px; }
+}
+@media (min-width: 1200px) {
+  .hero { grid-template-columns: 1.3fr 1fr; gap: 72px; min-height: 660px; }
+}
+/* Ohne den Eyebrow darueber traegt die Ueberschrift den Einstieg allein -
+   deshalb eine Stufe groesser. Nur im Hero, die globale h1-Regel in
+   haus.css gilt fuer alle Unterseiten. */
+.hero-text h1 { font-size: clamp(2.1rem, 5.8vw, 3.9rem); max-width: 19ch; margin-bottom: 22px; }
+
+.hero-knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* ---------- Kopfleiste blendet beim Runterscrollen aus ---------- */
+.kopf { transition: transform 360ms var(--weich), opacity 360ms var(--weich); }
+/* Auf dem Handy brach der Knopf auf zwei Zeilen und wurde zum Klotz. */
+.kopf .knopf { white-space: nowrap; }
+@media (max-width: 639px) {
+  .kopf .knopf { padding: 11px 16px; font-size: 13px; border-radius: 10px; }
+}
+.kopf.weg { transform: translateY(-110%); opacity: 0; }
+
+/* ---------- Leuchten folgt der Maus, nur mit echtem Zeiger ---------- */
+.maus {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 720px; height: 720px;
+  margin: -360px 0 0 -360px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(closest-side, rgba(179, 197, 255, 0.07), transparent 70%);
+  will-change: transform;
+}
+@media (pointer: fine) { .maus { display: block; } }
+
+/* ---------- Ring ---------- */
+.ring {
+  width: min(100%, 440px);
+  margin: 0 auto;
+  aspect-ratio: 1;
+  position: relative;
+}
+@media (min-width: 1200px) { .ring { width: min(100%, 520px); } }
+.ring svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.ring .kreis { fill: none; stroke: var(--linie); stroke-width: 1; }
+.ring .tick { stroke: var(--linie); stroke-width: 1; opacity: 0; }
+.ring .tick.gross { stroke: var(--muted); }
+.ring .phase { fill: none; stroke: var(--leise); stroke-width: 1; stroke-linecap: round; opacity: 0.55; }
+.ring .phase.aktiv { stroke: var(--akzent); opacity: 1; }
+.ring .phasen-label {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  fill: var(--leise);
+  transition: fill 400ms var(--weich);
+}
+.ring .phasen-label.aktiv { fill: var(--text); }
+.ring .speiche { stroke: var(--linie-fein); stroke-width: 1; }
+.ring .knoten { fill: #000; stroke: var(--leise); stroke-width: 1; }
+.ring .knoten.an { stroke: var(--akzent); }
+.ring .knoten-puls { fill: none; stroke: var(--akzent); stroke-width: 1; opacity: 0; }
+.ring .knoten-label {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  fill: var(--muted);
+}
+.ring .mitte-eyebrow {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 8.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  fill: var(--leise);
+}
+.ring .mitte-wert {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  fill: var(--text);
+}
+.ring .marker { fill: var(--akzent); }
+.ring .marker-hof { fill: var(--akzent); opacity: 0.18; }
+.ring .spur { fill: none; stroke: var(--akzent); stroke-width: 1.5; stroke-linecap: round; opacity: 0.7; }
+
+/* ---------- Sparkline hinter der Kennzahl ---------- */
+.kennzahl { position: relative; }
+/* Vorher: absolut oben rechts in der Zelle. Dadurch schwebte die Linie
+   weit weg von ihrer Zahl, jede auf anderer Hoehe, und die letzte wurde
+   am Containerrand abgeschnitten. Jetzt steht sie im Fluss unter der
+   Kennzahl, linksbuendig zu ihr - eine ruhige Fusszeile statt Deko. */
+.kennzahl .spark {
+  display: block;
+  width: 56px; height: 20px;
+  margin: 12px 0 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.kennzahl .spark path { fill: none; stroke: var(--akzent); stroke-width: 1.2; opacity: 0.38; }
+
+/* ---------- Diagramme ---------- */
+.diagramm {
+  margin: 36px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--linie);
+  position: relative;
+}
+.diagramm svg { width: 100%; height: auto; display: block; overflow: visible; cursor: crosshair; }
+.diagramm .achse { stroke: var(--linie-fein); stroke-width: 1; }
+.diagramm .achse-null { stroke: var(--linie); }
+.diagramm text {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  fill: var(--leise);
+  font-variant-numeric: tabular-nums;
+}
+.diagramm .kurve { fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.diagramm .kurve.haupt { stroke: var(--akzent); stroke-width: 2; }
+.diagramm .kurve.neben { stroke: var(--muted); opacity: 0.8; }
+.diagramm .kurve.schwach { stroke: var(--leise); opacity: 0.6; }
+.diagramm .kurve.aus, .diagramm .flaeche.aus, .diagramm .endwert.aus { opacity: 0 !important; }
+.diagramm .flaeche { fill: url(#flaeche-verlauf); opacity: 0.9; }
+.diagramm .endwert {
+  font-size: 12px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  fill: var(--text);
+}
+.diagramm .endwert.haupt { fill: var(--akzent); font-weight: 400; }
+.diagramm .fadenkreuz { stroke: var(--text); stroke-width: 1; opacity: 0; stroke-dasharray: 2 4; }
+.diagramm .fadenpunkt { fill: #000; stroke-width: 1.5; opacity: 0; }
+/* Vorher: 1px Kontur plus Fuellung bei 25 % Deckkraft. Der Koerper war zu
+   drei Vierteln durchsichtig, sichtbar blieb vor allem die Kontur - daher
+   die Outline-Optik. Jetzt voller Koerper ohne Kontur, der Docht etwas
+   zurueckgenommen, damit die Koerper den Verlauf tragen. */
+.diagramm .kerze-docht { stroke-width: 1.25; stroke-linecap: round; }
+.diagramm .kerze-koerper { stroke: none; fill-opacity: 0.88; }
+.diagramm .kerze.auf .kerze-docht { stroke: rgba(127, 209, 168, 0.75); }
+.diagramm .kerze.auf .kerze-koerper { fill: var(--gut); }
+.diagramm .kerze.ab .kerze-docht { stroke: rgba(240, 130, 121, 0.75); }
+.diagramm .kerze.ab .kerze-koerper { fill: var(--bad); }
+.diagramm .kerze { opacity: 0; transition: opacity 260ms var(--weich); }
+.diagramm .kerze.da { opacity: 1; }
+.diagramm .kerze.aktiv .kerze-koerper { fill-opacity: 1; }
+.diagramm .marke-linie { stroke: var(--text); stroke-width: 1; opacity: 0.45; }
+.diagramm .marke-punkt { fill: #000; stroke: var(--akzent); stroke-width: 1.5; cursor: pointer; transition: r 200ms var(--weich); }
+.diagramm .marke-punkt.aktiv { fill: var(--akzent); }
+.diagramm .marke-text {
+  font-size: 11.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  fill: var(--text);
+  pointer-events: none;
+}
+.diagramm .marke-hof { fill: none; stroke: var(--akzent); stroke-width: 1; opacity: 0; }
+.diagramm .tooltip {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -100%) translateY(-14px);
+  background: rgba(0, 0, 0, 0.92);
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-width: 150px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  transition: opacity 160ms var(--weich);
+  z-index: 5;
+  font-variant-numeric: tabular-nums;
+}
+.diagramm .tooltip.an { opacity: 1; }
+.diagramm .tooltip .t-kopf {
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--leise);
+  margin-bottom: 6px;
+}
+.diagramm .tooltip .t-zeile { display: flex; justify-content: space-between; gap: 16px; }
+.diagramm .tooltip .t-zeile b { font-weight: 400; color: var(--text); }
+.diagramm .tooltip .t-zeile.haupt b { color: var(--akzent); }
+.diagramm .tooltip .t-satz { margin-top: 8px; max-width: 26ch; color: var(--text); font-size: 12.5px; }
+
+.legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 14px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.legende button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  padding: 4px 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: opacity 200ms var(--weich);
+}
+.legende button.aus { opacity: 0.35; text-decoration: line-through; }
+.legende i { width: 14px; height: 2px; display: inline-block; background: currentColor; }
+.legende .haupt { color: var(--akzent); }
+.legende .neben { color: var(--muted); }
+.legende .schwach { color: var(--leise); }
+
+.hinweis { margin-top: 14px; font-size: 11.5px; color: var(--leise); }
+
+/* Entscheidungs-Liste reagiert auf die Marker im Chart und umgekehrt */
+ol.nummern li.aktiv { color: var(--text); }
+ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
+
+/* ---------- Bild mit Rahmen ---------- */
+.bild-rahmen img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 14px;
+  border: 1px solid var(--linie);
+}
+
+/* ---------- Zeitleiste ---------- */
+.zeitleiste {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0 0 0 36px;
+  position: relative;
+}
+.zeitleiste .strich {
+  position: absolute;
+  left: 8px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: var(--linie-fein);
+}
+.zeitleiste .strich::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: calc(var(--fortschritt, 0) * 100%);
+  background: var(--akzent);
+  transition: height 120ms linear;
+}
+.zeitleiste li { position: relative; padding: 0 0 40px; }
+.zeitleiste li:last-child { padding-bottom: 0; }
+.zeitleiste .punkt {
+  position: absolute;
+  left: -32px; top: 6px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #000;
+  border: 1px solid var(--leise);
+  transition: border-color 300ms var(--weich), background 300ms var(--weich), box-shadow 300ms var(--weich);
+}
+.zeitleiste li.an .punkt {
+  border-color: var(--akzent);
+  background: var(--akzent);
+  box-shadow: 0 0 0 5px rgba(179, 197, 255, 0.14);
+}
+.zeitleiste .takt {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  margin-bottom: 8px;
+}
+.zeitleiste h3 { margin: 0 0 6px; }
+.zeitleiste p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kopf { transition: none; }
+  .maus { display: none; }
+  .ring .tick { opacity: 1; }
+  .diagramm .kerze { opacity: 1; transition: none; }
+}
+
+
+/* ---------- Grosse Schirme ----------
+   Auf einem breiten Fenster wirkte die Seite wie eine Handyspalte in der
+   Mitte. Die Ueberschrift und die Abstaende wachsen deshalb mit. */
+@media (min-width: 1200px) {
+  .hero-text h1 { font-size: clamp(2.7rem, 3.3vw, 3.9rem); max-width: 19ch; }
+  /* Das Etikett ueber der Ueberschrift ist entfallen - es sagte dasselbe
+     wie der Absatz darunter und kostete eine Zeile vor der Ueberschrift.
+     Deshalb hier kein :not(.eyebrow) mehr noetig. */
+  .hero-text > p { font-size: 16.5px; max-width: 44ch; }
+  .diagramm { margin-top: 44px; padding-top: 30px; }
+}
+
+
+/* ---------- Spline-Szene im Hero ----------
+   Der Container haelt die Groesse, damit beim Nachladen der Szene
+   nichts springt. Der gezeichnete Ring liegt darunter und wird erst
+   ausgeblendet, wenn die Szene wirklich sichtbar ist. */
+.hero-grafik { position: relative; width: 100%; aspect-ratio: 1; }
+.hero-grafik #hero-chart {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  /* Das ferne Ende laeuft links aus dem Bild, statt abrupt abzubrechen. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 18%);
+  mask-image: linear-gradient(to right, transparent, #000 18%);
+}
+/* Die Rueckfallebene ist seit dem Umbau das Canvas, nicht mehr der Ring.
+   Ohne diesen Selektor laegen Spline-Szene und Chart uebereinander. */
+.hero-grafik.spline-da #hero-chart { opacity: 0; pointer-events: none; }
+.hero-grafik spline-viewer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 900ms var(--weich);
+}
+.hero-grafik.spline-da spline-viewer { opacity: 1; }
+/* Das Spline-Wasserzeichen unten rechts gehoert nicht auf eine
+   Firmenseite; im bezahlten Tarif laesst es sich in Spline selbst
+   abschalten, hier wird es zusaetzlich verdeckt. */
+.hero-grafik spline-viewer::part(logo) { display: none; }
+
+
+/* ============================================================
+   Wort-Einlauf der Hero-Ueberschrift
+   Jedes Wort steckt in einem Kaestchen mit overflow:hidden und faehrt
+   von unten herein. Das Kaestchen bekommt unten etwas Luft, sonst
+   schneidet es Unterlaengen wie beim "p" ab.
+   ============================================================ */
+.hero-text h1.wort-bereit .wort {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.09em;
+  margin-bottom: -0.09em;
+}
+.hero-text h1.wort-bereit .wort-i {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  /* Die Unschaerfe loest sich beim Landen auf. Drei getrennte Dauern statt
+     einer: dadurch kommt das Wort scharf an, bevor es ganz steht. */
+  filter: blur(7px);
+  transition: transform 860ms var(--weich), opacity 680ms var(--weich),
+              filter 660ms var(--weich);
+}
+.hero-text h1.wort-ein .wort-i { transform: none; opacity: 1; filter: none; }
+
+/* Das Akzentwort faerbt sich erst ein, nachdem es gelandet ist. Die
+   Verzoegerung setzt bewegung.js aus dem Takt des Wortes. */
+.hero-text h1 em.akzent-spaet { color: var(--text); transition: color 900ms var(--weich); }
+.hero-text h1 em.akzent-spaet.ein { color: var(--akzent); }
+
+.hero-text .nach-h1 {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 640ms var(--weich), transform 640ms var(--weich);
+}
+.hero-text .nach-h1.da { opacity: 1; transform: none; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-text h1 .wort-i { transform: none !important; opacity: 1 !important; }
+  .hero-text .nach-h1 { opacity: 1 !important; transform: none !important; }
+}
+
+
+/* Die Hero-Grafik kommt parallel zur Ueberschrift, nicht danach. Leichtes
+   Heranfahren statt reinem Aufblenden - sonst wirkt sie aufgeklebt. */
+.hero-grafik #hero-chart.grafik-auftritt {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1300ms var(--weich), transform 1600ms var(--weich);
+}
+.hero-grafik #hero-chart.grafik-auftritt.da { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grafik #hero-chart.grafik-auftritt { opacity: 1 !important; transform: none !important; }
+  .hero-text h1 em.akzent-spaet { color: var(--akzent) !important; }
+}

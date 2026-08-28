@@ -1,0 +1,611 @@
+/* ============================================================
+   Hausdesign, Stand 28.8.2026.
+
+   Eine Datei fuer alle Seiten. Vorher trug jede Seite ihre eigene
+   Kopie im <style>-Block, und genau deshalb sahen Startseite,
+   Erfahrungs-Portal und Formular unterschiedlich aus. Neue Seiten
+   binden nur noch diese Datei ein.
+
+   Grundlage: brain/06-knowledge/cockpit-designsprache.md und
+   app-designsprache.md — reines Schwarz, keine Flaechen, Haarlinien
+   statt Kaesten, Hierarchie ueber Groesse und Raum statt ueber
+   Strichstaerke, ein einziger Akzent.
+
+   Die eine bewusste Abweichung: ein flacher Schein im Hintergrund.
+   Das Verbot atmosphaerischer Verlaeufe gilt fuer App und Cockpit,
+   also fuer Werkzeuge, die man taeglich benutzt. Die oeffentlichen
+   Seiten sind Werbung und werden einmal angeschaut.
+   ============================================================ */
+
+:root {
+  --grund: #000000;
+  --text: #f0f2f6;
+  --muted: #a2a8b5;
+  --leise: #6d7484;
+  --linie: rgba(240, 242, 246, 0.13);
+  --linie-fein: rgba(240, 242, 246, 0.07);
+  --akzent: #b3c5ff;
+  --warn: #e5b25f;
+  --bad: #f08279;
+  --gut: #7fd1a8;
+  --weich: cubic-bezier(0.16, 1, 0.3, 1);
+  --spalte: 1420px;
+}
+
+* { box-sizing: border-box; }
+
+/* Der Grund steht auf html, NICHT auf body: der Hintergrund eines
+   Block-Elements wird vor allen Kindern mit negativem z-index gemalt.
+   Mit `background` auf body waeren Schein und Raster zugedeckt. */
+html { background: var(--grund); }
+
+body {
+  margin: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ---------- Hintergrund ---------- */
+.schein {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 42% at 50% 8%, rgba(179, 197, 255, 0.18), transparent 70%),
+    radial-gradient(46% 34% at 84% 52%, rgba(120, 150, 255, 0.11), transparent 72%),
+    radial-gradient(52% 38% at 10% 86%, rgba(179, 197, 255, 0.09), transparent 74%);
+}
+
+.raster {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 460px;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(240, 242, 246, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 242, 246, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+}
+
+#fortschritt {
+  position: fixed;
+  top: 0; left: 0;
+  height: 1px;
+  width: 0;
+  background: var(--text);
+  opacity: 0.5;
+  z-index: 60;
+}
+
+/* ---------- Raster der Seite ---------- */
+.wrap {
+  max-width: var(--spalte);
+  margin: 0 auto;
+  padding: 0 28px 120px;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 640px) { .wrap { padding: 0 48px 140px; } }
+@media (min-width: 1200px) { .wrap { padding: 0 72px 160px; } }
+
+/* Fliesstext bleibt lesbar, auch wenn die Spalte breit ist: die Zeile
+   wird nicht laenger, der Raum geht an Grafik und Weissraum. */
+main > p, section > p { max-width: 74ch; }
+
+/* ---------- Kopfleiste ---------- */
+.kopf {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linie-fein);
+}
+.kopf .marke {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.kopf nav {
+  display: none;
+  gap: 22px;
+}
+@media (min-width: 900px) { .kopf nav { display: flex; } }
+.kopf nav a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 200ms var(--weich);
+}
+.kopf nav a:hover { color: var(--text); }
+
+/* ---------- Etiketten ---------- */
+.eyebrow {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 9.5px;
+  color: var(--leise);
+  margin: 0 0 18px;
+}
+
+/* ---------- Schrift ---------- */
+h1 {
+  font-weight: 200;
+  font-size: clamp(1.9rem, 5.4vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin: 0 0 20px;
+  max-width: 20ch;
+}
+h1 em { font-style: normal; color: var(--akzent); }
+
+h2 {
+  font-weight: 200;
+  font-size: clamp(1.5rem, 3.6vw, 2.2rem);
+  letter-spacing: -0.028em;
+  line-height: 1.14;
+  margin: 0 0 24px;
+  max-width: 24ch;
+}
+h2 .zahl {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--akzent);
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+p { margin: 0 0 16px; max-width: 66ch; color: var(--muted); }
+p:last-child { margin-bottom: 0; }
+b, strong { font-weight: 500; color: var(--text); }
+a { color: var(--akzent); }
+
+section {
+  margin-top: 88px;
+  padding-top: 30px;
+  border-top: 1px solid var(--linie);
+}
+@media (min-width: 900px) { section { margin-top: 112px; } }
+
+/* ---------- Kennzahlen ---------- */
+.kennzahlen {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 16px;
+  margin: 40px 0 0;
+  padding: 26px 0 0;
+  border-top: 1px solid var(--linie);
+}
+@media (min-width: 720px) { .kennzahlen { grid-template-columns: repeat(4, 1fr); gap: 24px 40px; } }
+.kennzahl .wert {
+  font-weight: 200;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.kennzahl .label {
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  line-height: 1.5;
+}
+.kennzahl .stichtag {
+  display: block;
+  margin-top: 6px;
+  font-size: 10.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--leise);
+  opacity: 0.75;
+}
+
+/* ---------- Listen mit Haarlinie ---------- */
+ol.nummern, ul.punkte { list-style: none; margin: 0; padding: 0; }
+ol.nummern li, ul.punkte li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--linie-fein);
+  color: var(--muted);
+  align-items: start;
+  transition: color 240ms var(--weich);
+}
+ol.nummern li:last-child, ul.punkte li:last-child { border-bottom: 0; }
+ol.nummern li:hover, ul.punkte li:hover { color: var(--text); }
+ol.nummern .n, ul.punkte .n {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--akzent);
+  padding-top: 6px;
+  transition: letter-spacing 240ms var(--weich);
+}
+ol.nummern li:hover .n, ul.punkte li:hover .n { letter-spacing: 0.3em; }
+ol.nummern li p, ul.punkte li p { margin: 6px 0 0; }
+
+/* ---------- Spalten ---------- */
+.spalten {
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 760px) { .spalten.zwei { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 760px) { .spalten.drei { grid-template-columns: repeat(3, 1fr); } }
+
+.feld {
+  border-top: 1px solid var(--linie);
+  padding-top: 20px;
+}
+
+/* ---------- Knopf ---------- */
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  color: #000;
+  border: 0;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  padding: 15px 26px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 200ms var(--weich);
+}
+.knopf:hover { opacity: 0.88; }
+.knopf.leise {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--linie);
+}
+.knopf.leise:hover { border-color: var(--text); opacity: 1; }
+
+/* ---------- Rahmen fuer Bild und Video ---------- */
+.rahmen {
+  border: 1px solid var(--linie);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--linie-fein); }
+.faq details { border-bottom: 1px solid var(--linie-fein); }
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 32px 18px 0;
+  position: relative;
+  font-weight: 400;
+  color: var(--text);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 16px;
+  color: var(--leise);
+  font-weight: 300;
+}
+.faq details[open] summary::after { content: "\2013"; }
+.faq .antwort { margin: 0; padding: 0 0 20px; font-size: 15px; }
+
+/* ---------- Rechtsklarheit, bewusst nuechtern ---------- */
+.recht {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--linie-fein);
+  font-size: 12.5px;
+  color: var(--leise);
+  line-height: 1.65;
+  max-width: 78ch;
+}
+
+/* ---------- Fuss ---------- */
+footer.fuss {
+  margin-top: 96px;
+  padding-top: 28px;
+  border-top: 1px solid var(--linie);
+}
+footer.fuss .zeile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  justify-content: space-between;
+  align-items: baseline;
+}
+footer.fuss .marke { font-size: 13px; color: var(--text); }
+footer.fuss nav { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+footer.fuss nav a {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  text-decoration: none;
+}
+footer.fuss nav a:hover { color: var(--text); }
+
+/* ---------- Auftritt beim Scrollen ---------- */
+.bewegt .auftritt {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--weich), transform 700ms var(--weich);
+}
+.bewegt .auftritt.da { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .auftritt { opacity: 1 !important; transform: none !important; transition: none !important; }
+  * { animation: none !important; }
+}
+
+
+/* ============================================================
+   Rechtstexte und Danke-Seite
+
+   Diese Seiten trugen nur Tailwind-Utility-Klassen. Beim Umstellen
+   wurden die Klassen entfernt und der Text unveraendert gelassen —
+   bei Impressum, AGB, Datenschutz und Haftungsausschluss ist jeder
+   Satz abgestimmt, hier wird nichts umformuliert.
+   ============================================================ */
+
+main.recht-seite {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 720px) { main.recht-seite { padding: 88px 40px 120px; } }
+
+main.recht-seite h1 {
+  font-weight: 200;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin: 0 0 12px;
+  max-width: none;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--linie);
+}
+/* Die erste Zwischenueberschrift steht direkt unter der Linie der H1 —
+   ohne diese Ausnahme liegen dort zwei Striche uebereinander. */
+main.recht-seite h2:first-of-type { border-top: 0; padding-top: 0; margin-top: 32px; }
+main.recht-seite h2 {
+  font-weight: 300;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  margin: 52px 0 14px;
+  padding-top: 26px;
+  border-top: 1px solid var(--linie-fein);
+  max-width: none;
+}
+main.recht-seite h3 {
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 28px 0 8px;
+}
+main.recht-seite p { margin: 0 0 16px; max-width: 74ch; }
+main.recht-seite ul, main.recht-seite ol {
+  margin: 0 0 18px;
+  padding-left: 1.2em;
+  color: var(--muted);
+  max-width: 74ch;
+}
+main.recht-seite li { margin-bottom: 8px; }
+main.recht-seite li::marker { color: var(--leise); }
+main.recht-seite a { color: var(--akzent); }
+
+/* Anschrift: Haarlinie statt Kasten, damit sie sich abhebt ohne zu rufen */
+.address-box {
+  margin: 24px 0;
+  padding: 20px 0 20px 22px;
+  border-left: 1px solid var(--linie);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.address-box p { margin: 0; color: inherit; }
+
+.legal-content { color: var(--muted); }
+
+/* Danke-Seite: eine Aussage, sonst nichts */
+main.danke {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 28px;
+  position: relative;
+  z-index: 1;
+}
+main.danke h1 {
+  font-weight: 200;
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+
+/* ============================================================
+   Bild und Diagramm
+
+   Die erste Fassung dieser Seite kam ohne beides aus. Das war ein
+   Fehler: Ohne die Kurven fehlt der Beleg, ohne die Bilder fehlt der
+   Mensch. Beides kommt zurueck, aber in der Hausbildsprache —
+   Haarlinien statt gefuellter Flaechen, ein Akzent, Beschriftung
+   aussen.
+   ============================================================ */
+
+figure { margin: 32px 0 0; }
+figure img { border-radius: 12px; border: 1px solid var(--linie); }
+figcaption {
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--leise);
+  letter-spacing: 0.02em;
+}
+
+.bildreihe {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 32px;
+}
+@media (min-width: 760px) { .bildreihe { grid-template-columns: repeat(3, 1fr); } }
+.bildreihe img {
+  border-radius: 10px;
+  border: 1px solid var(--linie-fein);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  /* Bewusst leicht zurueckgenommen: die Bilder sind Stimmung, nicht
+     Aussage. Beim Zeigen kommen sie auf volle Staerke. */
+  filter: saturate(0.75) brightness(0.85);
+  transition: filter 400ms var(--weich);
+}
+.bildreihe img:hover { filter: none; }
+
+.portraet {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+  margin-top: 32px;
+}
+@media (min-width: 760px) { .portraet { grid-template-columns: 300px 1fr; } }
+.portraet img { border-radius: 12px; border: 1px solid var(--linie); }
+
+/* ---------- Diagramme ---------- */
+.diagramm {
+  margin: 36px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--linie);
+}
+.diagramm svg { width: 100%; height: auto; display: block; overflow: visible; }
+.diagramm .achse { stroke: var(--linie-fein); stroke-width: 1; }
+.diagramm .kurve { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.diagramm .kurve.haupt { stroke: var(--akzent); stroke-width: 2; }
+.diagramm .kurve.neben { stroke: var(--leise); }
+.diagramm .kurve.schwach { stroke: var(--leise); opacity: 0.45; }
+.diagramm text {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  fill: var(--leise);
+}
+.diagramm text.wert {
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  fill: var(--text);
+}
+.diagramm .marke { stroke: var(--text); stroke-width: 1; opacity: 0.6; }
+.diagramm .punkt { fill: var(--akzent); }
+.legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 18px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.legende span { display: inline-flex; align-items: center; gap: 8px; }
+.legende i {
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  display: inline-block;
+}
+.legende .haupt { color: var(--akzent); }
+.legende .neben { color: var(--leise); }
+
+
+/* ---------- Fotostapel wie auf der bisherigen Startseite ----------
+   Drei versetzte Karten, die leicht driften. Uebernommen statt neu
+   erfunden: die Anordnung war dort schon richtig, nur die Schatten
+   waren fuer einen hellen Grund gebaut und auf Schwarz unsichtbar.
+   An ihre Stelle tritt eine Haarlinie. */
+.fotostapel {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 40rem;
+  margin: 32px auto 0;
+}
+@media (min-width: 1024px) {
+  .fotostapel { max-width: 34rem; min-height: 46rem; margin-left: 0; }
+}
+.fotostapel .karte {
+  position: absolute;
+  width: 62%;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--linie);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9);
+}
+.fotostapel .karte img { display: block; width: 100%; height: auto; }
+.fotostapel .karte-1 { left: 0; top: 0; z-index: 3; animation: drift-1 5s ease-in-out infinite 1.5s; }
+.fotostapel .karte-2 { right: 0; top: 11rem; z-index: 2; animation: drift-2 5.5s ease-in-out infinite 1.85s; }
+.fotostapel .karte-3 { left: 8%; top: 23rem; z-index: 1; animation: drift-1 6s ease-in-out infinite 2.2s; }
+@media (min-width: 1024px) {
+  .fotostapel .karte-2 { top: 13rem; }
+  .fotostapel .karte-3 { top: 27rem; }
+}
+@keyframes drift-1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes drift-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fotostapel .karte { animation: none; }
+}
+
+/* Zielgruppe: Stapel links, Text rechts — wie bisher */
+.zielgruppe-block { display: grid; gap: 32px; align-items: start; }
+@media (min-width: 1024px) {
+  .zielgruppe-block { grid-template-columns: 42% 1fr; gap: 56px; }
+}

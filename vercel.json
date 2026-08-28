@@ -11,5 +11,11 @@
       "destination": "/form",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/dm",
+      "destination": "/form.html"
+    }
   ]
 }
