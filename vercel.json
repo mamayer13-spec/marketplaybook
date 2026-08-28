@@ -15,7 +15,7 @@
   "rewrites": [
     {
       "source": "/dm",
-      "destination": "/form.html"
+      "destination": "/form"
     }
   ]
 }
