@@ -266,7 +266,8 @@
       gestartet = true;
       var s = document.createElement("script");
       s.type = "module";
-      s.src = "https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js";
+      // Spline empfiehlt inzwischen das eigene CDN; unpkg 1.9.28 war veraltet.
+      s.src = "https://cdn.spline.design/@splinetool/viewer@2.0.9/build/spline-viewer.js";
       s.onerror = function () { box.classList.remove("spline-da"); };
       document.head.appendChild(s);
 

@@ -14,7 +14,7 @@
   ],
   "rewrites": [
     {
-      "source": "/dm",
+      "source": "/videokurs",
       "destination": "/form"
     }
   ]
