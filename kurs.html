@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="dark" lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Kostenloser Videokurs — Market Playbook</title>
+
+    <!--
+      Variante B des Einstiegs (angelegt 29.8.2026).
+
+      Warum es diese Seite gibt: Auf /form oeffnen nur rund 17 % der Besucher
+      das Formular (02-audits/funnel/2026-08-24-form-seite-trichter.md). Zwei
+      Verdachtsmomente stehen im Raum — die Leute steigen im VSL aus, und
+      manche erkennen das Typeform-Element gar nicht als anklickbar. Diese
+      Seite testet beides gegen: kein Video, keine Testimonials, kein FAQ,
+      nur Versprechen, drei Punkte und der Button.
+
+      A/B sauber messen: Den Link zu dieser Seite immer MIT eigenem
+      utm_medium teilen, z. B.
+        https://www.marketplaybook.de/kurs?utm_source=instagram&utm_medium=kurs-b
+      Die Parameter werden unten ans Typeform durchgereicht und landen als
+      Hidden Fields in jeder Antwort. Ohne das laesst sich im Typeform
+      spaeter nicht unterscheiden, ob eine Eintragung von /form oder /kurs kam.
+
+      noindex, weil die Seite inhaltlich eine Dublette von /form ist.
+    -->
+    <meta name="robots" content="noindex, follow" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/icon-tab.png" />
+
+    <script src="/consent.js" defer></script>
+
+    <!--
+      Vercel Web Analytics, wie auf /form bewusst ausserhalb der
+      Consent-Weiche: cookielos, zaehlt serverseitig ueber einen taeglich
+      wechselnden Hash. Nur so gibt es eine Besucherzahl ueber alle, nicht
+      nur ueber die Zustimmenden — und genau die braucht der A/B-Vergleich.
+    -->
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --hintergrund: #071326;
+        --text: #d7e3fe;
+        --text-leise: #c3c6d8;
+        --akzent: #b3c5ff;
+        --blau: #1d64f2;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background-color: var(--hintergrund);
+        color: var(--text);
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        font-weight: 300;
+        line-height: 1.6;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      /* Raster + Lichtschein wie auf der Startseite, nur ruhiger. */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background-image:
+          linear-gradient(to right, rgba(29, 100, 242, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(29, 100, 242, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 900px;
+        height: 900px;
+        max-width: 150vw;
+        z-index: -1;
+        background: radial-gradient(circle, rgba(29, 100, 242, 0.18), transparent 60%);
+        pointer-events: none;
+      }
+
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 56px 20px 40px;
+        text-align: center;
+      }
+      @media (min-width: 640px) {
+        main { padding-top: 88px; }
+      }
+
+      .marke {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--akzent);
+        opacity: 0.7;
+        margin: 0 0 28px;
+      }
+
+      h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin: 0 0 18px;
+      }
+      @media (min-width: 640px) {
+        h1 { font-size: 44px; }
+      }
+      h1 em {
+        color: var(--akzent);
+        font-style: italic;
+      }
+
+      .unterzeile {
+        font-size: 16px;
+        color: var(--text-leise);
+        margin: 0 auto 32px;
+        max-width: 480px;
+      }
+      .unterzeile strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      ul.punkte {
+        list-style: none;
+        margin: 0 auto 36px;
+        padding: 0;
+        max-width: 500px;
+        text-align: left;
+      }
+      ul.punkte li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px 0;
+        border-top: 1px solid rgba(179, 197, 255, 0.12);
+        font-size: 15px;
+        color: var(--text-leise);
+      }
+      ul.punkte li:last-child {
+        border-bottom: 1px solid rgba(179, 197, 255, 0.12);
+      }
+      ul.punkte svg {
+        flex: 0 0 auto;
+        margin-top: 3px;
+        color: var(--akzent);
+      }
+
+      .aufforderung {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text);
+        margin: 0 0 4px;
+      }
+      .aufforderung-klein {
+        font-size: 14px;
+        color: var(--text-leise);
+        margin: 0 0 20px;
+      }
+
+      /*
+        Der Pfeil zeigt auf den Typeform-Knopf. Er steht hier, weil der
+        Verdacht im Raum steht, dass Besucher das Typeform-Element gar nicht
+        als anklickbar erkennen.
+      */
+      .pfeil {
+        display: block;
+        margin: 0 auto 14px;
+        color: var(--akzent);
+        opacity: 0.8;
+        animation: wippen 1.8s ease-in-out infinite;
+      }
+      @keyframes wippen {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(6px); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pfeil { animation: none; }
+      }
+
+      /*
+        Das Typeform bringt seinen eigenen, kraeftig blauen Knopf mit
+        ("Zum kostenlosen Kurs!", Beschriftung wird im Typeform gesetzt).
+        Deshalb hier KEIN eigener blauer Rahmen — das waere Blau auf Blau.
+        Nur ein Schein darunter, damit der Knopf aus der Seite heraussteht.
+      */
+      .knopf-feld {
+        display: block;
+        margin: 0 auto;
+        max-width: 420px;
+        border-radius: 14px;
+        filter: drop-shadow(0 12px 28px rgba(29, 100, 242, 0.45));
+      }
+
+      .vertrauen {
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: var(--akzent);
+        opacity: 0.75;
+        margin: 22px 0 0;
+      }
+
+      footer {
+        border-top: 1px solid rgba(179, 197, 255, 0.1);
+        margin-top: 56px;
+        padding: 24px 20px 40px;
+        text-align: center;
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 22px;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      footer a {
+        color: #7c8699;
+        text-decoration: none;
+      }
+      footer a:hover { color: var(--text); }
+      footer p {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #5d6779;
+        margin: 16px 0 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <p class="marke">Market Playbook</p>
+
+      <h1>Hier geht es zum <em>kostenlosen</em> Videokurs</h1>
+
+      <p class="unterzeile">
+        10 kurze Videos von Claudio F&uuml;rsatz. Du tr&auml;gst unten deine
+        Daten ein und bekommst
+        <strong>alle Videos direkt per Mail</strong> &mdash; kostenlos.
+      </p>
+
+      <ul class="punkte">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>
+            Welche gro&szlig;en Trends die n&auml;chsten Jahre den Markt
+            bestimmen und welche Aktien davon am meisten profitieren
+          </span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>
+            Wie du erkennst, ob eine Aktie wirklich gut ist &mdash; mit einem
+            einfachen 5-Punkte-Check, den jeder anwenden kann
+          </span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>
+            Wie du dein Geld so aufteilst, dass du auch in schlechten
+            Marktphasen ruhig schlafen kannst
+          </span>
+        </li>
+      </ul>
+
+      <p class="aufforderung">Hier klicken und Kurs freischalten</p>
+      <p class="aufforderung-klein">Dauert 30 Sekunden.</p>
+
+      <svg class="pfeil" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+
+      <script>
+        /* Rueckmeldungen des Typeform-Embeds an GA4 — gleiche Ereignisnamen
+         * wie auf /form, damit sich beide Varianten vergleichen lassen.
+         *
+         * Muss VOR embed.js stehen: Typeform loest die Namen aus
+         * data-tf-on-ready / data-tf-on-submit in dem Moment auf window auf,
+         * in dem embed.js das Element einliest.
+         *
+         * window.trackEvent kommt aus consent.js und prueft selbst, ob gtag
+         * geladen ist. Die Abfrage hier deckt den Fall ab, dass das Formular
+         * schneller bereit ist als das mit defer geladene consent.js.
+         *
+         * Diese Zahlen sind zustimmungsabhaengig. Die vollstaendige Zahl kommt
+         * aus Vercel Web Analytics und aus dem Typeform-Sammler im Cockpit. */
+        function melde(name, label, kategorie) {
+          if (typeof window.trackEvent !== "function") return;
+          window.trackEvent(name, { event_category: kategorie, event_label: label });
+        }
+        window.formularBereit = function () {
+          melde("form_start", "typeform_opened", "engagement");
+        };
+        window.formularAbgeschickt = function () {
+          melde("form_submit", "typeform_completed", "conversion");
+        };
+      </script>
+
+      <!--
+        Gleiches Typeform wie auf /form (01KWCA6TY1V0SVA1RCZSWJ0TA2), damit
+        der Test nur die Seite vergleicht und nicht zwei Formulare.
+        data-tf-transitive-search-params reicht die UTM-Parameter aus der
+        Adresse durch; im Typeform sind sie seit 20.8.2026 als Hidden Fields
+        angelegt.
+      -->
+      <div class="knopf-feld">
+        <div
+          data-tf-live="01KWCA6TY1V0SVA1RCZSWJ0TA2"
+          data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign"
+          data-tf-on-ready="formularBereit"
+          data-tf-on-submit="formularAbgeschickt"
+        ></div>
+      </div>
+      <script src="//embed.typeform.com/next/embed.js"></script>
+
+      <p class="vertrauen">Kostenlos &middot; Keine Kreditkarte &middot; Kein Abo</p>
+    </main>
+
+    <footer>
+      <nav>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/agb.html">AGB</a>
+        <a href="/datenschutz.html">Datenschutzerkl&auml;rung</a>
+        <a href="/haftungsausschluss.html">Haftungsausschluss</a>
+      </nav>
+      <p>&copy; 2026 Market Playbook</p>
+    </footer>
+  </body>
+</html>
