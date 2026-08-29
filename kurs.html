@@ -139,9 +139,24 @@
         font-weight: 500;
       }
 
+      /* Ueberschrift der Liste — noetig, seit die Punkte unter dem Knopf
+         stehen und nicht mehr aus dem Fliesstext heraus erklaert werden. */
+      .punkte-titel {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--akzent);
+        opacity: 0.7;
+        margin: 34px 0 0;
+      }
+
       ul.punkte {
         list-style: none;
-        margin: 0 auto 28px;
+        /* Steht seit 29.8.2026 UNTER dem Knopf: der Knopf soll das Erste
+           sein, was nach der Ueberschrift kommt. */
+        margin: 14px auto 0;
         padding: 0;
         max-width: 500px;
         text-align: left;
@@ -259,7 +274,8 @@
         .marke { margin-bottom: 16px; font-size: 12px; }
         h1 { font-size: 26px; margin-bottom: 12px; }
         .unterzeile { font-size: 15px; margin-bottom: 20px; }
-        ul.punkte { margin-bottom: 22px; }
+        ul.punkte { margin-top: 12px; }
+        .punkte-titel { margin-top: 26px; font-size: 12px; }
         ul.punkte li { padding: 9px 0; font-size: 14px; gap: 10px; }
         .aufforderung { font-size: 17px; }
         .aufforderung-klein { margin-bottom: 12px; }
@@ -311,30 +327,6 @@
         <strong>alle Videos direkt per Mail</strong> &mdash; kostenlos.
       </p>
 
-      <ul class="punkte">
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>
-            Welche gro&szlig;en Trends die n&auml;chsten Jahre den Markt
-            bestimmen und welche Aktien davon am meisten profitieren
-          </span>
-        </li>
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>
-            Wie du erkennst, ob eine Aktie wirklich gut ist &mdash; mit einem
-            einfachen 5-Punkte-Check, den jeder anwenden kann
-          </span>
-        </li>
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>
-            Wie du dein Geld so aufteilst, dass du auch in schlechten
-            Marktphasen ruhig schlafen kannst
-          </span>
-        </li>
-      </ul>
-
       <p class="aufforderung">Hier klicken und Kurs freischalten</p>
       <p class="aufforderung-klein">Dauert 30 Sekunden.</p>
 
@@ -384,6 +376,32 @@
       <script src="//embed.typeform.com/next/embed.js"></script>
 
       <p class="vertrauen">Kostenlos &middot; Keine Kreditkarte &middot; Kein Abo</p>
+
+      <p class="punkte-titel">Das lernst du in den 10 Videos</p>
+
+      <ul class="punkte">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>
+            Welche gro&szlig;en Trends die n&auml;chsten Jahre den Markt
+            bestimmen und welche Aktien davon am meisten profitieren
+          </span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>
+            Wie du erkennst, ob eine Aktie wirklich gut ist &mdash; mit einem
+            einfachen 5-Punkte-Check, den jeder anwenden kann
+          </span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>
+            Wie du dein Geld so aufteilst, dass du auch in schlechten
+            Marktphasen ruhig schlafen kannst
+          </span>
+        </li>
+      </ul>
     </main>
 
     <footer>
