@@ -208,6 +208,16 @@
         border-radius: 14px;
         filter: drop-shadow(0 12px 28px rgba(29, 100, 242, 0.45));
       }
+      /*
+        Typeform setzt seinem Knopf eine feste Breite von 390 px. Auf dem
+        Handy ist der Textbereich aber nur 350 px breit — ohne diese Zeile
+        haengt der Knopf rechts aus der Seite heraus (am 29.8.2026 im
+        390-px-Rahmen gemessen). Deshalb hart auf die Spaltenbreite zwingen.
+      */
+      .knopf-feld button {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
 
       .vertrauen {
         font-size: 12px;
