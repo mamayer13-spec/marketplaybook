@@ -118,7 +118,7 @@
         font-weight: 700;
         letter-spacing: -0.02em;
         line-height: 1.15;
-        margin: 0 0 18px;
+        margin: 0 0 34px;
       }
       @media (min-width: 640px) {
         h1 { font-size: 44px; }
@@ -127,70 +127,17 @@
         color: var(--akzent);
         font-style: italic;
       }
-
-      .unterzeile {
-        font-size: 16px;
-        color: var(--text-leise);
-        margin: 0 auto 26px;
-        max-width: 480px;
-      }
-      .unterzeile strong {
-        color: var(--text);
-        font-weight: 500;
-      }
-
-      /* Ueberschrift der Liste — noetig, seit die Punkte unter dem Knopf
-         stehen und nicht mehr aus dem Fliesstext heraus erklaert werden. */
-      .punkte-titel {
-        font-family: "Space Grotesk", sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--akzent);
-        opacity: 0.7;
-        margin: 34px 0 0;
-      }
-
-      ul.punkte {
-        list-style: none;
-        /* Steht seit 29.8.2026 UNTER dem Knopf: der Knopf soll das Erste
-           sein, was nach der Ueberschrift kommt. */
-        margin: 14px auto 0;
-        padding: 0;
-        max-width: 500px;
-        text-align: left;
-      }
-      ul.punkte li {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-        padding: 12px 0;
-        border-top: 1px solid rgba(179, 197, 255, 0.12);
-        font-size: 15px;
-        color: var(--text-leise);
-      }
-      ul.punkte li:last-child {
-        border-bottom: 1px solid rgba(179, 197, 255, 0.12);
-      }
-      ul.punkte svg {
-        flex: 0 0 auto;
-        margin-top: 3px;
+      /* Der Watchlist-Teil steht in eigener Zeile: laut Claudio tragen sich
+         viele wegen der Watchlist ein, nicht wegen des Kurses. Er darf
+         deshalb nicht im Ueberschriftenblock untergehen. */
+      h1 .plus {
+        display: block;
+        margin-top: 6px;
         color: var(--akzent);
       }
 
-      .aufforderung {
-        font-family: "Space Grotesk", sans-serif;
-        font-size: 18px;
-        font-weight: 500;
-        color: var(--text);
-        margin: 0 0 4px;
-      }
-      .aufforderung-klein {
-        font-size: 14px;
-        color: var(--text-leise);
-        margin: 0 0 20px;
-      }
+
+
 
       /*
         Der Pfeil zeigt auf den Typeform-Knopf. Er steht hier, weil der
@@ -272,13 +219,7 @@
       @media (max-width: 639px) {
         main { padding-top: 26px; }
         .marke { margin-bottom: 16px; font-size: 12px; }
-        h1 { font-size: 26px; margin-bottom: 12px; }
-        .unterzeile { font-size: 15px; margin-bottom: 20px; }
-        ul.punkte { margin-top: 12px; }
-        .punkte-titel { margin-top: 26px; font-size: 12px; }
-        ul.punkte li { padding: 9px 0; font-size: 14px; gap: 10px; }
-        .aufforderung { font-size: 17px; }
-        .aufforderung-klein { margin-bottom: 12px; }
+        h1 { font-size: 26px; margin-bottom: 26px; }
         .pfeil { margin-bottom: 10px; width: 22px; height: 22px; }
         .knopf-feld button { font-size: 19px !important; padding: 18px 14px !important; }
         .vertrauen { margin-top: 18px; }
@@ -319,16 +260,10 @@
     <main>
       <p class="marke">Market Playbook</p>
 
-      <h1>Hier geht es zum <em>kostenlosen</em> Videokurs</h1>
-
-      <p class="unterzeile">
-        10 kurze Videos von Claudio F&uuml;rsatz. Du tr&auml;gst hier deine
-        Daten ein und bekommst
-        <strong>alle Videos direkt per Mail</strong> &mdash; kostenlos.
-      </p>
-
-      <p class="aufforderung">Hier klicken und Kurs freischalten</p>
-      <p class="aufforderung-klein">Dauert 30 Sekunden.</p>
+      <h1>
+        Hier geht es zum <em>kostenlosen</em> Videokurs
+        <span class="plus">+ Aktien-Watchlist</span>
+      </h1>
 
       <svg class="pfeil" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
 
@@ -377,31 +312,6 @@
 
       <p class="vertrauen">Kostenlos &middot; Keine Kreditkarte &middot; Kein Abo</p>
 
-      <p class="punkte-titel">Das lernst du in den 10 Videos</p>
-
-      <ul class="punkte">
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>
-            Welche gro&szlig;en Trends die n&auml;chsten Jahre den Markt
-            bestimmen und welche Aktien davon am meisten profitieren
-          </span>
-        </li>
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>
-            Wie du erkennst, ob eine Aktie wirklich gut ist &mdash; mit einem
-            einfachen 5-Punkte-Check, den jeder anwenden kann
-          </span>
-        </li>
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>
-            Wie du dein Geld so aufteilst, dass du auch in schlechten
-            Marktphasen ruhig schlafen kannst
-          </span>
-        </li>
-      </ul>
     </main>
 
     <footer>
