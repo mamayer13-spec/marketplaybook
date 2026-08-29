@@ -217,6 +217,12 @@
       .knopf-feld button {
         width: 100% !important;
         max-width: 100% !important;
+        /*
+          Typeform setzt dem Knopf box-sizing: content-box. Ohne die Zeile
+          hier kommt die Innenpolsterung auf die 100 % obendrauf: gemessen
+          350 px Spalte, 440 px Knopf.
+        */
+        box-sizing: border-box !important;
       }
 
       .vertrauen {
