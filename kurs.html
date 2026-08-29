@@ -95,8 +95,10 @@
         padding: 56px 20px 40px;
         text-align: center;
       }
+      /* 48 statt mehr: auf einem 13-Zoll-Laptop (Sichtfenster ~770 px) muss
+         der Knopf ohne Scrollen im Bild stehen. */
       @media (min-width: 640px) {
-        main { padding-top: 88px; }
+        main { padding-top: 48px; }
       }
 
       .marke {
@@ -129,7 +131,7 @@
       .unterzeile {
         font-size: 16px;
         color: var(--text-leise);
-        margin: 0 auto 32px;
+        margin: 0 auto 26px;
         max-width: 480px;
       }
       .unterzeile strong {
@@ -139,7 +141,7 @@
 
       ul.punkte {
         list-style: none;
-        margin: 0 auto 36px;
+        margin: 0 auto 28px;
         padding: 0;
         max-width: 500px;
         text-align: left;
