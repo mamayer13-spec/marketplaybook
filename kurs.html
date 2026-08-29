@@ -90,7 +90,9 @@
       }
 
       main {
-        max-width: 640px;
+        /* Breiter als noetig, damit "Kostenloser Videokurs +
+           Aktien-Watchlist" auf dem Desktop in eine Zeile passt. */
+        max-width: 880px;
         margin: 0 auto;
         padding: 56px 20px 40px;
         text-align: center;
@@ -122,7 +124,7 @@
         margin: 0 0 34px;
       }
       @media (min-width: 640px) {
-        h1 { font-size: 40px; }
+        h1 { font-size: 36px; white-space: nowrap; }
         .vorzeile { font-size: 18px; }
       }
       /*
