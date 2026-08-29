@@ -116,24 +116,33 @@
         font-family: "Space Grotesk", sans-serif;
         font-size: 30px;
         font-weight: 700;
+        text-wrap: balance;
         letter-spacing: -0.02em;
         line-height: 1.15;
         margin: 0 0 34px;
       }
       @media (min-width: 640px) {
-        h1 { font-size: 44px; }
+        h1 { font-size: 40px; }
+        .vorzeile { font-size: 18px; }
       }
-      h1 em {
-        color: var(--akzent);
-        font-style: italic;
+      /*
+        "Hier geht es zum" steht als kleine Vorzeile ueber der Ueberschrift.
+        So bleibt fuer den eigentlichen Versprechen-Satz eine Zeile uebrig
+        statt dreier — auf dem Desktop steht er komplett in einer Zeile, auf
+        dem Handy bricht er einmal vor "+ Aktien-Watchlist".
+      */
+      .vorzeile {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--text-leise);
+        margin: 0 0 8px;
       }
-      /* Der Watchlist-Teil steht in eigener Zeile: laut Claudio tragen sich
-         viele wegen der Watchlist ein, nicht wegen des Kurses. Er darf
-         deshalb nicht im Ueberschriftenblock untergehen. */
+      /* Der Watchlist-Teil ist abgesetzt: laut Claudio tragen sich viele
+         wegen der Watchlist ein, nicht wegen des Kurses. */
       h1 .plus {
-        display: block;
-        margin-top: 6px;
         color: var(--akzent);
+        white-space: nowrap;
       }
 
 
@@ -156,7 +165,11 @@
         50% { transform: translateY(6px); }
       }
       @media (prefers-reduced-motion: reduce) {
-        .pfeil { animation: none; }
+        .pfeil,
+        .knopf-feld,
+        .knopf-feld::after {
+          animation: none;
+        }
       }
 
       /*
@@ -167,10 +180,38 @@
       */
       .knopf-feld {
         display: block;
+        position: relative;
         margin: 0 auto;
         max-width: 420px;
         border-radius: 14px;
         filter: drop-shadow(0 12px 28px rgba(29, 100, 242, 0.45));
+        /* Leichtes Groesser-Kleiner, damit der Knopf aus der sonst voellig
+           ruhigen Seite heraussticht. Bewusst klein gehalten (4 %) — mehr
+           wirkt billig und laesst den Text flimmern. */
+        animation: knopf-wippen 2.6s ease-in-out infinite;
+      }
+      /*
+        Sonar: ein Ring, der aus dem Knopf herauslaeuft. Liegt in einem
+        eigenen Element, damit die Animation den Knopf selbst nicht anfasst,
+        und ist klickdurchlaessig — sonst schluckt er den Klick aufs
+        Typeform.
+      */
+      .knopf-feld::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        pointer-events: none;
+        animation: sonar 2.6s ease-out infinite;
+      }
+      @keyframes knopf-wippen {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.04); }
+      }
+      @keyframes sonar {
+        0% { box-shadow: 0 0 0 0 rgba(29, 100, 242, 0.55); }
+        70% { box-shadow: 0 0 0 24px rgba(29, 100, 242, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(29, 100, 242, 0); }
       }
       /*
         Typeform setzt seinem Knopf eine feste Breite von 390 px. Auf dem
@@ -219,7 +260,8 @@
       @media (max-width: 639px) {
         main { padding-top: 64px; }
         .marke { margin-bottom: 16px; font-size: 12px; }
-        h1 { font-size: 26px; margin-bottom: 26px; }
+        h1 { font-size: 25px; margin-bottom: 26px; }
+        .vorzeile { font-size: 15px; }
         .pfeil { margin-bottom: 10px; width: 22px; height: 22px; }
         .knopf-feld button { font-size: 19px !important; padding: 18px 14px !important; }
         .vertrauen { margin-top: 18px; }
@@ -260,10 +302,9 @@
     <main>
       <p class="marke">Market Playbook</p>
 
-      <h1>
-        Hier geht es zum <em>kostenlosen</em> Videokurs
-        <span class="plus">+ Aktien-Watchlist</span>
-      </h1>
+      <p class="vorzeile">Hier geht es zum</p>
+
+      <h1>Kostenloser Videokurs <span class="plus">+ Aktien-Watchlist</span></h1>
 
       <svg class="pfeil" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
 
