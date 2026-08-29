@@ -223,6 +223,14 @@
           350 px Spalte, 440 px Knopf.
         */
         box-sizing: border-box !important;
+        /*
+          Typeform liefert 27 px Schrift und 45 px Polsterung links/rechts.
+          Die Beschriftung braucht damit 440 px; sobald der Knopf schmaler
+          ist, kuerzt Typeform sie zu "Zum kostenlosen ...". Kleinere
+          Polsterung und Schrift, damit der ganze Satz stehen bleibt.
+        */
+        padding: 20px !important;
+        font-size: 22px !important;
       }
 
       .vertrauen {
@@ -251,6 +259,7 @@
         .aufforderung { font-size: 17px; }
         .aufforderung-klein { margin-bottom: 12px; }
         .pfeil { margin-bottom: 10px; width: 22px; height: 22px; }
+        .knopf-feld button { font-size: 19px !important; padding: 18px 14px !important; }
         .vertrauen { margin-top: 18px; }
         footer { margin-top: 36px; }
       }
