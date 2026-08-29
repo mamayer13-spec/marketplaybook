@@ -217,6 +217,28 @@
         margin: 22px 0 0;
       }
 
+      /*
+        Enger auf dem Handy. Gemessen am 29.8.2026 im 390-px-Rahmen: der
+        Typeform-Knopf startete bei 800 px. Der Instagram-In-App-Browser
+        frisst rund 140 px von 844, sichtbar sind also nur ~700 px — der
+        Knopf lag damit unter der Falz. Genau das soll diese Seite nicht
+        wiederholen. Alle Abstaende hier sind darauf gerechnet, dass der
+        Knopf ohne Scrollen im Bild steht.
+      */
+      @media (max-width: 639px) {
+        main { padding-top: 26px; }
+        .marke { margin-bottom: 16px; font-size: 12px; }
+        h1 { font-size: 26px; margin-bottom: 12px; }
+        .unterzeile { font-size: 15px; margin-bottom: 20px; }
+        ul.punkte { margin-bottom: 22px; }
+        ul.punkte li { padding: 9px 0; font-size: 14px; gap: 10px; }
+        .aufforderung { font-size: 17px; }
+        .aufforderung-klein { margin-bottom: 12px; }
+        .pfeil { margin-bottom: 10px; width: 22px; height: 22px; }
+        .vertrauen { margin-top: 18px; }
+        footer { margin-top: 36px; }
+      }
+
       footer {
         border-top: 1px solid rgba(179, 197, 255, 0.1);
         margin-top: 56px;
