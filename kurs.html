@@ -191,7 +191,7 @@
         margin: 0 auto;
         max-width: 420px;
         border-radius: 14px;
-        filter: drop-shadow(0 14px 32px rgba(179, 197, 255, 0.28));
+        filter: drop-shadow(0 14px 34px rgba(240, 242, 246, 0.22));
         /* Leichtes Groesser-Kleiner, damit der Knopf aus der sonst voellig
            ruhigen Seite heraussticht. Bewusst klein gehalten (4 %) — mehr
            wirkt billig und laesst den Text flimmern. */
@@ -246,7 +246,21 @@
         /* Ohne das sitzt die Beschriftung wegen der 27-px-Zeilenhoehe von
            Typeform sichtbar zu tief im Knopf. */
         line-height: 1.2 !important;
+        /* Hell statt Typeform-Blau, wie auf /form. Manuel am 30.8.2026.
+           Das kraeftige Blau war der letzte Rest des alten Designs auf
+           dieser Seite - und der einzige verbliebene optische Unterschied
+           zwischen den beiden Varianten, der nichts mit dem Test zu tun
+           hat. */
+        background: var(--text) !important;
+        color: #0b0d12 !important;
+        border: 0 !important;
+        border-radius: 12px !important;
+        font-family: Inter, system-ui, sans-serif !important;
+        font-weight: 500 !important;
+        letter-spacing: -0.01em !important;
+        transition: opacity 200ms ease;
       }
+      .knopf-feld button:hover { opacity: 0.88; }
 
       .vertrauen {
         font-size: 12px;
