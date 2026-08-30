@@ -10,6 +10,7 @@
       content="Market Playbook ist ein Investment-System und eine private Investoren-Community. Marktphasen einordnen statt Kurse raten, jede Angabe mit Stichtag."
     />
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon-tab.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,8 +18,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/neu/haus.css" />
-    <link rel="stylesheet" href="/neu/startseite.css" />
+    <link rel="stylesheet" href="/neu/haus.css?v=1787907786" />
+    <link rel="stylesheet" href="/neu/startseite.css?v=1787919587" />
 
     <!--
       ENTWURF vom 28.8.2026, noindex, nicht verlinkt.
@@ -44,7 +45,7 @@
       <span class="raster" aria-hidden="true"></span>
 
       <header class="kopf" id="kopf">
-        <a class="marke" href="/neu/index.html">Market Playbook</a>
+        <a class="marke" href="/neu/index.html"><svg class="zeichen" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g transform="translate(0 0.95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="#fff" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#B3C5FF" stroke="#B3C5FF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span>Market Playbook</span></a>
         <nav>
           <a href="#system">System</a>
           <a href="#ergebnisse">Ergebnisse</a>
@@ -92,8 +93,12 @@
             gezeichnete Ring stehen. Kein leeres Loch im Hero, und kein
             Nutzer sieht eine Ladeanzeige, die nie endet.
           -->
-          <div class="hero-grafik" id="hero-grafik" data-spline="https://prod.spline.design/H4fil9bPTyPqrVS6/scene.splinecode">
+          <div class="hero-grafik" id="hero-grafik" data-spline="">
             <canvas id="hero-chart" role="img" aria-label="Mehrere Kursverlaeufe, die sich zu einem steigenden Strang buendeln, schematisch"></canvas>
+            <p class="hero-bildzeile">
+              Viele Einzelverläufe, ein Marktbild.
+              <span>Schematische Darstellung, keine Kursdaten.</span>
+            </p>
           </div>
         </div>
 
@@ -186,6 +191,25 @@
           </div>
         </section>
 
+        <!-- ---------------- Satz: Information ---------------- -->
+        <!--
+          Die Praemisse fuer alles Folgende, deshalb steht sie vor den
+          Zahlen. Gleiche Mechanik wie der zweite Satz unten: die Woerter
+          bauen sich mit der Scrollstrecke auf (stationen.js).
+        -->
+        <section class="satz" id="satz-information">
+          <div class="satz-klebe">
+            <div class="satz-block">
+              <span class="satz-marke" aria-hidden="true"><i></i>Die Prämisse</span>
+              <p class="satz-zeile" data-satz>
+                Die ganze Welt läuft auf Information.<br />
+                Am Ende gewinnt der, der die <em>bessere</em> hat.
+              </p>
+              <span class="satz-strich" aria-hidden="true"></span>
+            </div>
+          </div>
+        </section>
+
         <!-- ---------------- Ergebnisse ---------------- -->
         <section class="auftritt" id="ergebnisse">
           <h2>Wertentwicklung im Vergleich</h2>
@@ -254,6 +278,27 @@
         </section>
 
         <!-- ---------------- Zielgruppe ---------------- -->
+        <!--
+          Ringflug. Beim Runterscrollen faehrt die Kamera durch den Ring
+          hindurch: vier Marktphasen aussen, drei Signalquellen darauf -
+          dasselbe Motiv, das frueher im Hero stand. Der Abschnitt ist
+          220vh hoch, die Leinwand klebt darin; die Scrollstrecke ist die
+          Zeitachse. Gezeichnet in bewegung.js, keine Bibliothek.
+          Rein visuell, er behauptet keine Marktphase.
+        -->
+        <section class="flug" id="flug">
+          <div class="flug-klebe">
+            <canvas id="flug-ring" aria-hidden="true"></canvas>
+            <div class="flug-text">
+              <p class="flug-hut" data-flug>Woraus das Marktbild entsteht</p>
+              <p class="flug-quelle" data-flug>On-Chain-Daten</p>
+              <p class="flug-quelle" data-flug>Makrodaten</p>
+              <p class="flug-quelle" data-flug>Marktzyklen</p>
+              <p class="flug-schluss" data-flug>Drei Quellen, ein Bild.</p>
+            </div>
+          </div>
+        </section>
+
         <section class="auftritt" id="zielgruppe">
           <h2>Für wen das gemacht ist</h2>
 
@@ -270,7 +315,7 @@
               </div>
             </div>
 
-            <div>
+            <div class="zielgruppe-spalte">
               <p>
                 Market Playbook betreut über 200 Investoren im deutschsprachigen
                 Raum (Stand: August 2026). Die Mitglieder sind Angestellte und
@@ -279,50 +324,86 @@
                 positionieren. Die meisten haben es vorher mit Influencern,
                 Signal-Gruppen oder eigener Recherche versucht.
               </p>
+
+              <!-- Der Wochenablauf stand vorher als eigener Abschnitt darunter.
+                   Neben den Bildern fuellt er die Spalte, die sonst nach dem
+                   Absatz leer blieb - und die beiden gehoeren inhaltlich
+                   zusammen: fuer wen, und wie es fuer die laeuft. -->
+              <div class="ablauf-neben" id="ablauf">
+              <h3>So läuft deine Woche</h3>
+              <p>
+                Im Hintergrund laufen tägliche Makro-Analysen und
+                On-Chain-Auswertungen. Als Mitglied musst du das nicht verstehen. Du
+                kannst Claudios Positionen spiegeln oder die Signale für deinen
+                eigenen Ansatz nutzen.
+              </p>
+
+              <ol class="zeitleiste" id="zeitleiste">
+                <span class="strich" aria-hidden="true"></span>
+                <li>
+                  <span class="punkt"></span>
+                  <span class="takt">Täglich</span>
+                  <h3>Signale prüfen</h3>
+                  <p>Update öffnen, Positionierung prüfen. Dauert fünf Minuten.</p>
+                </li>
+                <li>
+                  <span class="punkt"></span>
+                  <span class="takt">Wöchentlich</span>
+                  <h3>Vollständige Analyse</h3>
+                  <p>
+                    Makro-Analyse von Claudio: Marktlage, Signale,
+                    Portfolio-Bewegungen.
+                  </p>
+                </li>
+                <li>
+                  <span class="punkt"></span>
+                  <span class="takt">Laufend</span>
+                  <h3>Strategie folgen</h3>
+                  <p>
+                    Positionen spiegeln oder eigene Entscheidungen auf Basis der
+                    Signale treffen.
+                  </p>
+                </li>
+              </ol>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- ---------------- Ablauf ---------------- -->
-        <section class="auftritt" id="ablauf">
-          <h2>So läuft deine Woche</h2>
-          <p>
-            Im Hintergrund laufen tägliche Makro-Analysen und
-            On-Chain-Auswertungen. Als Mitglied musst du das nicht verstehen. Du
-            kannst Claudios Positionen spiegeln oder die Signale für deinen
-            eigenen Ansatz nutzen.
-          </p>
-
-          <ol class="zeitleiste" id="zeitleiste">
-            <span class="strich" aria-hidden="true"></span>
-            <li>
-              <span class="punkt"></span>
-              <span class="takt">Täglich</span>
-              <h3>Signale prüfen</h3>
-              <p>Update öffnen, Positionierung prüfen. Dauert fünf Minuten.</p>
-            </li>
-            <li>
-              <span class="punkt"></span>
-              <span class="takt">Wöchentlich</span>
-              <h3>Vollständige Analyse</h3>
-              <p>
-                Makro-Analyse von Claudio: Marktlage, Signale,
-                Portfolio-Bewegungen.
-              </p>
-            </li>
-            <li>
-              <span class="punkt"></span>
-              <span class="takt">Laufend</span>
-              <h3>Strategie folgen</h3>
-              <p>
-                Positionen spiegeln oder eigene Entscheidungen auf Basis der
-                Signale treffen.
-              </p>
-            </li>
-          </ol>
+        <!-- ---------------- Einzelwerte ---------------- -->
+        <!--
+          Coin. Zweiter Scroll-Moment nach dem Ringflug: die Muenze dreht
+          sich mit der Scrollposition, der Nutzer steuert also selbst.
+          Vier Kerben wie die vier Marktphasen. Gezeichnet in coin.js -
+          echte 3D-Geometrie, pro Flaeche beleuchtet, keine Bibliothek.
+        -->
+        <section class="coin-szene" id="coin-szene">
+          <div class="coin-klebe">
+            <canvas id="coin-canvas" aria-hidden="true"></canvas>
+            <div class="coin-text">
+              <p class="coin-hut" data-zeile>Drei Makro-Entscheidungen 2025</p>
+              <div class="coin-zahl" data-zeile>
+                <p class="wert">3/3</p>
+                <span class="label">Crashes vorhergesagt
+                  <span class="stichtag">Nach eigenen Angaben, 2025</span>
+                </span>
+              </div>
+              <div class="coin-zahl" data-zeile>
+                <p class="wert">−50 %</p>
+                <span class="label">Rückgang, während wir cash waren
+                  <span class="stichtag">Exit Oktober 2025</span>
+                </span>
+              </div>
+              <div class="coin-zahl" data-zeile>
+                <p class="wert">+54 %</p>
+                <span class="label">vom Reentry bis zum Höchststand
+                  <span class="stichtag">April bis Oktober 2025</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <!-- ---------------- Einzelwerte ---------------- -->
         <section class="auftritt" id="gems">
           <h2>Wonach wir bei einzelnen Werten suchen</h2>
           <ul class="punkte">
@@ -384,6 +465,33 @@
           </div>
         </section>
 
+        <!-- ---------------- Sieb ---------------- -->
+        <!--
+          Zweiter Scroll-Moment nach dem Coin: das Punktfeld duennt sich
+          beim Runterscrollen aus, sechs Punkte bleiben stehen und ordnen
+          sich in eine Reihe. Die Sechs sind kein Schmuck, sie stehen fuer
+          die sechs Signale 2026 aus dem Abschnitt darueber.
+          Gezeichnet in stationen.js, eigene Perspektive, keine Bibliothek.
+        -->
+        <section class="sieb" id="sieb">
+          <div class="sieb-klebe">
+            <canvas id="sieb-canvas" aria-hidden="true"></canvas>
+            <div class="sieb-text sieb-vorher" data-sieb-vorher>
+              <p class="sieb-gross">Der ganze Markt, gemessen an vier Kriterien.</p>
+              <p class="sieb-klein">Marktkapitalisierung · Tokenomics · Marktumfeld · Zeitpunkt</p>
+            </div>
+            <div class="sieb-text sieb-nachher" data-sieb-nachher>
+              <p class="sieb-gross">Übrig blieben <em>sechs Signale</em> in 2026.</p>
+              <div class="sieb-zahlen">
+                <div><p class="wert">+253 %</p><span class="label">im Schnitt</span></div>
+                <div><p class="wert">+468 %</p><span class="label">bestes Signal</span></div>
+                <div><p class="wert">0</p><span class="label">Totalausfälle</span></div>
+              </div>
+              <p class="sieb-stichtag">Stand: August 2026</p>
+            </div>
+          </div>
+        </section>
+
         <!-- ---------------- Einordnung ---------------- -->
         <section class="auftritt" id="einordnung">
           <h2>Was wir nicht sind</h2>
@@ -419,6 +527,24 @@
           </div>
         </section>
 
+        <!-- ---------------- Satz ---------------- -->
+        <!--
+          Gegengewicht zu den Canvas-Stationen: hier bewegt sich nur Schrift.
+          Der Satz baut sich Wort fuer Wort mit der Scrollstrecke auf.
+        -->
+        <section class="satz" id="satz-entscheidung">
+          <div class="satz-klebe">
+            <div class="satz-block">
+              <span class="satz-marke" aria-hidden="true"><i></i>Was für dich bleibt</span>
+              <p class="satz-zeile" data-satz>
+                Im Hintergrund laufen die Analysen.<br />
+                Im Vordergrund bleibt <em>eine Entscheidung</em>.
+              </p>
+              <span class="satz-strich" aria-hidden="true"></span>
+            </div>
+          </div>
+        </section>
+
         <!-- ---------------- Abschluss ---------------- -->
         <section class="auftritt" data-ohne-nummer>
           <h2>Fang mit dem kostenlosen Videokurs an</h2>
@@ -434,7 +560,7 @@
 
       <footer class="fuss">
         <div class="zeile">
-          <span class="marke">Market Playbook</span>
+          <span class="marke"><svg class="zeichen" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g transform="translate(0 0.95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="#fff" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#B3C5FF" stroke="#B3C5FF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span>Market Playbook</span></span>
           <nav>
             <a href="/kosten">Preise</a>
             <a href="/ist-market-playbook-serioes">Nachprüfbare Angaben</a>
@@ -464,9 +590,11 @@
       </footer>
     </div>
 
-    <script src="/neu/haus.js" defer></script>
-    <script src="/neu/startseite.js" defer></script>
-    <script src="/neu/hero-chart.js" defer></script>
-    <script src="/neu/bewegung.js" defer></script>
+    <script src="/neu/haus.js?v=1787912657" defer></script>
+    <script src="/neu/startseite.js?v=1787912657" defer></script>
+    <script src="/neu/hero-chart.js?v=1787919216" defer></script>
+    <script src="/neu/stationen.js?v=1787913293" defer></script>
+    <script src="/neu/coin.js?v=1787919610" defer></script>
+    <script src="/neu/bewegung.js?v=1787912657" defer></script>
   </body>
 </html>

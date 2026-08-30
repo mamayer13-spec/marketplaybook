@@ -11,10 +11,12 @@
   padding-top: 24px;
 }
 @media (min-width: 900px) {
-  .hero { grid-template-columns: 1.35fr 1fr; gap: 56px; padding-top: 48px; min-height: 600px; }
+  .hero { grid-template-columns: 1.1fr 1fr; gap: 44px; padding-top: 48px; min-height: 600px; }
 }
 @media (min-width: 1200px) {
-  .hero { grid-template-columns: 1.3fr 1fr; gap: 72px; min-height: 660px; }
+  /* Die Grafik hat mehr Gewicht bekommen: sie ist der Einstieg, und in der
+     schmalen Spalte war sie kaum zu erkennen. */
+  .hero { grid-template-columns: 1fr 1.02fr; gap: 56px; min-height: 680px; }
 }
 /* Ohne den Eyebrow darueber traegt die Ueberschrift den Einstieg allein -
    deshalb eine Stufe groesser. Nur im Hero, die globale h1-Regel in
@@ -395,6 +397,467 @@ ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
 .hero-grafik #hero-chart.grafik-auftritt.da { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
+  .flug { height: 100vh; }
+  .flug-text { opacity: 1; }
   .hero-grafik #hero-chart.grafik-auftritt { opacity: 1 !important; transform: none !important; }
   .hero-text h1 em.akzent-spaet { color: var(--akzent) !important; }
 }
+
+/* ============================================================
+   Ringflug
+   Der Abschnitt ist hoeher als das Fenster; die Leinwand klebt darin
+   fest. Dadurch wird die Scrollstrecke zur Zeitachse des Durchflugs.
+   ============================================================ */
+.flug { position: relative; height: 220vh; }
+.flug-klebe {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.flug-klebe canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.flug-text {
+  position: relative;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.3rem, 2.4vw, 2.1rem);
+  font-weight: 200;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 719px) { .flug { height: 180vh; } }
+
+/* ============================================================
+   Coin-Szene
+   Wie der Ringflug: der Abschnitt ist hoeher als das Fenster, die
+   Leinwand klebt darin, die Scrollstrecke wird zur Drehachse.
+   ============================================================ */
+.coin-szene { position: relative; height: 170vh; }
+.coin-klebe {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.coin-klebe canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (max-width: 719px) { .coin-szene { height: 140vh; } }
+@media (prefers-reduced-motion: reduce) { .coin-szene { height: 100vh; } }
+
+/* ============================================================
+   Sieb
+   Wie Ringflug und Coin: der Abschnitt ist hoeher als das Fenster,
+   die Leinwand klebt darin. Die beiden Texte werden von stationen.js
+   ueberblendet, deshalb steht hier nur der Ruhezustand.
+   ============================================================ */
+/* Der negative Rand zieht die klebende Leinwand in den Abschnitt davor
+   hinein: das Sternenfeld ist schon sichtbar, bevor der Abschnitt oben
+   anliegt. Ohne das wirkt die Seite beim Runterscrollen kurz zu Ende.
+   Die Hoehe waechst um denselben Betrag, damit die Scrollstrecke der
+   Animation gleich lang bleibt. */
+.sieb { position: relative; height: 235vh; margin-top: -35vh; }
+.sieb-klebe {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.sieb-klebe canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.sieb-text {
+  /* Mittig im Bild, nicht am unteren Rand: der Satz gehoert in das Feld
+     hinein, nicht darunter. Die Reihe der sechs Punkte sitzt darueber. */
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.sieb-text p { max-width: none; margin: 0; }
+.sieb-gross {
+  font-size: clamp(1.15rem, 2.1vw, 1.8rem);
+  font-weight: 200;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+.sieb-gross em { font-style: normal; color: var(--akzent); }
+.sieb-klein {
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--leise);
+}
+.sieb-klein .stichtag {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+@media (max-width: 719px) { .sieb { height: 205vh; } }
+
+/* ============================================================
+   Satz
+   Kein Canvas - nur Schrift, die sich Wort fuer Wort mit der
+   Scrollstrecke aufbaut. Ohne Skript stehen alle Woerter da.
+   ============================================================ */
+.satz { position: relative; height: 150vh; }
+.satz-klebe {
+  position: sticky; top: 0;
+  height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 24px;
+}
+.satz-zeile {
+  margin: 0;
+  max-width: 20ch;
+  text-align: center;
+  font-size: clamp(1.7rem, 4.4vw, 3.2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1.28;
+  color: var(--text);
+}
+.satz-zeile em { font-style: normal; color: var(--akzent); }
+.satz-wort { display: inline-block; will-change: opacity, transform; }
+@media (max-width: 719px) { .satz { height: 130vh; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sieb { height: 100vh; }
+  .satz { height: auto; }
+  .satz-klebe { position: static; height: auto; padding: 80px 24px; }
+  .sieb-vorher { opacity: 0 !important; }
+  .sieb-nachher { opacity: 1 !important; }
+}
+
+/* ---------- Kennzahlen neben dem Coin ----------
+   Die Leinwand liegt ueber der ganzen Flaeche, der Coin wird darin nach
+   links gezeichnet (siehe coin.js). Der Text sitzt in der rechten Haelfte;
+   die Zeilen blendet coin.js gestaffelt ein. */
+.coin-text {
+  position: relative;
+  margin-left: auto;
+  width: min(420px, 46%);
+  padding-right: 6vw;
+}
+.coin-hut {
+  margin: 0 0 26px;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  opacity: 0;
+}
+.coin-zahl { margin-bottom: 26px; opacity: 0; }
+.coin-zahl:last-child { margin-bottom: 0; }
+.coin-zahl .wert {
+  margin: 0 0 4px;
+  font-size: clamp(1.9rem, 3.1vw, 2.7rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text);
+}
+.coin-zahl .label { display: block; font-size: 13px; color: var(--leise); line-height: 1.45; }
+.coin-zahl .stichtag { display: block; font-size: 11px; color: var(--leise); opacity: 0.65; margin-top: 3px; }
+@media (max-width: 899px) {
+  .coin-klebe { align-items: flex-end; }
+  .coin-text { width: 100%; margin: 0; padding: 0 24px 9vh; text-align: center; }
+  .coin-zahl { margin-bottom: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coin-hut, .coin-zahl { opacity: 1 !important; }
+}
+
+/* ============================================================
+   Listen als Karten
+   Vier untereinander gesetzte Zeilen mit Haarlinie dazwischen lesen sich
+   wie ein Inhaltsverzeichnis. Als Raster aus Karten bekommt jeder Punkt
+   ein eigenes Gewicht - und die Nummer wird zum stillen Wasserzeichen
+   statt zu einem Etikett am Rand.
+   Gilt nur auf der Startseite; haus.css bleibt fuer alle anderen Seiten
+   unveraendert.
+   ============================================================ */
+.auftritt ul.punkte,
+.auftritt ol.nummern {
+  display: grid;
+  gap: 14px;
+  margin-top: 34px;
+}
+@media (min-width: 820px) {
+  .auftritt ul.punkte { grid-template-columns: 1fr 1fr; }
+  .auftritt ol.nummern { grid-template-columns: repeat(3, 1fr); }
+}
+.auftritt ul.punkte li,
+.auftritt ol.nummern li,
+.auftritt .feld {
+  position: relative;
+  display: block;
+  padding: 28px 26px 30px;
+  border: 1px solid var(--linie-fein);
+  border-radius: 16px;
+  background:
+    linear-gradient(158deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 58%);
+  color: var(--muted);
+  overflow: hidden;
+  transition: border-color 320ms var(--weich), background 320ms var(--weich),
+    transform 620ms var(--weich), opacity 620ms var(--weich);
+}
+.auftritt .feld { border-top: 1px solid var(--linie-fein); padding-top: 28px; }
+
+/* Der Schein wandert beim Hover mit - dieselbe Idee wie bei den
+   Kartenraendern auf der Referenzseite, nur leiser. */
+.auftritt ul.punkte li::after,
+.auftritt ol.nummern li::after,
+.auftritt .feld::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms var(--weich);
+  background:
+    radial-gradient(420px 220px at 18% 0%, rgba(179, 197, 255, 0.16), transparent 70%);
+}
+.auftritt ul.punkte li:hover,
+.auftritt ol.nummern li:hover,
+.auftritt .feld:hover { border-color: rgba(179, 197, 255, 0.32); color: var(--text); }
+.auftritt ul.punkte li:hover::after,
+.auftritt ol.nummern li:hover::after,
+.auftritt .feld:hover::after { opacity: 1; }
+
+/* Nummer als Wasserzeichen oben rechts statt als Spalte links. */
+.auftritt ul.punkte .n,
+.auftritt ol.nummern .n {
+  position: absolute;
+  top: 14px; right: 20px;
+  font-size: 2.6rem;
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(240, 242, 246, 0.09);
+  padding: 0;
+  transition: color 320ms var(--weich);
+}
+.auftritt ul.punkte li:hover .n,
+.auftritt ol.nummern li:hover .n { color: rgba(179, 197, 255, 0.26); letter-spacing: -0.04em; }
+.auftritt ul.punkte li h3,
+.auftritt ol.nummern li h3 { margin: 0 3.2rem 8px 0; }
+.auftritt ul.punkte li p,
+.auftritt ol.nummern li p { margin: 0; }
+
+/* Gestaffelter Auftritt beim Scrollen (Klasse kommt aus stationen.js). */
+.auftritt ul.punkte li,
+.auftritt ol.nummern li,
+.auftritt .feld { opacity: 0; transform: translateY(22px); }
+.auftritt ul.punkte li.da,
+.auftritt ol.nummern li.da,
+.auftritt .feld.da { opacity: 1; transform: none; }
+
+/* ---------- Zeitleiste quer ----------
+   Ein Ablauf ueber drei Takte ist eine Strecke, keine Aufzaehlung.
+   Auf dem Handy bleibt sie senkrecht, dort gibt es die Breite nicht. */
+@media (min-width: 820px) {
+  .zeitleiste {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 44px 0 0;
+    margin-top: 44px;
+  }
+  .zeitleiste .strich {
+    left: 0; right: 0; top: 4px;
+    bottom: auto;
+    width: auto; height: 1px;
+  }
+  .zeitleiste .strich::after {
+    width: calc(var(--fortschritt, 0) * 100%);
+    height: 100%;
+    transition: width 140ms linear;
+  }
+  .zeitleiste li { padding: 0 22px 0 0; }
+  .zeitleiste .punkt { left: 0; top: -25px; }
+  .zeitleiste li.an .takt { color: var(--akzent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auftritt ul.punkte li,
+  .auftritt ol.nummern li,
+  .auftritt .feld { opacity: 1; transform: none; }
+}
+
+/* ---------- Ringflug: Beschriftung ----------
+   Der Ring hat drei leuchtende Punkte und war bis hierher unbeschriftet -
+   niemand konnte wissen, wofuer sie stehen. Es sind die drei Quellen, die
+   schon im Hero genannt werden. Die Zeilen erscheinen nacheinander,
+   waehrend die Kamera durch den Ring faehrt (bewegung.js). */
+.flug-text {
+  position: relative;
+  text-align: center;
+  pointer-events: none;
+  /* Frueher wurde der ganze Block ein- und ausgeblendet. Jetzt steuert
+     bewegung.js die einzelnen Zeilen, der Block selbst bleibt sichtbar. */
+  opacity: 1;
+}
+.flug-text p { max-width: none; margin: 0; }
+.flug-hut {
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--leise);
+  margin-bottom: 22px !important;
+  opacity: 0;
+}
+.flug-quelle {
+  font-size: clamp(1.25rem, 2.3vw, 2rem);
+  font-weight: 200;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0;
+}
+.flug-schluss {
+  margin-top: 22px !important;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--akzent);
+  opacity: 0;
+}
+
+/* ---------- Saetze: Geruest statt nacktem Schwarz ----------
+   Vorher scrollte man in eine leere Flaeche, in der Woerter aufpoppten.
+   Jetzt tragen eine Kapitelmarke oben und eine Linie unten den Satz -
+   beide wachsen mit der Scrollstrecke (--auf, gesetzt in stationen.js). */
+.satz-block { position: relative; text-align: center; }
+.satz-marke {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 34px;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--leise);
+  opacity: calc(var(--auf, 0) * 1);
+  transition: opacity 240ms linear;
+}
+.satz-marke i {
+  display: block;
+  width: 26px; height: 1px;
+  background: var(--akzent);
+  transform: scaleX(var(--auf, 0));
+  transform-origin: right center;
+  transition: transform 240ms linear;
+}
+.satz-strich {
+  display: block;
+  width: min(320px, 60%);
+  height: 1px;
+  margin: 40px auto 0;
+  background: linear-gradient(90deg, transparent, var(--linie-fein) 18%, var(--linie-fein) 82%, transparent);
+  position: relative;
+}
+.satz-strich::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0;
+  height: 100%;
+  width: calc(var(--auf, 0) * 100%);
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--akzent), transparent);
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flug-hut, .flug-quelle, .flug-schluss { opacity: 1; }
+  .satz-block { --auf: 1; }
+}
+
+/* Zahlen im Sieb gross setzen. Als Fliesstext in 12,5 px waren sie zwar
+   da, aber nicht lesbar - und es sind die Zahlen, um die es geht. */
+.sieb-zahlen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(28px, 5vw, 64px);
+  margin-top: 10px;
+}
+.sieb-zahlen .wert {
+  margin: 0 0 4px;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text);
+}
+.sieb-zahlen .label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leise);
+}
+.sieb-stichtag { font-size: 11px; color: var(--leise); opacity: 0.55; margin-top: 4px; }
+.sieb-vorher .sieb-klein { font-size: 13.5px; letter-spacing: 0.08em; }
+
+/* ---------- Wochenablauf neben den Bildern ----------
+   Der Ablauf war ein eigener Abschnitt unter der Zielgruppe. Rechts neben
+   den Fotos blieb dadurch unter dem Absatz eine leere Flaeche, waehrend
+   darunter ein fast leerer Abschnitt folgte. Jetzt fuellt der Ablauf diese
+   Spalte. In der schmalen Spalte laeuft die Zeitleiste wieder senkrecht -
+   die Querlage gilt nur, wo sie die Breite hat. */
+.ablauf-neben { margin-top: 42px; padding-top: 34px; border-top: 1px solid var(--linie-fein); }
+.ablauf-neben h3 { margin: 0 0 10px; font-size: 1.15rem; font-weight: 300; }
+.ablauf-neben > p { margin-bottom: 4px; }
+
+.ablauf-neben .zeitleiste {
+  display: block;
+  padding: 0 0 0 36px;
+  margin-top: 30px;
+}
+.ablauf-neben .zeitleiste .strich {
+  left: 8px; right: auto; top: 8px; bottom: 8px;
+  width: 1px; height: auto;
+}
+.ablauf-neben .zeitleiste .strich::after {
+  width: 100%;
+  height: calc(var(--fortschritt, 0) * 100%);
+  transition: height 140ms linear;
+}
+.ablauf-neben .zeitleiste li { padding: 0 0 30px; }
+.ablauf-neben .zeitleiste li:last-child { padding-bottom: 0; }
+.ablauf-neben .zeitleiste .punkt { left: -32px; top: 6px; }
+.ablauf-neben .zeitleiste li.an .takt { color: var(--akzent); }
+
+/* Bildzeile unter dem Hero-Chart. Erklaert, was zu sehen ist, statt eine
+   Aussage ueber die Linien zu behaupten - und sagt dazu, dass es kein
+   echter Kursverlauf ist. Die anderen Diagramme auf der Seite haben so
+   einen Hinweis, der Hero hatte ihn bisher nicht. */
+.hero-bildzeile {
+  /* Die Leinwand liegt absolut im Container (aspect-ratio-Kasten), der
+     Absatz wuerde sonst darueber stehen statt darunter. */
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  margin: 14px 0 0;
+  max-width: none;
+  text-align: right;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.hero-bildzeile span { display: block; font-size: 11px; color: var(--leise); opacity: 0.7; margin-top: 3px; }
+@media (max-width: 899px) { .hero-bildzeile { text-align: left; } }
+
+/* ---------- Zeichen in der Wortmarke ----------
+   Das Buch-Zeichen aus logo/buch/ - dieselbe Geometrie wie im Cockpit.
+   Inline im Quelltext statt als <img>, damit die beiden Farbtoene stehen
+   bleiben; ueber <img src> gaebe es keine geerbte Textfarbe. */
+.marke { display: inline-flex; align-items: center; gap: 10px; }
+.marke .zeichen { width: 22px; height: 22px; display: block; flex: none; }
+.fuss .marke .zeichen { width: 20px; height: 20px; }
+@media (max-width: 639px) { .marke .zeichen { width: 19px; height: 19px; } }

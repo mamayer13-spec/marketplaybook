@@ -274,11 +274,21 @@
       var viewer = document.createElement("spline-viewer");
       viewer.setAttribute("url", url);
       viewer.setAttribute("loading-anim-type", "none");
+      // Nicht auf das load-Ereignis allein verlassen: die Erkennung stammt
+      // aus Viewer 1.9.28, wir laden 2.0.9. Feuert es dort nicht mehr unter
+      // diesem Namen, flog die Szene raus, obwohl sie laeuft. Deshalb wird
+      // zusaetzlich geprueft, ob der Viewer wirklich ein Canvas gerendert hat.
       viewer.addEventListener("load", function () { box.classList.add("spline-da"); });
-      // Sicherheitsnetz: kommt nach 8 s kein load-Ereignis, bleibt der Ring.
-      setTimeout(function () {
-        if (!box.classList.contains("spline-da")) viewer.remove();
-      }, 8000);
+      var versuche = 0;
+      var puls = setInterval(function () {
+        versuche++;
+        var gemalt = viewer.shadowRoot && viewer.shadowRoot.querySelector("canvas");
+        if (gemalt) { box.classList.add("spline-da"); clearInterval(puls); return; }
+        if (versuche > 40) {                 // 40 x 300 ms = 12 s
+          clearInterval(puls);
+          if (!box.classList.contains("spline-da")) viewer.remove();
+        }
+      }, 300);
       box.appendChild(viewer);
     }
 
@@ -545,8 +555,10 @@
       var ziel = innerHeight * 0.62;
       var f = Math.max(0, Math.min(1, (ziel - r.top) / r.height));
       strich.style.setProperty("--fortschritt", f.toFixed(3));
-      [].forEach.call(punkte, function (li) {
-        li.classList.toggle("an", li.getBoundingClientRect().top + 10 < ziel);
+      // Nach Fortschritt schalten, nicht nach Y-Position: quer liegen alle
+      // drei auf derselben Hoehe und wuerden gleichzeitig aufleuchten.
+      [].forEach.call(punkte, function (li, i) {
+        li.classList.toggle("an", f > (i + 0.15) / punkte.length);
       });
     }
     addEventListener("scroll", function () { if (!laeuft) { laeuft = true; requestAnimationFrame(stellen); } }, { passive: true });

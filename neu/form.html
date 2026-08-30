@@ -9,6 +9,7 @@
       content="Kostenloser Videokurs in 10 Lektionen: wie du aus Informationen einen Plan baust, an den du dich in jeder Marktlage hältst. Kein Vorwissen nötig."
     />
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon-tab.png" />
 
     <!-- Cookie-Weiche und Google Analytics, wie auf allen anderen Seiten. -->
@@ -71,7 +72,12 @@
       /* Rand bewusst grosszuegiger als 24 px: Video und Knopf sind
          gefuellte Bloecke und laufen genau auf die Textkante — bei
          engem Rand kleben sie optisch am Bildschirmrand. */
-      .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px 96px; position: relative; z-index: 1; }
+      /* Die Spalte war mit 760 px so schmal, dass auf einem normalen
+         Bildschirm links und rechts mehr Schwarz stand als Inhalt.
+         Jetzt traegt sie den Bildschirm - Fliesstext bekommt dafuer
+         weiter unten eine eigene Lesebreite, sonst werden die Zeilen
+         zu lang zum Lesen. */
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px 96px; position: relative; z-index: 1; }
       @media (min-width: 640px) { .wrap { padding: 0 40px 96px; } }
 
       /* ---------- Etiketten: 9,5 px, gesperrt, Versalien ---------- */
@@ -88,10 +94,13 @@
       .eyebrow { margin: 0 0 16px; }
       h1 {
         font-weight: 200;
-        font-size: clamp(1.4rem, 5.1vw, 2.4rem);
-        line-height: 1.16;
+        /* Groesser, weil die Spalte jetzt breiter ist - in der alten
+           Groesse waere die Ueberschrift darin verloren. */
+        font-size: clamp(1.4rem, 4.4vw, 3.2rem);
+        line-height: 1.14;
         letter-spacing: -0.035em;
-        margin: 0 0 16px;
+        margin: 0 0 18px;
+        max-width: 22ch;
       }
       h1 em { font-style: normal; color: var(--akzent); }
       .unterzeile {
@@ -108,18 +117,23 @@
       .marker {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin: 16px 0 0;
+        justify-content: center;
+        gap: 12px;
+        /* Mittig ueber dem Video, nicht an der linken Textkante: sie
+           gehoeren zum Video, nicht zum Absatz darueber. */
+        width: var(--medien);
+        max-width: 900px;
+        margin: 26px 0 0;
         padding: 0;
         list-style: none;
       }
       .marker li {
         border: 1px solid var(--linie);
-        border-radius: 2px;
-        padding: 6px 12px;
-        font-size: 11px;
-        letter-spacing: 0.02em;
-        color: var(--muted);
+        border-radius: 999px;
+        padding: 10px 20px;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        color: var(--text);
       }
 
       /* ---------- Kennzahlenreihe (Haarlinien, keine Kaesten) ---------- */
@@ -143,17 +157,24 @@
       /* ---------- Video ---------- */
       .video-einordnung {
         width: var(--medien);
-        margin: 20px auto 10px;
+        max-width: 900px;
+        margin: 30px 0 14px;
+        text-align: center;
         color: var(--muted);
-        font-size: 13px;
+        font-size: 16px;
         line-height: 1.5;
       }
       .video-einordnung b { font-weight: 500; color: var(--text); }
-      /* Video und Knopf laufen bewusst NICHT auf die volle Textbreite:
-         als gefuellte Bloecke wirken sie sonst, als sprengten sie die
-         Spalte. Beide teilen sich dieselbe Breite, damit sie fluchten. */
-      :root { --medien: min(92%, 330px); }
-      @media (min-width: 640px) { :root { --medien: min(82%, 500px); } }
+
+      /* Lesebreite: die Spalte traegt Video und Knopf ueber die ganze
+         Breite, laufender Text soll aber nicht ueber 70 Zeichen gehen. */
+      .cta .hinweis, .cta .klein,
+      .auftritt > p, .lektionen li, .faq p { max-width: 68ch; }
+      /* Video und Knopf laufen auf die volle Textbreite und fluchten
+         links mit Ueberschrift, Eyebrow und allen Abschnitten darunter.
+         Vorher waren sie schmaler und zentriert - dadurch hatte die Seite
+         zwei Achsen gleichzeitig und wirkte unentschieden. */
+      :root { --medien: 100%; }
 
       .rahmen {
         border: 1px solid var(--linie);
@@ -162,21 +183,25 @@
       }
       .cta .rahmen, .video-block {
         width: var(--medien);
-        margin-left: auto;
-        margin-right: auto;
+        /* Ueber 900 px wird ein 16:9-Video hoeher als der Bildschirm und
+           man sieht Ueberschrift und Knopf nicht mehr gleichzeitig. */
+        max-width: 900px;
+        margin-left: 0;
+        margin-right: 0;
       }
 
       /* ---------- Der einzige gefuellte Block der Seite ---------- */
       .cta { margin: 16px 0 0; }
       .cta .hinweis {
         width: var(--medien);
-        margin: 0 auto 10px;
+        max-width: 900px;
+        margin: 0 0 14px;
         font-size: 14px;
         color: var(--text);
       }
       .cta .klein {
         width: var(--medien);
-        margin: 12px auto 0;
+        margin: 12px 0 0;
         font-size: 11px;
         color: var(--leise);
         letter-spacing: 0.02em;
@@ -184,7 +209,7 @@
       /* Typeform rendert einen echten <button> in den Block hinein — kein
          iframe. Deshalb laesst er sich hier ueberschreiben. !important,
          weil Typeform seine Farben als Inline-Style setzt. */
-      .tf-block { width: var(--medien); margin: 0 auto; position: relative; }
+      .tf-block { width: var(--medien); max-width: 900px; margin: 0; position: relative; }
       /* Echo: zwei Ringe laufen aus dem Knopf heraus und verlaufen.
          Sie liegen hinter ihm, damit der Text nicht flimmert. */
       .tf-block::before, .tf-block::after {
@@ -353,36 +378,6 @@
          aenderung neu gerechnet. */
       .leit { position: relative; }
       .leit > * { position: relative; z-index: 1; }
-      .leit > svg.fuehrung {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: visible;
-      }
-      .leit > svg.fuehrung path {
-        fill: none;
-        stroke: var(--text);
-        stroke-width: 1;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        opacity: 0.4;
-      }
-      /* Der Laeufer liegt heller ueber der Bahn. Die Bewegung selbst
-         macht das Skript ueber die Web Animations API: eine erste
-         Fassung ueber CSS-Variablen (--len aus der Pfadlaenge) lief
-         nicht los, weil die Animation schon startete, bevor die
-         Variable am Element stand. */
-      .leit > svg.fuehrung path.spitze {
-        opacity: 0;
-        stroke-width: 1.2;
-        stroke: var(--text);
-        fill: none;
-      }
-
-
-      @media (max-width: 339px) { .leit > svg.fuehrung { display: none; } }
 
       /* ---------- Raster im Kopfbereich ----------
          Die Bildsprache der Vorlagen lebt von haarfeinen Netzen auf
@@ -541,7 +536,13 @@
         justify-content: space-between;
         align-items: center;
       }
-      footer .marke { font-size: 13px; font-weight: 400; }
+      footer .marke {
+        font-size: 13px; font-weight: 400;
+        display: inline-flex; align-items: center; gap: 9px;
+      }
+      /* Das Buch-Zeichen inline, nicht als <img>: ueber ein eingebundenes
+         Bild gaebe es keine geerbte Textfarbe und die zwei Toene waeren weg. */
+      footer .marke .zeichen { width: 19px; height: 19px; display: block; flex: none; }
       footer .links { display: flex; flex-wrap: wrap; gap: 20px; }
       footer .links a {
         color: var(--leise);
@@ -584,7 +585,6 @@
         Audit: 02-audits/funnel/2026-08-24-form-seite-trichter.md
       -->
       <div class="leit">
-        <svg class="fuehrung" aria-hidden="true" focusable="false"></svg>
       <p class="video-einordnung">
         Kurze Einführung von Claudio. <b>Die 10 Kursvideos bekommst du
         unter dem Video.</b>
@@ -644,10 +644,10 @@
       <section class="auftritt">
         <h2>Was Teilnehmer schreiben</h2>
         <div class="stimmen">
-          <img src="testimonial1.png" alt="Nachricht eines Teilnehmers" />
-          <img src="testimonial2.png" alt="Nachricht eines Teilnehmers" />
-          <img src="testimonial3.png" alt="Nachricht eines Teilnehmers" />
-          <img src="testimonial4.PNG" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial1.png" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial2.png" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial3.png" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial4.PNG" alt="Nachricht eines Teilnehmers" />
         </div>
       </section>
 
@@ -774,7 +774,7 @@
       </section>
 
       <footer>
-        <span class="marke">Market Playbook</span>
+        <span class="marke"><svg class="zeichen" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g transform="translate(0 0.95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="#fff" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#B3C5FF" stroke="#B3C5FF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span>Market Playbook</span></span>
         <div class="links">
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
@@ -790,118 +790,6 @@
     </div>
 
     <script>
-      /* Die Fuehrungslinien: Start unter der Zeile ueber dem Video,
-         Lauf an ihm vorbei, Bogen nach innen, Spitze auf die Mitte des
-         Knopfes. Wird bei jeder Groessenaenderung neu gerechnet, damit
-         der Strich ueberall gleich duenn bleibt. */
-      (function () {
-        var svg = document.querySelector('svg.fuehrung');
-        var leit = document.querySelector('.leit');
-        var video = document.querySelector('.video-block');
-        if (!svg || !leit || !video) return;
-
-        function zeichnen() {
-          var rL = leit.getBoundingClientRect();
-          var rV = video.getBoundingClientRect();
-          var knopf = document.querySelector('.tf-block button') || document.querySelector('.tf-block');
-          var rK = knopf.getBoundingClientRect();
-          if (!rL.width || !rV.width) return;
-
-          var breite = rL.width, hoehe = rL.height;
-          if (innerWidth < 340) { svg.innerHTML = ''; return; }
-
-          /* Die Bahnen duerfen in den Seitenrand der Seite laufen (das SVG
-             darf ueberstehen), aber nie naeher als 6 px an die Fensterkante.
-             Deshalb wird in Fensterkoordinaten gerechnet und erst am Ende
-             in Koordinaten des Blocks umgesetzt. */
-          var abstand = 12;                                  // Luft zum Video
-          var linksFenster = Math.max(6, rV.left - abstand);
-          var rechtsFenster = Math.min(innerWidth - 6, rV.right + abstand);
-          var xL = linksFenster - rL.left;
-          var xR = rechtsFenster - rL.left;
-          if (rV.left - linksFenster < 8) { svg.innerHTML = ''; return; }
-
-          var yStart = rV.top - rL.top - 10;                 // knapp ueber dem Video
-          var yEnde = rK.top - rL.top - 9;                   // knapp ueber dem Knopf
-          var neigung = 12;                                  // wie weit die Bahn zum Knopf einschwenkt
-          var fluegel = 7;
-
-          /* Die Bahn ist nur noch die Linie. Die Spitze ist ein eigenes
-             Element, das beim Einlauf an ihrem vorderen Ende mitwandert —
-             als Teil desselben Pfades konnte sie nur am Schluss
-             auftauchen, statt die Linie anzufuehren. */
-          function bahn(x, richtung) {
-            var xEnde = x + richtung * neigung;
-            var yKnick = rV.bottom - rL.top + 6;             // erst unterhalb des Videos einschwenken
-            var cx = x, cy = yKnick + (yEnde - yKnick) * 0.62;
-            return 'M ' + x + ' ' + yStart +
-                   ' L ' + x + ' ' + yKnick +
-                   ' Q ' + cx + ' ' + cy + ' ' + xEnde + ' ' + yEnde;
-          }
-
-          var dL = bahn(xL, 1), dR = bahn(xR, -1);
-          /* Ohne diesen Vergleich startet die Einlauf-Animation bei jeder
-             DOM-Aenderung des Typeform-Blocks von vorn — die Linie liefe
-             endlos wieder an. */
-          var schluessel = breite + '|' + hoehe + '|' + dL + '|' + dR;
-          if (schluessel === svg.dataset.stand) return;
-          svg.dataset.stand = schluessel;
-          svg.setAttribute('viewBox', '0 0 ' + breite + ' ' + hoehe);
-          /* Der Pfeilkopf steht in eigenen Koordinaten und zeigt nach
-             rechts; gedreht wird er ueber die Tangente der Bahn. */
-          var kopf = 'M -7 -4.5 L 0 0 L -7 4.5';
-          svg.innerHTML =
-            '<path class="bahn" d="' + dL + '"/>' +
-            '<path class="bahn" d="' + dR + '"/>' +
-            '<path class="spitze" d="' + kopf + '"/>' +
-            '<path class="spitze" d="' + kopf + '"/>';
-          var ruhig = matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var bahnen = svg.querySelectorAll('path.bahn');
-          var spitzen = svg.querySelectorAll('path.spitze');
-
-          function stellen(pfad, spitze, anteil) {
-            var len = pfad.getTotalLength();
-            var l = Math.max(0.5, len * anteil);
-            pfad.style.strokeDasharray = len;
-            pfad.style.strokeDashoffset = len - l;
-            var punkt = pfad.getPointAtLength(l);
-            var vorher = pfad.getPointAtLength(Math.max(0, l - 1.5));
-            var winkel = Math.atan2(punkt.y - vorher.y, punkt.x - vorher.x) * 180 / Math.PI;
-            spitze.setAttribute('transform',
-              'translate(' + punkt.x + ',' + punkt.y + ') rotate(' + winkel + ')');
-            spitze.style.opacity = anteil > 0.02 ? 1 : 0;
-          }
-
-          for (var i = 0; i < bahnen.length; i++) stellen(bahnen[i], spitzen[i], ruhig ? 1 : 0);
-          if (ruhig) return;
-
-          /* Einlauf: Laenge 0 -> 100 %, die Spitze faehrt vorneweg. */
-          var dauer = 1400, warte = 300, start = null;
-          function schritt(zeit) {
-            if (start === null) start = zeit;
-            var t = (zeit - start - warte) / dauer;
-            if (t < 0) { requestAnimationFrame(schritt); return; }
-            if (t > 1) t = 1;
-            var weich = 1 - Math.pow(1 - t, 3);              // ease-out
-            for (var j = 0; j < bahnen.length; j++) stellen(bahnen[j], spitzen[j], weich);
-            if (t < 1) requestAnimationFrame(schritt);
-          }
-          requestAnimationFrame(schritt);
-        }
-
-        zeichnen();
-        addEventListener('resize', zeichnen, { passive: true });
-        addEventListener('load', zeichnen);
-        /* Der Typeform-Knopf kommt nachtraeglich in den Block; ohne ihn
-           zeigt die Spitze auf den leeren Platzhalter. */
-        var block = document.querySelector('.tf-block');
-        var beobachter = new MutationObserver(function () {
-          zeichnen();
-          if (block.querySelector('button')) beobachter.disconnect();
-        });
-        beobachter.observe(block, { childList: true, subtree: true });
-      })();
-
       /* Lesefortschritt als Haarlinie oben. */
       (function () {
         var linie = document.getElementById('fortschritt');

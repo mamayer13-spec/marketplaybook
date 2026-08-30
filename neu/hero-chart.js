@@ -173,10 +173,10 @@
   const XMIN = -0.6121, XMAX = 0.1627, YMIN = -0.2042, YMAX = 0.2808;
   // Wie stark das Band sein quadratisches Feld ausfuellt. Ueber 1 laeuft die
   // Ferne links aus dem Bild - dort ist sie ohnehin winzig und ausgeblendet.
-  const FUELLE = 1.25;
+  const FUELLE = 1.42;   // wie stark das Band den Platz fuellt
   // Nach links geschoben, damit der Entstehungspunkt nicht am Rand klebt.
   // Zusammen ergibt das: Spitze bei rund 88 % der Feldbreite.
-  const VERSATZ = -0.33;
+  const VERSATZ = -0.30;
   
   let w = 0, h = 0, SK = 0, ox = 0, oy = 0;
   const passe = () => {
@@ -233,6 +233,12 @@
           }
       }
   
+      // Keine Beschriftung im Bild. "Ohne/mit Strategie" war eine
+      // Behauptung, die das Bild nicht halten konnte: die Buendelung laeuft
+      // periodisch durch, also stimmte die Zuordnung immer nur zeitweise.
+      // Was die Grafik zeigt, steht jetzt als ruhige Zeile darunter im HTML -
+      // echte Schrift statt Canvas-Text.
+
       // Der Entstehungspunkt selbst.
       for (let i = 0; i < LINIEN.length; i++) {
           const L = LINIEN[i];
