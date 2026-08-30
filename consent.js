@@ -1,3 +1,10 @@
+/* Cookie-Banner und Analytics-Freigabe, gemeinsam fuer alle Seiten.
+
+   Seit 30.8.2026 in den Farben und der Schrift des aktuellen Designsystems
+   (brain/06-knowledge/licht-auf-dunklem-grund.md) - Haarlinie statt
+   blauer Oberkante, Periwinkle statt Electric Blue, Inter 300 statt
+   Space Grotesk 700.
+   Angelegt am 30.8.2026. */
 /*
  * Cookie-Consent und Analytics für alle Seiten.
  *
@@ -82,12 +89,12 @@
       "background:rgba(20,32,52,0.92)",
       "backdrop-filter:blur(12px)",
       "-webkit-backdrop-filter:blur(12px)",
-      "border:1px solid rgba(66,70,85,0.6)",
-      "border-top:2px solid #1d64f2",
+      "border:1px solid #2e323d",
+      "border-top:1px solid rgba(179,197,255,0.55)",
       "border-radius:1rem",
       "box-shadow:0 20px 45px rgba(0,0,0,0.45)",
       "padding:1.5rem",
-      "color:#d7e3fe",
+      "color:#f0f2f6",
       "font-family:Inter,system-ui,sans-serif",
       "line-height:1.6",
       "opacity:0",
@@ -98,14 +105,14 @@
     var title = document.createElement("h4");
     title.textContent = "Datenschutz & Cookies";
     title.style.cssText =
-      "margin:0 0 .5rem;font-family:'Space Grotesk',Inter,sans-serif;font-weight:700;font-size:1rem;color:#d7e3fe";
+      "margin:0 0 .5rem;font-family:Inter,system-ui,sans-serif;font-weight:300;font-size:1.05rem;letter-spacing:-.01em;color:#f0f2f6";
 
     var text = document.createElement("p");
     text.textContent =
       "Wir nutzen Cookies, um unsere Website zu analysieren und Ihr Erlebnis zu verbessern. " +
       "Mit Ihrer Zustimmung helfen Sie uns, unser Angebot weiter zu optimieren.";
     text.style.cssText =
-      "margin:0 0 1rem;font-size:.875rem;color:#c3c6d8";
+      "margin:0 0 1rem;font-size:.875rem;color:#a2a8b5";
 
     var row = document.createElement("div");
     row.style.cssText = "display:flex;flex-wrap:wrap;gap:.75rem";
@@ -115,23 +122,23 @@
     accept.id = "accept-cookies";
     accept.textContent = "Alle akzeptieren";
     accept.style.cssText =
-      "padding:.5rem 1.5rem;border:0;border-radius:.75rem;background:#1d64f2;color:#fff;" +
-      "font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer";
+      "padding:.55rem 1.5rem;border:0;border-radius:.75rem;background:#b3c5ff;color:#0b0d12;" +
+      "font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.12em;cursor:pointer";
 
     var reject = document.createElement("button");
     reject.type = "button";
     reject.id = "reject-cookies";
     reject.textContent = "Ablehnen";
     reject.style.cssText =
-      "padding:.5rem 1.5rem;border:1px solid rgba(66,70,85,0.8);border-radius:.75rem;" +
-      "background:transparent;color:#d7e3fe;font-size:.75rem;font-weight:700;" +
-      "text-transform:uppercase;letter-spacing:.05em;cursor:pointer";
+      "padding:.55rem 1.5rem;border:1px solid #2e323d;border-radius:.75rem;" +
+      "background:transparent;color:#a2a8b5;font-size:.75rem;font-weight:500;" +
+      "text-transform:uppercase;letter-spacing:.12em;cursor:pointer";
 
     row.appendChild(accept);
     row.appendChild(reject);
 
     var note = document.createElement("p");
-    note.style.cssText = "margin:1rem 0 0;font-size:.625rem;color:#8b90a3";
+    note.style.cssText = "margin:1rem 0 0;font-size:.68rem;color:#767d8c";
     note.innerHTML =
       'Mehr Infos in unserer <a href="/datenschutz.html" style="color:#b3c5ff;text-decoration:underline">Datenschutzerklärung</a>.';
 

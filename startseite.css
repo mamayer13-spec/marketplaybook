@@ -107,14 +107,6 @@
    weit weg von ihrer Zahl, jede auf anderer Hoehe, und die letzte wurde
    am Containerrand abgeschnitten. Jetzt steht sie im Fluss unter der
    Kennzahl, linksbuendig zu ihr - eine ruhige Fusszeile statt Deko. */
-.kennzahl .spark {
-  display: block;
-  width: 56px; height: 20px;
-  margin: 12px 0 0;
-  overflow: visible;
-  pointer-events: none;
-}
-.kennzahl .spark path { fill: none; stroke: var(--akzent); stroke-width: 1.2; opacity: 0.38; }
 
 /* ---------- Diagramme ---------- */
 .diagramm {
@@ -593,20 +585,68 @@ ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
   .auftritt ul.punkte { grid-template-columns: 1fr 1fr; }
   .auftritt ol.nummern { grid-template-columns: repeat(3, 1fr); }
 }
+/* Die Kacheln standen bis 30.8.2026 als kaum sichtbare Kaesten da: 7-%-Rand,
+   4,5-%-Fuellung, Titel in derselben Farbe wie der Text. Manuel: "sowas
+   schaut halt noch sehr fad aus".
+
+   Statt den Kasten lauter zu machen bekommt jede Kachel eine helle Kante
+   oben, die nach rechts auslaeuft - dieselbe Idee wie die auslaufenden
+   Trennlinien aus licht-auf-dunklem-grund.md. Die Kachel sieht damit aus,
+   als finge sie Licht, statt einen Rahmen zu tragen. Der Titel traegt die
+   Hierarchie ueber Groesse und Helligkeit, nicht ueber Fettung. */
 .auftritt ul.punkte li,
 .auftritt ol.nummern li,
 .auftritt .feld {
   position: relative;
   display: block;
-  padding: 28px 26px 30px;
+  padding: 26px 26px 30px;
   border: 1px solid var(--linie-fein);
+  border-top: none;
   border-radius: 16px;
   background:
-    linear-gradient(158deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 58%);
+    linear-gradient(158deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012) 58%);
   color: var(--muted);
   overflow: hidden;
   transition: border-color 320ms var(--weich), background 320ms var(--weich),
     transform 620ms var(--weich), opacity 620ms var(--weich);
+}
+
+/* Die Lichtkante. Als eigenes Element, weil ein border-image nicht mit
+   border-radius zusammengeht. */
+.auftritt ul.punkte li::before,
+.auftritt ol.nummern li::before,
+.auftritt .feld::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 12px; right: 12px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(179, 197, 255, 0.8) 0%,
+    rgba(179, 197, 255, 0.42) 38%,
+    rgba(240, 242, 246, 0.16) 72%,
+    rgba(240, 242, 246, 0) 100%);
+  transition: background 320ms var(--weich);
+}
+.auftritt ul.punkte li:hover::before,
+.auftritt ol.nummern li:hover::before,
+.auftritt .feld:hover::before {
+  background: linear-gradient(90deg,
+    rgba(179, 197, 255, 0.85) 0%,
+    rgba(240, 242, 246, 0.3) 46%,
+    rgba(240, 242, 246, 0) 100%);
+}
+
+/* Der Titel steht eine Stufe groesser und in voller Texthelligkeit -
+   vorher lief er in derselben Farbe wie der Fliesstext mit. */
+.auftritt ul.punkte li h3,
+.auftritt ol.nummern li h3,
+.auftritt .feld h3 {
+  color: var(--text);
+  font-size: 1.08rem;
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  margin-bottom: 9px;
 }
 .auftritt .feld { border-top: 1px solid var(--linie-fein); padding-top: 28px; }
 
@@ -639,7 +679,7 @@ ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
   inset: -1px;
   border-radius: 16px;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.45;
   transition: opacity 320ms var(--weich);
   background:
     radial-gradient(420px 220px at 18% 0%, rgba(179, 197, 255, 0.16), transparent 70%);
@@ -853,24 +893,6 @@ ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
 .ablauf-neben .zeitleiste .punkt { left: -32px; top: 6px; }
 .ablauf-neben .zeitleiste li.an .takt { color: var(--akzent); }
 
-/* Bildzeile unter dem Hero-Chart. Erklaert, was zu sehen ist, statt eine
-   Aussage ueber die Linien zu behaupten - und sagt dazu, dass es kein
-   echter Kursverlauf ist. Die anderen Diagramme auf der Seite haben so
-   einen Hinweis, der Hero hatte ihn bisher nicht. */
-.hero-bildzeile {
-  /* Die Leinwand liegt absolut im Container (aspect-ratio-Kasten), der
-     Absatz wuerde sonst darueber stehen statt darunter. */
-  position: absolute;
-  left: 0; right: 0; top: 100%;
-  margin: 14px 0 0;
-  max-width: none;
-  text-align: right;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-}
-.hero-bildzeile span { display: block; font-size: 11px; color: var(--leise); opacity: 0.7; margin-top: 3px; }
-@media (max-width: 899px) { .hero-bildzeile { text-align: left; } }
 
 /* ---------- Zeichen in der Wortmarke ----------
    Das Buch-Zeichen aus logo/buch/ - dieselbe Geometrie wie im Cockpit.

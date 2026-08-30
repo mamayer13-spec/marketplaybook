@@ -300,25 +300,6 @@
     } else laden();
   })();
 
-  /* ================= 4. Sparklines ================= */
-  [].forEach.call(document.querySelectorAll(".kennzahl[data-spark]"), function (k) {
-    var w = k.getAttribute("data-spark").split(",").map(Number);
-    var svg = el("svg", { class: "spark", viewBox: "0 0 64 28" }, k);
-    var min = Math.min.apply(null, w), max = Math.max.apply(null, w), sp = max - min || 1;
-    var pts = w.map(function (v, i) { return { x: i * (64 / (w.length - 1)), y: 26 - (v - min) / sp * 24 }; });
-    var p = el("path", { d: weichePfad(pts) }, svg);
-    // In einem Block mit data-scroll zeichnet bewegung.js die Linie aus der
-    // Scrollposition. Hier nur vorbereiten, sonst wuerde die einmalige
-    // Zeitanimation dagegenhalten (fill: forwards schlaegt Inline-Stil).
-    if (k.closest(".kennzahlen[data-scroll]")) {
-      var len = p.getTotalLength();
-      p.style.strokeDasharray = len;
-      p.style.strokeDashoffset = ruhig ? 0 : len;
-    } else {
-      beobachten(k, function () { zeichnen(p, 1100, 200); }, 0.6);
-    }
-  });
-
   /* ================= 5. Vergleichschart ================= */
   (function () {
     var box = document.getElementById("chart-vergleich");

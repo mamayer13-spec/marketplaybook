@@ -1,302 +1,604 @@
 <!DOCTYPE html>
-<html class="dark" lang="de" style="">
+<html lang="de">
   <head>
+    <meta charset="utf-8" />
+    <title>Market Playbook | Kostenloser Videokurs</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      name="description"
+      content="Kostenloser Videokurs in 10 Lektionen: wie du aus Informationen einen Plan baust, an den du dich in jeder Marktlage hältst. Kein Vorwissen nötig."
+    />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/icon-tab.png" />
+    <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-tab.png" />
 
+    <!-- Cookie-Weiche und Google Analytics, wie auf allen anderen Seiten. -->
     <script src="/consent.js" defer></script>
 
     <!--
-      Vercel Web Analytics. Steht absichtlich AUSSERHALB der Consent-Weiche
-      in consent.js: Es setzt keine Cookies und legt nichts im Browser ab,
-      Besucher werden serverseitig über einen täglich wechselnden Hash
-      gezählt. Genau deshalb ist es hier eingebaut — Google Analytics läuft
-      erst nach aktivem "Akzeptieren" und zählt damit nur einen Bruchteil.
-      Für die Frage "kommen die Leute nach dem DM-Klick überhaupt an?"
-      braucht es aber eine Zahl über alle Besucher, nicht nur über die
-      Zustimmenden.
+      Vercel Web Analytics, absichtlich AUSSERHALB der Consent-Weiche: es
+      setzt keine Cookies und zaehlt serverseitig ueber einen taeglich
+      wechselnden Hash. Genau diese Zahl traegt die Trichterkarte im
+      Cockpit, Google Analytics zaehlt nur die Zustimmenden.
     -->
     <script defer src="/_vercel/insights/script.js"></script>
-
-    <meta charset="utf-8" />
-    <title>Market Playbook — Kostenloser Videokurs</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "surface-container-lowest": "#030e21",
-              "on-background": "#d7e3fe",
-              "error-container": "#93000a",
-              "on-secondary": "#233146",
-              "surface-tint": "#b3c5ff",
-              "tertiary-container": "#6e6f6d",
-              "primary-container": "#1d64f2",
-              "on-tertiary-fixed-variant": "#464745",
-              "on-secondary-fixed-variant": "#3a475e",
-              "inverse-surface": "#d7e3fe",
-              "inverse-primary": "#0053d9",
-              "surface-container": "#142033",
-              surface: "#071326",
-              "on-primary-container": "#f1f2ff",
-              "surface-container-low": "#0f1c2f",
-              "outline-variant": "#424655",
-              "on-error": "#690005",
-              "on-tertiary-fixed": "#1b1c1a",
-              "tertiary-fixed-dim": "#c7c6c4",
-              "secondary-container": "#3a475e",
-              "primary-fixed-dim": "#b3c5ff",
-              tertiary: "#c7c6c4",
-              "on-tertiary-container": "#f4f3f0",
-              "on-primary-fixed": "#00174a",
-              error: "#ffb4ab",
-              "surface-container-high": "#1e2a3e",
-              "secondary-fixed": "#d5e3ff",
-              "on-secondary-container": "#a8b6d1",
-              "surface-variant": "#29354a",
-              "surface-container-highest": "#29354a",
-              secondary: "#b9c7e2",
-              "on-primary-fixed-variant": "#003ea6",
-              "on-secondary-fixed": "#0d1c30",
-              primary: "#b3c5ff",
-              background: "#071326",
-              "on-tertiary": "#2f312f",
-              "on-primary": "#002a77",
-              "on-error-container": "#ffdad6",
-              "inverse-on-surface": "#253145",
-              "surface-dim": "#071326",
-              "on-surface": "#d7e3fe",
-              "secondary-fixed-dim": "#b9c7e2",
-              outline: "#8d90a1",
-              "on-surface-variant": "#c3c6d8",
-              "surface-bright": "#2e394e",
-              "primary-fixed": "#dbe1ff",
-              "tertiary-fixed": "#e3e2df",
-            },
-            borderRadius: {
-              DEFAULT: "0.125rem",
-              lg: "0.25rem",
-              xl: "0.5rem",
-              full: "0.75rem",
-            },
-            fontFamily: {
-              headline: ["Space Grotesk"],
-              display: ["Space Grotesk"],
-              body: ["Inter"],
-              label: ["Inter"],
-            },
-          },
-        },
-      };
-    </script>
+
+    <!--
+      Anmeldeseite zum kostenlosen Videokurs, Fassung vom 28.8.2026.
+      Dieselben Inhalte wie die Vorgaengerfassung, aber in der Hausdesignsprache
+      (06-knowledge/cockpit-designsprache.md): reines Schwarz, keine
+      Flaechen, Haarlinien statt Kaesten, Inter 200/300, ein einziger
+      gefuellter Block auf der Seite — der Knopf.
+
+      Wichtig fuer den Vergleich der Zahlen: Diese Fassung loest die
+      alte am 28.8.2026 ab. Wer die Trichterzahlen im Cockpit liest,
+      muss den Wechsel kennen, sonst sieht ein Sprung nach einer
+      Trendwende aus.
+    -->
     <style>
-      @keyframes radar {
-        0% {
-          box-shadow: 0 0 0 0 rgba(29, 100, 242, 0.6);
-        }
-        100% {
-          box-shadow: 0 0 0 20px rgba(29, 100, 242, 0);
-        }
-      }
-      .gradient-button {
-          background: linear-gradient(135deg, #1D64F2 0%, #0047AB 100%);
-          color: white !important;
-          box-shadow: 0 10px 25px -5px rgba(29, 100, 242, 0.4), 0 8px 10px -6px rgba(29, 100, 242, 0.1);
-          transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-          position: relative;
-          z-index: 1;
-          overflow: hidden;
-      }
-      .gradient-button:hover {
-          box-shadow: 0 20px 35px -5px rgba(29, 100, 242, 0.5), 0 0 50px rgba(29, 100, 242, 0.2);
-          transform: translateY(-4px) scale(1.03);
-      }
-      @keyframes dotPulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.4; transform: scale(0.8); }
-      }
-      .dot-pulse {
-        animation: dotPulse 1.5s ease-in-out infinite;
-      }
-      .radar-pulse {
-        animation: radar 1.8s ease-out infinite;
-      }
-      .faq-answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0;
-      }
-      .faq-item.is-expanded .faq-answer {
-        max-height: 500px;
-        opacity: 1;
-      }
-      .faq-item.is-expanded .material-symbols-outlined {
-        transform: rotate(45deg);
-      }
-      .material-symbols-outlined {
-        transition: transform 0.3s ease;
-      }
-      body {
-        background-color: #071326;
-        color: #d7e3fe;
-        font-family: "Inter", sans-serif;
-        overflow-x: hidden;
-      }
-      .glass-card {
-        background: rgba(20, 32, 51, 0.4);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(141, 144, 161, 0.1);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-      }
-      .testimonial-card {
-            border-radius: 0.75rem;
-            border: 1px solid rgba(179, 197, 255, 0.15);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(15, 28, 47, 0.6);
-            background: rgba(15, 28, 47, 0.6);
-            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-        }
-        .testimonial-card:hover {
-            transform: rotate(0deg) scale(1.22) translateY(-10px) !important;
-            box-shadow: 0 20px 40px rgba(29, 100, 242, 0.3), 0 0 0 4px rgba(179, 197, 255, 0.25);
-        }
-
-        .video-embed {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border: 1px solid rgba(179, 197, 255, 0.15);
-            box-shadow: 0 0 30px rgba(29, 100, 242, 0.1);
-        }
-        .video-embed iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
-
-      .vsl-embed {
-          border: 2px solid rgba(29, 100, 242, 0.6);
-          box-shadow: 0 0 40px rgba(29, 100, 242, 0.4), 0 0 80px rgba(29, 100, 242, 0.15);
-          border-radius: 1rem;
-      }
-      
-      /* Reveal-Animationen (wie auf der Hauptseite) */
-      .reveal {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: opacity 1.2s cubic-bezier(0.21, 0.6, 0.35, 1),
-                    transform 1.2s cubic-bezier(0.21, 0.6, 0.35, 1);
-        will-change: transform, opacity;
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .delay-100 { transition-delay: 100ms; }
-      .delay-200 { transition-delay: 200ms; }
-      .delay-300 { transition-delay: 300ms; }
-      .delay-400 { transition-delay: 400ms; }
-      .delay-500 { transition-delay: 500ms; }
-      .delay-600 { transition-delay: 600ms; }
-      .delay-700 { transition-delay: 700ms; }
-      .delay-800 { transition-delay: 800ms; }
-
       :root {
-        --mouse-x: -100%;
-        --mouse-y: -100%;
+        --grund: #0b0d12;
+        --flaeche: #151821;
+        --text: #f0f2f6;
+        --muted: #a2a8b5;
+        --leise: #6d7484;
+        --linie: #2e323d;
+        --linie-fein: rgba(240, 242, 246, 0.07);
+        --akzent: #b3c5ff;
+        --weich: cubic-bezier(0.16, 1, 0.3, 1);
       }
-      body::before {
-        content: '';
+      * { box-sizing: border-box; }
+      html { background: var(--grund); }
+      /* Der Grund steht auf html, NICHT auf body: der Hintergrund eines
+         Block-Elements wird vor allen Kindern mit negativem z-index
+         gemalt — mit `background` auf body waren Schein und Raster
+         zugedeckt und unsichtbar. */
+      body {
+        margin: 0;
+        background: transparent;
+        color: var(--text);
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1.7;
+        letter-spacing: -0.005em;
+        -webkit-font-smoothing: antialiased;
+      }
+      /* Rand bewusst grosszuegiger als 24 px: Video und Knopf sind
+         gefuellte Bloecke und laufen genau auf die Textkante — bei
+         engem Rand kleben sie optisch am Bildschirmrand. */
+      /* Die Spalte war mit 760 px so schmal, dass auf einem normalen
+         Bildschirm links und rechts mehr Schwarz stand als Inhalt.
+         Jetzt traegt sie den Bildschirm - Fliesstext bekommt dafuer
+         weiter unten eine eigene Lesebreite, sonst werden die Zeilen
+         zu lang zum Lesen. */
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px 96px; position: relative; z-index: 1; }
+      @media (min-width: 640px) { .wrap { padding: 0 40px 96px; } }
+
+      /* ---------- Etiketten: 9,5 px, gesperrt, Versalien ---------- */
+      .eyebrow, .kennzahl .label, .faq .idx, footer .links a {
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 9.5px;
+        color: var(--leise);
+      }
+
+      /* ---------- Kopf ---------- */
+      header.top { padding: 28px 0 0; }
+      .eyebrow { margin: 0 0 16px; }
+      h1 {
+        font-weight: 200;
+        /* Groesser, weil die Spalte jetzt breiter ist - in der alten
+           Groesse waere die Ueberschrift darin verloren. */
+        font-size: clamp(1.4rem, 4.4vw, 3.2rem);
+        line-height: 1.14;
+        letter-spacing: -0.035em;
+        margin: 0 0 18px;
+        max-width: 22ch;
+      }
+      h1 em { font-style: normal; color: var(--akzent); }
+      .unterzeile {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 46ch;
+      }
+      .unterzeile b { font-weight: 500; color: var(--text); }
+
+      /* ---------- Zwei Etiketten unter der Unterzeile ----------
+         Uebernommen von der Live-Seite, aber in der Hausschreibweise:
+         Haarlinie statt gefuellter Pille, kein Blau. */
+      .marker {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        /* Mittig ueber dem Video, nicht an der linken Textkante: sie
+           gehoeren zum Video, nicht zum Absatz darueber. */
+        width: var(--medien);
+        max-width: 900px;
+        margin: 26px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .marker li {
+        border: 1px solid var(--linie);
+        border-radius: 999px;
+        padding: 10px 20px;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        color: var(--text);
+      }
+
+      /* ---------- Kennzahlenreihe (Haarlinien, keine Kaesten) ---------- */
+      .kennzahlen {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 40px 0 0;
+        padding: 24px 0 0;
+        border-top: 1px solid var(--linie);
+      }
+      .kennzahl .wert {
+        font-weight: 200;
+        font-size: clamp(1.6rem, 6vw, 2.1rem);
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin: 0 0 8px;
+      }
+      .kennzahl .label { display: block; line-height: 1.4; }
+
+      /* ---------- Video ---------- */
+      .video-einordnung {
+        width: var(--medien);
+        max-width: 900px;
+        margin: 30px 0 14px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .video-einordnung b { font-weight: 500; color: var(--text); }
+
+      /* Lesebreite: die Spalte traegt Video und Knopf ueber die ganze
+         Breite, laufender Text soll aber nicht ueber 70 Zeichen gehen. */
+      .cta .hinweis, .cta .klein,
+      .auftritt > p, .lektionen li, .faq p { max-width: 68ch; }
+      /* Video und Knopf laufen auf die volle Textbreite und fluchten
+         links mit Ueberschrift, Eyebrow und allen Abschnitten darunter.
+         Vorher waren sie schmaler und zentriert - dadurch hatte die Seite
+         zwei Achsen gleichzeitig und wirkte unentschieden. */
+      :root { --medien: 100%; }
+
+      .rahmen {
+        border: 1px solid var(--linie);
+        overflow: hidden;
+        border-radius: 14px;
+      }
+      .cta .rahmen, .video-block {
+        width: var(--medien);
+        /* Ueber 900 px wird ein 16:9-Video hoeher als der Bildschirm und
+           man sieht Ueberschrift und Knopf nicht mehr gleichzeitig. */
+        max-width: 900px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      /* ---------- Der einzige gefuellte Block der Seite ---------- */
+      .cta { margin: 16px 0 0; }
+      .cta .hinweis {
+        width: var(--medien);
+        max-width: 900px;
+        margin: 0 0 14px;
+        font-size: 14px;
+        color: var(--text);
+      }
+      .cta .klein {
+        width: var(--medien);
+        margin: 12px 0 0;
+        font-size: 11px;
+        color: var(--leise);
+        letter-spacing: 0.02em;
+      }
+      /* Typeform rendert einen echten <button> in den Block hinein — kein
+         iframe. Deshalb laesst er sich hier ueberschreiben. !important,
+         weil Typeform seine Farben als Inline-Style setzt. */
+      .tf-block { width: var(--medien); max-width: 900px; margin: 0; position: relative; }
+      /* Echo: zwei Ringe laufen aus dem Knopf heraus und verlaufen.
+         Sie liegen hinter ihm, damit der Text nicht flimmert. */
+      .tf-block::before, .tf-block::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--text);
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        animation: echo 3400ms var(--weich) infinite;
+      }
+      .tf-block::after { animation-delay: 900ms; }
+      @keyframes echo {
+        0%   { transform: scale(1);    opacity: 0.7; }
+        60%  { transform: scale(1.11); opacity: 0; }
+        100% { transform: scale(1.11); opacity: 0; }
+      }
+
+      /* ---------- Schein im Hintergrund ----------
+         Liegt als eigener, fest stehender Layer hinter allem. Fest
+         stehend, weil er dann keine Seitenbreite erzeugen kann: die
+         erste Fassung war 170 % breit und hat die Seite auf 479 px
+         aufgezogen. Zwei Quellen, beide im Blau des Hauses, zusammen
+         unter einem Fuenftel Deckkraft. */
+      .schein {
         position: fixed;
         inset: 0;
-        z-index: -1;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(58% 42% at 50% 12%, rgba(179, 197, 255, 0.20), transparent 70%),
+          radial-gradient(46% 34% at 82% 58%, rgba(120, 150, 255, 0.13), transparent 72%),
+          radial-gradient(52% 38% at 12% 88%, rgba(179, 197, 255, 0.10), transparent 74%);
+      }
+
+      /* Ein einziger, sehr flacher Schein hinter Video und Knopf. Das
+         Hausdesign verbietet atmosphaerische Verlaeufe in App und
+         Cockpit — hier ist er bewusst gesetzt: die Seite ist Werbung,
+         nicht Werkzeug, und der Schein haelt den Blick in der Mitte.
+         Bleibt unter 10 % Deckkraft, damit Schwarz Schwarz bleibt. */
+      .leit::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8%;
+        width: 100%;
+        height: 88%;
+        background: radial-gradient(
+          closest-side,
+          rgba(179, 197, 255, 0.12),
+          rgba(179, 197, 255, 0.04) 55%,
+          transparent 100%
+        );
+        filter: blur(44px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .tf-block::before, .tf-block::after { animation: none; opacity: 0; }
+      }
+      .tf-block button {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        background: var(--text) !important;
+        color: #000 !important;
+        border: 0 !important;
+        border-radius: 12px !important;
+        font-family: Inter, system-ui, sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 16px !important;
+        letter-spacing: -0.01em !important;
+        padding: 17px 20px !important;
+        line-height: 1.2 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        cursor: pointer;
+        transition: opacity 200ms var(--weich);
+      }
+      .tf-block button:hover { opacity: 0.88; }
+
+      /* ---------- Sticky-Leiste: erscheint, sobald der Hauptknopf
+           aus dem Bild ist. Auf Handys kommt der Verkehr praktisch
+           vollstaendig an (Instagram-DM), und die Seite ist laenger als
+           zwei Bildhoehen — genau der Fall, fuer den die Leiste gedacht
+           ist. Sie loest denselben Typeform-Knopf aus, es gibt also nur
+           ein Formular und keine zweite Zaehlung. ---------- */
+      #sticky {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid var(--linie);
+        transform: translateY(110%);
+        transition: transform 280ms var(--weich);
+      }
+      #sticky.an { transform: translateY(0); }
+      #sticky .text {
+        flex: 1;
+        min-width: 0;
+        font-size: 11px;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+      #sticky button {
+        flex: 0 0 auto;
+        background: var(--text);
+        color: #000;
+        border: 0;
+        border-radius: 2px;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 14px;
+        padding: 13px 18px;
+        cursor: pointer;
+      }
+      @media (min-width: 900px) { #sticky { display: none; } }
+      body.hat-sticky { padding-bottom: 72px; }
+
+      /* ---------- Wiederholter Aufruf zwischen den Abschnitten ---------- */
+      .cta-zweit {
+        margin: 32px 0 0;
+        padding-top: 24px;
+        border-top: 1px solid var(--linie-fein);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 20px;
+      }
+      .cta-zweit p { margin: 0; font-size: 14px; color: var(--muted); flex: 1 1 200px; }
+      .cta-zweit button {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--linie);
+        border-radius: 2px;
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 14px;
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: border-color 200ms var(--weich);
+      }
+      .cta-zweit button:hover { border-color: var(--text); }
+
+      /* ---------- Fuehrungslinien ums Video ----------
+         Zwei Linien laufen von der Zeile ueber dem Video an ihm vorbei
+         nach unten und zeigen mit einer Spitze auf den Knopf. Bildsprache
+         aus cockpit-designsprache.md: Beschriftung aussen, duenner Strich
+         zum Objekt.
+
+         Als SVG gezeichnet und die Pfade in Bildpunkten berechnet: eine
+         erste Fassung aus CSS-Raendern hatte die Spitze aus einer
+         gedrehten Ecke gebaut — bei naherem Hinsehen ein doppelter Knick
+         statt einer Spitze. Ein SVG mit fester viewBox waere beim
+         Strecken verzerrt, deshalb wird der Pfad bei jeder Groessen-
+         aenderung neu gerechnet. */
+      .leit { position: relative; }
+      .leit > * { position: relative; z-index: 1; }
+
+      /* ---------- Raster im Kopfbereich ----------
+         Die Bildsprache der Vorlagen lebt von haarfeinen Netzen auf
+         Schwarz. Zwei gekreuzte Verlaeufe reichen dafuer — ein Bild
+         waere schwerer und wuerde beim Skalieren rattern. */
+      .raster {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 420px;
+        pointer-events: none;
+        z-index: 0;
         background-image:
-          linear-gradient(to right, rgba(29, 100, 242, 0.05) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(29, 100, 242, 0.05) 1px, transparent 1px);
-        background-size: 40px 40px;
-        pointer-events: none;
+          linear-gradient(to right, rgba(240, 242, 246, 0.045) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(240, 242, 246, 0.045) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
       }
-      body::after {
-        content: '';
+
+      /* ---------- Lesefortschritt ----------
+         Eine Haarlinie am oberen Rand. Kein Balken, keine Farbe. */
+      #fortschritt {
         position: fixed;
-        inset: 0;
-        z-index: -1;
-        background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
-                rgba(29, 100, 242, 0.12),
-                transparent 40%);
-        pointer-events: none;
+        top: 0; left: 0;
+        height: 1px;
+        width: 0;
+        background: var(--text);
+        opacity: 0.5;
+        z-index: 50;
+      }
+
+      /* ---------- Abschnitte laufen beim Scrollen ein ---------- */
+      .bewegt .auftritt {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 700ms var(--weich), transform 700ms var(--weich);
+      }
+      .bewegt .auftritt.da { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) {
+        .auftritt { opacity: 1; transform: none; transition: none; }
+      }
+
+      /* ---------- Abschnittsnummern an den Ueberschriften ---------- */
+      h2 .zahl {
+        display: block;
+        margin-bottom: 14px;
+        font-size: 9.5px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--akzent);
+      }
+
+      /* ---------- Lektionen: die Nummer zieht beim Zeigen an ---------- */
+      ol.lektionen li { transition: color 240ms var(--weich); }
+      ol.lektionen li:hover { color: var(--text); }
+      ol.lektionen .n { transition: color 240ms var(--weich), letter-spacing 240ms var(--weich); }
+      ol.lektionen li:hover .n { letter-spacing: 0.3em; }
+
+      /* ---------- Abschnitte ---------- */
+      section {
+        margin-top: 72px;
+        padding-top: 28px;
+        border-top: 1px solid var(--linie);
+      }
+      h2 {
+        font-weight: 200;
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        letter-spacing: -0.028em;
+        line-height: 1.12;
+        margin: 0 0 28px;
+      }
+
+      /* ---------- Lektionsliste: Nummer + Haarlinie, kein Haken ---------- */
+      ol.lektionen { list-style: none; margin: 0; padding: 0; }
+      ol.lektionen li {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 16px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--linie-fein);
+        color: var(--muted);
+        align-items: start;
+      }
+      ol.lektionen li:last-child { border-bottom: 0; }
+      ol.lektionen .n {
+        font-size: 9.5px;
+        letter-spacing: 0.2em;
+        color: var(--akzent);
+        padding-top: 6px;
+      }
+
+      /* ---------- Stimmen ---------- */
+      .stimmen {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .stimmen img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid var(--linie-fein);
+        border-radius: 2px;
+      }
+      @media (min-width: 640px) {
+        .stimmen { grid-template-columns: repeat(4, 1fr); }
+      }
+
+      /* ---------- Videos ---------- */
+      .clips { display: grid; gap: 16px; }
+      @media (min-width: 640px) { .clips { grid-template-columns: 1fr 1fr; } }
+      .clip { position: relative; padding-top: 56.25%; }
+      .clip iframe {
+        position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+      }
+
+      /* ---------- FAQ: Haarlinien, kein Kasten ---------- */
+      .faq { border-top: 1px solid var(--linie-fein); }
+      .faq details { border-bottom: 1px solid var(--linie-fein); }
+      .faq summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 18px 32px 18px 0;
+        position: relative;
+        font-weight: 400;
+        color: var(--text);
+      }
+      .faq summary::-webkit-details-marker { display: none; }
+      .faq summary::after {
+        content: "+";
+        position: absolute;
+        right: 4px;
+        top: 16px;
+        color: var(--leise);
+        font-weight: 300;
+        transition: transform 220ms var(--weich);
+      }
+      .faq details[open] summary::after { content: "–"; }
+      .faq .antwort {
+        margin: 0;
+        padding: 0 0 20px;
+        color: var(--muted);
+        font-size: 15px;
+        max-width: 62ch;
+      }
+
+      /* ---------- Fuss ---------- */
+      footer {
+        margin-top: 80px;
+        padding-top: 24px;
+        border-top: 1px solid var(--linie);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px 28px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      footer .marke {
+        font-size: 13px; font-weight: 400;
+        display: inline-flex; align-items: center; gap: 9px;
+      }
+      /* Das Buch-Zeichen inline, nicht als <img>: ueber ein eingebundenes
+         Bild gaebe es keine geerbte Textfarbe und die zwei Toene waeren weg. */
+      footer .marke .zeichen { width: 19px; height: 19px; display: block; flex: none; }
+      footer .links { display: flex; flex-wrap: wrap; gap: 20px; }
+      footer .links a {
+        color: var(--leise);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      footer .links a:hover { color: var(--text); }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; transition: none !important; }
       }
     </style>
   </head>
-  <body class="antialiased">
-    <!-- Background Elements -->
-    <div class="fixed inset-0 z-[-1]">
-  <div class="absolute inset-0 opacity-20 pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container rounded-full blur-[120px]"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-surface-tint rounded-full blur-[150px]"></div>
-  </div>
-</div>
 
-    <!-- Hero Content -->
-    <main
-      class="min-h-screen flex flex-col items-center justify-center pt-8 md:pt-16 pb-20 px-4 sm:px-6 relative overflow-hidden"
-    >
-      <div class="max-w-5xl w-full text-center mb-4 mx-auto">
-        <h1
-          class="font-headline text-2xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-on-background mb-4 sm:mb-6 md:mb-8 leading-tight reveal"
-        >
-          Wie du ein Portfolio <span class="text-primary italic">aufbaust</span>,
-          <span class="text-primary italic">skalierst</span>
-          <br class="hidden md:inline" />
-          und im richtigen Moment <span class="text-primary italic">verkaufst</span>.
+  <body>
+    <div class="schein" aria-hidden="true"></div>
+    <div id="fortschritt" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <span class="raster" aria-hidden="true"></span>
+      <header class="top">
+        <p class="eyebrow">Kostenloser Videokurs mit 10 Lektionen</p>
+        <h1>
+          Wie du aus Informationen einen <em>Plan</em> baust,
+          an den du dich in jeder Marktlage hältst.
         </h1>
-
-        <p
-          class="font-body text-xs sm:text-base md:text-lg text-on-surface-variant max-w-[85%] sm:max-w-2xl mx-auto leading-relaxed opacity-90 mb-3 sm:mb-4 reveal delay-100"
-        >
-          Ein <span class="text-primary font-semibold">kostenloser Videokurs</span> für alle, die ihr Kapital ernsthaft aufbauen wollen. Gebaut für jede Marktlage, erklärt in <span class="text-primary font-semibold">10 kurzen Videos</span>.
+        <p class="unterzeile">
+          Kostenloser Videokurs, <b>10 Lektionen</b>.
         </p>
-        <div class="flex flex-wrap justify-center gap-3 mt-4 mb-4 sm:mt-6 sm:mb-6 reveal delay-200">
-          <span class="text-xs sm:text-sm font-medium px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/50 text-primary">Kein Vorwissen nötig</span>
-          <span class="text-xs sm:text-sm font-medium px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/50 text-primary">Komplett kostenlos</span>
-        </div>
-      </div>
+        <ul class="marker">
+          <li>Kein Vorwissen nötig</li>
+          <li>Komplett kostenlos</li>
+        </ul>
 
-      <!-- VSL Video -->
+      </header>
+
       <!--
-        Die Zeile ueber dem Player steht dort seit dem 27.8.2026. Grund:
-        Ueberschrift und Player zusammen lasen sich wie „hier ist der Kurs" —
-        73 % schalten den Ton ein, schauen im Schnitt 74 von 270 Sekunden und
-        sind weg (Audit 02-audits/funnel/2026-08-24-form-seite-trichter.md).
-        Der Satz trennt Vorschau und Kurs, bevor das Video laeuft.
+        Die Einordnung ueber dem Player ist der Grund fuer diesen Entwurf:
+        Ueberschrift und Video zusammen lasen sich wie „hier ist der Kurs".
+        Audit: 02-audits/funnel/2026-08-24-form-seite-trichter.md
       -->
-      <p class="font-body text-xs sm:text-sm text-on-surface-variant/80 text-center max-w-[85%] sm:max-w-xl mx-auto mb-3 reveal delay-200">
-        Kurze Einf&uuml;hrung von Claudio &mdash; <span class="text-primary font-semibold">die 10 Kursvideos bekommst du danach per Mail</span>.
+      <div class="leit">
+      <p class="video-einordnung">
+        Kurze Einführung von Claudio. <b>Die 10 Kursvideos bekommst du
+        unter dem Video.</b>
       </p>
-      <div class="w-full max-w-3xl mx-auto mb-4 reveal delay-250">
-        <div class="vsl-embed rounded-2xl overflow-hidden">
-          <div id="vidalytics_embed_EJ7szpetQsCXyrfK" style="width: 100%; position:relative; padding-top: 56.25%;"></div>
-        </div>
+
+      <div class="rahmen video-block">
+        <div
+          id="vidalytics_embed_EJ7szpetQsCXyrfK"
+          style="width: 100%; position: relative; padding-top: 56.25%"
+        ></div>
       </div>
       <script type="text/javascript">
-      (function (v, i, d, a, l, y, t, c, s) {
+        (function (v, i, d, a, l, y, t, c, s) {
           y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
           if (!vsl){vsl=function(u,cb){
               if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
@@ -304,429 +606,316 @@
               i.getElementsByTagName("head")[0].appendChild(s);
           };}
           vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
-      })(window, document, 'Vidalytics', 'vidalytics_embed_EJ7szpetQsCXyrfK', 'https://fast.vidalytics.com/embeds/8WlP4ITn/EJ7szpetQsCXyrfK/');
+        })(window, document, 'Vidalytics', 'vidalytics_embed_EJ7szpetQsCXyrfK', 'https://fast.vidalytics.com/embeds/8WlP4ITn/EJ7szpetQsCXyrfK/');
       </script>
 
-      <script>
-        /* Rückmeldungen des Typeform-Embeds an GA4.
-         *
-         * Muss vor embed.js stehen: Typeform löst die Namen aus
-         * data-tf-on-ready / data-tf-on-submit auf window auf, und zwar in
-         * dem Moment, in dem embed.js das Element einliest.
-         *
-         * Vorher hing das Gegenstück am Seitenende als
-         * window.addEventListener("message", ...) und wartete auf
-         * event.data.type === "form-view" — einen Nachrichtentyp, den
-         * Typeform nicht sendet. Dazu rief es gtag() direkt auf; ohne
-         * erteilte Cookie-Zustimmung existiert gtag gar nicht, der Handler
-         * wäre also selbst beim richtigen Nachrichtentyp an einem
-         * ReferenceError gestorben. Beide Ereignisse haben deshalb, solange
-         * es die Seite gibt, kein einziges Mal gefeuert.
-         *
-         * window.trackEvent kommt aus consent.js und prüft selbst, ob gtag
-         * geladen ist. Die Prüfung hier oben drüber deckt den Fall ab, dass
-         * das Formular schneller bereit ist als das mit defer geladene
-         * consent.js.
-         *
-         * Diese Zahlen bleiben zustimmungsabhängig und zählen nur einen
-         * Teil der Besucher. Die vollständige Zahl kommt aus Vercel Web
-         * Analytics (cookielos, im <head>) und aus dem Typeform-Sammler im
-         * Cockpit, der Landungen und Abbrecher direkt aus der API holt. */
-        function melde(name, label, kategorie) {
-          if (typeof window.trackEvent !== "function") return;
-          window.trackEvent(name, { event_category: kategorie, event_label: label });
-        }
-        window.formularBereit = function () {
-          melde("form_start", "typeform_opened", "engagement");
-        };
-        window.formularAbgeschickt = function () {
-          melde("form_submit", "typeform_completed", "conversion");
-        };
-      </script>
-
-      <!--
-        data-tf-transitive-search-params reicht die UTM-Parameter aus der
-        Adresse dieser Seite an das Formular durch. Im Typeform sind
-        utm_source, utm_medium und utm_campaign seit dem 20.8.2026 als
-        Hidden Fields angelegt; damit steht in jeder Antwort, über welchen
-        Link sie hereinkam, und der Cockpit-Sammler schreibt sie mit.
-      -->
-      <p class="font-body text-sm sm:text-base text-on-background text-center max-w-[85%] sm:max-w-xl mx-auto mb-3 sm:mb-4 reveal delay-250">
-        Kurs hier freischalten &mdash; dauert 30 Sekunden.
-      </p>
-      <div
-        data-tf-live="01KWCA6TY1V0SVA1RCZSWJ0TA2"
-        data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign"
-        data-tf-on-ready="formularBereit"
-        data-tf-on-submit="formularAbgeschickt"
-        class="reveal delay-300"
-      ></div>
-      <script src="//embed.typeform.com/next/embed.js"></script>
-      <!-- Button oberhalb der Card -->
-      <div class="flex flex-col items-center w-full max-w-2xl mb-8 gap-3 mt-6 reveal delay-300">
-        <p
-          class="text-xs text-primary/70 text-center border border-primary/30 rounded-full px-4 py-1.5 mt-4"
-        >
-          Kostenlos · Keine Kreditkarte · Kein Abo
-        </p>
-
-        <!-- Testimonial Collage -->
-        <div class="w-full max-w-3xl mx-auto mt-6 mb-4 reveal delay-300">
-          <div class="grid grid-cols-4 justify-items-center items-center px-2 sm:px-10">
-            <img src="testimonial1.png" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 -rotate-6 -mr-6 sm:-mr-10 z-[1] hover:z-20" />
-            <img src="testimonial2.png" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 rotate-4 -mr-6 sm:-mr-10 z-[2] hover:z-20 mt-6" />
-            <img src="testimonial3.png" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 -rotate-3 -mr-6 sm:-mr-10 z-[3] hover:z-20" />
-            <img src="testimonial4.PNG" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 rotate-5 z-[4] hover:z-20 mt-8" />
-          </div>
-
-          <div class="flex items-center justify-center gap-3 my-2">
-            <span class="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-primary/50"></span>
-            <p class="font-headline text-sm sm:text-base font-bold uppercase tracking-widest text-primary whitespace-nowrap">
-              ✦ Was unsere Community sagt ✦
-            </p>
-            <span class="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-primary/50"></span>
-          </div>
-
-          <div class="grid grid-cols-4 justify-items-center items-center px-2 sm:px-10">
-            <img src="testimonial5.PNG" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 -rotate-5 -mr-6 sm:-mr-10 z-[5] hover:z-20" />
-            <img src="testimonial6.PNG" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 rotate-3 -mr-6 sm:-mr-10 z-[6] hover:z-20 mt-5" />
-            <img src="testimonial7.PNG" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 -rotate-4 -mr-6 sm:-mr-10 z-[7] hover:z-20" />
-            <img src="testimonial8.PNG" alt="Testimonial" class="testimonial-card w-32 sm:w-44 md:w-52 rotate-6 z-[8] hover:z-20 mt-7" />
-          </div>
-        </div>
-        
-        <p
-          class="text-sm font-medium text-primary text-center px-5 py-2 rounded-full mt-6 mb-0"
-          style="
-            box-shadow:
-              0 0 20px rgba(56, 96, 234, 0.8),
-              0 0 40px rgba(56, 96, 234, 0.3);
-            border: 1px solid rgba(56, 96, 234, 0.9);
-          "
-        >
-          <span class="inline-block w-2 h-2 rounded-full mr-2 dot-pulse" style="background-color: #3860EA; box-shadow: 0 0 10px rgba(56, 96, 234, 1), 0 0 20px rgba(56, 96, 234, 0.6);"></span>Nur für begrenzte Zeit kostenlos verfügbar
+      <div class="cta">
+        <p class="hinweis">Kurs hier freischalten, dauert 30 Sekunden.</p>
+        <div
+          class="tf-block"
+          data-tf-live="01KWCA6TY1V0SVA1RCZSWJ0TA2"
+          data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign"
+          data-tf-on-ready="formularBereit"
+          data-tf-on-submit="formularAbgeschickt"
+        ></div>
+        <script>
+          /* Rueckmeldungen des Typeform-Embeds an GA4. Muss vor embed.js
+             stehen: Typeform loest die Namen aus data-tf-on-ready /
+             data-tf-on-submit erst beim Einlesen des Elements auf.
+             window.trackEvent kommt aus consent.js und prueft selbst, ob
+             gtag ueberhaupt geladen ist. */
+          function melde(name, label, kategorie) {
+            if (typeof window.trackEvent !== "function") return;
+            window.trackEvent(name, { event_category: kategorie, event_label: label });
+          }
+          window.formularBereit = function () {
+            melde("form_start", "typeform_opened", "engagement");
+          };
+          window.formularAbgeschickt = function () {
+            melde("form_submit", "typeform_completed", "conversion");
+          };
+        </script>
+        <script src="//embed.typeform.com/next/embed.js"></script>
+        <p class="klein">
+          Name, E-Mail, Telefonnummer eingeben, dann kommt der Zugangslink per Mail.
         </p>
       </div>
-
-      <!-- Glassmorphism Bullet Card -->
-      <div
-        class="glass-card p-6 md:p-12 rounded-2xl w-full max-w-2xl relative z-10 transition-all duration-500 hover:scale-[1.01] reveal delay-400"
-      >
-        <p
-          class="font-headline text-base font-semibold text-primary uppercase tracking-widest mb-8"
-        >
-          In 10 Lektionen lernst du
-        </p>
-        <div class="space-y-8">
-          <div class="flex items-start gap-5">
-            <div
-              class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center flex-shrink-0 mt-1"
-            >
-              <span
-                class="material-symbols-outlined text-primary text-xl"
-                style="font-variation-settings: &quot;FILL&quot; 1"
-                >check_circle</span
-              >
-            </div>
-            <div class="flex-1">
-              <p
-                class="font-body text-on-surface text-base md:text-lg font-medium leading-tight"
-              >
-                Welche großen Trends die nächsten Jahre den Markt bestimmen und
-                welche Aktien davon am meisten profitieren
-              </p>
-            </div>
-          </div>
-          <div class="flex items-start gap-5">
-            <div
-              class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center flex-shrink-0 mt-1"
-            >
-              <span
-                class="material-symbols-outlined text-primary text-xl"
-                style="font-variation-settings: &quot;FILL&quot; 1"
-                >check_circle</span
-              >
-            </div>
-            <div class="flex-1">
-              <p
-                class="font-body text-on-surface text-base md:text-lg font-medium leading-tight"
-              >
-                Wie du erkennst ob eine Aktie wirklich gut ist, mit einem
-                einfachen 5-Punkte-Check den jeder anwenden kann
-              </p>
-            </div>
-          </div>
-          <div class="flex items-start gap-5">
-            <div
-              class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center flex-shrink-0 mt-1"
-            >
-              <span
-                class="material-symbols-outlined text-primary text-xl"
-                style="font-variation-settings: &quot;FILL&quot; 1"
-                >check_circle</span
-              >
-            </div>
-            <div class="flex-1">
-              <p
-                class="font-body text-on-surface text-base md:text-lg font-medium leading-tight"
-              >
-                Wie du dein Geld so aufteilst, dass du auch in schlechten
-                Marktphasen ruhig schlafen kannst
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- YouTube Videos -->
-        <div class="w-full max-w-3xl mx-auto mt-16 mb-14 reveal delay-400">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div class="video-embed rounded-2xl overflow-hidden">
+      <section class="auftritt">
+        <h2>Was Teilnehmer schreiben</h2>
+        <div class="stimmen">
+          <img src="/testimonial1.png" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial2.png" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial3.png" alt="Nachricht eines Teilnehmers" />
+          <img src="/testimonial4.PNG" alt="Nachricht eines Teilnehmers" />
+        </div>
+      </section>
+
+        <div class="kennzahlen">
+          <div class="kennzahl">
+            <p class="wert">10</p>
+            <span class="label">Lektionen</span>
+          </div>
+          <div class="kennzahl">
+            <p class="wert">2 h</p>
+            <span class="label">Gesamtlänge</span>
+          </div>
+          <div class="kennzahl">
+            <p class="wert">0 €</p>
+            <span class="label">Kein Abo, keine Karte</span>
+          </div>
+        </div>
+      <section class="auftritt">
+        <h2>In 10 Lektionen lernst du</h2>
+        <ol class="lektionen">
+          <li>
+            <span class="n">01</span>
+            <span
+              >Welche großen Trends die nächsten Jahre den Markt bestimmen und
+              welche Aktien davon am meisten profitieren</span
+            >
+          </li>
+          <li>
+            <span class="n">02</span>
+            <span
+              >Wie du erkennst, ob eine Aktie wirklich gut ist, mit einem
+              einfachen 5-Punkte-Check, den jeder anwenden kann</span
+            >
+          </li>
+          <li>
+            <span class="n">03</span>
+            <span
+              >Wie du dein Geld so aufteilst, dass du auch in schlechten
+              Marktphasen ruhig schlafen kannst</span
+            >
+          </li>
+        </ol>
+
+        <div class="cta-zweit">
+          <p>Klingt nach dem, was du suchst?</p>
+          <button type="button" data-cta>Kurs freischalten</button>
+        </div>
+      </section>
+
+      <section class="auftritt">
+        <h2>Zwei Ausschnitte</h2>
+        <div class="clips">
+          <div class="rahmen">
+            <div class="clip">
               <iframe
                 src="https://www.youtube.com/embed/ueHYNB8RIQQ"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                title="Ausschnitt aus dem Kurs"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
             </div>
-            <div class="video-embed rounded-2xl overflow-hidden">
+          </div>
+          <div class="rahmen">
+            <div class="clip">
               <iframe
                 src="https://www.youtube.com/embed/49srlf9BdSM"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                title="Ausschnitt aus dem Kurs"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
             </div>
           </div>
         </div>
-        
-      <div class="w-full max-w-2xl mt-16 space-y-4">
-        <p
-          class="font-headline text-base font-semibold text-primary uppercase tracking-widest mb-6 reveal delay-500"
-        >
-          Häufige Fragen
-        </p>
+      </section>
 
-        <div
-          class="faq-item p-5 glass-card rounded-2xl border border-outline-variant/10 reveal delay-500"
-        >
-          <button
-            class="w-full text-base font-bold flex justify-between items-center cursor-pointer text-left outline-none"
-            onclick="toggleFaq(this)"
-          >
-            Ist das wirklich kostenlos?
-            <span class="material-symbols-outlined text-primary text-sm"
-              >add</span
-            >
-          </button>
-          <div
-            class="faq-answer text-sm text-on-surface-variant leading-relaxed"
-          >
-            <div class="pt-4">
-              Ja, komplett. Du gibst deinen Namen, deine Email und Telefonnummer
-              ein und bekommst danach einen Link zugeschickt. Beim ersten Öffnen
-              wirst du gebeten einen kostenlosen Account zu erstellen, das
-              dauert 30 Sekunden und kostet nichts. Dann hast du sofort Zugang
-              zu allen 10 Videos.
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="faq-item p-5 glass-card rounded-2xl border border-outline-variant/10 reveal delay-600"
-        >
-          <button
-            class="w-full text-base font-bold flex justify-between items-center cursor-pointer text-left outline-none"
-            onclick="toggleFaq(this)"
-          >
-            Ich habe null Ahnung von Aktien. Ist das trotzdem für mich?
-            <span class="material-symbols-outlined text-primary text-sm"
-              >add</span
-            >
-          </button>
-          <div
-            class="faq-answer text-sm text-on-surface-variant leading-relaxed"
-          >
-            <div class="pt-4">
-              Egal ob du noch nie eine Aktie gekauft hast oder schon aktiv
-              investierst. Ich erkläre dir alles in einer Sprache die jeder
-              versteht, geht aber tief genug rein sodass auch erfahrene Investoren
-              etwas mitnehmen.
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="faq-item p-5 glass-card rounded-2xl border border-outline-variant/10 reveal delay-700"
-        >
-          <button
-            class="w-full text-base font-bold flex justify-between items-center cursor-pointer text-left outline-none"
-            onclick="toggleFaq(this)"
-          >
-            Wie viel Zeit brauche ich dafür?
-            <span class="material-symbols-outlined text-primary text-sm"
-              >add</span
-            >
-          </button>
-          <div
-            class="faq-answer text-sm text-on-surface-variant leading-relaxed"
-          >
-            <div class="pt-4">
+      <section class="auftritt">
+        <h2>Häufige Fragen</h2>
+        <div class="faq">
+          <details>
+            <summary>Ist das wirklich kostenlos?</summary>
+            <p class="antwort">
+              Ja, komplett. Du gibst deinen Namen, deine E-Mail und
+              Telefonnummer ein und bekommst danach einen Link zugeschickt. Beim
+              ersten Öffnen wirst du gebeten, einen kostenlosen Account zu
+              erstellen, das dauert 30 Sekunden und kostet nichts. Dann hast du
+              sofort Zugang zu allen 10 Videos.
+            </p>
+          </details>
+          <details>
+            <summary>Ich habe null Ahnung von Aktien. Ist das trotzdem für mich?</summary>
+            <p class="antwort">
+              Egal, ob du noch nie eine Aktie gekauft hast oder schon aktiv
+              investierst. Ich erkläre dir alles in einer Sprache, die jeder
+              versteht, gehe aber tief genug rein, sodass auch erfahrene
+              Investoren etwas mitnehmen.
+            </p>
+          </details>
+          <details>
+            <summary>Wie viel Zeit brauche ich dafür?</summary>
+            <p class="antwort">
               Die 10 Videos dauern zusammen ungefähr 2 Stunden. Du kannst dir
-              die Zeit komplett frei einteilen. Heute eine Lektion, morgen
-              drei, ganz wie es in deinen Alltag passt!
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="faq-item p-5 glass-card rounded-2xl border border-outline-variant/10 reveal delay-800"
-        >
-          <button
-            class="w-full text-base font-bold flex justify-between items-center cursor-pointer text-left outline-none"
-            onclick="toggleFaq(this)"
-          >
-            Was passiert nachdem ich mir den Kurs angeschaut habe?
-            <span class="material-symbols-outlined text-primary text-sm"
-              >add</span
-            >
-          </button>
-          <div
-            class="faq-answer text-sm text-on-surface-variant leading-relaxed"
-          >
-            <div class="pt-4">
-              Nichts was du nicht selbst willst. Wenn du Fragen hast schreibst
+              die Zeit komplett frei einteilen. Heute eine Lektion, morgen drei,
+              ganz wie es in deinen Alltag passt.
+            </p>
+          </details>
+          <details>
+            <summary>Was passiert, nachdem ich mir den Kurs angeschaut habe?</summary>
+            <p class="antwort">
+              Nichts, was du nicht selbst willst. Wenn du Fragen hast, schreibst
               du Claudio einfach auf Instagram. Mehr nicht.
-            </div>
-          </div>
+            </p>
+          </details>
         </div>
-      </div>
+      </section>
 
-      <!-- Atmospheric Elements -->
-      <div
-        class="absolute -left-64 top-1/2 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none"
-      ></div>
-      <div
-        class="absolute -right-64 top-1/3 w-80 h-80 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"
-      ></div>
-    </main>
+      <section class="auftritt">
+        <h2>Alle 10 Lektionen, kostenlos</h2>
+        <div class="cta-zweit" style="border-top: 0; padding-top: 0; margin-top: 0">
+          <p>Name, E-Mail, Telefonnummer eingeben, dann kommt der Zugangslink per Mail.</p>
+          <button type="button" data-cta>Kurs freischalten</button>
+        </div>
+      </section>
 
-    <!-- Institutional Footer -->
-    <footer class="bg-slate-950 w-full border-t border-slate-800/30">
-      <div
-        class="flex flex-col md:flex-row justify-between items-center px-6 md:px-24 py-12 max-w-7xl mx-auto"
-      >
-        <div class="mb-8 md:mb-0">
-          <span class="text-base font-bold text-slate-200"
-            >Market Playbook</span
-          >
-          <p
-            class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-500 mt-2"
-          >
-            © 2026 Market Playbook
-          </p>
+      <footer>
+        <span class="marke"><svg class="zeichen" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g transform="translate(0 0.95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="#fff" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#B3C5FF" stroke="#B3C5FF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span>Market Playbook</span></span>
+        <div class="links">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="agb.html">AGB</a>
+          <a href="haftungsausschluss.html">Haftungsausschluss</a>
         </div>
-        <div
-          class="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 font-['Inter'] text-[10px] uppercase tracking-widest text-slate-500"
-        >
-          <a
-            class="hover:text-slate-200 transition-colors"
-            href="impressum.html"
-            >Impressum</a
-          >
-          <a class="hover:text-slate-200 transition-colors" href="agb.html"
-            >AGB</a
-          >
-          <a
-            class="hover:text-slate-200 transition-colors"
-            href="datenschutz.html"
-            >Datenschutzerklärung</a
-          >
-          <a
-            class="hover:text-slate-200 transition-colors"
-            href="haftungsausschluss.html"
-            >Haftungsausschluss</a
-          >
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
+
+    <div id="sticky" hidden>
+      <span class="text">10 Lektionen, 2 Stunden, kostenlos</span>
+      <button type="button" data-cta>Kurs freischalten</button>
+    </div>
 
     <script>
-      document.addEventListener("mousemove", (e) => {
-        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
-        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
-        const cards = document.querySelectorAll(".glass-card");
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty("--mouse-x", `${x}px`);
-          card.style.setProperty("--mouse-y", `${y}px`);
-        });
-      });
-
-      const observerOptions = { threshold: 0.1 };
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("opacity-100", "translate-y-0");
-            entry.target.classList.remove("opacity-0", "translate-y-10");
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-        el.classList.add(
-          "transition-all",
-          "duration-1000",
-          "opacity-0",
-          "translate-y-10",
-        );
-        observer.observe(el);
-      });
-      function toggleFaq(button) {
-        const item = button.closest(".faq-item");
-        const answer = item.querySelector(".faq-answer");
-        const isOpen = item.classList.contains("is-expanded");
-        document.querySelectorAll(".faq-item.is-expanded").forEach((other) => {
-          if (other !== item) {
-            other.classList.remove("is-expanded");
-            other.querySelector(".faq-answer").style.maxHeight = null;
-          }
-        });
-        if (isOpen) {
-          item.classList.remove("is-expanded");
-          answer.style.maxHeight = null;
-        } else {
-          item.classList.add("is-expanded");
-          answer.style.maxHeight = answer.scrollHeight + "px";
+      /* Lesefortschritt als Haarlinie oben. */
+      (function () {
+        var linie = document.getElementById('fortschritt');
+        if (!linie) return;
+        var laeuft = false;
+        function stellen() {
+          laeuft = false;
+          var hoehe = document.documentElement.scrollHeight - innerHeight;
+          var anteil = hoehe > 0 ? Math.min(1, scrollY / hoehe) : 0;
+          linie.style.width = (anteil * 100).toFixed(2) + '%';
         }
-      }
+        addEventListener('scroll', function () {
+          if (laeuft) return;
+          laeuft = true;
+          requestAnimationFrame(stellen);
+        }, { passive: true });
+        addEventListener('resize', stellen, { passive: true });
+        stellen();
+      })();
 
-      // Reveal-Animationen beim Laden / Scrollen (wie auf der Hauptseite)
-      const revealObserverOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
+      /* Abschnitte laufen beim Scrollen ein; die Kennzahlen zaehlen dabei
+         einmal hoch. Beides nur, wenn der Besucher Bewegung zulaesst. */
+      (function () {
+        var ruhig = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var teile = [].slice.call(document.querySelectorAll('.auftritt'));
+
+        /* Abschnittsnummern hier vergeben: von Hand geschrieben standen
+           sie in falscher Reihenfolge, nachdem die Stimmen nach oben
+           gezogen wurden. */
+        teile.forEach(function (t, i) {
+          var h = t.querySelector('h2');
+          if (!h || h.querySelector('.zahl')) return;
+          var z = document.createElement('span');
+          z.className = 'zahl';
+          z.textContent = ('0' + (i + 1)).slice(-2);
+          h.insertBefore(z, h.firstChild);
         });
-      }, revealObserverOptions);
 
-      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          document.querySelectorAll('.reveal').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight) {
-              el.classList.add('active');
-            }
+        if (ruhig || !('IntersectionObserver' in window)) {
+          teile.forEach(function (t) { t.classList.add('da'); });
+          return;
+        }
+        document.documentElement.classList.add('bewegt');
+        /* Sicherheitsnetz: sollte der Beobachter aus irgendeinem Grund
+           nicht feuern, ist der Inhalt nach zwei Sekunden trotzdem da. */
+        setTimeout(function () {
+          teile.forEach(function (t) { t.classList.add('da'); });
+        }, 2000);
+        var wache = new IntersectionObserver(function (eintraege) {
+          eintraege.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('da');
+            wache.unobserve(e.target);
           });
-        }, 100);
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        teile.forEach(function (t) { wache.observe(t); });
+      })();
+
+      (function () {
+        var ruhig = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var werte = [].slice.call(document.querySelectorAll('.kennzahl .wert'));
+        if (!werte.length || ruhig || !('IntersectionObserver' in window)) return;
+        var wache = new IntersectionObserver(function (eintraege) {
+          eintraege.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            wache.unobserve(e.target);
+            var ziel = e.target.textContent.trim();
+            var zahl = parseFloat(ziel.replace(',', '.'));
+            if (isNaN(zahl)) return;
+            var rest = ziel.replace(/^[0-9.,]+/, '');   // " h", " €"
+            var start = null, dauer = 900;
+            function schritt(zeit) {
+              if (start === null) start = zeit;
+              var t = Math.min(1, (zeit - start) / dauer);
+              var weich = 1 - Math.pow(1 - t, 3);
+              e.target.textContent = Math.round(zahl * weich) + rest;
+              if (t < 1) requestAnimationFrame(schritt);
+              else e.target.textContent = ziel;
+            }
+            requestAnimationFrame(schritt);
+          });
+        }, { threshold: 0.6 });
+        werte.forEach(function (w) { wache.observe(w); });
+      })();
+
+      /* Alle Ersatzknoepfe loesen denselben Typeform-Knopf aus. Damit
+         bleibt es ein Formular und eine Zaehlung — die Landungen im
+         Cockpit kommen weiter aus der Typeform-API. */
+      function typeformKnopf() {
+        return document.querySelector('.tf-block button');
+      }
+      document.addEventListener('click', function (e) {
+        var ausloeser = e.target.closest('[data-cta]');
+        if (!ausloeser) return;
+        var knopf = typeformKnopf();
+        if (knopf) { knopf.click(); return; }
+        /* Noch nicht geladen: zum echten Knopf scrollen statt ins Leere. */
+        document.querySelector('.tf-block').scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
+
+      /* Die Leiste erscheint erst, wenn der Hauptknopf nach oben aus dem
+         Bild gescrollt ist — vorher waere sie doppelt. Bewusst ein
+         Scroll-Listener statt IntersectionObserver: der IO feuerte beim
+         Nachmessen im eingebetteten Test kein zweites Mal, der Listener
+         ist hier schlicht das verlaesslichere Werkzeug. */
+      (function () {
+        var leiste = document.getElementById('sticky');
+        var ziel = document.querySelector('.tf-block');
+        if (!leiste || !ziel) return;
+        leiste.hidden = false;
+        document.body.classList.add('hat-sticky');
+        var laeuft = false;
+        function pruefen() {
+          laeuft = false;
+          var unten = ziel.getBoundingClientRect().bottom;
+          leiste.classList.toggle('an', unten < 0);
+        }
+        addEventListener('scroll', function () {
+          if (laeuft) return;
+          laeuft = true;
+          requestAnimationFrame(pruefen);
+        }, { passive: true });
+        addEventListener('resize', pruefen, { passive: true });
+        pruefen();
+      })();
     </script>
   </body>
 </html>

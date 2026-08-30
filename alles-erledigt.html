@@ -1,187 +1,80 @@
 <!DOCTYPE html>
-<html class="dark" lang="de">
-<head>
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/icon-tab.png" />
-    <script src="/consent.js" defer></script>
+<html lang="de">
+  <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Alles erledigt | Market Playbook</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "secondary": "#b9c7e2",
-                        "surface-container": "#142033",
-                        "on-background": "#d7e3fe",
-                        "surface": "#071326",
-                        "primary-container": "#1d64f2",
-                        "surface-tint": "#b3c5ff",
-                        "primary": "#b3c5ff",
-                        "on-primary": "#002a77",
-                        "surface-container-lowest": "#030e21"
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <style>
-        :root { --mouse-x: 50%; --mouse-y: 50%; }
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-tab.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/haus.css" />
+    <script src="/consent.js" defer></script>
+    <script defer src="/_vercel/insights/script.js"></script>
 
-        body {
-            background-color: #071326;
-            color: #d7e3fe;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    <!--
+      Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite. Texte unveraendert aus der
+      Live-Fassung. Das GA4-Ereignis am Seitenende bleibt erhalten:
+      es ist der einzige Punkt im Funnel, an dem eine abgeschlossene
+      Eintragung gemeldet wird.
+    -->
+  </head>
 
-        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+  <body>
+    <div class="schein mitte" aria-hidden="true"></div>
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background-image:
-              linear-gradient(to right, rgba(29, 100, 242, 0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(29, 100, 242, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
-                    rgba(29, 100, 242, 0.12),
-                    transparent 40%);
-            pointer-events: none;
-        }
-        .glass-card {
-          background: rgba(20, 32, 51, 0.4);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(141, 144, 161, 0.1);
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-
-        /* Check animation */
-        .check-ring {
-            animation: pulse-ring 2.5s ease-in-out infinite; border-color: rgba(179,197,255,0.3);
-        }
-        @keyframes pulse-ring {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(179, 197, 255, 0.25); }
-            50%       { box-shadow: 0 0 0 14px rgba(29, 100, 242, 0); }
-        }
-
-        .check-bg {
-            animation: scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
-            transform-origin: center;
-        }
-        @keyframes scale-in {
-            from { transform: scale(0); opacity: 0; }
-            to   { transform: scale(1); opacity: 1; }
-        }
-
-        .checkmark-path {
-            stroke-dasharray: 36;
-            stroke-dashoffset: 36;
-            animation: draw-check 0.5s ease 0.45s both;
-        }
-        @keyframes draw-check {
-            to { stroke-dashoffset: 0; }
-        }
-
-        /* Staggered fade-up */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(18px);
-            animation: fadeUp 0.55s ease forwards;
-        }
-        .fade-up:nth-child(1) { animation-delay: 0.05s; }
-        .fade-up:nth-child(2) { animation-delay: 0.2s; }
-        .fade-up:nth-child(3) { animation-delay: 0.35s; }
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-    <div class="fixed inset-0 z-[-1] pointer-events-none">
-      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container rounded-full blur-[120px] opacity-20"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-surface-tint rounded-full blur-[150px] opacity-20"></div>
-    </div>
-    <main class="relative w-full flex items-center justify-center px-6 py-16">
-        <div class="max-w-lg w-full text-center space-y-8 relative z-10">
-
-            <!-- Animated Checkmark -->
-            <div class="fade-up flex justify-center">
-                <div class="check-ring w-20 h-20 rounded-full border border-[rgba(179,197,255,0.3)] bg-[rgba(179,197,255,0.06)] flex items-center justify-center">
-                    <div class="check-bg w-14 h-14 rounded-full bg-[rgba(179,197,255,0.12)] flex items-center justify-center" style="box-shadow: 0 0 24px rgba(179,197,255,0.2); border: 1px solid rgba(179,197,255,0.25);">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <polyline class="checkmark-path" points="5,14 11,20 23,8" stroke="#b3c5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Headline + Subline -->
-            <div class="fade-up space-y-4">
-                <h1 class="font-headline text-4xl md:text-5xl font-bold tracking-tight" style="color: #d7e3fe;">
-                    Alles erledigt!
-                </h1>
-                <p class="font-headline text-xl md:text-2xl font-medium" style="color: #b3c5ff;">
-                    Dein Videokurs wartet auf dich.
-                </p>
-            </div>
-
-            <!-- Email Hint Card -->
-            <div class="fade-up glass-card rounded-2xl px-7 py-5 flex items-center gap-4 text-left">
-                <div class="flex-none w-9 h-9 rounded-full flex items-center justify-center" style="background: rgba(179,197,255,0.08); border: 1px solid rgba(179,197,255,0.2);">
-                    <span class="material-symbols-outlined" style="color: #b3c5ff; font-size: 18px;">mail</span>
-                </div>
-                <p class="text-sm leading-snug" style="color: #c3c6d8;">
-                    In wenigen Minuten sollte eine <span style="color: #d7e3fe; font-weight: 500;">Email</span> mit deinem Kurslink in deinem Postfach sein. Schau auch kurz im Spam-Ordner nach falls du nichts siehst.
-                </p>
-            </div>
-
-            <!-- Instagram Fallback Hint -->
-            <p class="fade-up text-sm" style="color: #8d90a1;">
-                Keine Email erhalten? 
-                <a href="https://www.instagram.com/claudioxmarkets" target="_blank" rel="noopener noreferrer" style="color: #b3c5ff; text-decoration: underline;">
-                    Schreibe mir auf Instagram
-                </a>
-            </p>
-
-        </div>
+    <main class="danke">
+      <p class="eyebrow">Eintragung eingegangen</p>
+      <h1>Alles erledigt! Dein Videokurs wartet auf dich.</h1>
+      <p style="font-size: 15px">
+        In wenigen Minuten sollte eine E-Mail mit deinem Kurslink in deinem
+        Postfach sein. Schau auch kurz im Spam-Ordner nach, falls du nichts
+        siehst.
+      </p>
+      <p style="margin-top: 28px; font-size: 14px">
+        Keine E-Mail erhalten?
+        <a
+          href="https://www.instagram.com/claudioxmarkets"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Schreibe mir auf Instagram</a
+        >
+      </p>
     </main>
 
-    <script>
-        window.addEventListener('mousemove', (e) => {
-            document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
-            document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
-        }, { passive: true });
+    <footer
+      class="fuss"
+      style="max-width: 720px; margin: 0 auto; padding: 0 28px 64px; position: relative; z-index: 1"
+    >
+      <div class="zeile">
+        <span class="marke">Market Playbook</span>
+        <nav>
+          <a href="/impressum.html">Impressum</a>
+          <a href="/agb.html">AGB</a>
+          <a href="/datenschutz.html">Datenschutz</a>
+          <a href="/haftungsausschluss.html">Haftungsausschluss</a>
+        </nav>
+      </div>
+    </footer>
 
-        if (typeof gtag === 'function') {
-            gtag('event', 'purchase', {
-                transaction_id: 'booking_' + Date.now(),
-                value: 1.0,
-                currency: 'EUR',
-                items: [{ item_name: 'Strategy Session', item_category: 'Service' }]
-            });
-        }
+    <script>
+      /* Meldet die abgeschlossene Eintragung an GA4. Laeuft nur, wenn
+         vorher zugestimmt wurde: ohne Zustimmung existiert gtag nicht,
+         und die Pruefung faengt genau das ab. */
+      if (typeof gtag === "function") {
+        gtag("event", "purchase", {
+          transaction_id: "booking_" + Date.now(),
+          value: 1.0,
+          currency: "EUR",
+          items: [{ item_name: "Strategy Session", item_category: "Service" }],
+        });
+      }
     </script>
-</body>
+  </body>
 </html>

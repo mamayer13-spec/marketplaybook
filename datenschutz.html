@@ -1,184 +1,31 @@
 <!DOCTYPE html>
-<html class="dark" lang="de">
-
-<head>
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/icon-tab.png" />
-    <script src="/consent.js" defer></script>
+<html lang="de">
+  <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Datenschutzerklärung | Market Playbook</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface": "#071326",
-                        "primary": "#b3c5ff",
-                        "primary-container": "#1d64f2",
-                        "on-surface": "#d7e3fe",
-                        "on-surface-variant": "#c3c6d8",
-                        "outline-variant": "#424655",
-                    },
-                    fontFamily: {
-                        "headline": ["Space Grotesk"],
-                        "body": ["Inter"],
-                    }
-                },
-            },
-        }
-    </script>
-    <style>
-        body {
-            background-color: #071326;
-            color: #d7e3fe;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-tab.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/haus.css" />
+    <script src="/consent.js" defer></script>
+    <!--
+      Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite. Hausdesign statt Tailwind.
+      Der Text ist unveraendert aus der Live-Fassung uebernommen und
+      zeichengenau gegengeprueft: bei Impressum, AGB, Datenschutz und
+      Haftungsausschluss ist jeder Satz abgestimmt.
+    -->
+  </head>
+  <body>
+    <div class="schein lese" aria-hidden="true"></div>
 
-        .glass-card {
-            background: rgba(30, 42, 62, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(66, 70, 85, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    <main class="recht-seite">
+      <h1>Datenschutz</h1>
 
-        .glass-card:hover {
-            border-color: rgba(179, 197, 255, 0.3);
-            background: rgba(30, 42, 62, 0.5);
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #b3c5ff;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .back-button:hover {
-            color: #d7e3fe;
-            transform: translateX(-4px);
-        }
-
-        .premium-border {
-            position: relative;
-        }
-
-        .premium-border::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: #1d64f2;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -0.02em;
-        }
-
-        .legal-content h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #b3c5ff;
-            margin-top: 3.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            border-left: 3px solid #1d64f2;
-            padding-left: 1rem;
-        }
-
-        .legal-content h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .legal-content p {
-            color: #c3c6d8;
-            margin-bottom: 1.25rem;
-            font-weight: 300;
-        }
-
-        .legal-content ul {
-            margin-bottom: 2rem;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .legal-content li {
-            color: #c3c6d8;
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1.5rem;
-            font-weight: 300;
-        }
-
-        .legal-content li::before {
-            content: "\e5cc";
-            /* Material Symbols Chevron Right */
-            font-family: 'Material Symbols Outlined';
-            position: absolute;
-            left: 0;
-            color: #1d64f2;
-            font-size: 1rem;
-            top: 0.2rem;
-        }
-
-        .glow-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% -20%, rgba(29, 100, 242, 0.15), transparent 70%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .info-box {
-            background: rgba(29, 100, 242, 0.05);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            border: 1px solid rgba(29, 100, 242, 0.2);
-            margin-bottom: 3rem;
-        }
-    </style>
-</head>
-
-<body class="selection:bg-primary/30">
-    <div class="glow-bg"></div>
-
-    <div class="max-w-4xl mx-auto px-6 py-20 md:py-32">
-        <header class="mb-16">
-            <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-white premium-border pb-6">Datenschutz</h1>
-        </header>
-
-        <main class="legal-content">
-            <div class="glass-card p-8 md:p-12 rounded-[2rem]">
+            <div>
                 <h2>1. Datenschutz auf einen Blick</h2>
 
                 <h3>Allgemeine Hinweise</h3>
@@ -211,8 +58,8 @@
                 </p>
 
                 <h2>2. Verantwortliche Stelle</h2>
-                <div class="info-box">
-                    <p class="mb-0 text-white font-medium">
+                <div>
+                    <p>
                         THE MARKET PLAYBOOK - FZCO<br>
                         IFZA Properties, DSO-IFZA<br>
                         Dubai Silicon Oasis<br>
@@ -220,7 +67,7 @@
                         Dubai, Vereinigte Arabische Emirate<br><br>
                         Vertreten durch: Claudio Fuersatz<br>
                         E-Mail: <a href="mailto:office@marketplaybook.de"
-                            class="text-primary hover:underline transition-colors">office@marketplaybook.de</a>
+                           >office@marketplaybook.de</a>
                     </p>
                 </div>
 
@@ -288,13 +135,20 @@
                     für deinen Erfolg im Trading-Bereich anzubieten.
                 </p>
             </div>
-        </main>
+            </main>
 
-        <footer class="mt-20 pt-10 border-t border-outline-variant/30 text-center">
-            <p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/50">© 2026 Market Playbook
-            </p>
-        </footer>
-    </div>
-</body>
-
+    <footer class="fuss" style="max-width: 780px; margin: 0 auto; padding: 0 28px 64px; position: relative; z-index: 1">
+      <div class="zeile">
+        <span class="marke">Market Playbook</span>
+        <nav>
+          <a href="/">Startseite</a>
+          <a href="/impressum">Impressum</a>
+          <a href="/agb">AGB</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/haftungsausschluss">Haftungsausschluss</a>
+        </nav>
+      </div>
+      <p class="recht" style="margin-top: 24px">© 2026 Market Playbook</p>
+    </footer>
+  </body>
 </html>

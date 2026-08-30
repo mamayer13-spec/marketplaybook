@@ -1,502 +1,401 @@
-/* ══════════════════════════════════════════════════════════════════
-   Erfahrungs-Portal auf marketplaybook.de
-   Magazin-Optik: Papier statt Produkt, Serifen im Fliesstext, gedeckte
-   Farben. Wer bei einer "Erfahrungen"-Suche auf einer Verkaufsseite
-   landet, springt ab — das Layout bleibt deshalb ein Heft und wird
-   keine Landingpage (Vorgabe Almin, 15.8.2026, erfahrungs-portal-spec).
+/* ============================================================
+   Erfahrungs-Portal im Hausdesign, Entwurf vom 28.8.2026.
 
-   Seit 17.8.2026 traegt es aber dieselbe Marke wie die Startseite
-   (Rueckmeldung Almin): Space Grotesk und die Markenfarben in der
-   Oberflaeche — Balken, Wortmarke, Navigation, Labels, Links.
-   Was bewusst NICHT angeglichen wird und auch nicht angeglichen
-   werden soll:
+   Ersetzt die bisherige portal.css und benutzt bewusst DIESELBEN
+   Klassennamen. Dadurch wechseln alle acht Portalseiten das Aussehen,
+   ohne dass eine einzige Zeile Text angefasst wird — bei Seiten, deren
+   Formulierungen rechtlich abgestimmt sind (Abgrenzung zu § 32 KWG,
+   Ausschlusskriterien, Risikohinweis), ist das keine Bequemlichkeit,
+   sondern die einzig vertretbare Vorgehensweise.
 
-     - heller Papiergrund statt des dunklen Navy der Startseite
-     - Source Serif 4 im Fliesstext UND in den Ueberschriften
-     - 760px Textspalte, Zeilenhoehe 1.65
-     - keine grossen farbigen CTA-Flaechen im Fliesstext
-     - gedecktes Gruen/Rot bei Pro/Contra statt der Signalfarben
+   Gestaltungsgrundlage: brain/06-knowledge/cockpit-designsprache.md.
+   Schwarz, Haarlinien statt Kaesten, dünne Schrift, ein Akzent.
 
-   Wer eines davon kippt, kippt den Grund, aus dem es das Portal gibt.
-
-   Diese Datei ist vom Tailwind-Bundle der Startseite vollstaendig
-   getrennt. Portal und Startseite teilen sich Domain und Marke, nicht
-   den Code.
-   ══════════════════════════════════════════════════════════════════ */
-
-/* ── Schriften, lokal ausgeliefert ────────────────────────────────
-   Keine Verbindung zu fonts.googleapis.com oder fonts.gstatic.com.
-   Die Referenzseiten laden vom Google-CDN und erzwingen sich damit in
-   Deutschland ein Cookie-Banner. Das uebernehmen wir nicht — auch
-   nicht fuer Space Grotesk, obwohl die Startseite genau das tut. Die
-   Datei liegt deshalb lokal unter /fonts (SIL Open Font License).
-   ─────────────────────────────────────────────────────────────── */
-
-@font-face {
-  font-family: "Source Serif 4";
-  font-style: normal;
-  font-weight: 400 700; /* Variable Font, deckt alle Schnitte ab */
-  font-display: swap;
-  src: url("/fonts/source-serif-4-var.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
-    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Dieselbe Schrift, die die Startseite als "font-headline" fuehrt.
-   Eine Variable-Datei ueber 300–700 ersetzt die vier Barlow-Schnitte
-   und ist mit 22 KB leichter als die 63 KB davor. */
-@font-face {
-  font-family: "Space Grotesk";
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url("/fonts/space-grotesk-var.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
-    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/* ── Palette ──────────────────────────────────────────────────────
-   Zwei Ebenen, die sich nicht vermischen duerfen:
-
-   MARKE — kommt eins zu eins von der Startseite und macht das Portal
-   als Market Playbook erkennbar: --brand (Navy), --akzent (Electric
-   Blue), --periwinkle.
-
-   PAPIER — bleibt gedeckt und cremig. Das Cremeweiss (--paper-2)
-   statt reinem Grau ist der Unterschied zwischen Magazin und
-   SaaS-Landingpage; ein Grauton allein wirkt technisch. Warmes Papier
-   unter kuehler Marke ist der Kontrast, von dem gedruckte
-   Wirtschaftstitel leben — kein Versehen.
-   ─────────────────────────────────────────────────────────────── */
+   Zwei Dinge bleiben ausdruecklich laut, obwohl das Design leise ist:
+   der Anbieterhinweis oben (.notice-banner) und der Risikohinweis im
+   Fuss. Beide duerfen nicht ausgegraut werden, sonst dreht sich ihr
+   Zweck um.
+   ============================================================ */
 
 :root {
-  --ink:       #1c2024;  /* Fliesstext */
-  --ink-soft:  #34383d;  /* sekundaerer Text, Vorspann */
-  --muted:     #6c7178;  /* Bildunterschriften, Meta-Zeilen */
-  --paper:     #ffffff;  /* Hintergrund */
-  --paper-2:   #f6f5f1;  /* Kaesten, cremig */
-  --paper-3:   #edebe3;  /* Faktenbox */
-  --line:      #e0ddd2;  /* Trennlinien */
-  --line-2:    #cfcbbd;  /* Rahmen im Hover */
-
-  /* Markenfarben, identisch mit der Startseite (brain/CLAUDE.md) */
-  --brand:     #0a1a36;  /* Navy — Portal-Balken, Wortmarke */
-  --akzent:    #3860ea;  /* Electric Blue — Links auf weissem Papier,
-                            5.2:1 gegen #ffffff */
-  --akzent-tief:#2a47b0; /* dieselbe Blaufamilie, abgedunkelt fuer die
-                            kleinen Versal-Labels. #3860ea kaeme auf der
-                            Faktenbox (#edebe3) nur auf 4.4:1 und faellt
-                            damit unter die Grenze; dieser Ton haelt
-                            6.7:1 */
-  --periwinkle:#b3c5ff;  /* Text im dunklen Balken, 10.2:1 auf --brand */
-  --brand-soft:#eef1fd;  /* Akzentflaeche, aus Periwinkle aufgehellt */
-
-  --pos:       #2d5a3d;  /* "passt fuer" — bewusst NICHT das #10b981
-                            der Startseite: Signalgruen im Fliesstext
-                            laesst die Seite werben statt einordnen */
-  --neg:       #8c2424;  /* "passt nicht", aus demselben Grund kein
-                            #ef4444 */
-  --warn:      #a85c1f;  /* Hinweise, Platzhalter */
-  --internal:  #3860ea;  /* Kante am Pflicht-Hinweis */
-
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --sans:  "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-  --breit: 1140px;  /* Header und Fuss */
-  --spalte: 760px;  /* Artikeltext — breiter liest sich wie Marketing */
+  /* Kundenseiten sind nie reines Schwarz — brain/06-knowledge/licht-auf-dunklem-grund.md */
+  --grund: #0b0d12;
+  --flaeche: #151821;
+  --text: #f0f2f6;
+  --muted: #a2a8b5;
+  --leise: #6d7484;
+  --linie: #2e323d;
+  --linie-fein: rgba(240, 242, 246, 0.07);
+  --akzent: #b3c5ff;
+  --warn: #e5b25f;
+  --weich: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Grundlagen ───────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html { background: var(--grund); }
 
-*, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
-
+/* Licht auf dunklem Grund (licht-auf-dunklem-grund.md). Die Portalseiten
+   sind lange Leseseiten: eine Quelle oben, eine weiter unten gegenueber. */
+.schein {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(52% 30% at 14% 4%, rgba(179, 197, 255, 0.16), transparent 70%),
+    radial-gradient(48% 32% at 92% 46%, rgba(240, 242, 246, 0.10), transparent 72%),
+    radial-gradient(46% 30% at 20% 88%, rgba(179, 197, 255, 0.10), transparent 74%);
+}
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.65;
-  font-synthesis-weight: none;
+  background: transparent;
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
   -webkit-font-smoothing: antialiased;
 }
-
-a { color: var(--akzent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-a:hover { color: var(--ink); }
-
+a { color: var(--akzent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* Der Aussenrahmen fuer Kopf und Fuss. */
-.wrap { max-width: var(--breit); margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
 
-/* ── Hinweis-Banner ───────────────────────────────────────────────
-   Pflicht auf jeder Seite, § 5a Abs. 4 UWG folgend in FLIESSTEXT-
-   groesse und nicht ausgegraut. Ein kleingedruckter Hinweis erfuellt
-   den Zweck nicht — er soll gelesen werden, nicht abgehakt.
-   ─────────────────────────────────────────────────────────────── */
-
+/* ---------- Anbieterhinweis: bewusst nicht leise ---------- */
 .notice-banner {
-  background: var(--brand-soft);
-  border-left: 3px solid var(--internal);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
+  background: rgba(229, 178, 95, 0.07);
+  border-bottom: 1px solid rgba(229, 178, 95, 0.35);
+  color: #f0e3cb;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 12px 0;
 }
-.notice-banner .wrap { padding-top: 14px; padding-bottom: 14px; }
+.notice-banner .wrap { max-width: 900px; }
 
-/* ── Bereichsleiste ───────────────────────────────────────────────
-   Ersetzt am 17.8.2026 den alten Balken, der nur drei Punkte hatte —
-   und einer davon fuehrte zurueck auf die Verkaufsseite. Wer im Portal
-   von /kosten nach /haeufige-fragen wollte, musste den Umweg ueber die
-   Startseite nehmen und wusste nebenbei nie, wo er gerade ist.
-
-   Sie steht UNTER dem Titelkopf, nicht darueber: erst der Titel, dann
-   die Ressorts — so ist eine Zeitung aufgebaut, und der Kopf bleibt das
-   Erste, was jemand sieht.
-
-   Die laufende Seite traegt aria-current="page" und wird darueber
-   markiert, nicht ueber eine Extra-Klasse. Ein Screenreader sagt dann
-   dasselbe, was das Auge sieht.
-   ─────────────────────────────────────────────────────────────── */
-
+/* ---------- Portal-Navigation ---------- */
 .portal-nav {
-  background: var(--brand);
-  color: var(--periwinkle);
-  font-family: var(--sans);
-  font-size: 13.5px;
+  border-bottom: 1px solid var(--linie-fein);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
 .portal-nav .wrap {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; flex-wrap: wrap;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 .portal-nav ul {
-  display: flex; flex-wrap: wrap; gap: 2px;
-  list-style: none; margin: 0; padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  flex: 1;
 }
 .portal-nav a {
-  display: block; padding: 11px 12px;
-  color: var(--periwinkle); text-decoration: none;
-  letter-spacing: .005em;
+  font-size: 12.5px;
+  color: var(--muted);
+  transition: color 200ms var(--weich);
 }
-.portal-nav a:hover { color: #ffffff; background: rgba(255, 255, 255, .07); }
-
-/* Die laufende Seite. Der Balken darunter traegt die Markierung, nicht
-   eine Hintergrundflaeche — eine gefuellte Flaeche sieht nach Button
-   aus und das ist im Kopf einer Magazinseite das falsche Signal. */
-.portal-nav a[aria-current="page"] {
-  color: #ffffff; font-weight: 600;
-  box-shadow: inset 0 -3px 0 var(--akzent);
-}
-
-/* Der Weg heraus aus dem Portal, rechts abgesetzt. Bewusst kein
-   Punkt in der Reihe: er fuehrt auf die Verkaufsseite und gehoert
-   damit nicht in dieselbe Ordnung wie die Portalseiten. */
+.portal-nav a:hover { color: var(--text); text-decoration: none; }
 .portal-nav .zur-startseite {
-  padding-left: 0; padding-right: 0;
-  color: #93a7d8; font-size: 12.5px; white-space: nowrap;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  white-space: nowrap;
 }
-.portal-nav .zur-startseite:hover { background: none; color: #ffffff; }
+.portal-nav .zur-startseite:hover { color: var(--text); text-decoration: none; }
 
-/* ── Haupt-Kopf ─────────────────────────────────────────────────── */
-
-.site-header { background: var(--paper); border-bottom: 1px solid var(--line); }
-.site-header .wrap { padding-top: 26px; padding-bottom: 22px; }
-/* Die Wortmarke ist die eine Stelle, an der Portal und Startseite
-   buchstabengleich sein muessen — dort entscheidet sich, ob jemand
-   die Marke wiedererkennt. Space Grotesk 700 mit engem Satz, genau
-   wie im Nav-Balken der Startseite (index.html:4823). */
+/* ---------- Kopf ---------- */
+.site-header {
+  padding: 40px 0 28px;
+  border-bottom: 1px solid var(--linie);
+}
+.site-header .wrap { max-width: 900px; }
 .site-header .wordmark {
-  font-family: var(--sans); font-size: 1.66rem; font-weight: 700;
-  letter-spacing: -.035em; margin: 0; color: var(--brand);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
 }
-.site-header .wordmark a { color: inherit; text-decoration: none; }
-
-/* Der Bereichsname hinter der Marke — "Market Playbook Erfahrungen"
-   bzw. "… Magazin". Ergaenzt am 17.8.2026, weil der Kopf auf allen 14
-   Seiten identisch war und niemand erkennen konnte, wo er gelandet ist.
-   Wie bei einem Zeitungsressort: die Marke traegt das Gewicht, der
-   Bereich steht leichter daneben und ist der veraenderliche Teil. */
+.site-header .wordmark a { color: var(--text); }
+.site-header .wordmark a:hover { text-decoration: none; }
 .site-header .bereich {
-  font-weight: 400; color: var(--akzent-tief); letter-spacing: -.02em;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--akzent);
 }
-.site-header .bereich a { color: inherit; text-decoration: none; }
-.site-header .bereich a:hover { text-decoration: underline; }
+.site-header .bereich a { color: var(--akzent); }
+.site-header .bereich a:hover { color: var(--text); }
 .site-header .tagline {
-  font-family: var(--sans); font-size: 13px; color: var(--muted);
-  margin: 5px 0 0; letter-spacing: .02em;
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--leise);
+  letter-spacing: 0.02em;
 }
 
-/* ── Breadcrumb ─────────────────────────────────────────────────── */
-
+/* ---------- Brotkrume ---------- */
 .breadcrumb {
-  font-family: var(--sans); font-size: 13px; color: var(--muted);
-  border-bottom: 1px solid var(--line);
+  padding: 18px 0 0;
+  font-size: 11px;
+  color: var(--leise);
 }
-.breadcrumb .wrap { padding-top: 10px; padding-bottom: 10px; }
-.breadcrumb a { color: var(--muted); text-decoration: none; }
-.breadcrumb a:hover { color: var(--akzent); text-decoration: underline; }
-.breadcrumb .sep { padding: 0 7px; color: var(--line-2); }
+.breadcrumb .wrap { max-width: 900px; }
+.breadcrumb a { color: var(--leise); }
+.breadcrumb a:hover { color: var(--text); text-decoration: none; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
 
-/* ── Artikelspalte ──────────────────────────────────────────────── */
-
+/* ---------- Artikel ----------
+   Die Spaltenbreite muss hier stehen: <main class="article"> ist im
+   Markup kein Kind von .wrap, sondern traegt seine Breite selbst. */
 .article {
-  max-width: var(--spalte);
+  max-width: 780px;
   margin: 0 auto;
-  padding: 40px 24px 64px;
+  padding: 28px 24px 80px;
 }
-.article p { margin: 0 0 1.15em; }
-
+@media (min-width: 720px) { .article { padding: 32px 32px 96px; } }
+.article p { margin: 0 0 20px; color: var(--muted); }
 .kicker {
-  font-family: var(--sans); font-size: .74rem; font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--akzent-tief);
-  margin: 0 0 12px;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--leise);
+  margin: 0 0 20px;
 }
-
 .article h1 {
-  font-family: var(--serif); font-size: 2.1rem; line-height: 1.2;
-  font-weight: 600; letter-spacing: -.015em; margin: 0 0 18px;
+  font-weight: 200;
+  font-size: clamp(1.8rem, 5vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin: 0 0 24px;
 }
 .article h2 {
-  font-family: var(--serif); font-size: 1.5rem; line-height: 1.3;
-  font-weight: 600; margin: 2.2em 0 .55em;
+  font-weight: 200;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  line-height: 1.16;
+  letter-spacing: -0.028em;
+  margin: 64px 0 20px;
+  padding-top: 28px;
+  border-top: 1px solid var(--linie);
 }
 .article h3 {
-  font-family: var(--serif); font-size: 1.18rem; line-height: 1.35;
-  font-weight: 600; margin: 1.7em 0 .4em;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  margin: 36px 0 10px;
 }
-
-/* Kleines Versal-Label ueber jeder H2. Gliedert den Text optisch, ohne
-   eine Rangordnung zu behaupten, die es nicht gibt. */
 .section-eyebrow {
-  font-family: var(--sans); font-size: .72rem; font-weight: 600;
-  letter-spacing: .09em; text-transform: uppercase; color: var(--akzent-tief);
-  margin: 2.4em 0 -.3em;
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--akzent);
+  margin: 0 0 12px;
 }
-.section-eyebrow + h2 { margin-top: .35em; }
-
 .lede {
-  font-size: 1.15rem; line-height: 1.55; color: var(--ink-soft);
-  margin: 0 0 1.4em;
+  font-size: 17px;
+  color: var(--text);
+  font-weight: 300;
+  line-height: 1.65;
 }
-
 .byline {
-  font-family: var(--sans); font-size: 13px; color: var(--muted);
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  padding: 10px 0; margin: 0 0 28px;
+  font-size: 11px;
+  color: var(--leise);
+  letter-spacing: 0.02em;
+  margin: 0 0 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--linie-fein);
 }
+figure { margin: 32px 0; }
+figcaption { font-size: 11.5px; color: var(--leise); margin-top: 10px; }
 
-figure { margin: 28px 0; }
-figcaption {
-  font-family: var(--sans); font-size: 13px; color: var(--muted);
-  line-height: 1.45; margin-top: 8px;
-}
-
-/* ── Faktenbox ──────────────────────────────────────────────────── */
-
+/* ---------- Angabenkasten: Haarlinien statt Kasten ---------- */
 .data-box {
-  background: var(--paper-3); border: 1px solid var(--line);
-  padding: 22px 24px; margin: 30px 0;
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--linie);
 }
 .data-box h2, .data-box h3 {
-  font-family: var(--sans); font-size: .78rem; font-weight: 700;
-  letter-spacing: .09em; text-transform: uppercase; color: var(--akzent-tief);
-  margin: 0 0 14px;
+  margin: 0 0 18px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 1rem;
+  font-weight: 400;
 }
 .data-box dl { margin: 0; }
 .data-box .row {
-  display: grid; grid-template-columns: 170px 1fr; gap: 16px;
-  padding: 9px 0; border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linie-fein);
 }
-.data-box .row:first-of-type { border-top: 0; padding-top: 0; }
+@media (min-width: 640px) {
+  .data-box .row { grid-template-columns: 210px 1fr; gap: 6px 24px; }
+}
+.data-box .row:last-child { border-bottom: 0; }
 .data-box dt {
-  font-family: var(--sans); font-size: .84rem; font-weight: 600;
-  color: var(--ink-soft); line-height: 1.5; margin: 0;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  padding-top: 4px;
 }
-.data-box dd { margin: 0; font-size: .97rem; line-height: 1.5; }
+.data-box dd { margin: 0; color: var(--muted); font-size: 15px; }
 
-/* ── Kernaussagen-Kasten ──────────────────────────────────────────
-   Ersetzt den Bewertungskasten der Referenzseiten. Dort steht eine
-   Note wie 4,5/5. Wir haben keine erhobene Zahlenbasis, also gibt es
-   auch keine Note — eine erfundene waere genau der Punkt, an dem die
-   Seite angreifbar wuerde.
-   ─────────────────────────────────────────────────────────────── */
-
+/* ---------- Zusammenfassung ---------- */
 .summary-box {
-  background: var(--paper-2); border: 1px solid var(--line);
-  padding: 22px 24px; margin: 30px 0;
+  margin: 32px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--linie);
+  border-bottom: 1px solid var(--linie);
 }
 .summary-box h2 {
-  font-family: var(--sans); font-size: .78rem; font-weight: 700;
-  letter-spacing: .09em; text-transform: uppercase; color: var(--akzent-tief);
-  margin: 0 0 10px;
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 400;
 }
-.summary-box .basis {
-  font-family: var(--sans); font-size: .86rem; color: var(--muted);
-  margin: 0 0 14px; line-height: 1.5;
-}
-.summary-box ul { margin: 0; padding-left: 20px; }
-.summary-box li { margin-bottom: .5em; }
+.summary-box .basis { font-size: 12px; color: var(--leise); margin: 0 0 16px; }
+.summary-box ul { margin: 0; padding-left: 1.1em; }
+.summary-box li { margin-bottom: 10px; color: var(--muted); }
+.summary-box li::marker { color: var(--leise); }
 
-/* ── Zitat-Block ──────────────────────────────────────────────────
-   Angelegt, aber vorerst UNGENUTZT. Es liegen keine Teilnehmerstimmen
-   mit Freigabe vor. Wer diesen Baustein benutzt, braucht je Zitat:
-   Vorname, Alter, Zeitraum und eine schriftliche Freigabe — und keine
-   Gewinnzahlen. Erhielt jemand eine Gegenleistung, muss das direkt am
-   Zitat stehen.
-   ─────────────────────────────────────────────────────────────── */
-
+/* ---------- Zitat ---------- */
 .quote-box {
-  border-left: 3px solid var(--akzent); padding: 4px 0 4px 20px;
-  margin: 28px 0; font-size: 1.05rem;
+  margin: 32px 0;
+  padding-left: 20px;
+  border-left: 1px solid var(--linie);
 }
-.quote-box p { margin: 0 0 .6em; }
-.quote-box .attribution {
-  font-family: var(--sans); font-size: .84rem; color: var(--muted);
-  margin: 0;
-}
+.quote-box p { margin: 0 0 8px; color: var(--text); font-weight: 300; }
+.quote-box .attribution { font-size: 11.5px; color: var(--leise); }
 
-/* ── Fuer wen / fuer wen nicht ──────────────────────────────────── */
+/* ---------- Vor- und Nachteile ---------- */
+.proscons { display: grid; gap: 28px; margin: 32px 0; }
+@media (min-width: 720px) { .proscons { grid-template-columns: 1fr 1fr; } }
+.proscons .pro, .proscons .con { padding-top: 18px; border-top: 1px solid var(--linie); }
+.proscons h3 { margin: 0 0 12px; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.2em; }
+.proscons .pro h3 { color: var(--akzent); }
+.proscons .con h3 { color: var(--warn); }
+.proscons ul { margin: 0; padding-left: 1.1em; }
+.proscons li { margin-bottom: 10px; color: var(--muted); font-size: 15px; }
+.proscons li::marker { color: var(--leise); }
 
-.proscons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-.proscons > div { border: 1px solid var(--line); padding: 20px; background: var(--paper-2); }
-.proscons .pro { border-top: 3px solid var(--pos); }
-.proscons .con { border-top: 3px solid var(--neg); }
-.proscons h3 {
-  font-family: var(--sans); font-size: .86rem; font-weight: 700;
-  letter-spacing: .04em; text-transform: uppercase; margin: 0 0 12px;
-}
-.proscons .pro h3 { color: var(--pos); }
-.proscons .con h3 { color: var(--neg); }
-.proscons ul { margin: 0; padding-left: 18px; font-size: .97rem; }
-.proscons li { margin-bottom: .55em; line-height: 1.5; }
-
-/* ── Einordnung am Ende ─────────────────────────────────────────── */
-
+/* ---------- Fazit und Hinweise ---------- */
 .verdict-box {
-  border: 1px solid var(--line-2); background: var(--paper-2);
-  padding: 24px 26px; margin: 34px 0;
+  margin: 40px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--linie);
+  border-bottom: 1px solid var(--linie);
 }
 .verdict-box h2 {
-  font-family: var(--sans); font-size: .78rem; font-weight: 700;
-  letter-spacing: .09em; text-transform: uppercase; color: var(--akzent-tief);
   margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--akzent);
 }
 .verdict-box p:last-child { margin-bottom: 0; }
-
-/* ── Hinweiskasten im Fliesstext ────────────────────────────────── */
-
 .note {
-  border-left: 3px solid var(--warn); background: var(--paper-2);
-  padding: 16px 20px; margin: 26px 0; font-size: .97rem;
+  margin: 28px 0;
+  padding: 16px 0 16px 20px;
+  border-left: 1px solid var(--linie);
+  font-size: 14px;
+  color: var(--leise);
 }
 .note p:last-child { margin-bottom: 0; }
 
-/* ── FAQ ────────────────────────────────────────────────────────── */
+/* ---------- FAQ ---------- */
+.faq-item { padding: 22px 0; border-bottom: 1px solid var(--linie-fein); }
+.faq-item:last-of-type { border-bottom: 0; }
+.faq-item h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 400; color: var(--text); }
+.faq-item p { margin: 0; font-size: 15px; }
 
-.faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
-.faq-item:last-of-type { border-bottom: 1px solid var(--line); }
-.faq-item h3 {
-  font-family: var(--sans); font-size: 1rem; font-weight: 600;
-  margin: 0 0 .45em; line-height: 1.45;
-}
-.faq-item p { margin: 0; font-size: .99rem; }
-
-/* ── Magazin-Karten ───────────────────────────────────────────────
-   Einspaltig auch auf dem Desktop. Ein Kachelraster laesst die Seite
-   wie einen Shop aussehen; eine Liste liest sich wie ein Heft.
-   ─────────────────────────────────────────────────────────────── */
-
-.card-list { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+/* ---------- Kartenliste (Magazin) ---------- */
+.card-list { display: grid; gap: 0; margin: 32px 0; }
 .card {
-  border: 1px solid var(--line); border-radius: 4px; padding: 24px;
-  transition: border-color .15s ease;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--linie-fein);
+  transition: opacity 200ms var(--weich);
 }
-.card:hover { border-color: var(--line-2); }
+.card:hover { opacity: 0.82; }
 .card .label {
-  font-family: var(--sans); font-size: .7rem; font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--akzent-tief);
-  margin: 0 0 8px;
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  margin-bottom: 10px;
 }
 .card h2, .card h3 {
-  font-family: var(--serif); font-size: 1.28rem; font-weight: 600;
-  line-height: 1.3; margin: 0 0 8px;
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  font-size: 1.15rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
-.card h2 a, .card h3 a { color: var(--ink); text-decoration: none; }
-.card h2 a:hover, .card h3 a:hover { color: var(--akzent); text-decoration: underline; }
-.card p { margin: 0; color: var(--muted); font-size: .97rem; line-height: 1.5; }
+.card h2 a, .card h3 a { color: var(--text); }
+.card h2 a:hover, .card h3 a:hover { color: var(--akzent); text-decoration: none; }
+.card p { margin: 0; font-size: 14.5px; }
 
-.meta-line {
-  font-family: var(--sans); font-size: 13px; color: var(--muted);
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  padding: 10px 0; margin: 0 0 8px;
-}
+.meta-line { font-size: 11px; color: var(--leise); letter-spacing: 0.02em; }
 
-/* ── Platzhalter ──────────────────────────────────────────────────
-   Sichtbar markiert, damit niemand sie uebersieht. Sie sperren den
-   Livegang, nicht den Bau.
-   ─────────────────────────────────────────────────────────────── */
-
+/* Offener Punkt: sichtbar als Platzhalter, nie als geschaetzter Wert. */
 .ph {
-  background: rgba(168, 92, 31, .15); color: var(--warn);
-  font-family: var(--sans); font-size: .88em; font-weight: 600;
-  padding: 1px 6px; border-radius: 3px;
+  color: var(--warn);
+  font-style: normal;
+  border-bottom: 1px dotted rgba(229, 178, 95, 0.5);
 }
 
-/* ── Fuss ───────────────────────────────────────────────────────── */
-
+/* ---------- Fuss ---------- */
 .site-footer {
-  background: var(--paper-2); border-top: 1px solid var(--line);
-  font-family: var(--sans); font-size: .9rem; color: var(--ink-soft);
-  margin-top: 20px;
+  border-top: 1px solid var(--linie);
+  padding: 40px 0 56px;
 }
-.site-footer .wrap { padding-top: 34px; padding-bottom: 40px; }
+.site-footer .wrap { max-width: 900px; }
 .site-footer .risiko {
-  border-left: 3px solid var(--warn); padding: 0 0 0 16px;
-  margin: 0 0 26px; max-width: 760px; line-height: 1.55;
+  font-size: 12.5px;
+  color: var(--leise);
+  line-height: 1.65;
+  margin: 0 0 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--linie-fein);
+  max-width: 78ch;
 }
-.site-footer .cols {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-  border-top: 1px solid var(--line); padding-top: 22px;
-}
+.site-footer .cols { display: grid; gap: 28px; }
+@media (min-width: 640px) { .site-footer .cols { grid-template-columns: repeat(3, 1fr); } }
 .site-footer h2 {
-  font-size: .74rem; font-weight: 700; letter-spacing: .09em;
-  text-transform: uppercase; color: var(--muted); margin: 0 0 10px;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--leise);
+  margin: 0 0 12px;
+  font-weight: 400;
 }
 .site-footer ul { list-style: none; margin: 0; padding: 0; }
-.site-footer li { margin-bottom: 7px; }
-.site-footer a { color: var(--ink-soft); text-decoration: none; }
-.site-footer a:hover { color: var(--akzent); text-decoration: underline; }
+.site-footer li { margin-bottom: 8px; }
+.site-footer a { font-size: 13.5px; color: var(--muted); }
+.site-footer a:hover { color: var(--text); text-decoration: none; }
 .site-footer .impressum-zeile {
-  margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line);
-  color: var(--muted); font-size: .84rem;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linie-fein);
+  font-size: 11px;
+  color: var(--leise);
 }
 
-/* ── Mobil ──────────────────────────────────────────────────────── */
-
-@media (max-width: 700px) {
-  body { font-size: 16.5px; }
-  .wrap { padding: 0 20px; }
-  .article { padding: 30px 20px 48px; }
-  .article h1 { font-size: 1.72rem; }
-  .article h2 { font-size: 1.32rem; }
-  .data-box .row { grid-template-columns: 1fr; gap: 2px; }
-  .proscons { grid-template-columns: 1fr; }
-  .site-footer .cols { grid-template-columns: 1fr; }
-
-  /* Die Leiste scrollt seitlich, statt auf vier Zeilen umzubrechen —
-     ein vierzeiliger Navigationsblock schiebt auf dem Telefon den
-     ganzen Artikel unter die Falz. */
-  .portal-nav .wrap {
-    flex-wrap: nowrap; gap: 12px;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .portal-nav .wrap::-webkit-scrollbar { display: none; }
-  .portal-nav ul { flex-wrap: nowrap; }
-  .portal-nav a { white-space: nowrap; padding: 10px 10px; }
-  .site-header .wordmark { font-size: 1.45rem; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
 }

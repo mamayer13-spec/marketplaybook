@@ -18,11 +18,13 @@
    ============================================================ */
 
 :root {
-  --grund: #000000;
+  /* Kundenseiten sind nie reines Schwarz — brain/06-knowledge/licht-auf-dunklem-grund.md */
+  --grund: #0b0d12;
+  --flaeche: #151821;
   --text: #f0f2f6;
   --muted: #a2a8b5;
   --leise: #6d7484;
-  --linie: rgba(240, 242, 246, 0.13);
+  --linie: #2e323d;
   --linie-fein: rgba(240, 242, 246, 0.07);
   --akzent: #b3c5ff;
   --warn: #e5b25f;
@@ -63,6 +65,27 @@ img { max-width: 100%; height: auto; display: block; }
     radial-gradient(58% 42% at 50% 8%, rgba(179, 197, 255, 0.18), transparent 70%),
     radial-gradient(46% 34% at 84% 52%, rgba(120, 150, 255, 0.11), transparent 72%),
     radial-gradient(52% 38% at 10% 86%, rgba(179, 197, 255, 0.09), transparent 74%);
+}
+
+/* Das Licht steht nicht auf jeder Seite an derselben Stelle: es gehoert
+   dorthin, wo der Inhalt steht (licht-auf-dunklem-grund.md). Standard ist
+   die lange Seite — gross von oben mittig, ein Akzent links unten. */
+
+/* Etwas steht allein in der Mitte (Bestaetigung, Fehler): Licht dahinter,
+   enger gefasst — sonst liegt der Inhalt im Dunkeln und wirkt wie ein Fehler. */
+.schein.mitte {
+  background:
+    radial-gradient(46% 34% at 50% 42%, rgba(179, 197, 255, 0.18), transparent 68%),
+    radial-gradient(40% 30% at 88% 8%, rgba(240, 242, 246, 0.10), transparent 74%);
+}
+
+/* Lange Leseseite: eine Quelle oben, eine zweite weiter unten an der
+   anderen Seite — das Licht wandert mit dem Lesen. */
+.schein.lese {
+  background:
+    radial-gradient(52% 30% at 14% 4%, rgba(179, 197, 255, 0.16), transparent 70%),
+    radial-gradient(48% 32% at 92% 46%, rgba(240, 242, 246, 0.10), transparent 72%),
+    radial-gradient(46% 30% at 20% 88%, rgba(179, 197, 255, 0.10), transparent 74%);
 }
 
 .raster {
