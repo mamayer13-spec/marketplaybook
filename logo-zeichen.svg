@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Market Playbook">
+  <title>Market Playbook</title>
+  <!-- Dieselbe Form wie zeichen-favicon.svg, aber mit fest hellen Farben.
+       Das Favicon dreht sich per prefers-color-scheme mit dem Tab-Balken
+       um; hier waere das falsch: dieses Zeichen steht im Hero auf
+       dunkelblauem Grund, und bei hellem Browser-Theme wuerde es dort
+       dunkelnavy auf dunkelblau und damit unsichtbar. -->
+  <g transform="translate(0 0.95)">
+    <path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#B3C5FF" stroke="#B3C5FF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+</svg>
