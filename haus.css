@@ -128,19 +128,53 @@ img { max-width: 100%; height: auto; display: block; }
 main > p, section > p { max-width: 74ch; }
 
 /* ---------- Kopfleiste ---------- */
+/* Die Kopfleiste war ein harter schwarzer Balken, der an der Spaltenkante
+   einfach aufhoerte - Manuel: "die ist ja einfach abgehackt". Jetzt eine
+   schwebende Glasleiste: sie hoert nicht auf, sie hat eine Form.
+
+   Der Grund scheint durch (Glas heisst durchsichtig, nicht milchig), die
+   Oberkante faengt Licht wie bei den Kacheln, und der Schatten haelt sie
+   ueber dem Inhalt. */
 .kopf {
   position: sticky;
-  top: 0;
+  top: 10px;
   z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 16px 0;
-  margin-bottom: 8px;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--linie-fein);
+  padding: 12px 22px;
+  margin: 10px 0 8px;
+  border-radius: 999px;
+  background: rgba(22, 26, 36, 0.55);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 18px 40px rgba(0, 0, 0, 0.45);
+  transition: transform 360ms var(--weich), opacity 360ms var(--weich),
+    background 360ms var(--weich), border-color 360ms var(--weich);
+}
+
+/* Die Lichtkante oben - dieselbe Idee wie bei den Kacheln, nur der
+   Rundung folgend. */
+.kopf::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 12%; right: 12%;
+  height: 1px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(179, 197, 255, 0) 0%,
+    rgba(179, 197, 255, 0.5) 22%,
+    rgba(240, 242, 246, 0.28) 55%,
+    rgba(240, 242, 246, 0) 100%);
+}
+
+@media (max-width: 639px) {
+  .kopf { padding: 10px 14px; border-radius: 22px; }
 }
 .kopf .marke {
   font-size: 14px;
@@ -363,6 +397,17 @@ ol.nummern li p, ul.punkte li p { margin: 6px 0 0; }
 }
 
 /* ---------- Fuss ---------- */
+/* Kurze Seiten (Bestaetigung, Fehler): Der Fuss stand mitten im Bild,
+   weil der Inhalt die Seite nicht fuellt. Mit dieser Klasse am body
+   sitzt er unten am Rand. */
+body.kurz {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+body.kurz > main { flex: 1 0 auto; }
+body.kurz > footer.fuss { margin-top: auto; }
+
 footer.fuss {
   margin-top: 96px;
   padding-top: 28px;

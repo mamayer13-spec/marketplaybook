@@ -159,7 +159,7 @@
       .video-einordnung {
         width: var(--medien);
         max-width: 900px;
-        margin: 30px 0 14px;
+        margin: 30px auto 14px;
         text-align: center;
         color: var(--muted);
         font-size: 16px;
@@ -171,10 +171,10 @@
          Breite, laufender Text soll aber nicht ueber 70 Zeichen gehen. */
       .cta .hinweis, .cta .klein,
       .auftritt > p, .lektionen li, .faq p { max-width: 68ch; }
-      /* Video und Knopf laufen auf die volle Textbreite und fluchten
-         links mit Ueberschrift, Eyebrow und allen Abschnitten darunter.
-         Vorher waren sie schmaler und zentriert - dadurch hatte die Seite
-         zwei Achsen gleichzeitig und wirkte unentschieden. */
+      /* Video und Knopf laufen auf die volle Textbreite. Seit 30.8.2026
+         stehen sie mittig statt links: auf breiten Schirmen zog der Block
+         sonst nach links, waehrend Einordnung und Knopftext mittig sassen.
+         Manuel: "bitte mach das video und den button zentriert". */
       :root { --medien: 100%; }
 
       .rahmen {
@@ -187,8 +187,8 @@
         /* Ueber 900 px wird ein 16:9-Video hoeher als der Bildschirm und
            man sieht Ueberschrift und Knopf nicht mehr gleichzeitig. */
         max-width: 900px;
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       /* ---------- Der einzige gefuellte Block der Seite ---------- */
@@ -196,7 +196,8 @@
       .cta .hinweis {
         width: var(--medien);
         max-width: 900px;
-        margin: 0 0 14px;
+        margin: 0 auto 14px;
+        text-align: center;
         font-size: 14px;
         color: var(--text);
       }
@@ -210,7 +211,7 @@
       /* Typeform rendert einen echten <button> in den Block hinein — kein
          iframe. Deshalb laesst er sich hier ueberschreiben. !important,
          weil Typeform seine Farben als Inline-Style setzt. */
-      .tf-block { width: var(--medien); max-width: 900px; margin: 0; position: relative; }
+      .tf-block { width: var(--medien); max-width: 900px; margin: 0 auto; position: relative; }
       /* Echo: zwei Ringe laufen aus dem Knopf heraus und verlaufen.
          Sie liegen hinter ihm, damit der Text nicht flimmert. */
       .tf-block::before, .tf-block::after {
