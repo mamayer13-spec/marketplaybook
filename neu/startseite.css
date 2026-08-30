@@ -610,6 +610,25 @@ ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
 }
 .auftritt .feld { border-top: 1px solid var(--linie-fein); padding-top: 28px; }
 
+/* Die drei Punkte im Vision-Abschnitt stehen gestapelt in der rechten
+   Spalte, nicht mehr als eigene Reihe darunter. Sie fuellen den Raum, den
+   das hohe Bild links neben dem Text offen laesst.
+
+   Etwas enger gesetzt als die freistehende Reihe (22 px statt 28): in
+   halber Breite untereinander wirken drei Kaesten mit vollem Innenabstand
+   schnell wie ein Formular. */
+.stapel {
+  display: grid;
+  gap: 14px;
+  margin-top: 30px;
+}
+.auftritt .stapel .feld {
+  padding: 22px 22px 24px;
+}
+.auftritt .stapel .feld h3 {
+  margin-bottom: 6px;
+}
+
 /* Der Schein wandert beim Hover mit - dieselbe Idee wie bei den
    Kartenraendern auf der Referenzseite, nur leiser. */
 .auftritt ul.punkte li::after,

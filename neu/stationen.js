@@ -220,8 +220,13 @@
   /* Die Listen treten gestaffelt auf, sobald ihr Block ins Bild kommt -
      nicht alle vier auf einen Schlag, das wirkt wie ein Umschalten. */
   (function () {
+    /* .stapel gehoert dazu, seit die drei Punkte im Vision-Abschnitt in
+       der rechten Spalte stehen statt in einer eigenen .spalten-Reihe.
+       Fehlt der Selektor, bleiben sie unsichtbar: das CSS setzt jedes
+       .feld auf opacity 0 und wartet auf die Klasse, die hier vergeben
+       wird. */
     var bloecke = document.querySelectorAll(
-      ".auftritt ul.punkte, .auftritt ol.nummern, .auftritt .spalten"
+      ".auftritt ul.punkte, .auftritt ol.nummern, .auftritt .spalten, .auftritt .stapel"
     );
     if (!bloecke.length) return;
     if (ruhig) {
