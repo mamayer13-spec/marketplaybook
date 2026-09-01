@@ -5,8 +5,12 @@
        um; hier waere das falsch: dieses Zeichen steht im Hero auf
        dunkelblauem Grund, und bei hellem Browser-Theme wuerde es dort
        dunkelnavy auf dunkelblau und damit unsichtbar. -->
+  <defs>
+    <linearGradient id="mp-v" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient>
+    <linearGradient id="mp-h" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient>
+  </defs>
   <g transform="translate(0 0.95)">
-    <path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#B3C5FF" stroke="#B3C5FF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#mp-v)" stroke="url(#mp-v)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#mp-h)" stroke="url(#mp-h)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
   </g>
 </svg>

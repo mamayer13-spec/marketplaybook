@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Market Playbook">
-  <title>Market Playbook — Favicon, transparent</title>
+  <title>Market Playbook — Favicon, transparent, mit Verlauf</title>
   <!-- Ohne Kachel dahinter muss das Zeichen selbst auf hellem UND dunklem
        Tab-Balken lesbar sein. Ein SVG-Favicon darf dafuer eigene Regeln
        mitbringen: `prefers-color-scheme` wird darin ausgewertet, und zwar
@@ -7,17 +7,37 @@
        das Zeichen mit dem Tab-Balken um.
 
        Die Ausgangswerte sind die hellen: ein Browser ohne Unterstuetzung
-       bekommt Weiss/Periwinkle, und der Balken ist im Zweifel dunkel. -->
+       bekommt Weiss/Periwinkle, und der Balken ist im Zweifel dunkel.
+
+       Seit 2.9.2026 mit Verlauf (Fassung 5, "Diagonal, Seiten getrennt").
+       Umgeschaltet wird ueber `stop-color` je Farbstopp: Die Verlaeufe
+       selbst bleiben stehen, nur ihre Enden drehen sich um.
+
+       In dieser Datei duerfen in Kommentaren keine zwei Bindestriche
+       hintereinander stehen. XML verbietet das, und die Datei waere
+       damit unlesbar. -->
   <style>
-    .vorne { fill: #FFFFFF; stroke: #FFFFFF; }
-    .hinten { fill: #B3C5FF; stroke: #B3C5FF; }
+    .v1 { stop-color: #FFFFFF; }
+    .v2 { stop-color: #7288CE; }
+    .h1 { stop-color: #CBD9FF; }
+    .h2 { stop-color: #263E96; }
     @media (prefers-color-scheme: light) {
-      .vorne { fill: #0A1A36; stroke: #0A1A36; }
-      .hinten { fill: #8296C4; stroke: #8296C4; }
+      .v1 { stop-color: #0A1A36; }
+      .v2 { stop-color: #6379AE; }
+      .h1 { stop-color: #3B4F82; }
+      .h2 { stop-color: #BAC8E8; }
     }
   </style>
+  <defs>
+    <linearGradient id="mp-v" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse">
+      <stop class="v1" offset="0"/><stop class="v2" offset="1"/>
+    </linearGradient>
+    <linearGradient id="mp-h" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse">
+      <stop class="h1" offset="0"/><stop class="h2" offset="1"/>
+    </linearGradient>
+  </defs>
   <g transform="translate(0 0.95)">
-    <path class="vorne" d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
-    <path class="hinten" d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#mp-v)" stroke="url(#mp-v)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#mp-h)" stroke="url(#mp-h)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
   </g>
 </svg>
