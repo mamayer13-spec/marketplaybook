@@ -97,3 +97,61 @@
     werte.forEach(function (w) { zaehler.observe(w); });
   }
 })();
+
+/* ============================================================
+   Heller Grund fuer einzelne Abschnitte.
+
+   Abgeschaut bei mercury.com: der Hintergrund der ganzen Seite
+   wechselt beim Scrollen die Farbe, statt Abschnitte einzukasteln.
+   Der Abschnitt sagt selbst, was er will (data-grund="hell"), das
+   Umfaerben passiert in haus.css ueber html.hell.
+
+   Kein Scroll-Listener. Der Beobachter bekommt einen rootMargin, der
+   den Sichtbereich auf eine Linie in der Mitte zusammenzieht: aktiv
+   ist der Abschnitt, der diese Linie schneidet.
+
+   Gemerkt wird der Abschnitt, NICHT seine Farbe. Der erste Versuch
+   merkte sich nur "hell" und setzte zurueck, sobald irgendein heller
+   Abschnitt die Linie verliess - beim Umbruch sprang die Seite dann
+   mitten im hellen Abschnitt zurueck ins Dunkle, weil der zweite
+   helle Abschnitt weiter unten seinen Austritt meldete.
+   ============================================================ */
+(function () {
+  "use strict";
+  if (!("IntersectionObserver" in window)) return;
+
+  var abschnitte = document.querySelectorAll("main section, main > [data-grund]");
+  if (!abschnitte.length) return;
+
+  var wurzel = document.documentElement;
+  var offen = [];
+
+  function setzen() {
+    /* Zwischen zwei Abschnitten liegen 112 px Luft. Faehrt die Mittellinie
+       durch diese Luft, schneidet sie gar keinen Abschnitt - und wer hier
+       auf den Hausgrund zurueckstellt, laesst die Seite zwischen zwei
+       hellen Abschnitten kurz schwarz aufblitzen. Genau das passierte
+       zwischen "Fuer wen" und den Stimmen.
+
+       Die Luecke gehoert dem, den man gerade verlaesst: solange kein
+       Abschnitt die Linie schneidet, bleibt die Farbe stehen. */
+    if (!offen.length) return;
+
+    var hell = false;
+    for (var i = 0; i < offen.length; i++) {
+      if (offen[i].getAttribute("data-grund") === "hell") { hell = true; break; }
+    }
+    wurzel.classList.toggle("hell", hell);
+  }
+
+  var wache = new IntersectionObserver(function (eintraege) {
+    eintraege.forEach(function (e) {
+      var i = offen.indexOf(e.target);
+      if (e.isIntersecting) { if (i < 0) offen.push(e.target); }
+      else if (i >= 0) { offen.splice(i, 1); }
+    });
+    setzen();
+  }, { rootMargin: "-50% 0px -50% 0px", threshold: 0 });
+
+  Array.prototype.forEach.call(abschnitte, function (a) { wache.observe(a); });
+})();

@@ -902,3 +902,156 @@ ol.nummern li.aktiv .n { letter-spacing: 0.3em; }
 .marke .zeichen { width: 22px; height: 22px; display: block; flex: none; }
 .fuss .marke .zeichen { width: 20px; height: 20px; }
 @media (max-width: 639px) { .marke .zeichen { width: 19px; height: 19px; } }
+
+/* ============================================================
+   Kacheln auf hellem Grund, 3.9.2026.
+
+   Die Kacheln fangen Licht: ein weisser Verlauf von oben links, eine
+   weisse Lichtkante, ein blauer Schein beim Hover. Auf Papier ist
+   weiss auf weiss nichts — die Kachel verschwindet. Dieselbe Idee
+   gespiegelt: die Flaeche wird nicht heller als der Grund, sondern
+   dunkler, und die Kante traegt den Akzent statt des Weiss.
+   ============================================================ */
+html.hell .auftritt ul.punkte li,
+html.hell .auftritt ol.nummern li,
+html.hell .auftritt .feld {
+  background:
+    linear-gradient(158deg, rgba(20, 22, 28, 0.05), rgba(20, 22, 28, 0.015) 58%);
+}
+html.hell .auftritt ul.punkte li::before,
+html.hell .auftritt ol.nummern li::before,
+html.hell .auftritt .feld::before {
+  background: linear-gradient(90deg,
+    rgba(44, 71, 166, 0.55) 0%,
+    rgba(44, 71, 166, 0.28) 38%,
+    rgba(20, 22, 28, 0.12) 72%,
+    rgba(20, 22, 28, 0) 100%);
+}
+html.hell .auftritt ul.punkte li:hover::before,
+html.hell .auftritt ol.nummern li:hover::before,
+html.hell .auftritt .feld:hover::before {
+  background: linear-gradient(90deg,
+    rgba(44, 71, 166, 0.7) 0%,
+    rgba(20, 22, 28, 0.22) 46%,
+    rgba(20, 22, 28, 0) 100%);
+}
+html.hell .auftritt ul.punkte li::after,
+html.hell .auftritt ol.nummern li::after,
+html.hell .auftritt .feld::after {
+  background:
+    radial-gradient(420px 220px at 18% 0%, rgba(44, 71, 166, 0.1), transparent 70%);
+}
+html.hell .auftritt ul.punkte li:hover,
+html.hell .auftritt ol.nummern li:hover,
+html.hell .auftritt .feld:hover { border-color: rgba(44, 71, 166, 0.3); }
+
+/* Das Wasserzeichen stand als helles Grau im Dunkeln. */
+html.hell .auftritt ul.punkte .n,
+html.hell .auftritt ol.nummern .n { color: rgba(20, 22, 28, 0.1); }
+html.hell .auftritt ul.punkte li:hover .n,
+html.hell .auftritt ol.nummern li:hover .n { color: rgba(44, 71, 166, 0.28); }
+
+/* ============================================================
+   Stimmen — Reiter statt Galerie, 3.9.2026.
+
+   Bauform von mercury.com: eine Reihe Reiter, darunter genau ein
+   Inhalt. Der Reiter traegt den Kern der Nachricht in zwei Woertern,
+   der Nutzer waehlt, was er lesen will, statt an acht Bildern
+   vorbeizuscrollen.
+
+   Die Bilder sind Hochformat-Screenshots. Die Buehne bekommt deshalb
+   eine feste Hoehe: ohne sie springt die Seite bei jedem Reiterwechsel,
+   weil das naechste Bild anders hoch ist.
+   ============================================================ */
+.stimmen-block {
+  margin-top: 34px;
+}
+
+.stimmen-reiter {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--linie-fein);
+}
+.stimmen-reiter::-webkit-scrollbar { display: none; }
+
+.stimmen-reiter button {
+  flex: 0 0 auto;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 11px 16px 13px;
+  margin-bottom: -1px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  color: var(--leise);
+  white-space: nowrap;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color 220ms var(--weich), border-color 220ms var(--weich);
+}
+.stimmen-reiter button:hover { color: var(--muted); }
+.stimmen-reiter button[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--akzent);
+}
+.stimmen-reiter button:focus-visible {
+  outline: 1px solid var(--akzent);
+  outline-offset: -3px;
+  border-radius: 6px;
+}
+
+/* Die Buehne. Hoehe fest, Bild passt sich ein - nicht umgekehrt. */
+.stimmen-buehne {
+  position: relative;
+  margin-top: 30px;
+  height: 520px;
+}
+@media (max-width: 639px) { .stimmen-buehne { height: 430px; } }
+
+.stimmen-buehne .stimme {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.stimmen-buehne .stimme[hidden] { display: none; }
+
+.stimmen-buehne img {
+  max-height: 100%;
+  width: auto;
+  border-radius: 14px;
+  border: 1px solid var(--linie-fein);
+  /* Der Screenshot ist selbst dunkel. Auf hellem Grund braucht er einen
+     Schatten, sonst klebt er wie ein Aufkleber; auf dunklem Grund faellt
+     der Schatten nicht auf und stoert nicht. */
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+}
+html.hell .stimmen-buehne img {
+  border-color: rgba(20, 22, 28, 0.14);
+  box-shadow: 0 18px 44px rgba(20, 22, 28, 0.16);
+}
+
+/* Sanftes Einblenden beim Wechsel. Die Klasse setzt das Skript, und zwar
+   nur beim Wechsel - nicht beim Laden. Mit `both` auf allen Feldern haengt
+   das erste Bild auf Deckkraft 0, solange die Seite in einem Hintergrund-
+   Tab liegt: Animationen laufen dort nicht, und ohne Start gilt der
+   from-Zustand. Wer die Seite im Hintergrund oeffnet, saehe eine leere
+   Buehne. Wer Bewegung abbestellt hat, bekommt den harten Schnitt - die
+   Information ist dieselbe. */
+.stimmen-buehne .stimme.wechsel {
+  animation: stimme-auf 320ms var(--weich);
+}
+@keyframes stimme-auf {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stimmen-buehne .stimme.wechsel { animation: none; }
+}

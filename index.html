@@ -17,8 +17,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/haus.css?v=1787907786" />
-    <link rel="stylesheet" href="/startseite.css?v=1788075895" />
+    <link rel="stylesheet" href="/haus.css?v=1788372570" />
+    <link rel="stylesheet" href="/startseite.css?v=1788373438" />
 
     <!--
       Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite.
@@ -197,7 +197,7 @@
           Zahlen. Gleiche Mechanik wie der zweite Satz unten: die Woerter
           bauen sich mit der Scrollstrecke auf (stationen.js).
         -->
-        <section class="satz" id="satz-information">
+        <section class="satz" id="satz-information" data-grund="hell">
           <div class="satz-klebe">
             <div class="satz-block">
               <span class="satz-marke" aria-hidden="true"><i></i>Die Prämisse</span>
@@ -299,7 +299,7 @@
           </div>
         </section>
 
-        <section class="auftritt" id="zielgruppe">
+        <section class="auftritt" id="zielgruppe" data-grund="hell">
           <h2>Für wen das gemacht ist</h2>
 
           <div class="zielgruppe-block">
@@ -369,6 +369,22 @@
             </div>
           </div>
         </section>
+
+        <!-- ---------------- Stimmen ---------------- -->
+        <!--
+          Der Abschnitt "Was Mitglieder schreiben" ist am 6.9.2026 wieder
+          herausgenommen worden. Die acht Screenshots zeigen Ertragszahlen
+          (100 % ueber Nacht, 201,7 % in 24 Stunden, 1.500 € in einer Woche),
+          und die Reiterbeschriftungen tragen dieselbe Aussage — beides steht
+          auf der Negativliste in
+          brain/06-knowledge/2026-09-01-rechtsrahmen-finanzwerbung.md:229.
+
+          Der fertige Code liegt vollstaendig im Zweig startseite-stimmen
+          und wartet auf die anwaltliche Pruefung. Das CSS (.stimmen-*) und
+          die Reiter-Mechanik in startseite.js bleiben hier stehen, damit der
+          Abschnitt dann nur wieder eingesetzt werden muss.
+        -->
+
 
         <!-- ---------------- Einzelwerte ---------------- -->
         <!--
@@ -493,7 +509,7 @@
         </section>
 
         <!-- ---------------- Einordnung ---------------- -->
-        <section class="auftritt" id="einordnung">
+        <section class="auftritt" id="einordnung" data-grund="hell">
           <h2>Was wir nicht sind</h2>
           <div class="spalten zwei">
             <div class="feld">
@@ -590,8 +606,8 @@
       </footer>
     </div>
 
-    <script src="/haus.js?v=1787912657" defer></script>
-    <script src="/startseite.js?v=1787912657" defer></script>
+    <script src="/haus.js?v=1788374698" defer></script>
+    <script src="/startseite.js?v=1788373438" defer></script>
     <script src="/hero-chart.js?v=1787919216" defer></script>
     <script src="/stationen.js?v=1788075895" defer></script>
     <script src="/coin.js?v=1787919610" defer></script>
