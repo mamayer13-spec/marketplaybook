@@ -677,3 +677,80 @@ figcaption {
 @media (min-width: 1024px) {
   .zielgruppe-block { grid-template-columns: 42% 1fr; gap: 56px; }
 }
+
+/* ============================================================
+   Helle Abschnitte — abgeschaut bei mercury.com, 3.9.2026.
+
+   Mercury faerbt beim Scrollen den ganzen Hintergrund um, statt
+   Abschnitte mit Kaesten abzugrenzen: jede Section traegt ein
+   data-theme, ein Beobachter setzt daraus eine Klasse ganz oben,
+   und eine Transition auf background-color/color blendet um.
+   Genau die "keine Linien, Grenzen fuehlt man" -Idee aus DESIGN.md,
+   nur eine Ebene hoeher.
+
+   Bei uns liegt der Grund auf <html>, also haengt die Klasse dort.
+   Weil alle Farben schon Variablen sind, reicht ein zweites Set —
+   die Bausteine ziehen von selbst mit.
+
+   Kein reines Weiss: derselbe Grund wie bei licht-auf-dunklem-grund.md,
+   nur umgekehrt. Ein warmes Papier traegt den Text, greller Kontrast
+   nach #0b0d12 waere ein Schlag.
+   ============================================================ */
+html {
+  transition: background-color 600ms cubic-bezier(0, 0, 0.6, 1);
+}
+body {
+  transition: color 600ms cubic-bezier(0, 0, 0.6, 1);
+}
+
+html.hell {
+  --grund: #edeae3;
+  --flaeche: #e2ded5;
+  --text: #14161c;
+  --muted: #4a505d;
+  --leise: #858b98;
+  --linie: #cdc8bd;
+  --linie-fein: rgba(20, 22, 28, 0.11);
+  --akzent: #2c47a6;
+  --warn: #8f6410;
+  --bad: #a83228;
+  --gut: #2c7a52;
+}
+
+/* Der Schein ist Licht auf dunklem Grund. Auf Papier ist er ein
+   schmutziger Fleck, also geht er aus — nicht abrupt, sondern in
+   derselben Zeit wie die Farbe. */
+.schein,
+.raster {
+  transition: opacity 600ms cubic-bezier(0, 0, 0.6, 1);
+}
+html.hell .schein,
+html.hell .raster { opacity: 0; }
+
+/* Die Glasleiste hat ihre Werte hart im Code (dunkles Glas, weisse
+   Lichtkante). Auf hellem Grund braucht sie das Gegenstueck, sonst
+   steht ein grauer Balken im Papier. */
+html.hell .kopf {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(20, 22, 28, 0.1);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 18px 40px rgba(20, 22, 28, 0.1);
+}
+html.hell .kopf::before {
+  background: linear-gradient(90deg,
+    rgba(44, 71, 166, 0) 0%,
+    rgba(44, 71, 166, 0.35) 22%,
+    rgba(20, 22, 28, 0.18) 55%,
+    rgba(20, 22, 28, 0) 100%);
+}
+
+/* Der Knopf ist heller Text auf dunkler Flaeche — das dreht sich mit
+   var(--text) von allein, nur die Schriftfarbe stand hart auf #000. */
+html.hell .knopf { color: var(--grund); }
+
+/* Wer Bewegung abbestellt hat, bekommt trotzdem die richtige Farbe:
+   ohne Umblenden waere der Text sonst kurz unlesbar. */
+@media (prefers-reduced-motion: reduce) {
+  html, body, .schein, .raster { transition: none; }
+}

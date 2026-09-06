@@ -547,3 +547,59 @@
     stellen();
   })();
 })();
+
+/* ============================================================
+   Stimmen — Reiterwechsel.
+
+   Bauform von mercury.com. Reine Tastatur- und Klicksteuerung, kein
+   Automatiklauf: ein Karussell, das von selbst weiterspringt, nimmt
+   dem Leser die Nachricht weg, die er gerade liest.
+
+   Pfeiltasten wandern durch die Reiter, Pos1/Ende springen an den Rand
+   — so verlangt es das Tab-Muster, und ohne das ist die Leiste mit der
+   Tastatur eine Sackgasse.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var block = document.querySelector(".stimmen-block");
+  if (!block) return;
+
+  var reiter = [].slice.call(block.querySelectorAll('[role="tab"]'));
+  if (!reiter.length) return;
+
+  function zeigen(i, fokus) {
+    reiter.forEach(function (r, j) {
+      var an = j === i;
+      r.setAttribute("aria-selected", an ? "true" : "false");
+      r.tabIndex = an ? 0 : -1;
+      var feld = document.getElementById(r.getAttribute("aria-controls"));
+      if (!feld) return;
+      feld.hidden = !an;
+      /* Das Einblenden gehoert zum Wechsel, nicht zum Laden - siehe die
+         Notiz zu .stimme.wechsel in startseite.css. */
+      feld.classList.remove("wechsel");
+      if (an) { void feld.offsetWidth; feld.classList.add("wechsel"); }
+    });
+    if (fokus) reiter[i].focus();
+    /* Bei schmalem Schirm liegt der gewaehlte Reiter sonst ausserhalb
+       der Leiste, wenn man mit der Tastatur wandert. */
+    if (reiter[i].scrollIntoView) {
+      reiter[i].scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+  }
+
+  reiter.forEach(function (r, i) {
+    r.addEventListener("click", function () { zeigen(i, false); });
+    r.addEventListener("keydown", function (e) {
+      var ziel = null;
+      if (e.key === "ArrowRight") ziel = (i + 1) % reiter.length;
+      else if (e.key === "ArrowLeft") ziel = (i - 1 + reiter.length) % reiter.length;
+      else if (e.key === "Home") ziel = 0;
+      else if (e.key === "End") ziel = reiter.length - 1;
+      if (ziel === null) return;
+      e.preventDefault();
+      zeigen(ziel, true);
+    });
+  });
+})();

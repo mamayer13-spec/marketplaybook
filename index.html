@@ -17,8 +17,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/haus.css?v=1787907786" />
-    <link rel="stylesheet" href="/startseite.css?v=1788075895" />
+    <link rel="stylesheet" href="/haus.css?v=1788372570" />
+    <link rel="stylesheet" href="/startseite.css?v=1788373438" />
 
     <!--
       Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite.
@@ -197,7 +197,7 @@
           Zahlen. Gleiche Mechanik wie der zweite Satz unten: die Woerter
           bauen sich mit der Scrollstrecke auf (stationen.js).
         -->
-        <section class="satz" id="satz-information">
+        <section class="satz" id="satz-information" data-grund="hell">
           <div class="satz-klebe">
             <div class="satz-block">
               <span class="satz-marke" aria-hidden="true"><i></i>Die Prämisse</span>
@@ -299,7 +299,7 @@
           </div>
         </section>
 
-        <section class="auftritt" id="zielgruppe">
+        <section class="auftritt" id="zielgruppe" data-grund="hell">
           <h2>Für wen das gemacht ist</h2>
 
           <div class="zielgruppe-block">
@@ -368,6 +368,80 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <!-- ---------------- Stimmen ---------------- -->
+        <!--
+          Reiter statt Galerie, abgeschaut bei mercury.com: dort liegt unter
+          einer Reihe Reiter genau eine Stimme, und der Reiter sagt vorweg,
+          worum es in ihr geht. Acht Bilder nebeneinander waeren eine Wand,
+          die niemand liest - so liest man eine, und die Beschriftung macht
+          neugierig auf die naechste.
+
+          Die Beschriftungen sind wortwoertlich aus den Nachrichten gezogen,
+          nichts dazuerfunden. Gleicher heller Grund wie "Fuer wen": die
+          beiden gehoeren zusammen, und zwei einzelne helle Inseln mit einer
+          dunklen dazwischen waeren Geflacker statt Rhythmus.
+        -->
+        <section class="auftritt stimmen" id="stimmen" data-grund="hell">
+          <h2>Was Mitglieder schreiben</h2>
+          <p>
+            Nachrichten aus der Betreuung, mit Einverständnis der Absender
+            gezeigt. Namen und Nummern sind unkenntlich gemacht.
+          </p>
+
+          <div class="stimmen-block">
+            <div class="stimmen-reiter" role="tablist" aria-label="Stimmen von Mitgliedern">
+              <button type="button" role="tab" id="reiter-1" aria-controls="stimme-1"
+                aria-selected="true" tabindex="0">Über Nacht</button>
+              <button type="button" role="tab" id="reiter-2" aria-controls="stimme-2"
+                aria-selected="false" tabindex="-1">Top Analysen</button>
+              <button type="button" role="tab" id="reiter-3" aria-controls="stimme-3"
+                aria-selected="false" tabindex="-1">Det löuft</button>
+              <button type="button" role="tab" id="reiter-4" aria-controls="stimme-4"
+                aria-selected="false" tabindex="-1">Den Dreh raus</button>
+              <button type="button" role="tab" id="reiter-5" aria-controls="stimme-5"
+                aria-selected="false" tabindex="-1">24 Stunden</button>
+              <button type="button" role="tab" id="reiter-6" aria-controls="stimme-6"
+                aria-selected="false" tabindex="-1">Im Bärenmarkt</button>
+              <button type="button" role="tab" id="reiter-7" aria-controls="stimme-7"
+                aria-selected="false" tabindex="-1">Der Coin Tip</button>
+              <button type="button" role="tab" id="reiter-8" aria-controls="stimme-8"
+                aria-selected="false" tabindex="-1">Ganzes Portfolio</button>
+            </div>
+            <div class="stimmen-buehne">
+              <figure class="stimme" id="stimme-1" role="tabpanel" aria-labelledby="reiter-1">
+                <img src="/testimonial1.png" alt="WhatsApp-Nachricht: „Gestern nach der Spätschicht 0,5 Solana eingesetzt, und über Nacht 100 % plus gefahren.“ Darüber ein Screenshot der Handelsansicht." width="772" height="1130" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-2" role="tabpanel" aria-labelledby="reiter-2" hidden>
+                <img src="/testimonial2.png" alt="WhatsApp-Verlauf: ein Mitglied fragt, ob es direkt in Ethereum einsteigen oder eine Korrektur abwarten soll. Claudio antwortet per Sprachnachricht, das Mitglied schreibt „Danke dir“ und „Top Analysen von dir“." width="698" height="938" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-3" role="tabpanel" aria-labelledby="reiter-3" hidden>
+                <img src="/testimonial3.png" alt="WhatsApp-Nachricht aus der Schweiz: „Det löuft Claudio, mega“ und „Habe am 14.07. für den offenen Betrag gekauft“, dazu zwei Fotos vom Bildschirm." width="724" height="1004" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-4" role="tabpanel" aria-labelledby="reiter-4" hidden>
+                <img src="/testimonial4.PNG" alt="WhatsApp-Nachricht: „Kind war auf der Hüpfburg, und Papa hat nebenbei Geld verdient. Langsam hab ich den Dreh raus.“ Im Bild ein Kursverlauf mit markiertem Plus." width="1041" height="1547" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-5" role="tabpanel" aria-labelledby="reiter-5" hidden>
+                <img src="/testimonial5.PNG" alt="WhatsApp-Nachricht: „Bro in nicht mal 24 Stunden schon 200 %“, darüber ein Depot-Screenshot mit einer offenen Solana-Position." width="812" height="1259" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-6" role="tabpanel" aria-labelledby="reiter-6" hidden>
+                <img src="/testimonial6.PNG" alt="WhatsApp-Nachricht: „Richtig krass wieviel man an einem einzigen Tag als Anfänger mit wenig Einsatz erwirtschaften kann. Und das im Bärenmarkt.“" width="1206" height="1611" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-7" role="tabpanel" aria-labelledby="reiter-7" hidden>
+                <img src="/testimonial7.PNG" alt="WhatsApp-Nachricht: „Der Coin Tip ist wild, jetzt in 1 Woche schon 1500 € +“, darüber ein steigender Kursverlauf." width="1098" height="1112" loading="lazy" decoding="async" />
+              </figure>
+              <figure class="stimme" id="stimme-8" role="tabpanel" aria-labelledby="reiter-8" hidden>
+                <img src="/testimonial8.PNG" alt="WhatsApp-Nachricht: „Seit der Zusammenarbeit knappe 30 % Plus aufs ganze Portfolio. Robinhood und Micron Anfang des Jahres war aufjedenfall ein Gamechanger.“" width="1206" height="1662" loading="lazy" decoding="async" />
+              </figure>
+            </div>
+          </div>
+
+          <p class="hinweis">
+            Einzelne Erfahrungen, keine typischen Ergebnisse. Frühere
+            Wertentwicklungen sagen nichts über die Zukunft. Siehe
+            <a href="#einordnung">Was wir nicht sind</a>.
+          </p>
         </section>
 
         <!-- ---------------- Einzelwerte ---------------- -->
@@ -493,7 +567,7 @@
         </section>
 
         <!-- ---------------- Einordnung ---------------- -->
-        <section class="auftritt" id="einordnung">
+        <section class="auftritt" id="einordnung" data-grund="hell">
           <h2>Was wir nicht sind</h2>
           <div class="spalten zwei">
             <div class="feld">
@@ -590,8 +664,8 @@
       </footer>
     </div>
 
-    <script src="/haus.js?v=1787912657" defer></script>
-    <script src="/startseite.js?v=1787912657" defer></script>
+    <script src="/haus.js?v=1788374698" defer></script>
+    <script src="/startseite.js?v=1788373438" defer></script>
     <script src="/hero-chart.js?v=1787919216" defer></script>
     <script src="/stationen.js?v=1788075895" defer></script>
     <script src="/coin.js?v=1787919610" defer></script>
