@@ -30,7 +30,6 @@
   <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/icon-tab.png" />
 
-    <script src="/consent.js" defer></script>
 
     <!--
       Vercel Web Analytics, wie auf /form bewusst ausserhalb der
@@ -331,28 +330,28 @@
       <svg class="pfeil" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
 
       <script>
-        /* Rueckmeldungen des Typeform-Embeds an GA4 — gleiche Ereignisnamen
-         * wie auf /form, damit sich beide Varianten vergleichen lassen.
+        /* Rueckmeldungen des Typeform-Embeds an Vercel Web Analytics —
+         * gleiche Ereignisnamen wie auf /form, damit sich beide Varianten
+         * vergleichen lassen.
          *
          * Muss VOR embed.js stehen: Typeform loest die Namen aus
          * data-tf-on-ready / data-tf-on-submit in dem Moment auf window auf,
          * in dem embed.js das Element einliest.
          *
-         * window.trackEvent kommt aus consent.js und prueft selbst, ob gtag
-         * geladen ist. Die Abfrage hier deckt den Fall ab, dass das Formular
-         * schneller bereit ist als das mit defer geladene consent.js.
-         *
-         * Diese Zahlen sind zustimmungsabhaengig. Die vollstaendige Zahl kommt
-         * aus Vercel Web Analytics und aus dem Typeform-Sammler im Cockpit. */
-        function melde(name, label, kategorie) {
-          if (typeof window.trackEvent !== "function") return;
-          window.trackEvent(name, { event_category: kategorie, event_label: label });
+         * Seit 6.9.2026 nicht mehr GA4: das durfte erst nach Zustimmung
+         * laden, damit fehlte in der Messung genau der Teil der Leute, der
+         * den Cookie-Hinweis weggeklickt hat. Vercel setzt keine Cookies,
+         * braucht keine Zustimmung und misst deshalb alle. window.va ist die
+         * Warteschlange von /_vercel/insights/script.js. */
+        function melde(name) {
+          if (typeof window.va !== "function") return;
+          window.va("event", { name: name });
         }
         window.formularBereit = function () {
-          melde("form_start", "typeform_opened", "engagement");
+          melde("typeform_opened");
         };
         window.formularAbgeschickt = function () {
-          melde("form_submit", "typeform_completed", "conversion");
+          melde("typeform_completed");
         };
       </script>
 

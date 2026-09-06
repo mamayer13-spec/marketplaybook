@@ -15,7 +15,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/haus.css" />
-    <script src="/consent.js" defer></script>
     <script defer src="/_vercel/insights/script.js"></script>
 
     <!--
@@ -64,16 +63,12 @@
     </footer>
 
     <script>
-      /* Meldet die abgeschlossene Eintragung an GA4. Laeuft nur, wenn
-         vorher zugestimmt wurde: ohne Zustimmung existiert gtag nicht,
-         und die Pruefung faengt genau das ab. */
-      if (typeof gtag === "function") {
-        gtag("event", "purchase", {
-          transaction_id: "booking_" + Date.now(),
-          value: 1.0,
-          currency: "EUR",
-          items: [{ item_name: "Strategy Session", item_category: "Service" }],
-        });
+      /* Meldet die abgeschlossene Eintragung an Vercel Web Analytics.
+         Seit 6.9.2026 nicht mehr GA4 — das lief nur nach Zustimmung und hat
+         damit genau die Leute nicht gezaehlt, die den Cookie-Hinweis
+         weggeklickt haben. */
+      if (typeof window.va === "function") {
+        window.va("event", { name: "eintragung_abgeschlossen" });
       }
     </script>
   </body>

@@ -13,7 +13,6 @@
     <link rel="apple-touch-icon" href="/icon-tab.png" />
 
     <!-- Cookie-Weiche und Google Analytics, wie auf allen anderen Seiten. -->
-    <script src="/consent.js" defer></script>
 
     <!--
       Vercel Web Analytics, absichtlich AUSSERHALB der Consent-Weiche: es
@@ -620,20 +619,28 @@
           data-tf-on-submit="formularAbgeschickt"
         ></div>
         <script>
-          /* Rueckmeldungen des Typeform-Embeds an GA4. Muss vor embed.js
-             stehen: Typeform loest die Namen aus data-tf-on-ready /
-             data-tf-on-submit erst beim Einlesen des Elements auf.
-             window.trackEvent kommt aus consent.js und prueft selbst, ob
-             gtag ueberhaupt geladen ist. */
-          function melde(name, label, kategorie) {
-            if (typeof window.trackEvent !== "function") return;
-            window.trackEvent(name, { event_category: kategorie, event_label: label });
+          /* Rueckmeldungen des Typeform-Embeds an Vercel Web Analytics. Muss
+             vor embed.js stehen: Typeform loest die Namen aus
+             data-tf-on-ready / data-tf-on-submit erst beim Einlesen des
+             Elements auf.
+
+             Seit 6.9.2026 geht das an Vercel statt an GA4. Grund: GA4 durfte
+             erst nach Zustimmung laden, also fehlte in der Messung genau der
+             Teil der Leute, der den Cookie-Hinweis weggeklickt hat — und der
+             Hinweis selbst lag als Hindernis vor dem Knopf. Vercel Web
+             Analytics setzt keine Cookies und braucht keine Zustimmung,
+             misst also alle. window.va ist die Warteschlange von
+             /_vercel/insights/script.js und existiert auch, bevor das
+             Skript geladen ist. */
+          function melde(name) {
+            if (typeof window.va !== "function") return;
+            window.va("event", { name: name });
           }
           window.formularBereit = function () {
-            melde("form_start", "typeform_opened", "engagement");
+            melde("typeform_opened");
           };
           window.formularAbgeschickt = function () {
-            melde("form_submit", "typeform_completed", "conversion");
+            melde("typeform_completed");
           };
         </script>
         <script src="//embed.typeform.com/next/embed.js"></script>
