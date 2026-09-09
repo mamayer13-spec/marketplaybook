@@ -674,6 +674,8 @@ figcaption {
 
 /* Zielgruppe: Stapel links, Text rechts — wie bisher */
 .zielgruppe-block { display: grid; gap: 32px; align-items: start; }
+/* Ohne den Fotostapel bleibt nur eine Spalte - sonst steht die halbe Breite leer. */
+.zielgruppe-block.einspaltig { grid-template-columns: 1fr !important; max-width: 62rem; }
 @media (min-width: 1024px) {
   .zielgruppe-block { grid-template-columns: 42% 1fr; gap: 56px; }
 }

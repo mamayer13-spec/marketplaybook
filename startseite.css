@@ -11,12 +11,12 @@
   padding-top: 24px;
 }
 @media (min-width: 900px) {
-  .hero { grid-template-columns: 1.1fr 1fr; gap: 44px; padding-top: 48px; min-height: 600px; }
+  .hero { grid-template-columns: 1.1fr 1fr; gap: 44px; padding-top: 48px; min-height: 520px; }
 }
 @media (min-width: 1200px) {
   /* Die Grafik hat mehr Gewicht bekommen: sie ist der Einstieg, und in der
      schmalen Spalte war sie kaum zu erkennen. */
-  .hero { grid-template-columns: 1fr 1.02fr; gap: 56px; min-height: 680px; }
+  .hero { grid-template-columns: 1fr 1.02fr; gap: 56px; min-height: 560px; }
 }
 /* Ohne den Eyebrow darueber traegt die Ueberschrift den Einstieg allein -
    deshalb eine Stufe groesser. Nur im Hero, die globale h1-Regel in
