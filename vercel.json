@@ -10,6 +10,101 @@
       "source": "/form_mailerlite",
       "destination": "/form",
       "permanent": true
+    },
+    {
+      "source": "/_hero-chart",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/_handy-pruefung",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/form-neu",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial1.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial1.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial2.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial2.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial3.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial3.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial4.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial4.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial5.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial5.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial6.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial6.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial7.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial7.PNG",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial8.png",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonial8.PNG",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "rewrites": [
