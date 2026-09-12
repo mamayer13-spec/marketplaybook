@@ -38,6 +38,34 @@
       nur ueber die Zustimmenden — und genau die braucht der A/B-Vergleich.
     -->
     <script defer src="/_vercel/insights/script.js"></script>
+    <script>
+      /* Klicks auf die Knöpfe zählen, die in den Trichter führen.
+       *
+       * Bis zum 12.9.2026 wusste das Cockpit, wie viele Menschen auf einer
+       * Seite waren, aber nicht, wie viele von dort weitergeklickt haben.
+       * Zwischen "800 Leser auf den Magazinartikeln" und "kein einziger
+       * Klick auf den Kurs" liegt der ganze Unterschied.
+       *
+       * Ein einziger Zuhörer am Dokument statt eines Merkmals an jedem
+       * Knopf: So zählt auch ein Link, den jemand später dazusetzt, ohne
+       * dass er daran denken muss.
+       *
+       * Cookiefrei wie die Seitenmessung -- gezählt wird ein Ereignis ohne
+       * jede Kennung, es entsteht kein Profil. */
+      addEventListener("click", function (e) {
+        var a = e.target && e.target.closest && e.target.closest("a[href]");
+        if (!a) return;
+        var ziel = a.getAttribute("href") || "";
+        if (!/\/(form|videokurs|kurs)(\.html)?($|\?|#)/.test(ziel)) return;
+        /* window.va ist die Warteschlange des Messskripts und existiert
+           auch, bevor das Skript geladen ist. */
+        if (typeof window.va !== "function") return;
+        window.va("event", {
+          name: "cta_klick",
+          data: { von: location.pathname, zu: ziel },
+        });
+      });
+    </script>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
