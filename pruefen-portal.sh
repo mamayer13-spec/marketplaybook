@@ -120,8 +120,12 @@ fi
 # ── Seitenspezifische Regeln ─────────────────────────────────────────
 if [ -f kosten/index.html ]; then
   k=kosten/index.html
-  pruef "kosten: Basic-Preis genannt" 1 \
-    "$([ "$(grep -c '3.500' $k)" -ge 1 ] && echo 1 || echo 0)"
+  # Seit 14.9.2026 keine Preiszahl mehr: Der Preis wird individuell im
+  # Gespraech festgelegt, Interessenten haben sich an der Zahl festgehalten.
+  pruef "kosten: individueller Preis erklaert" 1 \
+    "$([ "$(grep -c 'im persönlichen' $k)" -ge 1 ] && echo 1 || echo 0)"
+  pruef "portal: keine Preiszahl" 0 \
+    "$(cat erfahrungen/index.html fuer-wen/index.html haeufige-fragen/index.html ist-market-playbook-serioes/index.html $k | grep -cE '3\.500|3500')"
   pruef "kosten: Widerruf behandelt" 1 \
     "$([ "$(grep -ci 'widerruf' $k)" -ge 1 ] && echo 1 || echo 0)"
   # Solange Laufzeit und Konditionen Platzhalter sind, waere ein
