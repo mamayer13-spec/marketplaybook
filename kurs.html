@@ -26,8 +26,8 @@
     -->
     <meta name="robots" content="noindex, follow" />
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="/zeichen-favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="apple-touch-icon" href="/icon-tab.png" />
 
 
@@ -346,6 +346,29 @@
         opacity: 0.75;
         margin: 16px 0 0;
       }
+    
+      /* =================================================================
+         Angleichung an die Kursseite und die App (24.9.2026): blaues
+         Licht in den Logofarben statt Raster, Logo oben links statt
+         mittig, runder Knopf.
+         ================================================================= */
+      body::before { display: none; }
+      body::after {
+        background:
+          radial-gradient(1500px 780px at 50% -14%, rgba(150, 172, 240, 0.26), rgba(114, 136, 206, 0.09) 42%, transparent 68%),
+          radial-gradient(900px 620px at 6% 18%, rgba(58, 88, 190, 0.22), transparent 62%),
+          radial-gradient(1000px 700px at 100% 70%, rgba(114, 136, 206, 0.16), transparent 64%),
+          radial-gradient(1200px 800px at 30% 110%, rgba(38, 62, 150, 0.22), transparent 60%);
+      }
+      .marke {
+        position: absolute;
+        top: 24px;
+        left: 20px;
+        margin: 0;
+      }
+      @media (min-width: 640px) { .marke { top: 28px; left: 32px; } }
+      .knopf-feld, .knopf-feld::before, .knopf-feld::after { border-radius: 999px !important; }
+      .knopf-feld button { border-radius: 999px !important; }
     </style>
   </head>
 
