@@ -1,103 +1,92 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <title>Alles erledigt | Market Playbook</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="robots" content="noindex" />
-    <link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/icon-tab.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/haus.css" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script>
-      /* Klicks auf die Knöpfe zählen, die in den Trichter führen.
-       *
-       * Bis zum 12.9.2026 wusste das Cockpit, wie viele Menschen auf einer
-       * Seite waren, aber nicht, wie viele von dort weitergeklickt haben.
-       * Zwischen "800 Leser auf den Magazinartikeln" und "kein einziger
-       * Klick auf den Kurs" liegt der ganze Unterschied.
-       *
-       * Ein einziger Zuhörer am Dokument statt eines Merkmals an jedem
-       * Knopf: So zählt auch ein Link, den jemand später dazusetzt, ohne
-       * dass er daran denken muss.
-       *
-       * Cookiefrei wie die Seitenmessung -- gezählt wird ein Ereignis ohne
-       * jede Kennung, es entsteht kein Profil. */
-      addEventListener("click", function (e) {
-        var a = e.target && e.target.closest && e.target.closest("a[href]");
-        if (!a) return;
-        var ziel = a.getAttribute("href") || "";
-        if (!/\/(form|videokurs|kurs)(\.html)?($|\?|#)/.test(ziel)) return;
-        /* window.va ist die Warteschlange des Messskripts und existiert
-           auch, bevor das Skript geladen ist. */
-        if (typeof window.va !== "function") return;
-        window.va("event", {
-          name: "cta_klick",
-          data: { von: location.pathname, zu: ziel },
-        });
-      });
-    </script>
-
-    <!--
-      Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite. Texte unveraendert aus der
-      Live-Fassung. Das GA4-Ereignis am Seitenende bleibt erhalten:
-      es ist der einzige Punkt im Funnel, an dem eine abgeschlossene
-      Eintragung gemeldet wird.
-    -->
-  </head>
-
-  <body class="kurz">
-    <div class="schein mitte" aria-hidden="true"></div>
-
-    <main class="danke">
-      <p class="eyebrow">Eintragung eingegangen</p>
-      <h1>Alles erledigt! Dein Videokurs wartet auf dich.</h1>
-      <p style="font-size: 15px">
-        In wenigen Minuten sollte eine E-Mail mit deinem Kurslink in deinem
-        Postfach sein. Schau auch kurz im Spam-Ordner nach, falls du nichts
-        siehst.
-      </p>
-      <p style="margin-top: 28px; font-size: 14px">
-        Keine E-Mail erhalten?
-        <a
-          href="https://www.instagram.com/claudioxmarkets"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Schreibe mir auf Instagram</a
-        >
-      </p>
-    </main>
-
-    <footer
-      class="fuss"
-      style="max-width: 720px; margin: 0 auto; padding: 0 28px 64px; position: relative; z-index: 1"
-    >
-      <div class="zeile">
-        <span class="marke">Market Playbook</span>
-        <nav>
-          <a href="/impressum.html">Impressum</a>
-          <a href="/agb.html">AGB</a>
-          <a href="/datenschutz.html">Datenschutz</a>
-          <a href="/haftungsausschluss.html">Haftungsausschluss</a>
-        </nav>
-      </div>
-    </footer>
-
-    <script>
-      /* Meldet die abgeschlossene Eintragung an Vercel Web Analytics.
-         Seit 6.9.2026 nicht mehr GA4 — das lief nur nach Zustimmung und hat
-         damit genau die Leute nicht gezaehlt, die den Cookie-Hinweis
-         weggeklickt haben. */
-      if (typeof window.va === "function") {
-        window.va("event", { name: "eintragung_abgeschlossen" });
-      }
-    </script>
-  </body>
+<head>
+<meta charset="utf-8" />
+<title>Alles erledigt | Market Playbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/icon-tab.png" />
+<!--
+  /alles-erledigt im Stil der neuen Startseite, live seit 24.9.2026 (wie /form
+  und /kurs). Das Ereignis "eintragung_abgeschlossen" am Seitenende ist der
+  einzige Punkt im Funnel, an dem eine abgeschlossene Eintragung gemeldet
+  wird - nicht entfernen.
+-->
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var ziel = a.getAttribute("href") || "";
+    if (!/\/(form|videokurs|kurs)(\.html)?($|\?|#)/.test(ziel)) return;
+    if (typeof window.va !== "function") return;
+    window.va("event", { name: "cta_klick", data: { von: location.pathname, zu: ziel } });
+  });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{--grund:#0b0d12;--kachel:#14161c;--text:#f4f5f8;--muted:#9aa1ae;--leise:#5f6675;--weich:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html{background:var(--grund)}
+body{margin:0;min-height:100dvh;display:flex;flex-direction:column;background:radial-gradient(45% 40% at 50% 35%,rgba(114,136,206,.26),transparent 72%),radial-gradient(30% 30% at 25% 70%,rgba(38,62,150,.25),transparent 70%),var(--grund);color:var(--text);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-inline:20px}
+a{color:inherit}
+main{flex:1;display:grid;place-items:center;text-align:center;padding:80px 0 40px}
+.inhalt{max-width:620px}
+.haken{position:relative;width:84px;height:84px;margin:0 auto 30px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(160deg,#252c45,#10131c 70%);box-shadow:inset 0 1px 0 rgba(203,217,255,.22),inset 0 0 0 1px rgba(179,197,255,.14),0 24px 60px -20px rgba(114,136,206,.7);animation:landen 1s cubic-bezier(.2,1.3,.4,1) .1s both}
+.haken svg{width:40px;height:40px}
+.haken path{stroke:#b3c5ff;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:zeichnen .7s var(--weich) .8s forwards}
+.haken:after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 1.5px rgba(179,197,255,.7);opacity:0;animation:ring 1.6s var(--weich) 1.1s both}
+@keyframes landen{0%{opacity:0;transform:translateY(24px) scale(.6);filter:blur(10px)}100%{opacity:1;transform:none;filter:none}}
+@keyframes zeichnen{to{stroke-dashoffset:0}}
+@keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(2.4)}}
+.etikett{display:inline-block;padding:7px 14px;border-radius:999px;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.16);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#c8d4ff;margin-bottom:20px}
+h1{font-size:clamp(2.2rem,5.6vw,3.8rem);line-height:1.02;letter-spacing:-.045em;font-weight:700;margin:0 0 18px}
+h1 span{background:linear-gradient(100deg,#eef2ff,#b3c5ff 45%,#7288ce);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+p{color:var(--muted);font-size:17px;margin:0 auto;max-width:44ch}
+.schritte{list-style:none;margin:6px auto 0;padding:0;max-width:440px;display:flex;flex-direction:column;gap:10px;text-align:left}
+.schritte li{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:18px;background:var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06)}
+.schritte .nr{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:13px;color:#c8d4ff;background:rgba(179,197,255,.1);box-shadow:inset 0 0 0 1px rgba(179,197,255,.2)}
+.schritte b{display:block;font-size:16px;font-weight:600;letter-spacing:-.015em}
+.schritte small{display:block;margin-top:2px;font-size:14px;color:var(--muted);line-height:1.4}
+.hilfe{margin-top:34px;display:inline-flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06);font-size:15px;color:var(--muted)}
+.hilfe a{display:inline-flex;align-items:center;height:40px;padding:0 18px;border-radius:999px;background:var(--text);color:#0b0d12;font-weight:700;text-decoration:none;font-size:14px}
+.rein{opacity:0;transform:translateY(18px);animation:rein 1s var(--weich) forwards}
+.d1{animation-delay:.3s}.d2{animation-delay:.42s}.d3{animation-delay:.55s}.d4{animation-delay:.7s}
+@keyframes rein{to{opacity:1;transform:none}}
+footer{display:flex;flex-wrap:wrap;gap:12px 20px;justify-content:space-between;max-width:1080px;width:100%;margin:0 auto;padding:24px 0 calc(28px + env(safe-area-inset-bottom,0px));font-size:13px;color:var(--leise)}
+footer nav{display:flex;flex-wrap:wrap;gap:16px}
+footer a{text-decoration:none}footer a:hover{color:var(--text)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.rein{opacity:1;transform:none}.haken path{stroke-dashoffset:0}}
+/* Schritte und Hilfe-Leiste als Glas (24.9.2026), wie die Marker auf /form */
+.schritte li,.hilfe{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 60%),rgba(20,24,40,.28);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 1px rgba(179,197,255,.14),0 12px 40px -18px rgba(0,0,0,.6)}
+</style>
+</head>
+<body>
+<main>
+  <div class="inhalt">
+    <div class="haken" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <div class="rein d1"><span class="etikett">Eintragung eingegangen</span></div>
+    <h1 class="rein d2">Alles erledigt!<br /><span>Dein Videokurs wartet auf dich.</span></h1>
+    <ol class="schritte rein d3">
+      <li><span class="nr">1</span><div><b>Mail kommt in wenigen Minuten</b><small>Von office@marketplaybook.de, Betreff „Dein Aktien Kurs wartet!“</small></div></li>
+      <li><span class="nr">2</span><div><b>Link anklicken, fertig</b><small>Der Kurs geht sofort auf, ohne Account und ohne Passwort.</small></div></li>
+      <li><span class="nr">3</span><div><b>Nichts da?</b><small>Schau kurz im Spam- oder Werbe-Ordner nach.</small></div></li>
+    </ol>
+    <div class="hilfe rein d4">Keine E-Mail erhalten? <a href="https://www.instagram.com/claudioxmarkets" target="_blank" rel="noopener noreferrer">Schreibe mir auf Instagram</a></div>
+  </div>
+</main>
+<footer>
+  <span>Market Playbook</span>
+  <nav><a href="/impressum.html">Impressum</a><a href="/agb.html">AGB</a><a href="/datenschutz.html">Datenschutz</a><a href="/haftungsausschluss.html">Haftungsausschluss</a></nav>
+</footer>
+<script>
+  if (typeof window.va === "function") {
+    window.va("event", { name: "eintragung_abgeschlossen" });
+  }
+</script>
+</body>
 </html>
