@@ -17,6 +17,7 @@
 <meta property="og:site_name" content="Market Playbook">
 
 <link rel="stylesheet" href="/portal.css">
+<script src="/portal.js" defer></script>
     <script src="/consent.js" defer></script>
 <link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -119,6 +120,19 @@
 
   <p class="byline">Market Playbook Redaktion · August 2026 · Lesezeit 8 Minuten</p>
 
+  <nav class="toc" aria-label="Auf dieser Seite">
+    <p class="toc-titel">Auf dieser Seite</p>
+    <ol>
+      <li><a href="#ausgangslage">Ausgangslage</a></li>
+      <li><a href="#zeit">Zeit</a></li>
+      <li><a href="#einzahlungsphase">Einzahlungsphase</a></li>
+      <li><a href="#entnahme">Entnahme</a></li>
+      <li><a href="#risiko">Risiko</a></li>
+      <li><a href="#fehlerbild">Fehlerbild</a></li>
+      <li><a href="#haeufige-fragen">Häufige Fragen</a></li>
+    </ol>
+  </nav>
+
   <div class="data-box">
     <h3>Die vier Größen, um die es geht</h3>
     <dl>
@@ -146,7 +160,7 @@
   </div>
 
   <p class="section-eyebrow">Ausgangslage</p>
-  <h2>Ist es mit 50 zu spät?</h2>
+  <h2 id="ausgangslage">Ist es mit 50 zu spät?</h2>
 
   <p>
     Nein — die Frage legt einen falschen Maßstab an. Sie unterstellt, dass der
@@ -179,7 +193,7 @@
   </p>
 
   <p class="section-eyebrow">Zeit</p>
-  <h2>Was ändert sich am Zeithorizont?</h2>
+  <h2 id="zeit">Was ändert sich am Zeithorizont?</h2>
 
   <p>
     Der Zeithorizont wird meist als ein einzelnes Datum gedacht: der Tag, an
@@ -210,7 +224,7 @@
   </p>
 
   <p class="section-eyebrow">Einzahlungsphase</p>
-  <h2>Wie wirkt sich die verbleibende Erwerbszeit aus?</h2>
+  <h2 id="einzahlungsphase">Wie wirkt sich die verbleibende Erwerbszeit aus?</h2>
 
   <p>
     Solange ein Gehalt eingeht, ist es der wichtigste Puffer im Gesamtbild. Es
@@ -247,7 +261,7 @@
   </p>
 
   <p class="section-eyebrow">Entnahme</p>
-  <h2>Welche Rolle spielt die Entnahmephase?</h2>
+  <h2 id="entnahme">Welche Rolle spielt die Entnahmephase?</h2>
 
   <p>
     Die wichtigste Größe der Entnahmephase steht lange vorher fest: der Anteil
@@ -294,7 +308,7 @@
   </div>
 
   <p class="section-eyebrow">Risiko</p>
-  <h2>Was ist beim Risiko anders als mit 30?</h2>
+  <h2 id="risiko">Was ist beim Risiko anders als mit 30?</h2>
 
   <p>
     Die Schwankung eines breiten Aktienmarktes ist mit 50 dieselbe wie mit 30.
@@ -356,7 +370,7 @@
   </div>
 
   <p class="section-eyebrow">Fehlerbild</p>
-  <h2>Welche Fehler sind in dieser Phase besonders teuer?</h2>
+  <h2 id="fehlerbild">Welche Fehler sind in dieser Phase besonders teuer?</h2>
 
   <p>
     Der erste ist der stille: gar nichts zu entscheiden. Wer die Sache aus
@@ -421,40 +435,40 @@
   </div>
 
   <p class="section-eyebrow">Häufige Fragen</p>
-  <h2>Welche Fragen stellen sich dabei am häufigsten?</h2>
+  <h2 id="haeufige-fragen">Welche Fragen stellen sich dabei am häufigsten?</h2>
 
-  <div class="faq-item">
-    <h3>Wie viel sollte man mit 50 noch investieren?</h3>
+  <details class="faq-item">
+    <summary><h3>Wie viel sollte man mit 50 noch investieren?</h3></summary>
     <p>Eine allgemeingültige Größe dafür gibt es nicht. Maßgeblich sind vier
       Angaben: die voraussichtlich verbleibenden Erwerbsjahre, die Rücklage
       außerhalb des Depots, der Zeitpunkt, ab dem etwas entnommen werden soll,
       und der Rückgang, den die eigene Lage aushält. Erst daraus ergibt sich
       ein Betrag — nicht aus einer Regel, die nur das Lebensalter kennt.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Was ist ein realistischer Zeithorizont?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Was ist ein realistischer Zeithorizont?</h3></summary>
     <p>Nicht der Renteneintritt, sondern der Zeitraum bis zur letzten Entnahme.
       Wer mit Mitte sechzig aufhört zu arbeiten, löst sein Depot nicht an
       diesem Tag auf, sondern über die folgenden Jahrzehnte. Sinnvoll ist
       deshalb nicht eine einzelne Frist, sondern eine je Teilbetrag: für die
       ersten Ruhestandsjahre eine kurze, für den Rest eine lange.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Sind ETFs die bessere Wahl?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Sind ETFs die bessere Wahl?</h3></summary>
     <p>Sie beantworten eine andere Frage. Breit streuende Indexfonds nehmen das
       Risiko einzelner Unternehmen aus dem Depot und sind meist kostengünstiger
       als aktiv verwaltete Alternativen. Das Marktrisiko nehmen sie nicht ab,
       und die Zuordnung von Betrag und Frist ersetzen sie ebenfalls nicht. Ob
       die Form passt, entscheidet sich an dieser Zuordnung, nicht umgekehrt.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Wie geht man mit einem späten Verlust um?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Wie geht man mit einem späten Verlust um?</h3></summary>
     <p>Zuerst prüfen, ob für den betroffenen Betrag überhaupt ein fester Termin
       besteht. Besteht keiner, ändert ein Rückgang auf dem Papier an der
       Planung nichts. Besteht einer, verschiebt sich die Frage auf die Deckung
       dieses Termins aus anderen Mitteln. Eine Regel dafür trägt nur, wenn sie vorher
       festgelegt wurde.</p>
-  </div>
+  </details>
 
   <p>
     <a href="/magazin">Zurück zur Übersicht des Magazins</a>

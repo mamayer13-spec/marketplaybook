@@ -17,6 +17,7 @@
 <meta property="og:site_name" content="Market Playbook">
 
 <link rel="stylesheet" href="/portal.css">
+<script src="/portal.js" defer></script>
     <script src="/consent.js" defer></script>
 <link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -112,13 +113,24 @@
   <p class="lede">
     Einen Pauschalpreis gibt es bei Market Playbook nicht. Der Preis richtet
     sich danach, welcher Umfang an Begleitung gebraucht wird, und wird im
-    persönlichen Gespräch festgelegt. Advanced umfasst die laufende Markteinordnung, das Portfolio und die
-    Analysen von Claudio Fürsatz, die Makro-Deep-Dives als Video sowie
-    Community und WhatsApp-Gruppe; Professional enthält zusätzlich die
-    persönliche Betreuung im Einzelgespräch.
+    persönlichen Gespräch festgelegt. Advanced umfasst im Kern die laufende Markteinordnung, das Portfolio und
+    die Analysen von Claudio Fürsatz, die Makro-Deep-Dives als Video sowie
+    Community und WhatsApp-Gruppe; Professional enthält zusätzlich vor allem
+    die persönliche Betreuung im Einzelgespräch.
   </p>
 
   <p class="byline">Market Playbook Redaktion · Oktober 2026 · Lesezeit 5 Minuten</p>
+
+  <nav class="toc" aria-label="Auf dieser Seite">
+    <p class="toc-titel">Auf dieser Seite</p>
+    <ol>
+      <li><a href="#advanced">Advanced</a></li>
+      <li><a href="#professional">Professional</a></li>
+      <li><a href="#vertragliches">Vertragliches</a></li>
+      <li><a href="#vor-der-entscheidung">Vor der Entscheidung</a></li>
+      <li><a href="#haeufige-fragen">Häufige Fragen</a></li>
+    </ol>
+  </nav>
 
   <!-- Bewusst keine Rabatt-, Knappheits- oder Dringlichkeitssprache und kein
        Offer-Schema mit Preis. Seit 14.9.2026 steht auf dem ganzen Portal
@@ -130,14 +142,15 @@
   <div class="summary-box">
     <h2>Das Wichtigste in Kürze</h2>
     <p class="basis">
-      Belegt ist der Leistungsumfang beider Pakete. Der Preis wird nicht
+      Beschrieben ist der grundsätzliche Leistungsumfang beider Pakete; er wird
+      laufend erweitert. Der Preis wird nicht
       pauschal ausgewiesen, sondern im Gespräch nach dem benötigten Umfang
       festgelegt.
     </p>
     <ul>
       <li>Der Preis wird individuell im Gespräch festgelegt. Verbindlich sind
         die Angaben vor Vertragsschluss.</li>
-      <li>Professional enthält alles aus Advanced und zusätzlich die
+      <li>Professional enthält alles aus Advanced und zusätzlich vor allem die
         persönliche Betreuung durch Claudio Fürsatz im Einzelgespräch.</li>
       <li>Eine Mindestlaufzeit gibt es bei keinem der beiden Pakete.</li>
       <li>Vor jeder kostenpflichtigen Entscheidung steht ein kostenloses
@@ -145,14 +158,70 @@
     </ul>
   </div>
 
+  <!-- Die beiden Pakete nebeneinander. Umfang woertlich aus den
+       Angebots-PDFs (angebots-pdf/, Stand 17.9.2026); bewusst ohne Preis,
+       ohne Hervorhebung eines "empfohlenen" Pakets und ohne Knappheit. -->
+  <div class="pakete">
+    <section class="paket">
+      <p class="paket-name">Advanced</p>
+      <p class="paket-satz">Laufende Einordnung, das offene Portfolio und der Austausch in der Gruppe.</p>
+      <h3>Markt und Einordnung</h3>
+      <ul>
+        <li>Wöchentliche Markteinordnung</li>
+        <li>Tägliche Marktnachrichten</li>
+        <li>Aktien-, Edelmetall- und Kryptoanalysen</li>
+      </ul>
+      <h3>Portfolio von Claudio Fürsatz</h3>
+      <ul>
+        <li>Alle Positionen und Gewichtungen</li>
+        <li>Ein- und Ausstiege mit Begründung</li>
+        <li>Ausstiegsplan mit festen Marken</li>
+      </ul>
+      <h3>Begleitung</h3>
+      <ul>
+        <li>Onboarding-Gespräch zum Start</li>
+        <li>WhatsApp-Gruppe</li>
+        <li>Zugang zur Community</li>
+      </ul>
+      <h3>Videokurse</h3>
+      <ul>
+        <li>Makro-Deep-Dives</li>
+      </ul>
+    </section>
+    <section class="paket">
+      <p class="paket-name">Professional</p>
+      <p class="paket-satz">Alles aus Advanced, dazu die persönliche Betreuung im Einzelgespräch.</p>
+      <h3>Persönliche Begleitung</h3>
+      <ul>
+        <li>Einzelgespräche mit Claudio Fürsatz</li>
+        <li>Nachjustieren in regelmäßigen Abständen</li>
+        <li>Prüfraster an eigenen Beispielen erklärt</li>
+        <li>Bevorzugte Erreichbarkeit</li>
+      </ul>
+      <h3>Zusätzliche Inhalte</h3>
+      <ul>
+        <li>Analysen zu Aktien mit kürzerem Zeithorizont</li>
+        <li>Vom Einzelwert zum langfristigen Ansatz</li>
+      </ul>
+      <h3>Enthalten</h3>
+      <ul>
+        <li>Das vollständige Advanced-Paket</li>
+        <li>Neue Inhalte von Anfang an</li>
+      </ul>
+    </section>
+    <p class="paket-hinweis">Grundsätzlicher Umfang, Stand Oktober 2026. Beide
+      Pakete werden laufend erweitert; kommen neue Inhalte oder Formate hinzu,
+      sind sie in Professional von Anfang an enthalten. Verbindlich sind die
+      Angaben vor Vertragsschluss.</p>
+  </div>
+
   <div class="data-box">
     <h2>Leistungen und Konditionen im Überblick</h2>
     <dl>
       <div class="row"><dt>Preis</dt><dd>Individuell, wird im persönlichen
         Gespräch nach dem benötigten Umfang festgelegt</dd></div>
-      <div class="row"><dt>Advanced</dt><dd>Wöchentliche Markteinordnung und tägliche Marktnachrichten, Aktien-, Edelmetall- und Kryptoanalysen, das Portfolio von Claudio Fürsatz mit Ein- und Ausstiegen, Makro-Deep-Dives als Video, ein Onboarding-Gespräch zum Start, Community und WhatsApp-Gruppe</dd></div>
-      <div class="row"><dt>Professional</dt><dd>Alle Bestandteile von Advanced sowie zusätzlich
-        persönliche Betreuung durch Claudio Fürsatz in regelmäßigen Einzelgesprächen</dd></div>
+      
+      
       <div class="row"><dt>Laufzeit</dt><dd>Keine Mindestlaufzeit</dd></div>
       <div class="row"><dt>Kündigungsfrist</dt><dd>Wird vor Vertragsschluss schriftlich mitgeteilt</dd></div>
       <div class="row"><dt>Widerrufsrecht</dt><dd>Gesetzliches Widerrufsrecht für Verbraucher
@@ -165,10 +234,10 @@
   </div>
 
   <p class="section-eyebrow">Advanced</p>
-  <h2>Was in Advanced enthalten ist</h2>
+  <h2 id="advanced">Was in Advanced enthalten ist</h2>
 
   <p>
-    Advanced besteht aus vier Teilen. Erstens der laufenden Einordnung: einer
+    Advanced besteht im Kern aus vier Teilen. Erstens der laufenden Einordnung: einer
     wöchentlichen Markteinordnung, täglichen Marktnachrichten sowie Analysen zu
     Aktien, Edelmetallen und Kryptowerten. Zweitens der Einsicht in das
     Portfolio von Claudio Fürsatz, also in alle Positionen und Gewichtungen, in
@@ -196,7 +265,7 @@
   </p>
 
   <p class="section-eyebrow">Professional</p>
-  <h2>Was Professional zusätzlich bietet</h2>
+  <h2 id="professional">Was Professional zusätzlich bietet</h2>
 
   <p>
     Professional enthält sämtliche Bestandteile von Advanced und darüber
@@ -208,7 +277,9 @@
     ob ein Wert für ihn geeignet ist, wird nicht bewertet. Hinzu kommen
     Analysen zu Aktien mit kürzerem Zeithorizont als im Portfolio und die
     Erklärung, wie aus einzelnen Positionen ein langfristiger Ansatz wird,
-    gezeigt an Claudio Fürsatz' eigenem Vorgehen.
+    gezeigt an Claudio Fürsatz' eigenem Vorgehen. Die Aufzählung ist nicht
+    abschließend: Kommen neue Inhalte oder Formate hinzu, sind sie in
+    Professional von Anfang an enthalten.
   </p>
   <p>
     Wie bei Advanced wird auch hier kein Pauschalpreis genannt: Wie viel
@@ -224,7 +295,7 @@
   </p>
 
   <p class="section-eyebrow">Vertragliches</p>
-  <h2>Laufzeit, Kündigung und Widerruf</h2>
+  <h2 id="vertragliches">Laufzeit, Kündigung und Widerruf</h2>
 
   <p>
     Eine Mindestlaufzeit gibt es bei keinem der beiden Pakete. Vertragsdauer und Beendigung werden vor Vertragsschluss schriftlich mitgeteilt.
@@ -255,7 +326,7 @@
   </p>
 
   <p class="section-eyebrow">Vor der Entscheidung</p>
-  <h2>Das kostenlose Einstiegsangebot</h2>
+  <h2 id="vor-der-entscheidung">Das kostenlose Einstiegsangebot</h2>
 
   <p>
     Vor jeder kostenpflichtigen Entscheidung steht ein kostenloses
@@ -288,47 +359,47 @@
   </div>
 
   <p class="section-eyebrow">Häufige Fragen</p>
-  <h2>Fragen zu Preis, Zahlung und Vertrag</h2>
+  <h2 id="haeufige-fragen">Fragen zu Preis, Zahlung und Vertrag</h2>
 
-  <div class="faq-item">
-    <h3>Gibt es Ratenzahlung?</h3>
+  <details class="faq-item">
+    <summary><h3>Gibt es Ratenzahlung?</h3></summary>
     <p>Ob Ratenzahlung möglich ist, steht an dieser Stelle nicht fest. Verbindlich sind allein die Angaben im Bestellvorgang und in den Vertragsunterlagen. Wer in Raten zahlen möchte, sollte die Frage vor Vertragsschluss stellen und die Antwort schriftlich festhalten.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Bekomme ich Geld zurück?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Bekomme ich Geld zurück?</h3></summary>
     <p>Bei einem im Fernabsatz geschlossenen Vertrag steht Verbrauchern das
       gesetzliche Widerrufsrecht von 14 Tagen zu. Wird es fristgerecht
       ausgeübt, sind geleistete Zahlungen zu erstatten. Eine darüber
       hinausgehende Rückgabezusage des Anbieters ist nicht ausgewiesen.
       Maßgeblich sind Widerrufsbelehrung und Vertragsbedingungen.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Was passiert nach Ablauf?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Was passiert nach Ablauf?</h3></summary>
     <p>Eine Mindestlaufzeit gibt es nicht. Wie lange der Zugang zu Community, Analysen und Austausch besteht und wie er endet, wird vor Vertragsschluss schriftlich mitgeteilt.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Sind weitere Kosten zu erwarten?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Sind weitere Kosten zu erwarten?</h3></summary>
     <p>Discord und WhatsApp sind in ihrer Grundversion kostenfrei nutzbar, für
       die Teilnahme fallen dort keine gesonderten Entgelte an. Unabhängig vom
       Programm entstehen Kosten beim eigenen Broker, etwa Order- und
       Depotgebühren, dazu die Steuer auf Kapitalerträge. Ob der Anbieter neben dem vereinbarten Preis weitere Entgelte erhebt, ist an dieser Stelle nicht ausgewiesen.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Lohnt sich Professional?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Lohnt sich Professional?</h3></summary>
     <p>Der Unterschied zu Advanced liegt vor allem in der persönlichen Betreuung
       im Einzelgespräch. Ob sich dieser Zusatz lohnt, hängt davon ab, wie viel
       persönliche Begleitung gebraucht wird — genau das wird im Gespräch
       geklärt, zusammen mit dem Preis. Naheliegend ist Professional für Anleger, die ihre Fragen lieber im Einzelgespräch besprechen als in der Gruppe.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Gibt es eine Testphase?</h3>
+  </details>
+  <details class="faq-item">
+    <summary><h3>Gibt es eine Testphase?</h3></summary>
     <p>Eine kostenpflichtige Testphase mit verkürzter Laufzeit ist nicht
       ausgewiesen. Vor
       einer Entscheidung steht jedoch ein kostenloses Einstiegsangebot, das die
       Herangehensweise zeigt, zu nichts verpflichtet und keine Zahlungsdaten
       verlangt. Es ersetzt keine Prüfung der Vertragsbedingungen, gibt aber
       einen ersten Eindruck.</p>
-  </div>
+  </details>
 
 </main>
 
