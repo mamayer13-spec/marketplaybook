@@ -746,6 +746,39 @@ body.ks-offen .kopf{opacity:0;pointer-events:none}
 .ks-zitat cite{display:block;margin-top:24px;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--leise)}
 /* Was wir nicht sind */
 .streich-titel{font-size:clamp(2.2rem,5.6vw,4rem);line-height:1;margin:0 0 50px;font-weight:500;letter-spacing:-.035em}
+/* Häufige Fragen (4.10.2026): ganz unten nach dem Schluss-Satz. Aufklappen über grid-template-rows 0fr → 1fr,
+   damit Auf- und Zugehen weich laufen (details kann das Zugehen nicht animieren). Immer nur eine Frage offen. */
+.fq{padding-top:clamp(90px,12vw,150px);padding-bottom:clamp(70px,9vw,120px)}
+.fq-raster{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:clamp(30px,6vw,90px);align-items:start}
+.fq-kopf{position:sticky;top:120px}
+.fq-kopf h2{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;margin:0 0 22px;font-weight:500;letter-spacing:-.035em}
+.fq-kopf p.unter{margin:0 0 26px;color:var(--muted);max-width:30ch;line-height:1.5}
+.fq-mehr{display:inline-flex;align-items:center;gap:8px;color:var(--akzent);font-size:15px;font-weight:500}
+.fq-mehr span{transition:transform .4s var(--weich)}
+.fq-mehr:hover span{transform:translateX(5px)}
+.fq-liste{display:flex;flex-direction:column;gap:10px}
+.fq-punkt{position:relative;border-radius:22px;background:var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.10),inset 0 0 0 1px rgba(179,197,255,.05);transition:background .5s var(--weich),box-shadow .5s var(--weich),opacity 1s var(--weich),transform 1s var(--weich);transition-delay:0s,0s,calc(var(--i)*60ms),calc(var(--i)*60ms);overflow:hidden}
+.fq-punkt::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 0% 0%,rgba(114,136,206,.20),transparent 60%);opacity:0;transition:opacity .6s var(--weich);pointer-events:none}
+.fq-punkt.offen{background:var(--kachel-2);box-shadow:inset 0 1px 0 rgba(179,197,255,.22),inset 0 0 0 1px rgba(179,197,255,.10),0 24px 60px -30px rgba(0,0,0,.6)}
+.fq-punkt.offen::before{opacity:1}
+.fq-frage{position:relative;width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:22px 22px 22px 24px;background:none;border:0;color:var(--text);font:inherit;font-size:clamp(1.08rem,1.8vw,1.32rem);font-weight:500;letter-spacing:-.02em;text-align:left;cursor:pointer}
+.fq-frage .nr{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;color:var(--leise);transition:color .4s}
+.fq-punkt.offen .nr,.fq-frage:hover .nr{color:var(--akzent)}
+.fq-frage .plus{position:relative;width:36px;height:36px;border-radius:50%;background:rgba(179,197,255,.07);transition:transform .6s var(--weich),background .4s}
+.fq-frage .plus::before,.fq-frage .plus::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;border-radius:2px;background:var(--akzent);transform:translate(-50%,-50%)}
+.fq-frage .plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.fq-frage:hover .plus{background:rgba(179,197,255,.14)}
+.fq-punkt.offen .plus{transform:rotate(135deg);background:rgba(179,197,255,.18)}
+.fq-frage:focus-visible{outline:2px solid var(--akzent);outline-offset:-4px;border-radius:22px}
+.fq-antwort{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--weich)}
+.fq-punkt.offen .fq-antwort{grid-template-rows:1fr}
+.fq-antwort>div{overflow:hidden;min-height:0}
+.fq-antwort p{position:relative;margin:0;padding:0 76px 26px 62px;color:var(--muted);font-size:clamp(1rem,1.4vw,1.1rem);line-height:1.6;max-width:64ch;opacity:0;transform:translateY(-8px);transition:opacity .35s var(--weich),transform .6s var(--weich)}
+.fq-punkt.offen .fq-antwort p{opacity:1;transform:none;transition-delay:.12s}
+.fq-antwort .fq-knopf{display:flex;width:max-content;margin-top:18px}
+@media (max-width:900px){.fq-raster{grid-template-columns:1fr}.fq-kopf{position:static}}
+@media (max-width:700px){.fq-frage{grid-template-columns:1fr auto;padding:18px 16px 18px 18px;gap:12px}.fq-frage .plus{width:32px;height:32px}.fq-antwort p{padding:0 18px 22px 18px}.fq-frage .nr{display:none}}
+@media (prefers-reduced-motion:reduce){.fq-antwort,.fq-antwort p,.fq-frage .plus{transition:none}}
 .streich{list-style:none;margin:0;padding:0;border-top:1px solid var(--linie)}
 .streich li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center;padding:30px 0;border-bottom:1px solid var(--linie)}
 .streich li > s{display:block;text-decoration:none;font-size:clamp(1.8rem,4.2vw,3.4rem);line-height:1.12;letter-spacing:-.035em}
@@ -792,6 +825,7 @@ b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("da
 </style>
 <!-- Duenne Schrift ist seit 15.9.2026 Standard (Manuel). Die fette Fassung bleibt zum Vergleich unter ?schrift=fett. -->
 <script>if(!/schrift=fett/.test(location.search))document.documentElement.classList.add("duenn");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Brauche ich Vorwissen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein, Profi musst du keiner sein. Ein eigenes Depot und die Grundbegriffe solltest du aber kennen, damit du den Analysen gut folgen kannst."}}, {"@type": "Question", "name": "Wie viel Zeit brauche ich?", "acceptedAnswer": {"@type": "Answer", "text": "Unser System ist so gebaut, dass auch sehr beschäftigte Leute mitkommen. Mit höchstens 30 Minuten pro Woche bist du auf dem neuesten Stand."}}, {"@type": "Question", "name": "Für wen ist das gedacht?", "acceptedAnswer": {"@type": "Answer", "text": "Für Leute, die schon investiert sind, aber bisher eher raten und kaum Zeit haben, sich selbst durch alles durchzuarbeiten. Für komplette Neueinsteiger ist es noch nichts."}}, {"@type": "Question", "name": "Wie viel sollte ich schon investiert haben?", "acceptedAnswer": {"@type": "Answer", "text": "Am meisten bringt es dir, wenn du schon 10.000 bis 20.000 Euro investiert hast. Liegst du deutlich darunter, ist es ehrlich gesagt noch zu früh, dann starte lieber erst mit dem kostenlosen Videokurs."}}, {"@type": "Question", "name": "Was bekomme ich als Mitglied?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt davon ab, was du brauchst: Wir haben 2 Programme und stimmen im Gespräch ab, was zu dir passt. Im Kern bekommst du jede Woche Claudios Einordnung der Märkte, seine Analysen und einen Blick in sein Portfolio, also genau das, wofür du allein viele Stunden bräuchtest."}}, {"@type": "Question", "name": "Habe ich einen festen Ansprechpartner?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Bei uns gibt es keine Massenabfertigung: Du bekommst deinen eigenen Customer Success Manager, dem du jederzeit schreiben kannst. Und deine Fragen an Claudio kannst du natürlich auch stellen."}}, {"@type": "Question", "name": "Ist das eine Anlageberatung?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Claudio zeigt dir in seinen Makro-Calls und Analysen, wie er die Märkte sieht und was er selbst macht. Was du daraus machst, entscheidest immer du."}}, {"@type": "Question", "name": "Wie fange ich an?", "acceptedAnswer": {"@type": "Answer", "text": "Klick einfach auf den Button hier und hol dir den kostenlosen Videokurs und die Aktien-Watchlist. Da findest du schon die ersten Inhalte und Analysen von Claudio. Wenn dir das gefällt und du mehr willst, buchst du dir einfach ein Strategiegespräch."}}, {"@type": "Question", "name": "Was ist Market Playbook überhaupt?", "acceptedAnswer": {"@type": "Answer", "text": "Market Playbook ist Claudios Mitgliedschaft für alle, die an der Börse nicht mehr raten wollen. Er schaut sich jede Woche Aktien, Krypto und die große Wirtschaftslage an und zeigt dir, worauf es gerade ankommt."}}, {"@type": "Question", "name": "Wer ist Claudio Fürsatz?", "acceptedAnswer": {"@type": "Answer", "text": "Claudio ist 2020 mit 19 Jahren an den Märkten eingestiegen und führt heute Market Playbook. Geprägt hat ihn ein Verlust von über 111.000 Euro an einem einzigen Tag, aus dem seine heutige Systematik entstanden ist."}}]}</script>
 </head>
 <body>
 
@@ -1016,6 +1050,31 @@ b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("da
         <div class="knoepfe warp-knoepfe" data-warp><a class="knopf gross glanz" href="/form">Kostenlos starten</a><a class="knopf gross leise" href="/erfahrungen">Erfahrungen lesen</a></div>
       </div>
     </div>
+  </section>
+
+  <!-- Häufige Fragen: ganz unten (Manuel 4.10.2026). Antworten gekürzt aus /haeufige-fragen, damit nichts widerspricht -->
+  <section class="block spalte fq" id="fragen">
+    <div class="fq-raster">
+      <div class="fq-kopf">
+        <p class="st-hut">Häufige Fragen</p>
+        <h2 class="einblenden">Kurz beantwortet.</h2>
+        <p class="unter einblenden">Die 10 Fragen, die wir am häufigsten hören.</p>
+        <a class="fq-mehr einblenden" href="/haeufige-fragen">Alle Fragen und Antworten <span>→</span></a>
+      </div>
+      <div class="fq-liste" id="fq-liste">
+        <div class="fq-punkt einblenden" style="--i:0"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a1"><span class="nr">01</span><span>Brauche ich Vorwissen?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a1" role="region"><div><p>Nein, Profi musst du keiner sein. Ein eigenes Depot und die Grundbegriffe solltest du aber kennen, damit du den Analysen gut folgen kannst.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:1"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a2"><span class="nr">02</span><span>Wie viel Zeit brauche ich?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a2" role="region"><div><p>Unser System ist so gebaut, dass auch sehr beschäftigte Leute mitkommen. Mit höchstens 30 Minuten pro Woche bist du auf dem neuesten Stand.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:2"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a3"><span class="nr">03</span><span>Für wen ist das gedacht?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a3" role="region"><div><p>Für Leute, die schon investiert sind, aber bisher eher raten und kaum Zeit haben, sich selbst durch alles durchzuarbeiten. Für komplette Neueinsteiger ist es noch nichts.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:3"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a4"><span class="nr">04</span><span>Wie viel sollte ich schon investiert haben?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a4" role="region"><div><p>Am meisten bringt es dir, wenn du schon 10.000 bis 20.000 Euro investiert hast. Liegst du deutlich darunter, ist es ehrlich gesagt noch zu früh, dann starte lieber erst mit dem kostenlosen Videokurs.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:4"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a5"><span class="nr">05</span><span>Was bekomme ich als Mitglied?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a5" role="region"><div><p>Das hängt davon ab, was du brauchst: Wir haben 2 Programme und stimmen im Gespräch ab, was zu dir passt. Im Kern bekommst du jede Woche Claudios Einordnung der Märkte, seine Analysen und einen Blick in sein Portfolio, also genau das, wofür du allein viele Stunden bräuchtest.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:5"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a6"><span class="nr">06</span><span>Habe ich einen festen Ansprechpartner?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a6" role="region"><div><p>Ja. Bei uns gibt es keine Massenabfertigung: Du bekommst deinen eigenen Customer Success Manager, dem du jederzeit schreiben kannst. Und deine Fragen an Claudio kannst du natürlich auch stellen.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:6"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a7"><span class="nr">07</span><span>Ist das eine Anlageberatung?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a7" role="region"><div><p>Nein. Claudio zeigt dir in seinen Makro-Calls und Analysen, wie er die Märkte sieht und was er selbst macht. Was du daraus machst, entscheidest immer du.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:7"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a8"><span class="nr">08</span><span>Wie fange ich an?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a8" role="region"><div><p>Klick einfach auf den Button hier und hol dir den kostenlosen Videokurs und die Aktien-Watchlist. Da findest du schon die ersten Inhalte und Analysen von Claudio. Wenn dir das gefällt und du mehr willst, buchst du dir einfach ein Strategiegespräch.<a class="knopf glanz fq-knopf" href="/form">Kostenlosen Kurs holen</a></p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:8"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a9"><span class="nr">09</span><span>Was ist Market Playbook überhaupt?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a9" role="region"><div><p>Market Playbook ist Claudios Mitgliedschaft für alle, die an der Börse nicht mehr raten wollen. Er schaut sich jede Woche Aktien, Krypto und die große Wirtschaftslage an und zeigt dir, worauf es gerade ankommt.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:9"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a10"><span class="nr">10</span><span>Wer ist Claudio Fürsatz?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a10" role="region"><div><p>Claudio ist 2020 mit 19 Jahren an den Märkten eingestiegen und führt heute Market Playbook. Geprägt hat ihn ein Verlust von über 111.000 Euro an einem einzigen Tag, aus dem seine heutige Systematik entstanden ist.</p></div></div></div>
+      </div>
+    </div>
+    <noscript><style>.fq-antwort{grid-template-rows:1fr}.fq-antwort p{opacity:1;transform:none}</style></noscript>
   </section>
 
 </main>
@@ -1517,6 +1576,18 @@ document.querySelectorAll(".stern").forEach(function(el){io.observe(el)})})();
     },350);
   },2400);
   addEventListener("resize",function(){ w.style.width=breite(b.textContent)+"px"; });
+})();
+</script>
+<script>
+/* Häufige Fragen: eine Frage offen, die übrigen klappen weich zu */
+(function(){
+  var liste=document.getElementById("fq-liste"); if(!liste) return;
+  liste.addEventListener("click",function(e){
+    var k=e.target.closest(".fq-frage"); if(!k) return;
+    var p=k.parentNode, auf=!p.classList.contains("offen");
+    liste.querySelectorAll(".fq-punkt.offen").forEach(function(x){ x.classList.remove("offen"); x.querySelector(".fq-frage").setAttribute("aria-expanded","false"); });
+    if(auf){ p.classList.add("offen"); k.setAttribute("aria-expanded","true"); }
+  });
 })();
 </script>
 </body>
