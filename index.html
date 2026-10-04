@@ -1,449 +1,1524 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <title>Market Playbook | Aktienwissen mit Struktur</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta
-      name="description"
-      content="Market Playbook vermittelt Wissen über Aktienmärkte: Marktphasen verstehen, Unternehmens- und Makrodaten lesen, Risiko einordnen. Bildungsangebot, keine Anlageberatung."
-    />
-    <link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/icon-tab.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/haus.css?v=1788372570" />
-    <link rel="stylesheet" href="/startseite.css?v=1788373438" />
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Market Playbook | Märkte verstehen, statt zu raten</title>
+<meta name="description" content="Market Playbook analysiert jede Woche Aktien, Krypto und die Makrolage und ordnet ein, was an den Märkten passiert. Bildungsangebot, keine Anlageberatung." />
+<link rel="canonical" href="https://www.marketplaybook.de/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.marketplaybook.de/" />
+<meta property="og:title" content="Market Playbook | Märkte verstehen, statt zu raten" />
+<meta property="og:description" content="Wöchentliche Analysen zu Aktien, Krypto und der Makrolage. Bildungsangebot, keine Anlageberatung." />
+<meta property="og:image" content="https://www.marketplaybook.de/icon-tab.png" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/zeichen-favicon.svg?v=buch" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/icon-tab.png?v=buch" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!--
+  Startseite seit 3.10.2026 (vorher entwurf-mobbin.html auf Branch entwurf-mobbin-stil).
+  Die Lizenzfassung Dubai (9.9.2026, ohne Krypto- und Prozentzahlen) ist damit auf der Startseite
+  abgeloest - Manuels Entscheidung vom 3.10.2026. Rueckweg: git revert dieses Commits.
+  Zahlenquellen: 200+ Mitglieder (alte Startseite, Stand August 2026), 18.509 Follower
+  (brain/02-audits/instagram/2026-09-15-claudioxmarkets.md). Ergebnis- und Positionszahlen nach
+  Claudios Angaben, Belege offen (Otto-Pruefung 3.10.2026).
+-->
+<!-- Reichweitenmessung, cookiefrei (Vercel Web Analytics) + Zaehler fuer Klicks in den Trichter, wie auf allen Seiten -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+addEventListener("click", function (e) {
+  var a = e.target && e.target.closest && e.target.closest("a[href]");
+  if (!a) return;
+  var ziel = a.getAttribute("href") || "";
+  if (!/\/(form|videokurs|kurs)(\.html)?($|\?|#)/.test(ziel)) return;
+  if (typeof window.va !== "function") return;
+  window.va("event", { name: "cta_klick", data: { von: location.pathname, zu: ziel } });
+});
+</script>
+<style>
+:root{
+  --grund:#0b0d12; --kachel:#141827; --kachel-2:#1b2031; --linie:rgba(240,242,246,.08);
+  --text:#f4f5f8; --muted:#a2aabd; --leise:#5f6675; --dunkelzahl:#252933;
+  --akzent:#b3c5ff; --gut:#7fd1a8; --bad:#f08279; --weich:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{background:var(--grund);overflow-x:clip}
+body{margin:0;background:var(--grund);color:var(--text);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.spalte{max-width:1240px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-weight:700;letter-spacing:-.045em}
+.verlauf{background:linear-gradient(100deg,#eef2ff 0%,#b3c5ff 40%,#7288ce 75%,#b3c5ff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:fliess 9s ease-in-out infinite}
+@keyframes fliess{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.kopfzeile h2 span,.zeile .n{background:linear-gradient(100deg,#eef2ff,#c8d4ff 50%,#a3b5f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
-    <!--
-      Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite.
+/* ---------- Schwebende Glas-Navigation ---------- */
+.kopf{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:60;width:min(640px,calc(100% - 32px));display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border-radius:999px;background:rgba(28,31,39,.62);backdrop-filter:blur(40px) saturate(1.4);-webkit-backdrop-filter:blur(40px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(203,217,255,.18),inset 0 0 0 1px rgba(179,197,255,.12),0 10px 40px -10px rgba(0,0,0,.6),0 0 40px -12px rgba(114,136,206,.35)}
+.marke{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.02em;margin-right:auto;white-space:nowrap}
+.marke img{width:22px;height:22px}
+.kopf a.link{padding:8px 12px;font-size:15px;font-weight:500;color:var(--muted);border-radius:999px;transition:color .3s}
+.kopf a.link:hover{color:var(--text)}
+.kopf .knopf{max-width:0;padding:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .5s var(--weich),padding .5s var(--weich),opacity .4s}
+.kopf.voll .knopf{max-width:220px;padding:0 18px;opacity:1}
+.menue{display:none}
+.menue-flaeche{display:none}
+.kopf{transition:transform .45s var(--weich)}
+.kopf.weg{transform:translate(-50%,calc(-100% - 40px))}
+@media (max-width:640px){
+  .kopf{width:auto;gap:18px;padding:5px 5px 5px 16px}
+  .kopf a.link{display:none}
+  /* Handy: Knopf erscheint in der Pille, sobald der Hero weggescrollt ist */
+  .kopf .knopf{max-width:0;padding:0;opacity:0;height:38px;font-size:13px;margin-left:-18px;transition:max-width .5s var(--weich),padding .5s var(--weich),opacity .4s,margin .5s var(--weich)}
+  .kopf.voll{gap:8px}
+  .kopf.voll .knopf{max-width:160px;padding:0 14px;opacity:1;margin-left:0}
+  .marke{font-size:15px}
+  .menue{all:unset;position:relative;display:block;width:40px;height:40px;border-radius:50%;cursor:pointer;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
+  .menue span{position:absolute;left:12px;top:19.2px;width:16px;height:1.6px;border-radius:2px;background:var(--text);transition:transform .35s var(--weich)}
+  .menue span:first-child{transform:translateY(-3.5px)}.menue span:last-child{transform:translateY(3.5px)}
+  .kopf.offen .menue span:first-child{transform:rotate(45deg)}.kopf.offen .menue span:last-child{transform:rotate(-45deg)}
+  .menue-flaeche{display:flex;position:fixed;inset:0;z-index:55;flex-direction:column;justify-content:flex-start;gap:6px;padding:96px 24px calc(28px + env(safe-area-inset-bottom,0px));background:rgba(11,13,18,.96);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);opacity:0;pointer-events:none;transition:opacity .35s var(--weich)}
+  .menue-flaeche.offen{opacity:1;pointer-events:auto}
+  .menue-flaeche a.punkt{font-size:30px;font-weight:600;letter-spacing:-.03em;padding:10px 0;border-bottom:1px solid var(--linie);transform:translateY(10px);transition:transform .45s var(--weich)}
+  .menue-flaeche.offen a.punkt{transform:none}
+  .menue-flaeche .knopf{margin-top:auto;height:54px;font-size:17px}
+}
 
-      Startseite in der Hausdesignsprache. Texte und Zahlen sind die der
-      Live-Startseite, mit Stichtag an jeder Kennzahl.
+.knopf{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 20px;border-radius:999px;background:var(--text);color:#0b0d12;font-weight:600;font-size:15px;letter-spacing:-.01em;position:relative;overflow:hidden;transition:transform .3s var(--weich)}
+/* Hover (Desktop): statt Anheben laeuft von links Logo-Blau durch den Knopf, Schrift wird weiss */
+.knopf{isolation:isolate}
+.knopf:not(.leise):before{content:"";position:absolute;inset:-2px;z-index:-1;border-radius:inherit;background:linear-gradient(100deg,#6d84e6,#3450c4 60%,#263e96);transform:scaleX(0);transform-origin:left center;transition:transform .55s var(--weich)}
+@media (hover:hover){
+  /* Weisser Grund wird nach dem Einlaufen mit blau, sonst bleibt an der Rundung ein heller Saum */
+  .knopf:not(.leise){transition:color .35s ease .08s,box-shadow .5s var(--weich),background-color .2s ease}
+  .knopf:not(.leise):hover{color:#fff;background-color:#3450c4;transition:color .35s ease .08s,box-shadow .5s var(--weich),background-color .15s ease .4s;box-shadow:0 10px 30px -10px rgba(52,80,196,.8)}
+  .knopf:not(.leise):hover:before{transform:scaleX(1)}
+  .knopf.leise:hover{box-shadow:inset 0 0 0 1px rgba(179,197,255,.45)}
+}
+/* Glanz, der ueber den Hauptknopf laeuft (Mobbin: shine-effect) */
+.knopf.glanz:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.85) 50%,transparent 70%);transform:translateX(-120%);animation:glanz 3.6s var(--weich) 1.2s infinite}
+@keyframes glanz{0%{transform:translateX(-120%)}40%,100%{transform:translateX(120%)}}
+.knopf.leise{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.knopf.gross{height:50px;padding:0 26px;font-size:16px}
 
-      Die Grafiken werden in startseite.js aus Datenreihen erzeugt, nicht
-      als feste Pfade gezeichnet. Die Reihen sind SCHEMATISCH: sie
-      treffen die belegten Endstaende und Zeitpunkte, nicht die
-      Tageswerte dazwischen. Sobald echte Monatswerte vorliegen, werden
-      nur die Arrays am Kopf von startseite.js getauscht und der Hinweis
-      unter den Grafiken entfernt.
-    -->
-      <!-- Reichweitenmessung. Cookiefrei und deshalb ohne Einwilligung: Vercel
-         Web Analytics setzt nichts im Browser und speichert keine
-         personenbezogene Kennung. Nachgetragen am 12.9.2026 -- bis dahin
-         stand der Dienst in der Datenschutzerklaerung, war aber auf keiner
-         echten Seite eingebunden. Eine Erklaerung, die eine Verarbeitung
-         beschreibt, die es nicht gibt, ist derselbe Fehler wie eine
-         Verarbeitung ohne Erklaerung, nur andersherum. -->
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script>
-      /* Klicks auf die Knöpfe zählen, die in den Trichter führen.
-       *
-       * Bis zum 12.9.2026 wusste das Cockpit, wie viele Menschen auf einer
-       * Seite waren, aber nicht, wie viele von dort weitergeklickt haben.
-       * Zwischen "800 Leser auf den Magazinartikeln" und "kein einziger
-       * Klick auf den Kurs" liegt der ganze Unterschied.
-       *
-       * Ein einziger Zuhörer am Dokument statt eines Merkmals an jedem
-       * Knopf: So zählt auch ein Link, den jemand später dazusetzt, ohne
-       * dass er daran denken muss.
-       *
-       * Cookiefrei wie die Seitenmessung -- gezählt wird ein Ereignis ohne
-       * jede Kennung, es entsteht kein Profil. */
-      addEventListener("click", function (e) {
-        var a = e.target && e.target.closest && e.target.closest("a[href]");
-        if (!a) return;
-        var ziel = a.getAttribute("href") || "";
-        if (!/\/(form|videokurs|kurs)(\.html)?($|\?|#)/.test(ziel)) return;
-        /* window.va ist die Warteschlange des Messskripts und existiert
-           auch, bevor das Skript geladen ist. */
-        if (typeof window.va !== "function") return;
-        window.va("event", {
-          name: "cta_klick",
-          data: { von: location.pathname, zu: ziel },
-        });
-      });
-    </script>
-  </head>
+/* ---------- Hero ---------- */
+/* seitlich 20 px: ".spalte" gab den Rand, das padding hier hat ihn auf 0 gesetzt (Untertitel lief am Handy bis 12 px an den Rand) */
+.hero{text-align:center;padding:170px 20px 36px;position:relative;z-index:2}
+.hero:before{content:"";position:absolute;left:50%;top:40px;width:min(1100px,100%);height:620px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:radial-gradient(40% 45% at 50% 30%,rgba(114,136,206,.26),transparent 70%),radial-gradient(30% 35% at 22% 60%,rgba(38,62,150,.28),transparent 70%),radial-gradient(30% 35% at 80% 55%,rgba(91,63,240,.16),transparent 70%)}
+main{position:relative;z-index:0}
+/* Logo-Kachel: das Buch schlaegt beim Laden einmal auf, danach laeuft nur
+   noch Licht ueber das Glas. Hover blaettert eine Seite. */
+.hero .zeichen{position:relative;width:96px;height:96px;margin:0 auto 34px;border-radius:27px;display:grid;place-items:center;isolation:isolate;cursor:default}
+.zeichen .schein{position:absolute;inset:-40px;z-index:-2;border-radius:50%;background:radial-gradient(closest-side,rgba(114,136,206,.55),rgba(38,62,150,.18) 60%,transparent);filter:blur(10px);animation:schein-auf 1.6s ease-out 1.2s both,puls 5s ease-in-out 2.8s infinite}
+@keyframes schein-auf{0%{opacity:0;transform:scale(.5)}60%{opacity:1;transform:scale(1.25)}100%{opacity:.8;transform:scale(1)}}
+@keyframes puls{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+.zeichen .glas{position:absolute;inset:0;z-index:-1;border-radius:inherit;overflow:hidden;background:linear-gradient(160deg,#252c45,#10131c 70%);box-shadow:inset 0 1px 0 rgba(203,217,255,.22),0 24px 60px -24px rgba(114,136,206,.7)}
+.zeichen .glas:after{content:"";position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 38%,rgba(203,217,255,.28) 50%,transparent 62%);transform:translateX(-120%);animation:streif 6s var(--weich) 1.9s infinite}
+@keyframes streif{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+/* Lichtkante, die um den Rand zieht */
+.zeichen .kante{position:absolute;inset:0;border-radius:inherit;padding:1.2px;z-index:0;background:conic-gradient(from var(--w),transparent 0 70%,rgba(179,197,255,.9) 82%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:kante 5s linear infinite}
+@property --w{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes kante{to{--w:360deg}}
+.buch{position:relative;width:54px;height:54px;perspective:260px;z-index:1}
+.buch svg{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 50%;backface-visibility:visible}
+.buch .l{animation:auf-l 1.8s cubic-bezier(.2,1.5,.35,1) .7s backwards}
+.buch .r{animation:auf-r 1.8s cubic-bezier(.2,1.5,.35,1) .7s backwards}
+@keyframes auf-l{0%{transform:rotateY(88deg);opacity:0}15%{opacity:1}100%{transform:rotateY(0)}}
+@keyframes auf-r{0%{transform:rotateY(-88deg);opacity:0}15%{opacity:1}100%{transform:rotateY(0)}}
+/* Kachel landet, dann Lichtblitz und ein Ring, der einmal nach aussen laeuft */
+.hero .zeichen.rein{opacity:1;transform:none;animation:landen 1.1s cubic-bezier(.2,1.3,.4,1) .1s backwards}
+@keyframes landen{0%{opacity:0;transform:translateY(30px) scale(.55);filter:blur(12px)}100%{opacity:1;transform:none;filter:blur(0)}}
+.zeichen .blitz{position:absolute;inset:0;border-radius:inherit;z-index:2;pointer-events:none;background:radial-gradient(closest-side,rgba(223,230,255,.9),rgba(179,197,255,.35) 55%,transparent);opacity:0;animation:blitz 1.2s ease-out 1.3s both}
+@keyframes blitz{0%{opacity:0;transform:scale(.6)}25%{opacity:.9}100%{opacity:0;transform:scale(1.9)}}
+.zeichen .ring{position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;box-shadow:0 0 0 1.5px rgba(179,197,255,.7);opacity:0;animation:ring 1.8s var(--weich) 1.35s both}
+@keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
+.buch .blatt{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform-origin:50% 50%}
+.zeichen:hover .blatt{animation:blatt .9s var(--weich)}
+@keyframes blatt{0%{opacity:1;transform:rotateY(0)}100%{opacity:0;transform:rotateY(-175deg)}}
+.hero h1{font-size:clamp(2.6rem,6.6vw,5rem);line-height:.98;margin:0 auto 22px;max-width:none}
+.hero p{color:var(--muted);font-size:clamp(1.05rem,2vw,1.3rem);max-width:40ch;margin:0 auto 34px;letter-spacing:-.01em}
+.knoepfe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rein{opacity:0;transform:translateY(20px);animation:rein 1.1s var(--weich) forwards}
+/* Wechselwort im Hero (3.10.2026): Breite gleitet mit, Wort faehrt weich raus und rein */
+.hero p.hero-wechsel{max-width:none;text-wrap:balance}
+.hero-wechsel .wechselwort{display:inline-block;position:relative;vertical-align:baseline;transition:width .55s var(--weich);white-space:nowrap}
+.hero-wechsel .wechselwort b{display:inline-block;color:var(--text);font-weight:500;transition:opacity .35s ease,transform .45s var(--weich)}
+.hero-wechsel .wechselwort b.raus{opacity:0;transform:translateY(-.45em)}
+.hero-wechsel .wechselwort b.unten{opacity:0;transform:translateY(.45em);transition:none}
+.hero .hero-frei{margin:20px auto 0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--leise);max-width:none}
+.rein.d1{animation-delay:.1s}.rein.d2{animation-delay:.2s}.rein.d3{animation-delay:.3s}.rein.d4{animation-delay:.45s}
+@keyframes rein{to{opacity:1;transform:none}}
 
-  <body>
-    <div class="schein" aria-hidden="true"></div>
-    <div class="maus" aria-hidden="true"></div>
-    <div id="fortschritt" aria-hidden="true"></div>
+/* ---------- Wortmarken-Band ---------- */
+.band{padding:64px 0 70px;text-align:center}
+.band .etikett{font-size:12px;color:var(--leise);margin-bottom:22px;font-family:"IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
+.laufband{overflow:hidden;max-width:760px;margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.laufband .reihe{display:flex;gap:52px;width:max-content;animation:lauf 36s linear infinite}
+@keyframes lauf{to{transform:translateX(-50%)}}
+.wort{display:flex;align-items:center;gap:8px;color:#7a8190;font-size:19px;font-weight:600;letter-spacing:-.03em;white-space:nowrap}
+.wort i{width:22px;height:22px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
 
-    <div class="wrap">
-      <span class="raster" aria-hidden="true"></span>
+/* ---------- Produktbild ---------- */
+.cover{padding-inline:10px}
+.cover-rahmen{max-width:1480px;margin:0 auto;border-radius:34px;background:radial-gradient(60% 55% at 50% 0%,rgba(114,136,206,.22),transparent 70%),linear-gradient(180deg,#161a26,#0e1017 70%);padding:56px 5% 0;overflow:hidden;box-shadow:inset 0 1px 0 rgba(179,197,255,.16),inset 0 0 0 1px rgba(179,197,255,.06)}
+.fenster{max-width:1100px;margin:0 auto;border-radius:18px 18px 0 0;background:#0c0e13;box-shadow:0 -1px 0 rgba(255,255,255,.07),0 30px 120px -20px rgba(140,160,255,.22);overflow:hidden;transform:translateY(60px) scale(.96);opacity:.4;transition:transform 1.4s var(--weich),opacity 1.4s var(--weich)}
+.fenster.da{transform:none;opacity:1}
+/* ---------- App-Tour (entwurf-app-tour.js) ----------
+   Nachbau der Web-App: Seitenleiste mit fuenf Bereichen, Unterpunkte
+   klappen auf, duenne grosse Titel, Mono-Zeilen. Ein Zeiger klickt sich
+   selbst durch, wie ein kurzes Video. */
+.mp-app{position:relative;display:grid;grid-template-columns:232px 1fr;height:560px;overflow:hidden;background:radial-gradient(70% 90% at 70% 0%,rgba(91,63,240,.22),transparent 60%),radial-gradient(60% 80% at 40% 100%,rgba(38,62,150,.35),transparent 65%),#0c0f1d;text-align:left}
+.mp-seite{display:flex;flex-direction:column;gap:2px;padding:18px 12px;background:rgba(9,11,20,.72);border-right:1px solid rgba(179,197,255,.07)}
+.mp-marke{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;padding:4px 10px 18px}
+.mp-seite .punkt{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;font-size:14px;color:#aab1c0;transition:background .45s var(--weich),color .45s}
+.mp-seite .punkt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mp-seite .punkt.an{background:rgba(179,197,255,.08);color:var(--text)}
+.mp-seite .punkt.drin{color:var(--text)}
+.mp-unter{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--weich);margin-left:20px;border-left:1px solid rgba(179,197,255,.12);padding-left:6px}
+.mp-unter > *{min-height:0}
+.mp-unter{overflow:hidden}
+.mp-unter.auf{grid-template-rows:1fr}
+.mp-unter .innen{min-height:0;overflow:hidden}
+.mp-seite .punkt.klein{font-size:13.5px;padding:8px 12px}
+.mp-fuss{margin-top:auto;display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.mp-pille{align-self:center;display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:12.5px;background:rgba(179,197,255,.06);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
+.mp-pille i{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#8f7bff,#5b3ff0);box-shadow:0 0 12px rgba(143,123,255,.7);animation:puls 2.4s ease-in-out infinite}
+.mp-termin{padding:12px;border-top:1px solid rgba(179,197,255,.08);font-size:12px;color:var(--muted)}
+.mp-termin small{display:block;font-size:10.5px;color:var(--leise);margin-bottom:4px}
+.mp-termin b{display:block;color:var(--text);font-weight:500;font-size:14px}
+.mp-inhalt{position:relative;overflow:hidden}
+.mp-seite-i{position:absolute;inset:0;padding:34px 40px;opacity:0;transform:translateY(14px);filter:blur(6px);transition:opacity .6s var(--weich),transform .7s var(--weich),filter .6s var(--weich);pointer-events:none}
+.mp-seite-i.an{opacity:1;transform:none;filter:none}
+.mp-seite-i h4{margin:0;font-size:38px;font-weight:300;letter-spacing:-.04em}
+.mp-meta{margin:6px 0 22px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--leise)}
+.mp-monat{margin:18px 0 10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);padding-bottom:8px;border-bottom:1px solid rgba(179,197,255,.08)}
+.mp-zwei{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-bottom:14px}
+.mp-kasten{padding:14px 16px;border-radius:14px;background:rgba(18,21,38,.7);box-shadow:inset 0 0 0 1px rgba(179,197,255,.08)}
+.mp-kasten > small{display:block;font-size:11px;font-family:"IBM Plex Mono",monospace;color:var(--leise);margin-bottom:10px}
+.mp-weiter{display:flex;gap:12px;align-items:center}
+.mp-weiter b{display:block;font-size:13.5px;font-weight:500;line-height:1.3}
+.mp-weiter small{font-size:11px;color:var(--leise);font-family:"IBM Plex Mono",monospace}
+.mp-lauf{display:block;height:3px;border-radius:2px;background:#262b40;margin:8px 0 5px}
+.mp-lauf i{display:block;height:100%;border-radius:2px;background:var(--akzent)}
+.mp-zeile{display:flex;gap:12px;padding:7px 0;font-size:13px;color:var(--muted);border-top:1px solid rgba(179,197,255,.06)}
+.mp-zeile:first-of-type{border-top:0}
+.mp-zeile b{flex:none;width:52px;color:var(--text);font-weight:500}
+.mp-reihe{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mp-vid{border-radius:12px;padding:6px 6px 10px;background:rgba(18,21,38,.7);box-shadow:inset 0 0 0 1px rgba(179,197,255,.08);transition:transform .45s var(--weich),box-shadow .45s}
+.mp-vid.hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(179,197,255,.28),0 18px 40px -18px rgba(114,136,206,.6)}
+.mp-vid b{display:block;font-size:12.5px;font-weight:500;line-height:1.3;margin:8px 4px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mp-vid small{margin:0 4px;font-size:11px;color:var(--leise);font-family:"IBM Plex Mono",monospace}
+.mp-bild{position:relative;aspect-ratio:16/9;border-radius:8px;background:var(--v);display:grid;place-items:center;overflow:hidden}
+.mp-bild.klein{width:92px;flex:none}
+.mp-bild em{position:absolute;right:6px;bottom:6px;font-style:normal;font-size:10.5px;font-family:"IBM Plex Mono",monospace;padding:2px 6px;border-radius:5px;background:rgba(0,0,0,.55)}
+.mp-play{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;transition:transform .4s var(--weich)}
+.mp-play:after{content:"";border-left:8px solid #0b0d12;border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:2px}
+.mp-vid.hover .mp-play{transform:scale(1.18)}
+.mp-eintrag{padding:4px 0 4px 16px;border-left:1px solid rgba(179,197,255,.25)}
+.mp-eintrag small{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--leise)}
+.mp-eintrag b{display:block;font-size:22px;font-weight:300;letter-spacing:-.02em;margin:6px 0 8px}
+.mp-eintrag span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--akzent)}
+.mp-kal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:12px;text-align:center;color:var(--leise)}
+.mp-kal span{padding:12px 0;border-radius:10px;background:rgba(18,21,38,.7)}
+.mp-kal span.wt{background:none;padding:4px 0;font-family:"IBM Plex Mono",monospace;font-size:11px}
+.mp-kal span.t{background:linear-gradient(135deg,#8f7bff,#5b3ff0);color:#fff;font-weight:600;box-shadow:0 8px 24px -10px rgba(143,123,255,.9)}
+.mp-kal span.heute{box-shadow:inset 0 0 0 1px rgba(179,197,255,.4);color:var(--text)}
+.mp-kal .legende{grid-column:1/-1;text-align:left;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.mp-kal .legende b{color:var(--text);font-weight:500}
+.mp-zeiger{position:absolute;left:0;top:0;width:22px;height:22px;z-index:5;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6));transition:transform 1s cubic-bezier(.45,.05,.2,1);will-change:transform}
+.mp-klick{position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;z-index:4;pointer-events:none;box-shadow:0 0 0 1.5px rgba(179,197,255,.8);opacity:0}
+.mp-klick.los{animation:klick .6s ease-out}
+@keyframes klick{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(1.4)}}
+/* Schmaler als 1100 px: die ganze App verkleinert zeigen statt einer
+   Handy-Fassung ohne Seitenleiste (Manuel 24.9.: man sah nur den Kalender
+   halb und kannte sich nicht aus). --k setzt entwurf-app-tour.js. */
+.mp-app{width:calc(var(--app-breite,1100) * 1px);transform:scale(var(--k,1));transform-origin:0 0}
+@media (max-width:640px){.cover-rahmen{padding:28px 12px 0;border-radius:24px}.cover{padding-inline:8px}}
+.fenster{height:calc(560px * var(--k,1))}
+.app-kopf{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--linie)}
+.app-kopf .suche{flex:1;max-width:360px;margin:0 auto;height:34px;border-radius:999px;background:var(--kachel-2);color:var(--leise);font-size:13px;display:flex;align-items:center;padding:0 14px}
+.app-kopf .punkt{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#b3c5ff,#6d7fd6)}
+.app{display:grid;grid-template-columns:210px 1fr;min-height:470px}
+.app aside{border-right:1px solid var(--linie);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px;color:var(--muted)}
+.app aside div{padding:9px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .3s,color .3s}
+.app aside div b{width:8px;height:8px;border-radius:3px;background:var(--c,#444)}
+.app aside .aktiv{background:var(--kachel-2);color:var(--text)}
+.app main{padding:24px 28px}
+.app h3{margin:0 0 4px;font-size:22px}
+.app .unter{color:var(--leise);font-size:14px;margin:0 0 20px}
+.tafel{display:none}.tafel.an{display:block;animation:rein .5s var(--weich)}
+.karten{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.vid{border-radius:14px;overflow:hidden;background:var(--kachel)}
+.vid .bild{aspect-ratio:16/9;position:relative;background:var(--v);display:flex;align-items:flex-end;padding:10px}
+.vid .bild span{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.45);backdrop-filter:blur(8px)}
+.vid p{margin:0;padding:10px 12px 12px;font-size:13px;line-height:1.35;font-weight:500}
+.vid small{display:block;color:var(--leise);font-weight:400;margin-top:3px;font-family:"IBM Plex Mono",monospace;font-size:11px}
+.liste .z{display:grid;grid-template-columns:44px 1fr auto auto;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--linie);font-size:14px}
+.liste .z .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--bg)}
+.liste .z .ic i{width:18px;height:18px;background:var(--fg,#fff);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.liste .z .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;color:var(--leise)}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--kachel-2);color:var(--muted)}
+.tag.s{background:rgba(240,130,121,.12);color:var(--bad)}.tag.k{background:rgba(127,209,168,.12);color:var(--gut)}
+.gitter{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gitter .p{background:var(--kachel);border-radius:14px;padding:14px}
+.gitter .p .av{width:38px;height:38px;border-radius:50%;margin-bottom:10px;background:var(--a);display:grid;place-items:center;font-weight:700;font-size:14px;color:#0b0d12}
+.gitter .p b{display:block;font-weight:600;font-size:14px}
+.gitter .p span{font-size:12px;color:var(--leise)}
+@media (max-width:860px){.app{grid-template-columns:1fr}.app aside{display:none}.karten{grid-template-columns:1fr 1fr}.gitter{grid-template-columns:1fr 1fr}.liste .z{grid-template-columns:44px 1fr auto}.liste .z .mono{display:none}}
 
-      <header class="kopf" id="kopf">
-        <a class="marke" href="/"><svg class="zeichen" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><defs><linearGradient id="mp-kopf-v" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient><linearGradient id="mp-kopf-h" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient></defs><g transform="translate(0 0.95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#mp-kopf-v)" stroke="url(#mp-kopf-v)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#mp-kopf-h)" stroke="url(#mp-kopf-h)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span>Market Playbook</span></a>
-        <nav>
-          <a href="#system">System</a>
-          <a href="#zielgruppe">Für wen</a>
-          <a href="#ablauf">Ablauf</a>
-          <a href="#einordnung">Einordnung</a>
-        </nav>
-        <a class="knopf" href="/form.html">Kostenloser Videokurs</a>
-      </header>
+/* ---------- Zahlen mit auffliegenden Icons ---------- */
+/* Zieht an den Hero heran: der Kleber zentriert den Inhalt, sonst stuende eine halbe Bildschirmhoehe Leere dazwischen */
+/* Handy: kurz halten - nach Explosion und Zaehlen direkt weiter (Manuel 24.9.) */
+@media (max-width:640px){.zahlen{height:100vh!important}}
+.zahlen{height:100vh;position:relative;margin-top:-12vh;pointer-events:none}
+.kleber{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center;background:radial-gradient(38% 42% at 50% 50%,rgba(38,62,150,.32),transparent 72%),radial-gradient(25% 30% at 50% 50%,rgba(179,197,255,.10),transparent 70%)}
+.zahl-text{position:relative;z-index:2;text-align:center}
+.zahl-text .vor{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:600;letter-spacing:-.02em;margin:0 0 10px}
+.zahl-text .nach{margin:24px auto 0;max-width:58ch;color:var(--muted);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.5}
+.zeile{font-size:clamp(2.2rem,6.2vw,5rem);line-height:1.06;font-weight:700;letter-spacing:-.05em;color:var(--dunkelzahl);white-space:nowrap}
+.zeile .n{font-variant-numeric:tabular-nums}
+.icons{position:absolute;inset:0;z-index:1;pointer-events:none}
+.app-icon{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:23%;background:var(--bg);display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 1px rgba(255,255,255,.06),0 18px 40px -12px rgba(0,0,0,.7);will-change:transform,opacity;opacity:0}
+.app-icon i{width:52%;height:52%;background:var(--fg,#fff);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+@media (max-width:640px){
+  .app-icon{width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:16px}
+  /* Handy: Zahl gross, Beschriftung klein darunter - drei Bloecke statt drei langer Zeilen */
+  .zahl-text{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .zahl-text .vor{font-size:14px;margin:0}
+  .zahl-text .nach{font-size:14px;margin:8px auto 0;max-width:30ch}
+  .zeile{display:flex;flex-direction:column;align-items:center;line-height:1;white-space:normal}
+  .zeile .n{font-size:min(11.5vw,64px);letter-spacing:-.05em}
+  .zeile .zeile-wort{font-size:13px;font-weight:500;letter-spacing:0;margin-top:4px;font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+  .stichtag{font-size:10px;max-width:24ch;margin:4px auto 0;line-height:1.5;text-align:center}
+}
+.stichtag{margin-top:22px;font-size:12px;color:var(--leise);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
 
-      <main>
-        <!-- ---------------- Hero ---------------- -->
-        <div class="hero">
-          <div class="hero-text">
-            <h1>
-              Aktienmärkte mit <em>Struktur</em> verstehen,<br />
-              nicht mit Spekulation.
-            </h1>
-            <p style="font-size: 15px">
-              Wir zeigen, wie man Unternehmensdaten, Makrodaten und Marktzyklen
-              liest, um das Marktumfeld einzuordnen. Ziel ist ein Verständnis
-              für Risiko, nicht die Prognose einzelner Kurse.
-            </p>
-            <div class="hero-knoepfe">
-              <a class="knopf" href="/form.html">Kostenloser Videokurs</a>
-              <a class="knopf leise" href="#system">Wie wir arbeiten</a>
-            </div>
-          </div>
+/* ---------- Abschnitte ---------- */
+section.block{padding-block:130px}
+/* Handy: 130 px oben und unten ergaben zwischen zusammengehoerigen Kacheln ~170 px Leere (Durchgang 24.9.) */
+@media (max-width:640px){section.block{padding-block:84px}section.cover{padding-top:84px!important}}
+.kopfzeile{text-align:center;margin:0 auto 40px}
+.kopfzeile h2{font-size:clamp(2.2rem,5.6vw,4rem);line-height:1;margin:0}
+.kopf-unter{margin:18px auto 0;max-width:640px;color:var(--leise);font-size:17px;line-height:1.5}
 
-          <!--
-            Chartlinien statt des frueheren Rings. Mehrere Verlaeufe laufen
-            zunaechst in eigene Richtungen, buendeln sich und steigen; die
-            Vergangenheit wandert nach hinten und nach unten. Die Reihen sind
-            SCHEMATISCH und zeigen keine echten Kurse — genau wie zuvor der
-            Ring behaupten sie keine aktuelle Marktphase.
-            Gezeichnet in hero-chart.js.
-          -->
-          <!--
-            Hier steht die Spline-Szene, sobald ihre Export-URL
-            eingetragen ist: data-spline auf dem Container fuellen
-            (Spline: Export -> Public URL, endet auf .splinecode).
+.einblenden{opacity:0;transform:translateY(28px);transition:opacity 1s var(--weich),transform 1s var(--weich)}
+.einblenden.da{opacity:1;transform:none}
 
-            Solange das Attribut leer ist ODER die Szene nicht laedt
-            (kein WebGL, Netzfehler, prefers-reduced-motion), bleibt der
-            gezeichnete Ring stehen. Kein leeres Loch im Hero, und kein
-            Nutzer sieht eine Ladeanzeige, die nie endet.
-          -->
-          <div class="hero-grafik" id="hero-grafik" data-spline="">
-            <canvas id="hero-chart" role="img" aria-label="Mehrere Kursverlaeufe, die sich zu einem steigenden Strang buendeln, schematisch"></canvas>
-          </div>
-        </div>
+/* Reiter */
+.reiter-wrap{text-align:center;margin-bottom:34px}
+.reiter{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--kachel)}
+.reiter button{all:unset;cursor:pointer;padding:9px 18px;border-radius:999px;font-size:15px;font-weight:500;color:var(--leise);transition:background .3s,color .3s}
+.reiter button[aria-selected=true]{background:linear-gradient(135deg,#cbd9ff,#8ea2e6);color:#0b0d12}
 
-        <!-- ---------------- System ---------------- -->
-        <section class="auftritt" id="system">
-          <h2>Die Vision hinter Market Playbook</h2>
+/* Themen-Laufbaender */
+.baender{display:flex;flex-direction:column;gap:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);overflow:hidden}
+.baender .reihe{display:flex;gap:10px;width:max-content;animation:lauf 60s linear infinite}
+.baender .reihe:nth-child(2){animation-direction:reverse;animation-duration:70s}
+.baender .reihe:nth-child(3){animation-duration:80s}
+.chip{display:flex;align-items:center;gap:10px;padding:10px 18px 10px 10px;border-radius:999px;background:var(--kachel);box-shadow:inset 0 0 0 1px rgba(179,197,255,.08);font-size:16px;font-weight:500;white-space:nowrap;color:#d6d9e0}
+.chip b{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--bg,rgba(179,197,255,.08));box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
+.chip b i{width:16px;height:16px;background:var(--fg,#b3c5ff);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
 
-          <div class="spalten" style="align-items: start; margin-bottom: 8px">
-            <div>
-              <p>
-                Market Playbook ist ein Bildungsangebot für Aktienmärkte und eine
-                private Lerngemeinschaft. Anders als Gruppen, die auf Trends
-                reagieren, lehren wir einen festen Prozess: Unternehmensdaten,
-                Makroökonomie und Marktzyklen zeigen, in welcher Phase der
-                Markt steht.
-              </p>
-              <p>
-                Der Prozess zielt darauf, Marktphasen einzuordnen: Risiken früh
-                erkennen, statt auf einzelne Kursprognosen zu setzen. Wir helfen
-                Teilnehmern, ihre eigenen Entscheidungen nach klaren Regeln zu
-                treffen.
-              </p>
+/* Grosse Kacheln */
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.drei{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:860px){.zwei,.drei{grid-template-columns:1fr}}
+/* Text und Inhalt in EINER Kachel, Hoehe richtet sich nach dem Inhalt.
+   Vorher: feste Seitenverhaeltnisse -> grosse leere Flaechen, Text darunter weit weg. */
+.feld{display:flex;flex-direction:column;border-radius:26px;padding:26px;background:radial-gradient(70% 60% at 50% 0%,rgba(114,136,206,.10),transparent 70%),var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06)}
+.feld h3{order:0;font-size:21px;letter-spacing:-.025em;margin:0 0 6px;font-weight:600}
+.feld p{order:1;margin:0;color:var(--muted);max-width:40ch;line-height:1.45}
+.feld .flaeche{order:2;margin-top:22px;flex:1;display:flex;align-items:flex-end;justify-content:center}
+.feld .flaeche > *{width:100%;max-width:none}
+@media (max-width:640px){.feld{padding:22px}}
 
-              <!-- Die drei Punkte standen bis 30.8.2026 als eigene Reihe
-                   unter diesem Abschnitt. Jetzt stehen sie gestapelt in
-                   dieser Spalte: das Bild links ist hoch (3:4), daneben
-                   blieb unter dem Text sonst ein grosses Loch. -->
-              <div class="spalten drei" style="margin-top: 28px">
-            <div class="feld">
-                <h3>Kapitalschutz zuerst</h3>
-                <p>
-                  Bevor wir über Chancen reden, reden wir über Risiko.
-                  Unternehmens- und Makrodaten dienen als Frühindikatoren: Sie
-                  zeigen, wann ein Marktumfeld kippt, damit du deine eigene
-                  Entscheidung bewusst triffst.
-                </p>
-              </div>
-              <div class="feld">
-                <h3>Transparenz, die du prüfen kannst</h3>
-                <p>
-                  Jede Einschätzung ist dokumentiert und mit Zeitstempel versehen.
-                  Du musst uns nicht beim Wort nehmen, die Herleitung liegt
-                  offen.
-                </p>
-              </div>
-              <div class="feld">
-                <h3>Für Menschen mit wenig Zeit</h3>
-                <p>
-                  Wir arbeiten das Marktgeschehen täglich auf. Die Lerninhalte sind
-                  so aufgebaut, dass sie sich neben einem Beruf bewältigen
-                  lassen.
-                </p>
-              </div>
-              </div>
-            </div>
-          </div>
+.player{width:100%;max-width:440px;border-radius:18px;overflow:hidden;background:#0c0e13;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
+.player .vbild{aspect-ratio:16/9;background:radial-gradient(90% 90% at 70% 20%,#5b3ff0 0%,transparent 55%),radial-gradient(80% 80% at 10% 90%,#0fb5ae 0%,transparent 55%),#141a33;display:grid;place-items:center}
+.player .vbild i{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center}
+.player .vbild i:after{content:"";border-left:15px solid #0b0d12;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
+.player .unten{padding:12px 14px 14px}
+.kapitel{display:flex;gap:4px}
+.kapitel span{height:4px;border-radius:2px;background:#2a2e38;flex:1;overflow:hidden;position:relative}
+.kapitel span:after{content:"";position:absolute;inset:0;background:var(--akzent);transform:scaleX(0);transform-origin:left;animation:kap 8s linear infinite}
+.kapitel span:nth-child(2):after{animation-delay:2s}.kapitel span:nth-child(3):after{animation-delay:4s}.kapitel span:nth-child(4):after{animation-delay:6s}
+@keyframes kap{0%{transform:scaleX(0)}25%,100%{transform:scaleX(1)}}
+.kapitel-namen{display:flex;justify-content:space-between;font-size:12px;color:var(--leise);margin-top:8px}
 
-        </section>
+.schritte{width:100%;max-width:400px;display:flex;flex-direction:column;gap:10px}
+.schritte div{display:flex;gap:12px;align-items:center;padding:15px 18px;background:#0c0e13;border-radius:16px;font-size:15px;font-weight:500;color:var(--leise);transition:color .5s,transform .5s var(--weich),box-shadow .5s}
+.schritte div b{width:28px;height:28px;border-radius:50%;background:var(--kachel-2);display:grid;place-items:center;font-size:13px;color:var(--muted);flex:none;transition:background .5s,color .5s}
+.schritte div.an{color:var(--text);box-shadow:inset 0 0 0 1px rgba(179,197,255,.2)}
+.schritte div.an b{background:linear-gradient(135deg,#b3c5ff,#7d8ff0);color:#0b0d12}
 
-        <!-- ---------------- Satz: Information ---------------- -->
-        <!--
-          Die Praemisse fuer alles Folgende, deshalb steht sie vor den
-          Zahlen. Gleiche Mechanik wie der zweite Satz unten: die Woerter
-          bauen sich mit der Scrollstrecke auf (stationen.js).
-        -->
-        <section class="satz" id="satz-information" data-grund="hell">
-          <div class="satz-klebe">
-            <div class="satz-block">
-              <span class="satz-marke" aria-hidden="true"><i></i>Die Prämisse</span>
-              <p class="satz-zeile" data-satz>
-                Die ganze Welt läuft auf Information.<br />
-                Am Ende gewinnt der, der die <em>bessere</em> hat.
-              </p>
-              <span class="satz-strich" aria-hidden="true"></span>
-            </div>
-          </div>
-        </section>
+.mini{width:100%;max-width:300px;display:flex;flex-direction:column;gap:8px}
+.mini div{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;background:#0c0e13;font-size:14px;font-weight:500;text-align:left}
+.mini div .ic{width:30px;height:30px;border-radius:9px;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14);display:grid;place-items:center}
+.mini div .ic i{width:16px;height:16px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.mini div span{flex:1}
+.mini div .ic{flex:none}
+.mini div em{font-style:normal;font-size:12px;color:var(--leise)}
+.kal{width:100%;max-width:300px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px;font-size:12px;text-align:center;color:var(--leise)}
+.kal span{padding:9px 0;border-radius:10px;background:#0c0e13}
+.kal span.m{background:linear-gradient(135deg,#f7931a,#f05a28);color:#fff;font-weight:600}
+.kal span.f{background:linear-gradient(135deg,#5b3ff0,#8f7bff);color:#fff;font-weight:600}
+.kal-legende{grid-column:1/-1;display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:12px}
+.kal-legende b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
 
-        <!-- ---------------- Zielgruppe ---------------- -->
-        <!--
-          Ringflug. Beim Runterscrollen faehrt die Kamera durch den Ring
-          hindurch: vier Marktphasen aussen, drei Signalquellen darauf -
-          dasselbe Motiv, das frueher im Hero stand. Der Abschnitt ist
-          220vh hoch, die Leinwand klebt darin; die Scrollstrecke ist die
-          Zeitachse. Gezeichnet in bewegung.js, keine Bibliothek.
-          Rein visuell, er behauptet keine Marktphase.
-        -->
-        <section class="flug" id="flug">
-          <div class="flug-klebe">
-            <canvas id="flug-ring" aria-hidden="true"></canvas>
-            <div class="flug-text">
-              <p class="flug-hut" data-flug>Woraus das Marktbild entsteht</p>
-              <p class="flug-quelle" data-flug>Unternehmensdaten</p>
-              <p class="flug-quelle" data-flug>Makrodaten</p>
-              <p class="flug-quelle" data-flug>Marktzyklen</p>
-              <p class="flug-schluss" data-flug>Drei Quellen, ein Bild.</p>
-            </div>
-          </div>
-        </section>
+/* Wand */
+.wand{display:flex;flex-direction:column;gap:16px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.wand .reihe{display:flex;gap:16px;width:max-content;animation:lauf 90s linear infinite}
+.wand .reihe.zurueck{animation-direction:reverse;animation-duration:100s}
+.karte{width:360px;background:var(--kachel);border-radius:22px;padding:22px;box-shadow:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06)}
+.karte .kopf-k{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.karte .kopf-k .av{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
+.karte .kopf-k .av i{width:20px;height:20px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.karte .kopf-k b{display:block;font-weight:600;font-size:15px}
+.karte .kopf-k span{font-size:11px;color:var(--leise);font-family:"IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+.karte p{margin:0;font-size:16px;line-height:1.45;color:#dfe2e8}
 
-        <section class="auftritt" id="zielgruppe" data-grund="hell">
-          <h2>Für wen das gemacht ist</h2>
+/* Schluss */
+.schluss{padding:150px 0 0;text-align:center;background:radial-gradient(45% 40% at 50% 38%,rgba(114,136,206,.24),transparent 72%),radial-gradient(35% 30% at 30% 80%,rgba(38,62,150,.25),transparent 70%)}
+.schluss h2{font-size:clamp(2.4rem,6.4vw,4.8rem);line-height:.98;margin:0 auto 18px;max-width:14ch}
+.schluss p{color:var(--muted);margin:0 auto 32px;max-width:42ch;font-size:18px}
+.icon-baender{margin-top:90px;display:flex;flex-direction:column;gap:18px;overflow:hidden;padding:10px 0 30px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.icon-baender .reihe{display:flex;gap:18px;width:max-content;animation:lauf 50s linear infinite}
+.icon-baender .reihe:nth-child(2){animation-direction:reverse;animation-duration:58s}
+.icon-baender .app-icon{position:relative;left:auto;top:auto;margin:0;opacity:1;flex:none}
 
-          <div class="zielgruppe-block einspaltig">
-            <div class="zielgruppe-spalte">
-              <p>
-                Market Playbook richtet sich an Angestellte und Unternehmer im
-                deutschsprachigen Raum, die sich mit Aktienmärkten befassen
-                wollen, aber wenig Zeit und keinen strukturierten Zugang zum
-                Thema haben. Die meisten haben es vorher mit Influencern oder
-                eigener Recherche versucht.
-              </p>
+/* Fuss: Seite endet gerundet, darunter die dunklere Flaeche */
+.seite{background:var(--grund);border-radius:0 0 36px 36px;position:relative;z-index:2;padding-bottom:80px}
+/* Lichtschicht: drei farbige Lichter aus dem Logo-Blau, stehen fest im Fenster und treiben langsam.
+   z-index -1 innerhalb von .seite = ueber dem Seitengrund, unter dem Inhalt. clip-path haelt sie vom Fuss fern.
+   Nur transform wird animiert, kein Blur-Filter. In den Sternen-Stationen gedimmt (deren Raender laufen auf --grund aus). */
+.seite{clip-path:inset(0 round 0 0 36px 36px)}
+.licht{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;transition:opacity 1.4s var(--weich)}
+.licht i{position:absolute;width:75vmax;height:75vmax;border-radius:50%;will-change:transform}
+.licht i:nth-child(1){left:-28vmax;top:-30vmax;background:radial-gradient(closest-side,rgba(29,100,242,.30),rgba(29,100,242,.09) 55%,transparent);animation:treib-a 34s ease-in-out infinite alternate}
+.licht i:nth-child(2){right:-30vmax;top:5vh;background:radial-gradient(closest-side,rgba(91,63,240,.24),rgba(91,63,240,.07) 55%,transparent);animation:treib-b 41s ease-in-out infinite alternate}
+.licht i:nth-child(3){left:15vw;bottom:-45vmax;background:radial-gradient(closest-side,rgba(110,163,255,.22),rgba(15,181,174,.07) 60%,transparent);animation:treib-c 47s ease-in-out infinite alternate}
+@keyframes treib-a{to{transform:translate(18vw,22vh)}}
+@keyframes treib-b{to{transform:translate(-16vw,30vh)}}
+@keyframes treib-c{to{transform:translate(20vw,-18vh)}}
+.seite.licht-aus .licht{opacity:.15}
+@media (prefers-reduced-motion:reduce){.licht i{animation:none}}
+footer{background:#050608;margin-top:-36px;padding:96px 0 calc(36px + env(safe-area-inset-bottom,0px));color:var(--leise)}
+footer .oben{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px}
+footer .oben b{display:block;font-size:30px;color:var(--text);letter-spacing:-.04em;font-weight:700}
+footer .oben p{margin:8px 0 0;font-size:14px}
+footer nav{display:grid;grid-template-columns:repeat(2,minmax(140px,auto));gap:10px 60px;font-size:15px;font-weight:500;color:#d6d9e0}
+footer .unten{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;margin-top:90px;font-size:13px}
 
-              <!-- Der Wochenablauf stand vorher als eigener Abschnitt darunter.
-                   Neben den Bildern fuellt er die Spalte, die sonst nach dem
-                   Absatz leer blieb - und die beiden gehoeren inhaltlich
-                   zusammen: fuer wen, und wie es fuer die laeuft. -->
-              <div class="ablauf-neben" id="ablauf">
-              <h3>So läuft deine Woche</h3>
-              <p>
-                Im Hintergrund laufen tägliche Makro- und Unternehmensanalysen.
-                Als Teilnehmer bekommst du die Einordnung erklärt und
-                entscheidest selbst, was du damit machst.
-              </p>
+/* ---------- Sternen-Stationen (entwurf-sterne.js) ----------
+   Der Abschnitt ist hoeher als das Fenster, die Leinwand klebt darin:
+   die Scrollstrecke wird zur Zeitachse. Texte steuert das Skript. */
+.stern{position:relative}
+.stern-klebe{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.stern-klebe canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* Weiche Kanten oben und unten: ohne sie endet der Himmel mit einer harten Linie, sobald der Abschnitt wegscrollt */
+/* Als stehende Verlaeufe darueber statt mask-image: eine Maske auf der
+   Leinwand wird bei jedem Frame neu verrechnet und liess den Rechner haken. */
+.stern-klebe:before,.stern-klebe:after{content:"";position:absolute;left:0;right:0;z-index:0;pointer-events:none}
+.stern-klebe:before{top:0;height:14%;background:linear-gradient(var(--grund),transparent)}
+.stern-klebe:after{bottom:0;height:22%;background:linear-gradient(transparent,var(--grund))}
+#st-flug .stern-klebe{background:radial-gradient(45% 55% at 50% 50%,rgba(38,62,150,.2),transparent 70%)}
+.stern-text{position:relative;z-index:1;text-align:center;pointer-events:none;padding-inline:20px}
+.stern-text p{margin:0}
+.stern-hut{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--leise);margin-bottom:22px!important}
+#st-flug{height:300vh}
+/* Ringflug seit 24.9.: jedes Wort sitzt an seinem Lichtpunkt, JS setzt die Lage */
+.flug-hut{position:absolute;top:12vh;left:0;right:0;z-index:1;text-align:center;opacity:0}
+.flug-marke{position:absolute;left:0;top:0;z-index:1;margin:0;white-space:nowrap;text-align:center;font-size:clamp(1.05rem,2vw,1.6rem);font-weight:300;letter-spacing:-.02em;opacity:0;will-change:transform,opacity}
+.flug-marke i{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--leise);margin-bottom:6px}
+.flug-schluss{position:absolute;left:0;right:0;top:calc(50% + 48px);z-index:1;margin:0;text-align:center;padding-inline:20px;font-size:clamp(1.5rem,3.4vw,2.8rem);font-weight:300;letter-spacing:-.03em;opacity:0}
+#st-sieb{height:300vh}
+/* Sieb seit 24.9.: Kopf oben, darunter vier Glasschichten mit je einem Kriterium */
+.sieb-kopf{position:absolute;left:0;right:0;top:13vh;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding-inline:20px;opacity:0}
+.sieb-kopf p{margin:0}
+/* Fazit direkt unter der Reihe der Uebrigen (L.ende = 74 %) statt oben */
+.sieb-kopf.sieb-nachher{top:calc(74vh + 30px)}
+/* unten weniger Abdunkelung, sonst laege das Fazit im Verlauf */
+#st-sieb .stern-klebe:after{height:8%}
+.sieb-gross{font-size:clamp(1.3rem,2.6vw,2.2rem);font-weight:300;letter-spacing:-.03em}
+.sieb-gross em{font-style:normal;color:var(--akzent)}
+.sieb-lage{position:absolute;left:50%;top:0;z-index:1;display:flex;align-items:center;gap:8px;padding:5px 13px 5px 5px;border-radius:999px;font-size:13px;white-space:nowrap;color:var(--muted);background:rgba(16,18,24,.94);box-shadow:inset 0 0 0 1px rgba(179,197,255,.1);opacity:0;transition:color .5s,box-shadow .5s}
+.sieb-lage b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;background:rgba(179,197,255,.08);color:var(--leise);transition:background .5s,color .5s}
+.sieb-lage.an{color:var(--text);box-shadow:inset 0 0 0 1px rgba(179,197,255,.45),0 10px 30px -12px rgba(114,136,206,.8)}
+.sieb-lage.an b{background:linear-gradient(135deg,#b3c5ff,#7d8ff0);color:#0b0d12}
+.sieb-lage.fertig{color:#d6d9e0}
+.sieb-lage.fertig b{background:rgba(127,209,168,.14);color:var(--gut);font-size:0}
+.sieb-lage.fertig b:after{content:"✓";font-size:12px}
+.sieb-schluss{text-align:center;margin-top:6px!important;font-size:clamp(1rem,1.6vw,1.2rem);color:var(--muted);max-width:40ch}
+.sieb-klein{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--leise)}
+#st-bild{height:360vh}
+.bild-titel{position:absolute;top:13vh;left:0;right:0;text-align:center;z-index:1;opacity:0}
+.bild-titel h2{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1;margin:0}
+.stern-marke{position:absolute;z-index:1;width:230px;transform:translate(-50%,28px);text-align:center;opacity:0;pointer-events:none}
+.stern-marke b{display:block;font-size:19px;font-weight:500;letter-spacing:-.02em;margin-bottom:4px;transform:translateY(calc((1 - var(--auf,0)) * 10px))}
+.stern-marke span{display:block;font-size:14px;color:var(--muted);line-height:1.4}
+.stern-marke i{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--akzent);margin-bottom:6px}
+.stern-marke.rechts{text-align:left;transform:translate(22px,-50%);width:min(210px,46vw)}
+.stern-marke.links{text-align:right;transform:translate(calc(-100% - 22px),-50%);width:min(210px,46vw)}
+/* Handy: Sterne untereinander links, Text rechts daneben - im Zickzack liefen die Linien durch die Schrift (Manuel 24.9.) */
+@media (max-width:719px){.stern-marke.rechts{width:calc(100vw - 15vw - 44px)}}
+#st-warp{height:300vh}
+.warp-satz{font-size:clamp(2rem,5.4vw,4.2rem);line-height:1.16;padding-bottom:.04em;font-weight:300;letter-spacing:-.045em;max-width:26ch;margin:0 auto!important}
+.warp-satz em{font-style:normal}
+#st-warp [data-warp]{opacity:0}
+.warp-unter{color:var(--muted);font-size:18px;max-width:42ch;margin:22px auto 30px!important}
+.warp-knoepfe{pointer-events:none}
+.warp-knoepfe.klickbar{pointer-events:auto}
+/* Fuss: grosses Logo, kaum sichtbar - die Maus leuchtet es an wie ein Scheinwerfer */
+footer{position:relative;overflow:hidden;min-height:540px}
+footer .spalte{position:relative;z-index:1}
+/* Buch im Fuss: zwei Seiten in echtem 3D. Die Maus zieht es wie ein Magnet
+   zu sich, neigt es, und die Seiten oeffnen sich, je naeher sie kommt.
+   Glanz und Kantenlicht wandern mit dem Zeiger ueber das Papier. */
+.fuss-logo{position:absolute;left:50%;top:calc(50% + 24px);width:min(430px,86vw);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;z-index:0;perspective:1100px}
+.fuss-logo .buch3d{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.fuss-logo .seite3d{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.fuss-logo .seite3d.l{transform-origin:45% 50%}
+.fuss-logo .seite3d.r{transform-origin:55% 50%}
+.fuss-logo svg{width:100%;height:100%;display:block;overflow:visible}
+.fuss-logo .schein3d{position:absolute;left:50%;top:52%;width:70%;height:70%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(114,136,206,.22),rgba(38,62,150,.08) 55%,transparent);opacity:var(--s,.25);transition:opacity .8s}
+.fuss-logo .ruecken{position:absolute;left:50%;top:30%;width:1px;height:48%;transform:translateX(-50%);background:linear-gradient(transparent,rgba(179,197,255,.55),transparent);opacity:var(--s,.25);filter:blur(.4px)}
+/* Handy: das Buch lag mitten hinter den Links - dort unter den Text setzen */
+@media (max-width:640px){footer{padding-bottom:calc(300px + env(safe-area-inset-bottom,0px))}.fuss-logo{top:auto;bottom:10px;width:min(260px,64vw);transform:translate(-50%,0)}}
+/* Statische Abschnitte aus der alten Startseite */
+.fuer-wen{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch}
+.fuer-wen .feld p{max-width:52ch}
+.fuer-wen .liste-f{order:2;display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.fuer-wen .liste-f div{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:#0c0e13;font-size:15px;color:#d6d9e0}
+.fuer-wen .liste-f div b{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(179,197,255,.1);color:var(--akzent);font-size:12px;margin-top:1px}
+.passt{order:2;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.passt-spalte{display:flex;flex-direction:column;gap:8px}
+.passt-spalte em,.liste-f em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--leise);margin-bottom:4px}
+.passt-spalte div{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#0c0e13;font-size:14.5px;line-height:1.4;color:#d6d9e0}
+.passt-spalte b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;margin-top:1px}
+.passt-spalte.ja b{background:rgba(127,209,168,.12);color:var(--gut)}
+.passt-spalte.nein b{background:rgba(240,130,121,.12);color:var(--bad)}
+.passt-spalte.nein div{color:var(--muted)}
+.liste-f em{margin-bottom:2px;color:var(--akzent)}
+.bild-fuss{position:absolute;bottom:9vh;left:0;right:0;text-align:center;z-index:1;margin:0;font-size:clamp(1.1rem,2vw,1.5rem);font-weight:300;letter-spacing:-.02em;color:var(--muted);opacity:0}
+.bild-fuss span{color:var(--text)}
+@media (max-width:640px){.passt{grid-template-columns:1fr}.bild-fuss{bottom:5vh}}
+.nicht{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.nicht .feld h3{font-size:18px}
+.nicht-ic{position:relative;width:44px;height:44px;border-radius:13px;margin-bottom:20px;display:grid;place-items:center;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14);order:-1}
+.nicht-ic i{width:20px;height:20px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;transition:opacity .6s .5s,filter .6s .5s}
+.nicht-ic s{position:absolute;left:50%;top:50%;width:30px;height:1.6px;margin:-.8px 0 0 -15px;border-radius:2px;background:#f08279;transform:rotate(-45deg) scaleX(0);transform-origin:center;transition:transform .7s var(--weich) .55s}
+.nicht .feld.da .nicht-ic s{transform:rotate(-45deg) scaleX(1)}
+.nicht .feld.da .nicht-ic i{opacity:.45;filter:saturate(0)}
+.nicht .feld{transition-delay:0s}
+.nicht .feld:nth-child(2){transition-delay:.12s}.nicht .feld:nth-child(2) .nicht-ic s{transition-delay:.67s}
+.nicht .feld:nth-child(3){transition-delay:.24s}.nicht .feld:nth-child(3) .nicht-ic s{transition-delay:.79s}
+.nicht .feld:nth-child(4){transition-delay:.36s}.nicht .feld:nth-child(4) .nicht-ic s{transition-delay:.91s}
+.nicht .feld:hover .nicht-ic{box-shadow:inset 0 0 0 1px rgba(240,130,121,.35)}
+.nicht .feld p{font-size:15px}
+@media (max-width:860px){.fuer-wen{grid-template-columns:1fr}.nicht{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.nicht{grid-template-columns:1fr}}
+@media (max-width:640px){#st-flug{height:240vh}#st-sieb{height:290vh}#st-bild{height:340vh}#st-warp{height:260vh}.bild-titel{top:8vh}.stern-marke b{font-size:17px}.stern-marke span{font-size:13px}}
+@media (prefers-reduced-motion:reduce){
+  #st-flug,#st-sieb,#st-bild,#st-warp{height:100vh}
+  #st-warp [data-warp],.sieb-nachher,.bild-titel,.stern-marke,.bild-fuss{opacity:1!important}
+}
 
-              <ol class="zeitleiste" id="zeitleiste">
-                <span class="strich" aria-hidden="true"></span>
-                <li>
-                  <span class="punkt"></span>
-                  <span class="takt">Täglich</span>
-                  <h3>Marktlage lesen</h3>
-                  <p>Kurzes Update zur Lage an den Märkten.</p>
-                </li>
-                <li>
-                  <span class="punkt"></span>
-                  <span class="takt">Wöchentlich</span>
-                  <h3>Vollständige Analyse</h3>
-                  <p>
-                    Ausführliche Einordnung: Marktlage, Makrodaten, was das
-                    methodisch bedeutet.
-                  </p>
-                </li>
-                <li>
-                  <span class="punkt"></span>
-                  <span class="takt">Laufend</span>
-                  <h3>Selbst anwenden</h3>
-                  <p>
-                    Das Gelernte auf die eigene Situation übertragen und eigene
-                    Entscheidungen treffen.
-                  </p>
-                </li>
-              </ol>
-              </div>
-            </div>
-          </div>
-        </section>
+@media (prefers-reduced-motion:reduce){
+  .rein,.einblenden,.fenster{animation:none;opacity:1;transform:none;transition:none}
+  .laufband .reihe,.baender .reihe,.wand .reihe,.icon-baender .reihe,.knopf.glanz:after,.kapitel span:after,.buch svg,.zeichen .schein,.zeichen .blitz,.zeichen .ring,.hero .zeichen.rein,.zeichen .glas:after,.zeichen .kante,.verlauf{animation:none}
+}
+/* Duenne Schrift (Standard, fette Fassung unter ?schrift=fett).
+   Grosse Zeilen leicht (300), Schluesselwoerter und Zahlen bleiben kraeftiger,
+   damit die Hierarchie nicht nur an der Groesse haengt. */
+html.duenn h1,html.duenn h2{font-weight:300;letter-spacing:-.04em}
+html.duenn .verlauf,html.duenn .kopfzeile h2 span{font-weight:400}
+html.duenn .zeile{font-weight:300}
+html.duenn .zeile .n{font-weight:500}
+html.duenn .feld h3,html.duenn .app h3,html.duenn .karte .kopf-k b{font-weight:500}
+html.duenn .zahl-text .vor{font-weight:400}
 
-        <section class="auftritt" id="gems">
-          <h2>Wonach wir bei einzelnen Aktien schauen</h2>
-          <ul class="punkte">
-            <li>
-              <span class="n">01</span>
-              <span>
-                <h3>Marktkapitalisierung und Liquidität</h3>
-                <p>Groß genug, um rein- und rauszukommen, ohne den Kurs zu bewegen.</p>
-              </span>
-            </li>
-            <li>
-              <span class="n">02</span>
-              <span>
-                <h3>Bilanz und Kapitalstruktur</h3>
-                <p>Verschuldung, Eigenkapital, wie das Unternehmen finanziert ist.</p>
-              </span>
-            </li>
-            <li>
-              <span class="n">03</span>
-              <span>
-                <h3>Passung zum Marktumfeld</h3>
-                <p>Passt zu wachsenden Sektoren, nicht zum Thema von gestern.</p>
-              </span>
-            </li>
-            <li>
-              <span class="n">04</span>
-              <span>
-                <h3>Bewertung</h3>
-                <p>Was der Markt heute einpreist, gemessen an den Zahlen des Unternehmens.</p>
-              </span>
-            </li>
-          </ul>
+/* Kundenstimmen */
+.ks{overflow:hidden}
+.ks-reihe{overflow:hidden;padding:14px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ks-band{display:flex;gap:22px;width:max-content;animation:ks-lauf 70s linear infinite;will-change:transform}
+.ks-reihe:nth-of-type(odd) .ks-band{animation-direction:reverse}
+.ks-reihe:hover .ks-band{animation-play-state:paused}
+@keyframes ks-lauf{to{transform:translateX(calc(-50% - 11px))}}
+.ks-bild{all:unset;cursor:zoom-in;flex:none;height:340px;border-radius:18px;overflow:hidden;border:1px solid var(--linie);opacity:.82;box-shadow:0 18px 50px rgba(0,0,0,.45);transition:opacity .5s var(--weich),transform .5s var(--weich),box-shadow .5s var(--weich)}
+.ks-bild img{display:block;height:100%;width:auto}
+.ks-bild:hover,.ks-bild:focus-visible{opacity:1;transform:scale(1.06);box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(179,197,255,.35)}
+.ks-fuss{margin:34px auto 0;text-align:center;color:var(--leise);font-size:.78rem}
+.ks-gross{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(5,6,9,.86);backdrop-filter:blur(8px);cursor:zoom-out;padding:24px}
+.ks-gross[hidden]{display:none}
+.ks-gross img{max-height:calc(100vh - 48px);max-width:92vw;border-radius:18px}
+body.ks-offen .kopf{opacity:0;pointer-events:none}
+@media (max-width:640px){.ks-bild{height:250px;opacity:1}.ks-band{gap:14px;animation-duration:50s}.ks-reihe{-webkit-mask:none;mask:none}.ks-zitat{margin-bottom:34px}}
+@media (prefers-reduced-motion:reduce){.ks-band{animation:none}.ks-reihe{overflow-x:auto}}
 
-        </section>
+/* ---- 1.10.2026: Ergebnisse. Zwei Charts: (1) Vergleich aller Renditen, steht fest. (2) Bitcoin-Kurs mit unseren Ein- und Ausstiegen, zum Scrollen. ---- */
+.erg{padding-block:130px 0}
+.erg-eins{max-width:1120px;margin:0 auto}
+.erg-hinweis{max-width:1120px;margin:26px auto 0;color:var(--muted);font-size:14px;line-height:1.55}
+.erg-signale-kopf{max-width:1120px;margin:72px auto 24px}
+.erg-signale-kopf .st-hut{margin:0 0 12px}
+.erg-signale-kopf h3{margin:0;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.1;font-weight:500;letter-spacing:-.035em}
+.erg-signale-kopf p:last-child{margin:10px 0 0;max-width:56ch;color:var(--muted);font-size:16px;line-height:1.5}
+.erg-signale{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+/* Signal-Karten (3.10.2026, Manuel: Logos dazu, hochwertiger): Logo-Kachel oben, Markenfarbe als weiches Licht
+   in der Ecke und in der Zahl, unten ein duenner Balken im Verhaeltnis zum besten Signal. */
+.erg-sig{position:relative;overflow:hidden;padding:22px 22px 20px;border-radius:24px;background:radial-gradient(90% 70% at 100% 0%,color-mix(in srgb,var(--c) 16%,transparent),transparent 65%),linear-gradient(180deg,rgba(255,255,255,.025),transparent 40%),var(--kachel);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 60px -36px rgba(0,0,0,.8);transition:transform .5s var(--weich),box-shadow .5s var(--weich)}
+@media (hover:hover){.erg-sig.da:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 0 1px color-mix(in srgb,var(--c) 30%,transparent),0 40px 70px -36px rgba(0,0,0,.9)}}
+.sig-kopf{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:26px}
+.sig-logo{width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;background:var(--bg,#14161c);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 8px 20px -8px rgba(0,0,0,.7)}
+.sig-logo i{width:24px;height:24px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.sig-logo.breit{width:84px}.sig-logo.breit i{width:62px;height:16px}
+.sig-logo.bild{overflow:hidden}.sig-logo.bild img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.16)}
+.sig-logo.bild[style] img{width:34px;height:34px;object-fit:contain;transform:none}
+.sig-art{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--leise);padding:5px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.erg-sig .erg-zahl{font-size:clamp(1.9rem,2.6vw,2.4rem)}
+.erg-sig .erg-name{font-size:15px;margin-top:8px}
+.sig-balken{display:block;margin-top:18px;height:3px;border-radius:999px;background:rgba(240,242,246,.06);overflow:hidden}
+.sig-balken i{display:block;height:100%;width:var(--bz);border-radius:inherit;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 40%,transparent),var(--c));transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--weich) .4s}
+.erg-sig.da .sig-balken i{transform:none}
+@media (max-width:860px){.erg-signale{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.erg-sig{padding:18px 16px 16px}.sig-kopf{margin-bottom:18px}.sig-logo{width:40px;height:40px;border-radius:12px}.sig-logo.breit{width:70px}.sig-logo.breit i{width:52px;height:14px}.sig-art{font-size:9.5px;padding:4px 7px;letter-spacing:.1em}.erg-sig:first-child{grid-column:span 2}}
+.erg-karte{border-radius:32px;padding:38px 38px 30px;background:radial-gradient(70% 60% at 30% 0%,rgba(114,136,206,.18),transparent 70%),radial-gradient(60% 60% at 90% 100%,rgba(92,70,220,.12),transparent 70%),var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),0 40px 90px -40px rgba(0,0,0,.8)}
+.erg-bento{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:20px}
+.erg-bento .erg-gross{grid-row:span 2;display:flex;flex-direction:column}
+.erg-bento .erg-gross .erg-svg{margin-top:auto;padding-top:22px}
+.erg-zahl{display:block;font-variant-numeric:tabular-nums;font-size:clamp(2.6rem,5vw,4.2rem);font-weight:300;letter-spacing:-.05em;line-height:.95;color:var(--c)}
+.erg-klein .erg-zahl{font-size:clamp(2.2rem,3.6vw,3rem)}
+.erg-name{display:block;margin-top:12px;font-size:17px;font-weight:500;letter-spacing:-.02em}
+.erg-seit{display:block;margin-top:2px;font-size:13px;color:var(--leise)}
+.erg-balken{margin-top:26px;display:grid;gap:14px}
+.erg-bz em{display:flex;justify-content:space-between;font-style:normal;font-size:13px;color:var(--muted);margin-bottom:6px}
+.erg-bz em b{font-weight:500;color:var(--text)}
+.erg-bz i{display:block;height:10px;border-radius:999px;background:rgba(240,242,246,.06);overflow:hidden}
+.erg-bz i::after{content:"";display:block;height:100%;width:var(--bz);border-radius:999px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--weich) .5s}
+.erg-bz.grau i::after{background:#7c8494}
+.einblenden.da .erg-bz i::after{transform:none}
+.erg-pillen{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0}
+.erg-pillen span{padding:6px 11px;border-radius:999px;background:rgba(240,242,246,.06);font-size:12.5px;color:var(--muted);white-space:nowrap}
+.erg-pillen span b{font-weight:500;color:var(--text)}
+.erg-leg{display:none;margin-top:14px}
+.erg-svg.schmal + .erg-leg{display:flex}
+.erg-leg span{display:inline-flex;align-items:center;gap:6px}
+.erg-leg span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.erg-svg .ende{opacity:0;transition:opacity .6s}
+.erg-svg .ende.da{opacity:1}
+.erg-svg .ende text{font-size:12.5px;font-weight:500;fill:#0b0d12}
+.erg-svg{width:100%}
+.erg-svg svg{display:block;width:100%;height:auto;overflow:visible}
+.erg-svg text{font-family:Archivo,system-ui,sans-serif;font-size:12px;fill:var(--leise)}
+.erg-svg .null{stroke:rgba(240,242,246,.16);stroke-width:1}
+.erg-svg .punkte{stroke:rgba(240,242,246,.09);stroke-width:1;stroke-dasharray:2 6}
+.erg-svg .linie{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.erg-svg .mk{opacity:0;transform:translateY(6px);transition:opacity .5s,transform .6s var(--weich)}
+.erg-svg .mk.da{opacity:1;transform:none}
+.erg-svg .mk text{font-size:12.5px;font-weight:500;fill:#0b0d12}
+.erg-svg .mk text.klein{font-weight:500;fill:var(--muted)}
+.erg-svg .cash-t{font-size:11px;font-weight:600;fill:var(--akzent)}
+.erg-btc{padding-block:20px 40px}
+.erg-btc .erg-schritt:first-child{min-height:44vh}
+.erg-buehne{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:64px}
+.erg-schritt{min-height:56vh;display:flex;flex-direction:column;justify-content:center;opacity:.25;transition:opacity .6s}
+.erg-schritt.an{opacity:1}
+.erg-schritt:last-child{padding-bottom:10vh}
+.erg-schritt i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--akzent)}
+.erg-schritt h3{margin:10px 0 10px;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.08;font-weight:500;letter-spacing:-.035em}
+.erg-schritt p{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:36ch}
+.erg-chart{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;padding-top:60px}
+.erg-chart .erg-hut{margin:0 0 18px;font-size:17px;font-weight:500;letter-spacing:-.02em}
+.erg-chart .erg-hut span{color:var(--leise);font-weight:400}
+@media (max-width:860px){
+  .erg{padding-block:84px 0}
+  .erg-karte{border-radius:24px;padding:24px 18px 20px}
+  .erg-bento{grid-template-columns:1fr;gap:14px}
+  .erg-name{font-size:15px}
+  .erg-svg .ende text{font-size:11px}
+  .erg-svg text{font-size:10px}
+  .erg-btc{padding-block:44px 20px}
+  .erg-buehne{grid-template-columns:1fr;gap:0}
+  /* 3.10.2026: frueher deckte hier der volle Seitengrund ab - seit der Lichtschicht stand das als schwarzer Kasten im Licht.
+     Jetzt Milchglas: das Licht scheint durch, der Text, der unter dem Chart wegscrollt, verschwimmt. */
+  .erg-chart{order:-1;height:auto;justify-content:flex-start;padding:66px 0 14px;z-index:3;background:none;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+  .erg-schritt{min-height:46vh;justify-content:flex-start;padding-top:26px}
+  .erg-schritt:last-child{padding-bottom:8vh;min-height:0}
+  .erg-schritt p{font-size:15px}
+}
 
-        <!-- ---------------- Sieb ---------------- -->
-        <!--
-          Zweiter Scroll-Moment nach dem Coin: das Punktfeld duennt sich
-          beim Runterscrollen aus, sechs Punkte bleiben stehen und ordnen
-          sich in eine Reihe. Die Sechs sind kein Schmuck, sie stehen fuer
-          die sechs Signale 2026 aus dem Abschnitt darueber.
-          Gezeichnet in stationen.js, eigene Perspektive, keine Bibliothek.
-        -->
-        <section class="sieb" id="sieb">
-          <div class="sieb-klebe">
-            <canvas id="sieb-canvas" aria-hidden="true"></canvas>
-            <div class="sieb-text sieb-vorher" data-sieb-vorher>
-              <p class="sieb-gross">Der ganze Markt, gemessen an vier Kriterien.</p>
-              <p class="sieb-klein">Marktkapitalisierung · Bilanz · Marktumfeld · Bewertung</p>
-            </div>
-            <div class="sieb-text sieb-nachher" data-sieb-nachher>
-              <p class="sieb-gross">Übrig bleibt eine <em>Handvoll Werte</em>.</p>
-            </div>
-          </div>
-        </section>
+/* ---- 26.9.2026: Abwechslung ---- */
+.st-hut{margin:0 0 18px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--leise)}
+/* Scroll-Geschichte */
+.story{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:70px;padding-block:120px 60px}
+.story-links{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding-top:max(120px,17vh);box-sizing:border-box}
+.story-links h2{font-size:clamp(2.4rem,4.6vw,3.8rem);line-height:1;margin:0 0 44px;letter-spacing:-.035em;font-weight:500}
+.story-links h2 span{color:var(--leise)}
+.story-liste{list-style:none;margin:0;padding:0;border-top:1px solid var(--linie)}
+.story-liste li{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--linie);color:var(--leise);transition:color .5s}
+.story-liste li i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;padding-top:5px;transition:color .5s}
+.story-liste li b{display:block;font-size:20px;font-weight:500;letter-spacing:-.02em}
+.story-liste li p{margin:0;max-height:0;overflow:hidden;opacity:0;color:var(--muted);line-height:1.5;transition:max-height .6s var(--weich),opacity .6s,margin .6s}
+.story-liste li.an{color:var(--text)}
+.story-liste li.an i{color:var(--akzent)}
+.story-liste li.an p{max-height:120px;opacity:1;margin-top:8px}
+.story-teil{min-height:92vh;display:flex;flex-direction:column;justify-content:center}
+.story-buehne{aspect-ratio:5/4;border-radius:32px;display:grid;place-items:center;padding:40px;background:radial-gradient(70% 60% at 30% 0%,rgba(114,136,206,.18),transparent 70%),radial-gradient(60% 60% at 90% 100%,rgba(92,70,220,.12),transparent 70%),var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),0 40px 90px -40px rgba(0,0,0,.8);opacity:.3;transform:scale(.94);transition:opacity .8s var(--weich),transform .8s var(--weich)}
+.story-teil.an .story-buehne{opacity:1;transform:none}
+.story-bild{width:100%;display:flex;justify-content:center;transform:scale(1.22)}
+.story-bild > *{max-width:400px}
+.story-mobil{display:none}
+@media (max-width:900px){
+  .story{grid-template-columns:1fr;gap:0;padding-block:110px 20px}
+  .story-links{position:static;height:auto;padding-top:0}
+  .story-links h2{margin-bottom:10px}
+  .story-liste{display:none}
+  .story-teil{min-height:0;margin-top:44px}
+  .story-buehne{opacity:1;transform:none;aspect-ratio:auto;padding:36px 22px;border-radius:24px}
+  .story-bild{transform:none}
+  .story-mobil{display:block;margin:0 0 18px;order:-1}
+  .story-teil + .story-teil{border-top:1px solid var(--linie);padding-top:36px}
+  /* Handy: jeder Punkt gleitet beim Hereinscrollen rein, erst Text, dann die Bühne */
+  .story-teil .story-mobil,.story-teil .story-buehne{opacity:0;transform:translateY(26px);transition:opacity .9s var(--weich),transform 1s var(--weich)}
+  .story-teil .story-buehne{transform:translateY(26px) scale(.96);transition-delay:.12s}
+  .story-teil.da .story-mobil,.story-teil.da .story-buehne{opacity:1;transform:none}
+  .story-mobil i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--akzent)}
+  .story-mobil h3{margin:4px 0 6px;font-size:21px;font-weight:600;letter-spacing:-.025em}
+  .story-mobil p{margin:0;color:var(--muted)}
+}
+/* Heller Abschnitt */
+.hell-teil{--h-grund:#f3f2ee;--h-text:#12141a;--h-leise:#6b6f78;--h-linie:rgba(18,20,26,.1);padding-block:150px;background:var(--grund);transition:background-color 1s var(--weich),color 1s var(--weich)}
+.hell-teil.an{background:var(--h-grund);color:var(--h-text)}
+.hell-teil .st-hut{transition:color 1s}
+.hell-teil.an .st-hut{color:var(--h-leise)}
+.hell-titel{font-size:clamp(2.8rem,7vw,6rem);line-height:.95;letter-spacing:-.045em;font-weight:500;margin:0}
+.hell-lead{max-width:560px;font-size:19px;line-height:1.5;margin:28px 0 70px;color:var(--muted);transition:color 1s}
+.hell-teil.an .hell-lead{color:var(--h-leise)}
+.hell-listen{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.hell-listen em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:16px;border-bottom:1px solid currentColor;opacity:.55}
+.hell-listen p{margin:0;padding:22px 0 22px 44px;position:relative;font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.35;letter-spacing:-.015em;border-bottom:1px solid var(--linie);transition:border-color 1s}
+.hell-teil.an .hell-listen p{border-color:var(--h-linie)}
+.hell-listen p:before{position:absolute;left:0;top:22px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:600}
+.hell-listen p.ja:before{content:"✓";background:#1f7a55;color:#fff}
+.hell-listen p.nein:before{content:"×";background:rgba(128,128,128,.18);color:inherit}
+.hell-listen p.nein{opacity:.65}
+.woche-kopf{margin:130px 0 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.woche-kopf h3{font-size:clamp(2rem,4vw,3.2rem);line-height:1;letter-spacing:-.035em;font-weight:500;margin:0}
+.woche-kopf p{margin:0;max-width:380px;color:var(--muted);transition:color 1s}
+.hell-teil.an .woche-kopf p{color:var(--h-leise)}
+.woche{display:flex;flex-direction:column;border-top:1px solid var(--h-linie)}
+.w-zeile{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:40px;align-items:center;padding:34px 0;border-bottom:1px solid var(--h-linie)}
+.w-text em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#4a5fc1;margin-bottom:8px}
+.w-text strong{display:block;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.15;letter-spacing:-.025em;font-weight:600}
+.w-text span{display:block;margin-top:6px;color:var(--h-leise);font-size:16px}
+.w-ic{display:block;width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.w-tage{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.w-tag{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 0 16px;border-radius:16px;background:#fff;box-shadow:0 1px 0 rgba(18,20,26,.06),0 10px 24px -14px rgba(18,20,26,.25);color:#4a5fc1;opacity:0;transform:translateY(12px);transition:opacity .5s,transform .6s var(--weich)}
+.w-tag small{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--h-leise)}
+.woche.da .w-tag{opacity:1;transform:none}
+.w-tag:nth-child(2){transition-delay:.07s}.w-tag:nth-child(3){transition-delay:.14s}.w-tag:nth-child(4){transition-delay:.21s}.w-tag:nth-child(5){transition-delay:.28s}.w-tag:nth-child(6){transition-delay:.35s}.w-tag:nth-child(7){transition-delay:.42s}
+.w-karte{border-radius:20px;opacity:0;transform:translateY(12px);transition:opacity .6s .4s,transform .7s var(--weich) .4s}
+.woche.da .w-karte{opacity:1;transform:none}
+.w-aufz{display:flex;align-items:center;gap:18px;padding:18px 22px;background:#12141a;color:#f4f5f8}
+.w-aufz strong{display:block;font-size:17px;font-weight:600}
+.w-aufz span{display:block;font-size:13.5px;color:#9aa1ae;margin-top:3px}
+.w-play{flex:none;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#b3c5ff,#7d8ff0);position:relative}
+.w-play:after{content:"";position:absolute;left:19px;top:15px;border-left:13px solid #12141a;border-top:9px solid transparent;border-bottom:9px solid transparent}
+.w-lauf{display:flex;flex-wrap:wrap;gap:10px;padding:14px;background:linear-gradient(90deg,rgba(125,143,240,.16),rgba(127,209,168,.2))}
+.w-lauf span{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:12px;background:#fff;font-size:14.5px;font-weight:500;color:#12141a}
+.w-lauf .w-ic{color:#4a5fc1}
+/* Uebergang: der helle Teil ist eine Flaeche, die beim Hereinscrollen von einer runden Karte auf volle Breite aufgeht */
+.hell-teil{background:var(--h-grund)!important;color:var(--h-text)!important;clip-path:inset(0 var(--hk-x,24px) round var(--hk-r,48px));will-change:clip-path}
+.hell-teil > .spalte{position:relative;z-index:1}
+.hell-teil{padding-block:170px}
+@media (max-width:760px){
+  .hell-teil{padding-block:96px}
+  .hell-listen{grid-template-columns:1fr;gap:44px}
+  .hell-lead{margin-bottom:48px}
+  .woche-kopf{margin-top:90px}
+  .w-zeile{grid-template-columns:1fr;gap:18px;padding:26px 0}
+  .w-tage{gap:4px}
+  .w-tag{border-radius:11px;padding:10px 0 12px}
+  .hell-teil{padding-block:120px}
+}
+/* Zitat vor den Kundenstimmen */
+.ks-zitat{text-align:center;margin-bottom:70px}
+.ks-zitat blockquote{margin:0 auto;max-width:980px;font-size:clamp(2rem,4.6vw,3.8rem);line-height:1.08;letter-spacing:-.035em;font-weight:500}
+.ks-zitat blockquote span{background:linear-gradient(100deg,#eef2ff,#c8d4ff 50%,#a3b5f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ks-zitat cite{display:block;margin-top:24px;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--leise)}
+/* Was wir nicht sind */
+.streich-titel{font-size:clamp(2.2rem,5.6vw,4rem);line-height:1;margin:0 0 50px;font-weight:500;letter-spacing:-.035em}
+.streich{list-style:none;margin:0;padding:0;border-top:1px solid var(--linie)}
+.streich li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center;padding:30px 0;border-bottom:1px solid var(--linie)}
+.streich li > s{display:block;text-decoration:none;font-size:clamp(1.8rem,4.2vw,3.4rem);line-height:1.12;letter-spacing:-.035em}
+.streich s b{position:relative;display:inline-block;font-weight:inherit;color:var(--leise)}
+/* Durchstreichen VOR dem Text: je Wort ein gezeichneter Strich, der ueber die Luecke zum naechsten Wort reicht */
+.streich s b:after{content:"";position:absolute;left:-3%;right:-.28em;top:50%;height:.3em;margin-top:-.1em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C40 5.5 80 9.5 120 6.5 S175 5 198 7.5' fill='none' stroke='%23f08279' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M8 9.5 C60 8 130 10 194 8.5' fill='none' stroke='%23f08279' stroke-width='1.2' stroke-linecap='round' opacity='.6'/%3E%3C/svg%3E") no-repeat 0 0/100% 100%;clip-path:inset(0 100% 0 0);transition:clip-path .55s cubic-bezier(.55,.1,.35,1);transition-delay:calc(.35s + var(--i) * .4s);pointer-events:none}
+.streich s b:last-child:after{right:-3%}
+.streich li.da s b:after{clip-path:inset(0 0 0 0)}
+.streich span{color:var(--muted);line-height:1.5}
+@media (max-width:760px){.streich li{grid-template-columns:1fr;gap:10px;padding:24px 0}}
+@media (prefers-reduced-motion:reduce){.story-teil .story-mobil,.story-teil .story-buehne{opacity:1!important;transform:none!important}.story-buehne,.w-tag,.w-karte,.streich s b:after{transition:none!important}}
 
-        <!-- ---------------- Einordnung ---------------- -->
-        <section class="auftritt" id="einordnung" data-grund="hell">
-          <h2>Was wir nicht sind</h2>
-          <div class="spalten zwei">
-            <div class="feld">
-              <h3>Keine individuelle Anlageempfehlung</h3>
-              <p>
-                Es findet keine auf persönliche Verhältnisse zugeschnittene
-                Empfehlung statt.
-              </p>
-            </div>
-            <div class="feld">
-              <h3>Kein fremdes Kapital</h3>
-              <p>
-                Wir verwalten kein Vermögen Dritter und nehmen keine Gelder
-                entgegen.
-              </p>
-            </div>
-            <div class="feld">
-              <h3>Keine Renditegarantie</h3>
-              <p>
-                Es werden weder Gewinne noch bestimmte Wertentwicklungen
-                zugesagt.
-              </p>
-            </div>
-            <div class="feld">
-              <h3>Keine Vermittlung</h3>
-              <p>
-                Wir vermitteln keine Finanzinstrumente und keine Verträge über
-                Finanzprodukte.
-              </p>
-            </div>
-          </div>
-        </section>
+/* Claudios Geschichte: Foto als Karte links, Fliesstext rechts */
+.wer{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:80px;align-items:center;padding-block:150px 40px}
+.wer-bild{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 50px 100px -40px rgba(0,0,0,.9),inset 0 0 0 1px rgba(179,197,255,.12)}
+.wer-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.wer-bild:after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(179,197,255,.14);background:linear-gradient(180deg,rgba(11,13,18,0) 60%,rgba(11,13,18,.45))}
+.wer-text h2{font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.02;letter-spacing:-.035em;font-weight:500;margin:0 0 34px}
+.wer-text h2 span{color:var(--leise)}
+.wer-fliess p{margin:0 0 18px;color:var(--muted);font-size:18px;line-height:1.65;max-width:52ch}
+.wer-fliess b{color:var(--text);font-weight:600}
+.wer-text{position:relative}
+/* Farbige Unterstreichung (Manuel mochte die) + Kritzeleien NEBEN dem Text, nie darueber */
+b.strich{position:relative;color:var(--text);font-weight:600;padding-bottom:5px;background:linear-gradient(var(--grund),var(--grund)) no-repeat 100% 100%/100% 12px,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5 C30 5 60 8.5 95 6 S160 4.5 200 7 S265 8.8 298 5.5' fill='none' stroke='%23a3b5f5' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12 9 C70 7.5 150 9.5 290 7.8' fill='none' stroke='%23a3b5f5' stroke-width='1' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E") no-repeat 0 100%/100% 11px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.2s cubic-bezier(.55,.1,.35,1) .4s}
+b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5 C30 5 60 8.5 95 6 S160 4.5 200 7 S265 8.8 298 5.5' fill='none' stroke='%23f08279' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12 9 C70 7.5 150 9.5 290 7.8' fill='none' stroke='%23f08279' stroke-width='1' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E")}
+.wer-fliess.da b.strich{background-size:0% 12px,100% 11px}
+.doodle{fill:none;stroke-linecap:round;stroke-linejoin:round;overflow:visible;pointer-events:none;filter:url(#kreide)}
+.doodle path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s cubic-bezier(.6,.05,.3,1)}
+.wer-fliess.da .doodle path,.wer.sk .pfeil path{stroke-dashoffset:0}
+.pfeil{position:absolute;left:-372px;top:58px;width:360px;height:190px;stroke:#f4f5f8;stroke-width:2.8;opacity:.92}
+.pfeil path:first-child,.pfeil path.nach{transition-duration:1.1s;transition-delay:.3s}.pfeil path.nach{stroke-width:1.2;opacity:.5;transition-delay:.45s}.pfeil path:last-child{transition-delay:1.3s;transition-duration:.35s}
+@media (max-width:900px){.pfeil{display:none}}
+.wer-rolle{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--linie);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--leise)}
+@media (max-width:900px){.wer{grid-template-columns:1fr;gap:44px;padding-block:96px 20px}.wer-bild{max-width:440px;width:100%;margin:0 auto}.wer-fliess p{font-size:17px}}
 
-        <!-- ---------------- Satz ---------------- -->
-        <!--
-          Gegengewicht zu den Canvas-Stationen: hier bewegt sich nur Schrift.
-          Der Satz baut sich Wort fuer Wort mit der Scrollstrecke auf.
-        -->
-        <section class="satz" id="satz-entscheidung">
-          <div class="satz-klebe">
-            <div class="satz-block">
-              <span class="satz-marke" aria-hidden="true"><i></i>Was für dich bleibt</span>
-              <p class="satz-zeile" data-satz>
-                Im Hintergrund laufen die Analysen.<br />
-                Im Vordergrund bleibt <em>eine Entscheidung</em>.
-              </p>
-              <span class="satz-strich" aria-hidden="true"></span>
-            </div>
-          </div>
-        </section>
+/* Drei Striche ueber Claudios Kopf, laufen immer wieder weg */
+.strahlen{position:absolute;left:28%;top:28.3%;width:19%;height:auto;overflow:visible;fill:none;stroke:#4a64d8;stroke-width:3.6;stroke-linecap:round;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));pointer-events:none;will-change:transform;transform:translateZ(0)}
+.strahlen path{stroke-dasharray:1;stroke-dashoffset:1;animation:strahl 2.4s cubic-bezier(.5,.1,.3,1) infinite}
+.strahlen path:nth-child(2){animation-delay:.12s}.strahlen path:nth-child(3){animation-delay:.24s}
+/* Kein Kreidefilter hier: feTurbulence pro Frame hat in Safari geflackert. Striche wachsen hoch und
+   weichen nach oben weg; kurz vor dem Ende ausblenden, sonst blitzt die runde Linienkappe als Punkt auf. */
+@keyframes strahl{0%{stroke-dashoffset:.999;opacity:0}3%{opacity:1}35%{stroke-dashoffset:0;opacity:1}55%{opacity:1}62%{stroke-dashoffset:-.999;opacity:0}63%,100%{stroke-dashoffset:.999;opacity:0}}
+@media (prefers-reduced-motion:reduce){.strahlen path{animation:none;stroke-dashoffset:0}}
+</style>
+<!-- Duenne Schrift ist seit 15.9.2026 Standard (Manuel). Die fette Fassung bleibt zum Vergleich unter ?schrift=fett. -->
+<script>if(!/schrift=fett/.test(location.search))document.documentElement.classList.add("duenn");</script>
+</head>
+<body>
 
-        <!-- ---------------- Abschluss ---------------- -->
-        <section class="auftritt" data-ohne-nummer>
-          <h2>Fang mit dem kostenlosen Videokurs an</h2>
-          <p>
-            Zehn Lektionen, rund zwei Stunden, kein Vorwissen nötig. Du bekommst
-            den Zugangslink per Mail.
-          </p>
-          <p style="margin-top: 24px">
-            <a class="knopf" href="/form.html">Kostenloser Videokurs</a>
-          </p>
-        </section>
-      </main>
+<header class="kopf" id="kopf">
+  <a class="marke" href="/"><img src="/logo-zeichen.svg" alt="" />Market Playbook</a>
+  <a class="link weg-mobil" href="#story">Inhalte</a>
+  <a class="link weg-mobil" href="/erfahrungen">Erfahrungen</a>
+  <a class="link" href="/ueber-uns">Über uns</a>
+  <a class="knopf" href="/form">Kostenlos starten</a>
+  <button class="menue" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menue-flaeche"><span></span><span></span></button>
+</header>
+<nav class="menue-flaeche" id="menue-flaeche" aria-label="Menü">
+  <a class="punkt" href="#story">Inhalte</a>
+  <a class="punkt" href="/erfahrungen">Erfahrungen</a>
+  <a class="punkt" href="/ueber-uns">Über uns</a>
+  <a class="knopf glanz" href="/form">Kostenlos starten</a>
+</nav>
 
-      <footer class="fuss">
-        <div class="zeile">
-          <span class="marke"><svg class="zeichen" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><defs><linearGradient id="mp-fuss-v" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient><linearGradient id="mp-fuss-h" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient></defs><g transform="translate(0 0.95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#mp-fuss-v)" stroke="url(#mp-fuss-v)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#mp-fuss-h)" stroke="url(#mp-fuss-h)" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span>Market Playbook</span></span>
-          <nav>
-            <a href="/kosten">Preise</a>
-            <a href="/ist-market-playbook-serioes">Nachprüfbare Angaben</a>
-            <a href="/fuer-wen">Für wen geeignet</a>
-            <a href="/haeufige-fragen">Fragen und Antworten</a>
-            <a href="/erfahrungen">Erfahrungen</a>
-            <a href="/magazin">Marktthemen</a>
-            <a href="/ueber-uns">Über uns</a>
-          </nav>
-        </div>
-        <div class="zeile" style="margin-top: 20px">
-          <span style="font-size: 10.5px; color: var(--leise)">© 2026 Market Playbook</span>
-          <nav>
-            <a href="/impressum.html">Impressum</a>
-            <a href="/agb.html">AGB</a>
-            <a href="/datenschutz.html">Datenschutz</a>
-            <a href="/haftungsausschluss.html">Haftungsausschluss</a>
-          </nav>
-        </div>
-        <p class="recht">
-          Risikohinweis: Investitionen an Kapitalmärkten sind mit Verlustrisiken
-          verbunden, bis zum Totalverlust des eingesetzten Kapitals. Vergangene
-          Wertentwicklungen sind kein verlässlicher Indikator für künftige
-          Ergebnisse. Die Inhalte dieser Website dienen der Information und
-          Bildung und stellen keine Anlageberatung dar.
-        </p>
-      </footer>
+<div class="seite">
+<div class="licht" aria-hidden="true"><i></i><i></i><i></i></div>
+<main>
+  <section class="hero spalte">
+    <div class="zeichen rein" aria-hidden="true">
+      <div class="schein"></div><div class="ring"></div><div class="glas"></div><div class="kante"></div><div class="blitz"></div>
+      <div class="buch">
+        <svg class="l" viewBox="0 0 32 32"><defs><linearGradient id="bl" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient></defs><path transform="translate(0 .95)" d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#bl)" stroke="url(#bl)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <svg class="r" viewBox="0 0 32 32"><defs><linearGradient id="br" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient></defs><path transform="translate(0 .95)" d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#br)" stroke="url(#br)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <svg class="blatt" viewBox="0 0 32 32"><path transform="translate(0 .95)" d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#dfe6ff"/></svg>
+      </div>
     </div>
+    <h1 class="rein d1">Märkte verstehen,<br /><span class="verlauf">statt zu raten.</span></h1>
+    <p class="rein d2 hero-wechsel">Wir analysieren jede Woche <span class="wechselwort" id="hero-wort"><b>Aktien</b></span> und zeigen dir, worauf es ankommt.</p>
+    <div class="knoepfe rein d3">
+      <a class="knopf gross glanz" href="/form">Kostenlos starten</a>
+      <a class="knopf gross leise" href="#story">Was drin ist &nbsp;→</a>
+    </div>
+    <p class="hero-frei rein d4">Kostenlos: Videokurs + Aktien-Watchlist</p>
+  </section>
 
-    <script src="/haus.js?v=1788374698" defer></script>
-    <script src="/startseite.js?v=1788373438" defer></script>
-    <script src="/hero-chart.js?v=1787919216" defer></script>
-    <script src="/stationen.js?v=1788075895" defer></script>
-    <script src="/bewegung.js?v=1787912657" defer></script>
-  </body>
+  <section class="zahlen" id="zahlen">
+    <div class="kleber">
+      <div class="icons" id="icons"></div>
+      <div class="zahl-text">
+        <p class="vor">Eine wachsende Community mit</p>
+        <div class="zeile" data-ziel="200" data-plus="+"><span class="n">0</span> <span class="zeile-wort">Mitgliedern</span></div>
+        <div class="zeile" data-ziel="18500" data-plus="+"><span class="n">0</span> <span class="zeile-wort">Followern</span></div>
+        <div class="zeile" data-ziel="6" data-plus="+"><span class="n">0</span> <span class="zeile-wort">Jahren Erfahrung</span></div>
+        <p class="nach">Market Playbook ist die Mitgliedschaft von Claudio Fürsatz: Analysen zu Aktien, Krypto und allen weiteren wichtigen Märkten.</p>
+        <div class="stichtag">Mitglieder und Erfahrung Stand August 2026 · Follower Stand 15.9.2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 26.9.2026: Claudios Geschichte direkt nach den Zahlen - Besucher kommen aus seinen Videos.
+       Foto von der alten Capital-Council-Seite (diekundenmaschine/assets/img/claudio.png). Text gekuerzt aus claudio-fuersatz.de. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="kreide" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+  <section class="wer spalte" id="claudio">
+    <div class="wer-bild einblenden"><img src="/claudio-palme.jpg" alt="Claudio Fürsatz" /><svg class="strahlen" viewBox="0 0 100 60" aria-hidden="true"><path pathLength="1" d="M30 50 C27 42 23 36 18 29"/><path pathLength="1" d="M50 44 C50.5 35 50 26 51 16"/><path pathLength="1" d="M70 50 C73 42 77 36 83 30"/></svg></div>
+    <div class="wer-text">
+      <svg class="doodle pfeil" viewBox="0 0 220 160" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M214 24 C160 8 104 26 76 64 C56 92 46 120 40 146"/><path class="nach" pathLength="1" d="M210 27 C162 13 108 29 80 66 C61 93 50 119 43 143"/><path pathLength="1" d="M24 126 C30 133 35 140 40 149 C47 141 54 135 63 130"/></svg>
+      <p class="st-hut">Wer dahinter steht</p>
+      <h2 class="einblenden">Claudio Fürsatz.</h2>
+      <div class="wer-fliess einblenden">
+        <p>Claudio kam 2020 mit 19 an die Märkte, erst über Bitcoin, kurz darauf mit der ersten Aktie. Heute liegt sein Schwerpunkt auf dem Aktienmarkt.</p>
+        <p>An einem einzigen Tag verlor er <b class="strich rot" style="white-space:nowrap">über&nbsp;111.000&nbsp;€</b>. Eigenes Geld, und es kam nicht zurück. Der Grund war keine einzelne falsche Position, sondern dass es kein festes Regelwerk gab.</p>
+        <p>Daraus ist die Systematik hinter Market Playbook entstanden: <b class="strich">feste Kriterien, bevor eine Entscheidung ansteht.</b> Genau die gibt er heute weiter.</p>
+      </div>
+      <p class="wer-rolle einblenden">Geschäftsführer · Market Playbook</p>
+    </div>
+  </section>
+
+  <!-- Ergebnisse (1.10.2026, Manuel): zwei Charts.
+       1) Vergleich, steht fest: unsere 3 Portfolios neben Bitcoin, S&P 500 und Altcoin-Korb (echte Wochenschlusskurse, Yahoo Finance,
+          1.1.2024 bis 11.9.2026). Krypto-Verlauf schematisch wie auf der alten Startseite, Aktien und Meme Coins gestrichelt (nur Start/Endstand).
+       2) Bitcoin-Kurs (Tagesschluss) mit unseren Ein- und Ausstiegen, zum Scrollen. Daten der Entscheidungen nach Kursniveau gesetzt,
+          genaue Tage bei Claudio offen. Offen ausserdem: Einstiegspreise der Aktien, Otto-Pruefung. -->
+  <section class="erg spalte" id="ergebnisse">
+    <div class="kopfzeile einblenden"><p class="st-hut">Ergebnisse</p><h2>Unsere letzten Jahre,<br /><span>neben dem Markt.</span></h2><p class="kopf-unter">Wertentwicklung seit Januar 2024. Ein Rückblick, kein Versprechen.</p></div>
+    <div class="erg-eins">
+      <div class="erg-bento">
+        <div class="erg-karte erg-gross einblenden" style="--c:#b3c5ff">
+          <b class="erg-zahl" data-ziel="515">+515&nbsp;%</b><span class="erg-name">Unser Krypto-Portfolio</span><small class="erg-seit">seit Januar 2024, neben Bitcoin, S&amp;P 500 und Altcoins im selben Zeitraum</small>
+          <div class="erg-svg" id="erg-svg" role="img" aria-label="Wertentwicklung seit Januar 2024: Krypto-Portfolio +515 %, Bitcoin +82 %, S&amp;P 500 +61 %, Altcoin-Korb −2 %"></div>
+          <p class="erg-pillen erg-leg"><span style="--c:#b3c5ff">Krypto-Portfolio <b>+515&nbsp;%</b></span><span style="--c:#f7931a">Bitcoin <b>+82&nbsp;%</b></span><span style="--c:#e8eaf0">S&amp;P 500 <b>+61&nbsp;%</b></span><span style="--c:#7c8494">Altcoins <b>−2&nbsp;%</b></span></p>
+        </div>
+        <div class="erg-karte erg-klein einblenden" style="--c:#7fd1a8">
+          <b class="erg-zahl" data-ziel="67">+67&nbsp;%</b><span class="erg-name">Aktienportfolio</span><small class="erg-seit">seit 16.12.2025</small>
+          <div class="erg-balken">
+            <div class="erg-bz"><em>Unser Aktienportfolio <b>+67&nbsp;%</b></em><i style="--bz:100%"></i></div>
+            <div class="erg-bz grau"><em>S&amp;P 500, selber Zeitraum <b>+12&nbsp;%</b></em><i style="--bz:18%"></i></div>
+          </div>
+          <p class="erg-pillen"><span>Micron <b>+302,5&nbsp;%</b></span><span>Robinhood <b>+81&nbsp;%</b></span></p>
+        </div>
+        <div class="erg-karte erg-klein einblenden" style="--c:#a48bff">
+          <b class="erg-zahl" data-ziel="253">+253&nbsp;%</b><span class="erg-name">Meme Coins</span><small class="erg-seit">6 Positionen 2026, im Schnitt</small>
+          <div class="erg-balken">
+            <div class="erg-bz"><em>Unsere Positionen <b>+253&nbsp;%</b></em><i style="--bz:100%"></i></div>
+            <div class="erg-bz grau"><em>Bitcoin 2026 <b>−10&nbsp;%</b></em><i style="--bz:4%"></i></div>
+          </div>
+          <p class="erg-pillen"><span>Beste Position <b>+468&nbsp;%</b></span></p>
+        </div>
+      </div>
+    </div>
+    <!-- 3.10.2026 (Claudio, Sprachnachricht): einzelne Signale mit Zahlen, damit man sofort Ergebnisse sieht. Zahlen wie von Claudio genannt, Belege offen. -->
+    <div class="erg-signale-kopf einblenden"><p class="st-hut">Einzelne Positionen</p><h3>Was einzelne Positionen gebracht haben.</h3><p>Ein paar der Aktien und Kryptowerte, die wir mit unseren Mitgliedern besprochen haben. Die Zahl zeigt den Kursanstieg seit der Besprechung. Nicht jede Position hat sich so entwickelt.</p></div>
+    <div class="erg-signale"><div class="erg-karte erg-sig einblenden" style="--c:#f3b724"><div class="sig-kopf"><span class="sig-logo" style="--bg:#f3b724"><i style="--m:url(/icons/marken/zcash.svg);color:#1a1405"></i></span><span class="sig-art">Krypto</span></div><b class="erg-zahl" data-ziel="307">+307&nbsp;%</b><span class="erg-name">ZCash</span><span class="sig-balken"><i style="--bz:100.0%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#7fa6ff"><div class="sig-kopf"><span class="sig-logo breit" style="--bg:#0f1f44"><i style="--m:url(/icons/marken/micron-wortmarke.svg);color:#fff"></i></span><span class="sig-art">Aktie</span></div><b class="erg-zahl" data-ziel="302.5" data-dez="1">+302,5&nbsp;%</b><span class="erg-name">Micron</span><span class="sig-balken"><i style="--bz:98.5%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#97fce4"><div class="sig-kopf"><span class="sig-logo bild"><img src="/icons/marken/hyperliquid.png" alt="" /></span><span class="sig-art">Krypto</span></div><b class="erg-zahl" data-ziel="113">+113&nbsp;%</b><span class="erg-name">Hyperliquid</span><span class="sig-balken"><i style="--bz:36.8%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#ff6a3d"><div class="sig-kopf"><span class="sig-logo bild" style="--bg:#1b1210"><img src="/icons/marken/venice.png" alt="" /></span><span class="sig-art">Krypto</span></div><b class="erg-zahl" data-ziel="104">+104&nbsp;%</b><span class="erg-name">Venice Token</span><span class="sig-balken"><i style="--bz:33.9%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#ccff00"><div class="sig-kopf"><span class="sig-logo" style="--bg:#ccff00"><i style="--m:url(/icons/marken/robinhood.svg);color:#0b0d06"></i></span><span class="sig-art">Aktie</span></div><b class="erg-zahl" data-ziel="81">+81&nbsp;%</b><span class="erg-name">Robinhood</span><span class="sig-balken"><i style="--bz:26.4%"></i></span></div></div>
+    <p class="erg-hinweis">Gezeigt sind ausgewählte Positionen, nicht alle. Angaben nach eigenen Aufzeichnungen, ohne Gebühren und Steuern. Der Verlauf des Krypto-Portfolios ist schematisch dargestellt, gemessen sind Start- und Endwert. Es gibt keine Zusage von Ergebnissen. Kryptowerte, besonders Meme Coins, sind extrem spekulativ, ein Totalverlust ist möglich. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse.</p>
+  </section>
+
+  <section class="erg-btc spalte" id="bitcoin">
+    <div class="erg-buehne">
+      <div class="erg-schritte">
+        <div class="erg-schritt an" data-i="0"><i>Januar 2025</i><h3>Ausstieg bei rund 107.000.</h3><p>Die On-Chain-Daten zeigen Überhitzung, wir gehen in Cash. Bitcoin fällt danach bis April auf unter 75.000 US-Dollar.</p></div>
+        <div class="erg-schritt" data-i="1"><i>April 2025</i><h3>Wiedereinstieg bei rund 82.000.</h3><p>Der Boden ist bestätigt, wir kaufen zurück. Von hier läuft Bitcoin um mehr als 50&nbsp;% nach oben.</p></div>
+        <div class="erg-schritt" data-i="2"><i>September 2025</i><h3>Ausstieg bei rund 112.000, vor dem Top.</h3><p>Wir steigen aus, bevor Bitcoin im Oktober sein Hoch bei 126.000 US-Dollar erreicht. Die letzten Prozent lassen wir bewusst liegen.</p></div>
+        <div class="erg-schritt" data-i="3"><i>Bis Ende 2025</i><h3>Danach geht es abwärts.</h3><p>Bitcoin fällt im November bis auf rund 81.000 US-Dollar, mehr als ein Drittel unter dem Hoch. Wir sind in dieser Zeit in Cash.</p></div>
+      </div>
+      <div class="erg-chart">
+        <div class="erg-karte">
+        <p class="erg-hut">Bitcoin <span>· unsere Ein- und Ausstiege</span></p>
+        <div class="erg-svg" id="erg-btc" role="img" aria-label="Bitcoin-Kurs Dezember 2024 bis Dezember 2025 mit Ausstieg bei rund 107.000, Wiedereinstieg bei rund 82.000 und Ausstieg bei rund 112.000 US-Dollar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kundenstimmen (26.9.2026): zwei Laufbaender gegenlaeufig, grau bis zum Drueberfahren, Klick vergroessert.
+       Namen/Nummern/Profilbilder in den Bildern entfernt. Seit 30.9.2026 (Claudio) direkt nach dem Steckbrief, vor dem App-Fenster. -->
+  <section class="block ks" id="kundenstimmen" style="padding-top:20px;padding-bottom:0">
+    <div class="ks-zitat spalte einblenden">
+      <p class="st-hut">Was Mitglieder schreiben</p>
+      <blockquote>„Zum ersten Mal habe ich das Gefühl, ich habe einen <span>Plan an der Börse.</span>“</blockquote>
+      <cite>Mitglied, seit 3 Wochen dabei</cite>
+    </div>
+    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button></div></div>
+    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button></div></div>
+    <p class="ks-fuss spalte">Einzelne Erfahrungen von Mitgliedern. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse.</p>
+  </section>
+
+  <!-- 26.9.2026: Scroll-Geschichte statt Kachelraster. Links steht die Ueberschrift, rechts wechselt je Punkt die Buehne. -->
+  <section class="story spalte" id="story">
+    <div class="story-links">
+      <p class="st-hut">So arbeitest du mit uns</p>
+      <h2>Einordnung<br /><span>statt Bauchgefühl.</span></h2>
+      <ol class="story-liste"><li data-i="0" class="an"><i>01</i><div><b>Aufzeichnungen</b><p>Claudio geht Aktien, Krypto und die Makrolage in Aufzeichnungen durch. Jede Aufzeichnung ist in Kapitel geteilt.</p></div></li><li data-i="1"><i>02</i><div><b>Strategie-Updates</b><p>Ändert sich etwas an der Ausrichtung, steht dort was und warum. Schritt für Schritt nachvollziehbar.</p></div></li><li data-i="2"><i>03</i><div><b>Persönlich betreut</b><p>Fragen direkt an Claudio und ein fester Customer Success Manager an deiner Seite.</p></div></li><li data-i="3"><i>04</i><div><b>Kalender</b><p>Termine, die auf die Märkte wirken, bevor sie passieren.</p></div></li><li data-i="4"><i>05</i><div><b>Immer auf dem Stand</b><p>Neue Calls, Meldungen und Updates, ohne etwas zu verpassen.</p></div></li></ol>
+    </div>
+    <div class="story-rechts"><div class="story-teil an" data-i="0"><div class="story-buehne"><div class="story-bild"><div class="player"><div class="vbild"><i></i></div><div class="unten"><div class="kapitel"><span></span><span></span><span></span><span></span></div><div class="kapitel-namen"><span>Fed</span><span>Arbeitsmarkt</span><span>Ölpreis</span><span>Eli Lilly</span></div></div></div></div></div><div class="story-mobil"><i>01</i><h3>Aufzeichnungen</h3><p>Claudio geht Aktien, Krypto und die Makrolage in Aufzeichnungen durch. Jede Aufzeichnung ist in Kapitel geteilt.</p></div></div><div class="story-teil" data-i="1"><div class="story-buehne"><div class="story-bild"><div class="schritte" id="schritte"><div class="an"><b>1</b>Marktphase einordnen</div><div><b>2</b>Risiken benennen</div><div><b>3</b>Ausrichtung anpassen</div><div><b>4</b>Begründung festhalten</div></div></div></div><div class="story-mobil"><i>02</i><h3>Strategie-Updates</h3><p>Ändert sich etwas an der Ausrichtung, steht dort was und warum. Schritt für Schritt nachvollziehbar.</p></div></div><div class="story-teil" data-i="2"><div class="story-buehne"><div class="story-bild"><div class="mini" id="mini-portfolio"></div></div></div><div class="story-mobil"><i>03</i><h3>Persönlich betreut</h3><p>Fragen direkt an Claudio und ein fester Customer Success Manager an deiner Seite.</p></div></div><div class="story-teil" data-i="3"><div class="story-buehne"><div class="story-bild"><div class="kal"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span><span>14</span><span>15</span><span class="f">16</span><span>17</span><span class="m">18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span class="f">24</span><span>25</span><span>26</span><span>27</span><div class="kal-legende"><span><b style="--c:#8f7bff"></b>Makro-Termin</span><span><b style="--c:#f7931a"></b>Quartalszahlen</span></div></div></div></div><div class="story-mobil"><i>04</i><h3>Kalender</h3><p>Termine, die auf die Märkte wirken, bevor sie passieren.</p></div></div><div class="story-teil" data-i="4"><div class="story-buehne"><div class="story-bild"><div class="mini" id="mini-neu"></div></div></div><div class="story-mobil"><i>05</i><h3>Immer auf dem Stand</h3><p>Neue Calls, Meldungen und Updates, ohne etwas zu verpassen.</p></div></div></div>
+  </section>
+
+
+  <div class="ks-gross" id="ks-gross" hidden><img alt="" /></div>
+
+  <!-- 26.9.2026: heller Abschnitt. Der Grund blendet beim Hereinscrollen auf hell (.an). Texte wie vorher. -->
+  <section class="hell-teil" id="fuer-wen">
+    <div class="spalte">
+      <p class="st-hut">Für wen</p>
+      <h2 class="hell-titel">Für wen das<br />gemacht ist.</h2>
+      <p class="hell-lead">Für Menschen, die schon investiert sind und den Markt verstehen wollen, ohne jeden Abend selbst Charts zu lesen.</p>
+      <div class="hell-listen">
+        <div><em>Passt, wenn</em>
+          <p class="ja">du schon Geld angelegt hast und verstehen willst, was damit passiert.</p>
+          <p class="ja">dir die Zeit fehlt, dich selbst stundenlang einzuarbeiten.</p>
+          <p class="ja">du bisher ohne festen Plan investierst.</p>
+        </div>
+        <div><em>Passt nicht, wenn</em>
+          <p class="nein">du noch gar nicht investiert hast.</p>
+          <p class="nein">du dich mit deinem Geld gar nicht beschäftigen willst.</p>
+          <p class="nein">du jemanden suchst, der dein Geld verwaltet.</p>
+        </div>
+      </div>
+
+      <div class="woche-kopf">
+        <h3>So läuft deine Woche.</h3>
+        <p>Du musst nicht jeden Tag den Markt verfolgen. Die Einordnung kommt zu dir.</p>
+      </div>
+      <div class="woche" id="woche">
+        <div class="w-zeile">
+          <div class="w-text"><em>Täglich</em><strong>Die wichtigsten Marktnachrichten</strong><span>kurz zusammengefasst</span></div>
+          <div class="w-tage"><div class="w-tag"><small>Mo</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Di</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Mi</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Do</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Fr</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Sa</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>So</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div></div>
+        </div>
+        <div class="w-zeile">
+          <div class="w-text"><em>Wöchentlich</em><strong>Claudios Markteinordnung</strong><span>als Aufzeichnung zum Nachschauen</span></div>
+          <div class="w-karte w-aufz"><b class="w-play"></b><div><strong>Markteinordnung der Woche</strong><span>Makro, Zinsen, einzelne Unternehmen · in Kapiteln</span></div></div>
+        </div>
+        <div class="w-zeile">
+          <div class="w-text"><em>Laufend</em><strong>Analysen und deine Fragen</strong><span>zum ganzen Markt, direkt in der WhatsApp-Gruppe</span></div>
+          <div class="w-karte w-lauf"><span><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v4" /><rect x="7" y="9" rx="1" /><path d="M9 15v2" /><path d="M17 3v2" /><rect x="15" y="5" rx="1" /><path d="M17 13v3" /><path d="M3 3v16a2 2 0 0 0 2 2h16" /></svg>Analysen</span><span><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg>Fragen an Claudio</span><span><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 11 2 2 4-4" /><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>Customer Success Manager</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sternen-Station 3: Sternbild, der Ablauf als fuenf Sterne (3.10.2026: Strategiegespraech als erster Schritt) -->
+  <section class="stern" id="st-bild">
+    <div class="stern-klebe">
+      <canvas aria-hidden="true"></canvas>
+      <div class="bild-titel spalte" data-bild-titel><h2>So läuft es ab.<br /><span class="verlauf">Schritt für Schritt.</span></h2></div>
+      <div class="stern-marke" data-stern><i>01</i><b>Strategiegespräch</b><span>Wir schauen gemeinsam, wo du gerade stehst.</span></div>
+      <div class="stern-marke" data-stern><i>02</i><b>Onboarding</b><span>Nach der Aufnahme ein Gespräch 1:1, damit du dich zurechtfindest.</span></div>
+      <div class="stern-marke" data-stern><i>03</i><b>Einordnung</b><span>Täglich die Nachrichten, jede Woche die ganze Marktlage.</span></div>
+      <div class="stern-marke" data-stern><i>04</i><b>Analysen</b><span>Der ganze Markt, laufend analysiert.</span></div>
+      <div class="stern-marke" data-stern><i>05</i><b>Begleitung</b><span>Fragen an Claudio und deinen Customer Success Manager, dazu die Community.</span></div>
+      <p class="bild-fuss" data-bild-fuss>Wir ordnen ein. <span>Entscheiden tust du.</span></p>
+    </div>
+  </section>
+
+  <!-- Was wir nicht sind: Wortlaut der alten Startseite. Erste Kachel hiess "Keine Anlageberatung nach KWG" -
+       Otto 23.9.2026: die KWG-Einordnung ist anwaltlich ungeklaert (meta-ads-handbuch Kap. 12/15), darf nicht als Fakt stehen. -->
+  <section class="block spalte streich-teil">
+    <p class="st-hut">Zur Einordnung</p>
+    <h2 class="streich-titel einblenden">Was wir nicht sind.</h2>
+    <ul class="streich"><li class="einblenden"><s><b style="--i:0">Individuelle</b> <b style="--i:1">Anlageempfehlung</b></s><span>Es findet keine auf persönliche Verhältnisse zugeschnittene Empfehlung statt.</span></li><li class="einblenden"><s><b style="--i:0">Fremdes</b> <b style="--i:1">Kapital</b></s><span>Wir verwalten kein Vermögen Dritter und nehmen keine Gelder entgegen.</span></li><li class="einblenden"><s><b style="--i:0">Renditegarantie</b></s><span>Es werden weder Gewinne noch bestimmte Wertentwicklungen zugesagt.</span></li><li class="einblenden"><s><b style="--i:0">Vermittlung</b></s><span>Wir vermitteln keine Finanzinstrumente und keine Verträge über Finanzprodukte.</span></li></ul>
+  </section>
+
+  <!-- Sternen-Station 4: Flug durch den Himmel, dann der Satz (Franz, Variante 3) -->
+  <section class="stern" id="st-warp">
+    <div class="stern-klebe">
+      <canvas aria-hidden="true"></canvas>
+      <div class="stern-text">
+        <p class="warp-satz" data-warp>Nie wieder ohne</p>
+        <p class="warp-satz" data-warp><span class="verlauf">Einordnung.</span></p>
+        <p class="warp-unter" data-warp>Starte mit dem kostenlosen Videokurs und der Aktien-Watchlist.</p>
+        <div class="knoepfe warp-knoepfe" data-warp><a class="knopf gross glanz" href="/form">Kostenlos starten</a><a class="knopf gross leise" href="/erfahrungen">Erfahrungen lesen</a></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<footer id="fuss"><div class="fuss-logo" id="fuss-logo" aria-hidden="true"><div class="schein3d"></div><div class="buch3d"><div class="seite3d l"><svg viewBox="0 0 32 32"><defs><linearGradient id="fbl" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient><radialGradient id="fgl" class="glanz" cx="16" cy="14" r="22" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#dfe6ff" stop-opacity=".2"/><stop offset=".35" stop-color="#c3d0ff" stop-opacity=".13"/><stop offset=".7" stop-color="#b3c5ff" stop-opacity=".06"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".02"/></radialGradient><radialGradient id="fkl" class="kante" cx="16" cy="14" r="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e8edff" stop-opacity=".6"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".16"/></radialGradient></defs><g transform="translate(0 .95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#fbl)" opacity=".07"/><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#fgl)"/><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="none" stroke="url(#fkl)" stroke-width=".12" stroke-linejoin="round"/></g></svg></div><div class="seite3d r"><svg viewBox="0 0 32 32"><defs><linearGradient id="fbr" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient><radialGradient id="fgr" class="glanz" cx="16" cy="14" r="22" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#dfe6ff" stop-opacity=".2"/><stop offset=".35" stop-color="#c3d0ff" stop-opacity=".13"/><stop offset=".7" stop-color="#b3c5ff" stop-opacity=".06"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".02"/></radialGradient><radialGradient id="fkr" class="kante" cx="16" cy="14" r="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e8edff" stop-opacity=".6"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".16"/></radialGradient></defs><g transform="translate(0 .95)"><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#fbr)" opacity=".07"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#fgr)"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="none" stroke="url(#fkr)" stroke-width=".12" stroke-linejoin="round"/></g></svg></div><div class="ruecken"></div></div></div><div class="spalte">
+  <div class="oben">
+    <div><b>Market Playbook</b><p>Märkte verstehen, statt zu raten.</p></div>
+    <nav><a href="/form">Videokurs</a><a href="/erfahrungen">Erfahrungen</a><a href="/haeufige-fragen">Häufige Fragen</a><a href="/ueber-uns">Über uns</a><a href="/magazin">Magazin</a><a href="/impressum.html">Kontakt</a></nav>
+  </div>
+  <div class="unten"><span>© 2026 THE MARKET PLAYBOOK - FZCO</span><span><a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a> &nbsp;·&nbsp; <a href="/agb.html">AGB</a> &nbsp;·&nbsp; <a href="/haftungsausschluss.html">Haftungsausschluss</a></span></div>
+</div></footer>
+
+<script>
+(function(){
+  "use strict";
+  var ruhig = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ICON = "/icons/marken/";
+  function m(slug){ return "--m:url(" + ICON + slug + ".svg)"; }
+
+  /* Markenfarben als App-Icon: [slug, Name, Kachel, Zeichen] */
+  var MARKEN = {
+    nvidia:["nvidia","Nvidia","#111","#76b900"], apple:["apple","Apple","linear-gradient(160deg,#3a3a3c,#0b0b0c)","#fff"],
+    bitcoin:["bitcoin","Bitcoin","linear-gradient(160deg,#ffab3d,#f7931a)","#fff"], tesla:["tesla","Tesla","linear-gradient(160deg,#ff2f4b,#c8102e)","#fff"],
+    meta:["meta","Meta","#fff","#0866ff"], ethereum:["ethereum","Ethereum","linear-gradient(160deg,#8a9bff,#4f64d9)","#fff"],
+    google:["google","Google","#fff","#4285f4"], palantir:["palantir","Palantir","#f2f2f2","#101113"],
+    solana:["solana","Solana","#0d0d12","linear-gradient(135deg,#9945ff,#14f195)"], netflix:["netflix","Netflix","#000","#e50914"],
+    broadcom:["broadcom","Broadcom","linear-gradient(160deg,#e8233f,#b0062a)","#fff"], amd:["amd","AMD","#0e0e0e","#fff"],
+    chainlink:["chainlink","Chainlink","linear-gradient(160deg,#4a6ff0,#2a4bbd)","#fff"], samsung:["samsung","Samsung","linear-gradient(160deg,#2a47c9,#1428a0)","#fff"],
+    visa:["visa","Visa","linear-gradient(160deg,#2a3290,#141a5e)","#fff"], sap:["sap","SAP","linear-gradient(160deg,#27c5ff,#0a6fd6)","#fff"],
+    paypal:["paypal","PayPal","#fff","#003087"], spacex:["spacex","SpaceX","#0b0b0b","#fff"]
+  };
+  function kachel(k, extra){ var b = MARKEN[k]; return '<div class="app-icon" style="--bg:'+b[2]+';--fg:'+b[3]+'"'+(extra||"")+' title="'+b[1]+'"><i style="'+m(b[0])+'"></i></div>'; }
+
+  /* Das Wortmarken-Band unter dem Hero ist am 24.9. raus (Manuel): dieselben
+     Logos kamen direkt danach bei den Zahlen noch einmal. */
+
+  /* Icons, die aus der Mitte auffliegen: Zielpunkt in Viewport-Anteilen */
+  var FLUG = [["bitcoin",-.36,-.3,-8],["apple",-.2,-.33,4],["nvidia",.08,-.37,-3],["tesla",.3,-.32,7],["ethereum",.42,-.06,-6],
+              ["meta",.36,.2,5],["solana",.24,.41,-4],["google",-.02,.44,3],["palantir",-.26,.41,-7],["broadcom",-.42,.14,6],
+              ["chainlink",-.43,-.08,-2],["netflix",.44,-.28,9],["samsung",-.44,.38,-5],["visa",.46,.4,4]];
+  var iconsEl = document.getElementById("icons");
+  iconsEl.innerHTML = FLUG.map(function(f){ return kachel(f[0]); }).join("");
+  var iconEls = [].slice.call(iconsEl.children);
+  var textEl = document.querySelector(".zahl-text");
+
+  var zahlen = document.getElementById("zahlen");
+  var zeilen = [].slice.call(zahlen.querySelectorAll(".zeile"));
+  var fmt = new Intl.NumberFormat("de-DE");
+  var hell = [37,41,51], voll = [244,245,248];
+  function weich(x){ return x<=0?0:x>=1?1:1-Math.pow(1-x,3); }
+  function mix(a,b,t){ return "rgb("+a.map(function(v,i){ return Math.round(v+(b[i]-v)*t); }).join(",")+")"; }
+
+  /* Ruckeln (Manuel 24.9.): vorher lief alles direkt im Scroll-Ereignis. Ein
+     Mausrad springt in ~100-px-Stufen, die Zahlen sprangen mit; dazu las der
+     Handy-Zweig pro Icon die Texthoehe neu (erzwungenes Layout pro Icon), und
+     nach dem Anflug standen die Icons kurz still, bevor das Driften einsetzte.
+     Jetzt: Fortschritt gedaempft pro Frame wie bei den Sternen-Stationen,
+     Texthoehe nur bei Groessenaenderung, Driften laeuft von Anfang an mit. */
+  var textH = textEl.offsetHeight, zuletzt = [];
+  /* Ring am Handy: Superellipse um den Textblock (Ecken ruecken nach aussen,
+     weil der Text eckig ist), nach Bogenlaenge abgetastet - so liegen die
+     Icons in gleichen Abstaenden. Start oben in der Mitte, im Uhrzeigersinn. */
+  var ring = null;
+  function ringBauen(vw, vh){
+    var rx = vw/2 - 38, ry = Math.min(textH/2 + 62, vh/2 - 100), P = [], L = [0], N = 720;
+    for (var k = 0; k <= N; k++) {
+      var w = -Math.PI/2 + k / N * Math.PI * 2, c = Math.cos(w), s2 = Math.sin(w);
+      P.push([Math.sign(c) * Math.sqrt(Math.abs(c)) * rx, Math.sign(s2) * Math.sqrt(Math.abs(s2)) * ry]);
+      if (k) L.push(L[k-1] + Math.hypot(P[k][0]-P[k-1][0], P[k][1]-P[k-1][1]));
+    }
+    ring = { P: P, L: L, ges: L[N], vw: vw, vh: vh, th: textH };
+  }
+  function ringPunkt(anteil, vw, vh){
+    if (!ring || ring.vw !== vw || ring.vh !== vh || ring.th !== textH) ringBauen(vw, vh);
+    var ziel = ((anteil % 1) + 1) % 1 * ring.ges, lo = 0, hi = ring.L.length - 1;
+    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (ring.L[m] < ziel) lo = m; else hi = m; }
+    var t = (ziel - ring.L[lo]) / ((ring.L[hi] - ring.L[lo]) || 1);
+    return [ring.P[lo][0] + (ring.P[hi][0] - ring.P[lo][0]) * t, ring.P[lo][1] + (ring.P[hi][1] - ring.P[lo][1]) * t];
+  }
+  function ziel(){
+    var r = zahlen.getBoundingClientRect();
+    var strecke = zahlen.offsetHeight - innerHeight;
+    /* Startet schon beim Hereinscrollen, sobald der Block unter dem Hero auftaucht */
+    /* am Handy spaeter anfangen, damit die Explosion im Bild passiert und nicht halb unter dem Rand */
+    var vor = innerHeight * (innerWidth < 640 ? 0.35 : 0.6);
+    return ruhig ? 1 : Math.min(1, Math.max(0, (-r.top + vor) / (strecke + vor)));
+  }
+  function zeichne(p){
+    var vw = innerWidth, vh = innerHeight;
+    iconEls.forEach(function(el,i){
+      var f = FLUG[i], verz = i*0.012;
+      var e = weich((p - verz) / 0.3);
+      var fy = f[2], x, y;
+      if (vw < 640) {
+        /* Handy wie am Laptop (Manuel 24.9.): kleine Explosion aus der Mitte
+           nach aussen auf den Ring, die Icons laufen dabei hinter den Zahlen
+           durch. Danach dreht sich der Ring nur noch leicht mit. */
+        var AM_HANDY = 10;
+        if (i >= AM_HANDY) { el.style.opacity = 0; return; }
+        /* Gleichmaessig ueber den Umfang verteilt (Manuel 24.9.): vorher gleiche
+           WINKEL auf der Superellipse - dadurch je zwei in jeder Ecke und die
+           Seitenmitten allein. Jetzt gleiche BOGENLAENGE, siehe ringPunkt(). */
+        /* Handy: Explosion langsamer und gleichzeitig mit den Zahlen fertig (bei p ~ 0,78) */
+        e = weich((p - 0.05 - i * 0.02) / 0.55);
+        var pt = ringPunkt(i / AM_HANDY + p * 0.05, vw, vh), weg = 0.12 + 0.88 * e;
+        x = pt[0] * weg; y = pt[1] * weg;
+        el.style.transform = "translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px) rotate("+(f[3]*e).toFixed(2)+"deg) scale("+(0.35+0.65*e).toFixed(3)+")";
+        el.style.opacity = Math.min(1, e * 1.6).toFixed(3);
+        return;
+      } else {
+        /* Endlage 0,9 wie in der abgenommenen Fassung - mit 0,22*p drifteten sie bis an und ueber den Rand (Manuel 24.9.) */
+        var weit = 0.5 + 0.32*e + 0.08*p;
+        x = f[1]*vw*weit; y = fy*vh*weit;
+      }
+      el.style.transform = "translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px) rotate("+(f[3]*e).toFixed(2)+"deg) scale("+(0.35+0.65*e).toFixed(3)+")";
+      el.style.opacity = e.toFixed(3);
+    });
+    zeilen.forEach(function(z,i){
+      var lokal = innerWidth < 640 ? weich((p - (0.08 + i*0.1)) / 0.5) : weich((p - (0.14 + i*0.1)) / 0.25);
+      var n = Math.round(+z.dataset.ziel * lokal);
+      var text = fmt.format(n) + (lokal>=1 && z.dataset.plus ? z.dataset.plus : "");
+      if (zuletzt[i] === text) return;
+      zuletzt[i] = text;
+      z.querySelector(".n").textContent = text;
+      z.style.color = mix(hell, voll, lokal);
+      z.querySelector(".n").style.opacity = (0.18 + 0.82*lokal).toFixed(3);
+    });
+  }
+  var jetztZ = ziel(), offenZ = false;
+  function schrittZ(){
+    offenZ = false;
+    var z = ziel(), d = z - jetztZ;
+    /* am Handy etwas traeger, damit ein Wisch nicht in Spruengen ankommt */
+    jetztZ = Math.abs(d) < 0.0005 ? z : jetztZ + d * (innerWidth < 640 ? 0.1 : 0.16);
+    zeichne(jetztZ);
+    if (jetztZ !== z) rahmen();
+  }
+  function rahmen(){ if (!offenZ) { offenZ = true; requestAnimationFrame(schrittZ); } }
+  addEventListener("resize", function(){ textH = textEl.offsetHeight; zeichne(jetztZ); });
+  zeichne(jetztZ);
+
+  /* Themen-Laufbaender je Reiter, mit farbigem Zeichen */
+  /* Themen ohne Marke tragen ein Linien-Icon in Periwinkle auf dunkler Kachel,
+     Marken ihr eigenes Zeichen. Bunte Punkte sahen nach Platzhalter aus. */
+  var LUC = "/icons/linien/";
+  function lm(n){ return "--m:url(" + LUC + n + ".svg)"; }
+  var THEMEN = {
+    makro:[["Fed",0,"landmark"],["Inflation",0,"trending-up"],["Arbeitsmarkt",0,"briefcase"],["Ölpreis",0,"droplet"],["Liquidität",0,"waves"],["Kreditspreads",0,"activity"],["Dollar-Stärke",0,"dollar-sign"],["Yen-Carry-Trade",0,"repeat"],["Private Credit",0,"building-2"],["Schwellenländer",0,"globe"],["Immobilienmarkt",0,"house"],["Gold",0,"gem"],["Quartalsausblick",0,"calendar-range"],["Regimewechsel",0,"shuffle"],["Zinsausblick",0,"percent"]],
+    aktien:[["Nvidia","nvidia"],["Meta","meta"],["Halbleiter",0,"cpu"],["Pharma",0,"pill"],["Samsung","samsung"],["SpaceX-IPO","spacex"],["KI-Zyklus",0,"brain-circuit"],["Agentic AI",0,"bot"],["Apple","apple"],["Tesla","tesla"],["Palantir","palantir"],["Broadcom","broadcom"],["Alphabet","google"],["Insider-Meldungen",0,"file-text"],["13F-Meldungen",0,"files"]],
+    krypto:[["Bitcoin","bitcoin"],["Ethereum","ethereum"],["Solana","solana"],["Chainlink","chainlink"],["Kryptoausblick",0,"telescope"],["Liquiditätszyklen",0,"refresh-cw"],["Risk-On-Rallye",0,"rocket"],["RSI-Extreme",0,"gauge"],["Marktphasen",0,"chart-candlestick"]]
+  };
+  function chip(t){
+    var k = t[1] && MARKEN[t[1]];
+    var b = k ? '<b style="--bg:'+k[2]+';--fg:'+k[3]+'"><i style="'+m(k[0])+'"></i></b>'
+              : '<b><i style="'+lm(t[2])+'"></i></b>';
+    return '<span class="chip">'+b+t[0]+'</span>';
+  }
+  function baender(th){
+    var l = THEMEN[th], drittel = Math.ceil(l.length/3), html = "";
+    for (var r=0;r<3;r++){
+      var teil = l.slice(r*drittel,(r+1)*drittel).concat(l.slice(0,r*drittel)).concat(l.slice((r+1)*drittel));
+      var s = teil.map(chip).join("");
+      html += '<div class="reihe">'+s+s+'</div>';
+    }
+    var ziel = document.getElementById("baender"); if (ziel) ziel.innerHTML = html;
+  }
+  document.querySelectorAll(".reiter button").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".reiter button").forEach(function(x){ x.setAttribute("aria-selected", x===b); });
+      baender(b.dataset.thema);
+    });
+  });
+  baender("makro");
+
+  /* Kleine Listen in den Kacheln, ohne erfundene Stueckzahlen */
+  function miniListe(id, zeilen){
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = zeilen.map(function(r){
+      return '<div><span class="ic"><i style="'+lm(r[0])+'"></i></span><span>'+r[1]+'</span><em>'+r[2]+'</em></div>';
+    }).join("");
+  }
+  miniListe("mini-portfolio", [["message-circle","Fragen an Claudio","›"],["user-check","Customer Success Manager","›"],["video","Aufzeichnungen","›"]]);
+  miniListe("mini-neu", [["video","Neue Aufzeichnung","neu"],["bell","Insider-Meldungen","neu"],["sparkles","Strategie-Update","neu"]]);
+
+  /* Wand: allgemeine Formate statt einzelner Call-Titel. Die App zeigt nur
+     einen Teil der Aufzeichnungen, konkrete Titel wuerden veralten. */
+  var FORMATE = [
+    ["Makro Deep Dive","Zinsen, Liquidität und Konjunktur eingeordnet.","landmark","Aufzeichnung"],
+    ["Unternehmen im Fokus","Zahlen und Bewertung einzelner Aktien durchgesprochen.","building-2","Aufzeichnung"],
+    ["Strategie-Update","Was sich an der Ausrichtung ändert und warum.","sparkles","Community"],
+    ["Smart Money","Was Insider, Fonds und Politiker gemeldet haben.","file-text","Community"],
+    ["Marktphasen","Wo der Markt im Zyklus steht und was das bedeutet.","chart-candlestick","Aufzeichnung"],
+    ["Customer Success","Ein fester Ansprechpartner, der regelmäßig nachfragt.","user-check","Betreuung"],
+    ["Kapitel & Zeitmarken","Jede Aufzeichnung in Kapitel geteilt, direkt anspringbar.","video","Aufzeichnungen"],
+    ["Kalender","Termine, die auf die Märkte wirken, vorab im Blick.","calendar-range","Community"]
+  ];
+  function karte(f){ return '<div class="karte"><div class="kopf-k"><div class="av"><i style="'+lm(f[2])+'"></i></div><div><b>'+f[0]+'</b><span>'+f[3]+'</span></div></div><p>'+f[1]+'</p></div>'; }
+  var a = FORMATE.slice(0,4).map(karte).join(""), b2 = FORMATE.slice(4).map(karte).join("");
+  /* 3.10.2026: Wand-Abschnitt "Was du bekommst" entfernt (doppelt mit der Story) */
+  if (document.getElementById("wand")) document.getElementById("wand").innerHTML = '<div class="reihe">'+a+a+a+'</div><div class="reihe zurueck">'+b2+b2+b2+'</div>';
+
+  /* Einblenden */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("da"); io.unobserve(e.target); } });
+  },{rootMargin:"0px 0px -12% 0px"});
+  document.querySelectorAll(".einblenden,#fenster").forEach(function(el){ io.observe(el); });
+
+  /* Handy-Menue */
+  var menueKnopf = document.querySelector(".menue"), flaeche = document.getElementById("menue-flaeche");
+  function menue(auf){
+    document.getElementById("kopf").classList.toggle("offen", auf);
+    flaeche.classList.toggle("offen", auf);
+    menueKnopf.setAttribute("aria-expanded", auf);
+    menueKnopf.setAttribute("aria-label", auf ? "Menü schließen" : "Menü öffnen");
+    document.documentElement.style.overflow = auf ? "hidden" : "";
+  }
+  menueKnopf.addEventListener("click", function(){ menue(!flaeche.classList.contains("offen")); });
+  flaeche.addEventListener("click", function(e){ if (e.target.closest("a")) menue(false); });
+  addEventListener("keydown", function(e){ if (e.key === "Escape") menue(false); });
+
+  /* Knopf in der Navigation erst nach dem Hero */
+  var kopf = document.getElementById("kopf");
+  /* Beim Runterscrollen einklappen, beim Hochscrollen wieder da */
+  var kopfY = scrollY;
+  function scroll(){
+    var y = scrollY, d = y - kopfY;
+    kopf.classList.toggle("voll", y > 420);
+    if (y < 420 || kopf.classList.contains("offen")) kopf.classList.remove("weg");
+    else if (d > 6) kopf.classList.add("weg");
+    else if (d < -6) kopf.classList.remove("weg");
+    if (Math.abs(d) > 6) kopfY = y;
+    rahmen();
+  }
+  addEventListener("scroll", scroll, {passive:true}); addEventListener("resize", rahmen); scroll();
+
+  /* Strategie-Schritte laufen durch */
+  var schritte = [].slice.call(document.querySelectorAll("#schritte div")), s = 0;
+  if (!ruhig) setInterval(function(){ s = (s+1) % (schritte.length+1); schritte.forEach(function(d,i){ d.classList.toggle("an", i<s); }); }, 1100);
+})();
+</script>
+<script>
+/* Kundenstimmen: Klick vergroessert, Klick/Escape schliesst */
+(function(){var g=document.getElementById("ks-gross");if(!g)return;var bild=g.querySelector("img");document.body.appendChild(g);
+document.querySelectorAll(".ks-bild").forEach(function(b){b.addEventListener("click",function(){bild.src=b.querySelector("img").src;g.hidden=false;document.body.classList.add("ks-offen");});});
+function zu(){g.hidden=true;document.body.classList.remove("ks-offen");}g.addEventListener("click",zu);document.addEventListener("keydown",function(e){if(e.key==="Escape")zu();});})();
+</script>
+<script>
+/* 1.10.2026: Ergebnis-Charts, bewusst schlicht: kein Gitter, weiche Linien, Flaeche unter der Hauptlinie.
+   (1) Vergleich in % seit 1.1.2024 (x = Monate seit Start), zeichnet sich einmal auf.
+   (2) Bitcoin in Tausend US-Dollar (x = Tage seit 1.12.2024), haengt an den Scroll-Schritten. */
+(function(){
+  var ruhig=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  function tween(ab,bis,ms,mal){
+    if(ruhig||document.hidden){mal(bis);return;}
+    var t0=performance.now();
+    (function f(t){var k=Math.min(1,(t-t0)/ms);k=1-Math.pow(1-k,3);mal(ab+(bis-ab)*k);if(k<1)requestAnimationFrame(f);})(t0);
+  }
+  /* weiche Kurve durch die Punkte (Catmull-Rom) */
+  function glatt(p){
+    var d="M"+p[0][0].toFixed(1)+" "+p[0][1].toFixed(1);
+    for(var i=0;i<p.length-1;i++){
+      var a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;
+      d+="C"+(b[0]+(c[0]-a[0])/6).toFixed(1)+" "+(b[1]+(c[1]-a[1])/6).toFixed(1)+","+(c[0]-(e[0]-b[0])/6).toFixed(1)+" "+(c[1]-(e[1]-b[1])/6).toFixed(1)+","+c[0].toFixed(1)+" "+c[1].toFixed(1);
+    }
+    return d;
+  }
+
+  /* ---------- Grosse Zahlen zaehlen hoch, sobald sie im Bild sind ---------- */
+  (function(){
+    var zahlen=[].slice.call(document.querySelectorAll(".erg-zahl[data-ziel]"));
+    if(!zahlen.length||!("IntersectionObserver" in window)||ruhig)return;
+    function setz(el,v){var d=+(el.dataset.dez||0);el.textContent="+"+v.toFixed(d).replace(".",",")+"\u00a0%";}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;io.unobserve(e.target);
+      tween(0,+e.target.dataset.ziel,1800,function(v){setz(e.target,v);});
+    });},{threshold:.6});
+    zahlen.forEach(function(el){setz(el,0);io.observe(el);});
+  })();
+
+  /* ---------- 1) Vergleich ---------- */
+  (function(){
+    var box=document.getElementById("erg-svg");
+    if(!box)return;
+    var D={"btc":[[0,0],[0.69,-2],[1.38,14],[2.07,49],[2.76,59],[3.45,55],[4.14,51],[4.83,62],[5.52,58],[6.21,32],[6.9,61],[7.59,38],[8.28,30],[8.97,55],[9.66,63],[10.35,90],[11.04,130],[11.73,125],[12.42,123],[13.11,131],[13.8,128],[14.49,95],[15.18,85],[15.87,122],[16.56,152],[17.25,150],[17.94,156],[18.63,177],[19.32,182],[20.01,156],[20.7,173],[21.39,172],[22.08,162],[22.77,105],[23.46,109],[24.15,116],[24.84,105],[25.53,63],[26.22,56],[26.91,56],[27.6,75],[28.29,94],[28.98,74],[29.66,50],[30.35,51],[31.04,50],[31.73,84],[32.42,82]],"spx":[[0,0],[0.62,1],[1.31,5],[2.0,8],[2.69,10],[3.38,7],[4.07,8],[4.76,11],[5.45,14],[6.14,17],[6.83,14],[7.52,16],[8.21,13],[8.9,20],[9.59,23],[10.28,26],[10.97,26],[11.66,24],[12.35,22],[13.04,27],[13.73,26],[14.42,18],[15.11,6],[15.8,16],[16.49,25],[17.18,26],[17.87,29],[18.56,32],[19.25,34],[19.94,35],[20.63,40],[21.32,37],[22.01,43],[22.7,38],[23.39,43],[24.08,44],[24.77,45],[25.46,43],[26.15,41],[26.84,34],[27.53,49],[28.22,55],[28.91,59],[29.6,57],[30.29,59],[30.98,57],[31.67,61],[32.36,61]],"alt":[[0,0],[0.69,-7],[1.38,1],[2.07,31],[2.76,45],[3.45,21],[4.14,22],[4.83,30],[5.52,18],[6.21,-2],[6.9,17],[7.59,-4],[8.28,-9],[8.97,10],[9.66,11],[10.35,44],[11.04,125],[11.73,90],[12.42,101],[13.11,83],[13.8,74],[14.49,41],[15.18,21],[15.87,45],[16.56,67],[17.25,50],[17.94,44],[18.63,105],[19.32,100],[20.01,95],[20.7,120],[21.39,98],[22.08,81],[22.77,37],[23.46,36],[24.15,42],[24.84,26],[25.53,-3],[26.22,-9],[26.91,-10],[27.6,-6],[28.29,4],[28.98,-4],[29.66,-21],[30.35,-22],[31.04,-21],[31.73,3],[32.42,-2]]};
+    var MP=[0,8,18,30,45,62,80,95,110,130,150,175,200,230,255,270,285,300,320,345,370,400,430,460,470,455,440,460,480,500,510,515].map(function(v,i){return [i*32/31,v];});
+    var ENDE=32.42,YMIN=-45,YMAX=560;
+    var REIHEN=[
+      {c:"#7c8494",w:1.8,p:D.alt,n:"Altcoins",k:"Altcoins",v:"−2 %"},
+      {c:"#e8eaf0",w:1.8,p:D.spx,n:"S&amp;P 500",k:"S&amp;P",v:"+61 %"},
+      {c:"#f7931a",w:2,p:D.btc,n:"Bitcoin",k:"Bitcoin",v:"+82 %"},
+      {c:"url(#erg-st)",f:"#b3c5ff",w:4,p:MP,n:"Krypto-Portfolio",k:"Krypto",v:"+515 %",flaeche:1}
+    ];
+    var breite=0,clip,enden=[],gezeigt=false;
+    function bauen(){
+      var W=box.clientWidth;if(!W||W===breite)return;breite=W;
+      var schmal=W<520;box.classList.toggle("schmal",schmal);
+      var H=Math.round(schmal?W*.8:W*.62),L=schmal?34:46,Rr=schmal?12:200,T=16,B=26;
+      var X=function(x){return L+(W-L-Rr)*x/ENDE;},Y=function(v){return T+(H-T-B)*(1-(v-YMIN)/(YMAX-YMIN));};
+      var h='<svg viewBox="0 0 '+W+' '+H+'"><defs><clipPath id="erg-clip"><rect x="-10" y="-20" width="'+(gezeigt?W+40:0)+'" height="'+(H+40)+'"/></clipPath><linearGradient id="erg-fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b3c5ff" stop-opacity=".26"/><stop offset="1" stop-color="#b3c5ff" stop-opacity="0"/></linearGradient><linearGradient id="erg-st" gradientUnits="userSpaceOnUse" x1="'+L+'" y1="0" x2="'+(W-Rr)+'" y2="0"><stop offset="0" stop-color="#7288ce"/><stop offset="1" stop-color="#eef2ff"/></linearGradient></defs>';
+      [0,250,500].forEach(function(v){h+='<line class="'+(v?"punkte":"null")+'" x1="'+L+'" x2="'+(W-Rr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'"/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+(v?"+":"")+v+(schmal?"":" %")+'</text>';});
+      [[0,"2024"],[12,"2025"],[24,"2026"]].forEach(function(j){h+='<text x="'+X(j[0])+'" y="'+(H-6)+'">'+j[1]+'</text>';});
+      h+='<g clip-path="url(#erg-clip)">';
+      var schilder=[];
+      REIHEN.forEach(function(r){
+        var pts=r.p.map(function(q){return [X(q[0]),Y(q[1])];}),d=glatt(pts),e=pts[pts.length-1];
+        if(r.flaeche)h+='<path d="'+d+'L'+e[0].toFixed(1)+' '+Y(0)+'L'+pts[0][0].toFixed(1)+' '+Y(0)+'Z" fill="url(#erg-fl)"/>';
+        h+='<path class="linie" d="'+d+'" stroke="'+r.c+'" stroke-width="'+r.w+'"/>';
+        schilder.push({r:r,x:e[0],y:e[1],ly:e[1]});
+      });
+      h+='</g>';
+      /* Schilder am Linienende, senkrecht auseinandergeschoben */
+      schilder.sort(function(a,b){return a.ly-b.ly;});
+      for(var i=1;i<schilder.length;i++)if(schilder[i].ly-schilder[i-1].ly<32)schilder[i].ly=schilder[i-1].ly+32;
+      var ueber=schilder[schilder.length-1].ly-(H-B-6);if(ueber>0)schilder.forEach(function(q){q.ly-=ueber;});
+      schilder.forEach(function(q){
+        var f=q.r.f||q.r.c,t=(schmal?q.r.k:q.r.n)+" "+q.r.v,bw=t.replace(/&amp;/g,"&").length*(schmal?6.6:7.4)+22,bx=q.x+14;
+        h+='<g class="ende">'+(schmal?'':'<line x1="'+q.x+'" y1="'+q.y+'" x2="'+bx+'" y2="'+q.ly+'" stroke="'+f+'" stroke-width="1.5"/>')+'<circle cx="'+q.x+'" cy="'+q.y+'" r="9" fill="'+f+'" opacity=".25"/><circle cx="'+q.x+'" cy="'+q.y+'" r="4.5" fill="'+f+'" stroke="#14161c" stroke-width="2"/>'+(schmal?'':'<rect x="'+bx+'" y="'+(q.ly-13)+'" width="'+bw+'" height="26" rx="13" fill="'+f+'"/><text x="'+(bx+bw/2)+'" y="'+(q.ly+4.5)+'" text-anchor="middle">'+t+'</text>')+'</g>';
+      });
+      box.innerHTML=h+'</svg>';
+      clip=box.querySelector("#erg-clip rect");
+      enden=[].slice.call(box.querySelectorAll(".ende"));
+      if(gezeigt)enden.forEach(function(e){e.classList.add("da");});
+    }
+    function zeigen(){
+      if(gezeigt)return;gezeigt=true;
+      var ziel=breite+40;
+      tween(0,ziel,2200,function(w){if(clip)clip.setAttribute("width",w);if(w>=ziel-1)enden.forEach(function(e){e.classList.add("da");});});
+    }
+    bauen();addEventListener("resize",bauen);
+    if(!("IntersectionObserver" in window)){zeigen();return;}
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){zeigen();o.disconnect();}});},{threshold:.35}).observe(box);
+  })();
+
+  /* ---------- 2) Bitcoin mit Ein- und Ausstiegen ---------- */
+  (function(){
+    var box=document.getElementById("erg-btc");
+    if(!box)return;
+    var P=[[0,97.3],[6,99.9],[12,101.5],[18,97.5],[24,99.3],[30,93.4],[36,102.1],[42,94.5],[48,104.4],[54,104.8],[60,104.7],[66,96.6],[72,95.7],[78,95.8],[84,96.3],[90,86.0],[96,86.7],[102,81.1],[108,86.9],[114,87.5],[120,82.5],[126,78.2],[132,85.3],[138,84.5],[144,93.9],[150,94.2],[156,96.8],[162,102.8],[168,106.4],[174,107.8],[180,104.0],[186,101.6],[192,108.7],[198,104.6],[204,105.6],[210,108.4],[216,108.2],[222,117.5],[228,119.3],[234,118.8],[240,117.9],[246,115.1],[252,119.3],[258,117.5],[264,116.9],[270,112.5],[276,111.7],[282,111.5],[288,115.4],[294,115.3],[300,109.7],[306,122.3],[312,121.7],[318,110.8],[324,108.5],[330,114.1],[336,110.6],[342,102.3],[348,94.4],[354,86.6],[360,90.5],[366,91.4],[372,90.6],[378,88.2],[384,88.3],[390,87.3]];
+    var ENDE=P[P.length-1][0],YMIN=66,YMAX=134;
+    var A1=51,E1=129,A2=301,TOP=309;
+    var MARKER=[{ab:0,x:A1,t:"Ausstieg 107K",oben:1,c:"#b3c5ff"},{ab:1,x:E1,t:"Einstieg 82K",oben:0,c:"#7fd1a8"},{ab:2,x:A2,t:"Ausstieg 112K",oben:0,c:"#b3c5ff",links:1},{ab:2,x:TOP,t:"Hoch 126K",klein:1}];
+    var SCHRITTE=[E1-4,A2-6,TOP+16,ENDE];
+    function kurs(x){for(var i=1;i<P.length;i++)if(P[i][0]>=x){var a=P[i-1],b=P[i];return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);}return P[P.length-1][1];}
+    var breite=0,clip,X,marker=[],bis=0,schritt=0,lauf=0;
+    function bauen(){
+      var W=box.clientWidth;if(!W||W===breite)return;breite=W;
+      var schmal=W<520,H=Math.round(schmal?W*.8:Math.min(W*.56,innerHeight*.56)),L=schmal?30:38,Rr=8,T=10,B=26;
+      X=function(x){return L+(W-L-Rr)*x/ENDE;};
+      var Y=function(v){return T+(H-T-B)*(1-(v-YMIN)/(YMAX-YMIN));};
+      var h='<svg viewBox="0 0 '+W+' '+H+'"><defs><clipPath id="erg-btc-clip"><rect x="-10" y="-30" width="0" height="'+(H+60)+'"/></clipPath><linearGradient id="erg-bf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7931a" stop-opacity=".22"/><stop offset="1" stop-color="#f7931a" stop-opacity="0"/></linearGradient><linearGradient id="erg-cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b3c5ff" stop-opacity=".03"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".16"/></linearGradient></defs>';
+      [80,100,120].forEach(function(v){h+='<line class="punkte" x1="'+L+'" x2="'+(W-Rr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'"/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+v+'K</text>';});
+      [[31,"Jan 25"],[121,"Apr 25"],[212,"Jul 25"],[304,"Okt 25"]].forEach(function(j){h+='<text x="'+X(j[0])+'" y="'+(H-6)+'">'+j[1]+'</text>';});
+      var pts=P.map(function(q){return [X(q[0]),Y(q[1])];}),d=glatt(pts),u=H-B;
+      h+='<g clip-path="url(#erg-btc-clip)">';
+      [[A1,E1],[A2,ENDE]].forEach(function(z){var x=X(z[0]),w=X(z[1])-x;h+='<rect x="'+x+'" y="'+T+'" width="'+w+'" height="'+(u-T)+'" rx="14" fill="url(#erg-cf)"/><text class="cash-t" x="'+(x+w/2)+'" y="'+(schmal?T+18:u-12)+'" text-anchor="middle">in Cash</text>';});
+      h+='<path d="'+d+'L'+pts[pts.length-1][0].toFixed(1)+' '+u+'L'+pts[0][0].toFixed(1)+' '+u+'Z" fill="url(#erg-bf)"/><path class="linie" d="'+d+'" stroke="#f7931a" stroke-width="2.4"/></g>';
+      MARKER.forEach(function(m){
+        var x=X(m.x),y=Y(kurs(m.x));
+        if(m.klein){h+='<g class="mk"><text class="klein" x="'+(schmal?x-8:x+8)+'" y="'+(y-6)+'"'+(schmal?' text-anchor="end"':'')+'>'+m.t+'</text></g>';return;}
+        var bw=m.t.length*7.4+22,bx=Math.max(L,Math.min(W-Rr-bw,m.links?x-bw+14:x-bw/2)),by=m.oben?y-44:y+18;
+        h+='<g class="mk"><line x1="'+x+'" x2="'+x+'" y1="'+y+'" y2="'+(m.oben?by+26:by)+'" stroke="'+m.c+'" stroke-width="1.5"/><circle cx="'+x+'" cy="'+y+'" r="10" fill="'+m.c+'" opacity=".25"/><circle cx="'+x+'" cy="'+y+'" r="5" fill="'+m.c+'" stroke="#14161c" stroke-width="2"/><rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="26" rx="13" fill="'+m.c+'"/><text x="'+(bx+bw/2)+'" y="'+(by+17.5)+'" text-anchor="middle">'+m.t+'</text></g>';
+      });
+      box.innerHTML=h+'</svg>';
+      clip=box.querySelector("#erg-btc-clip rect");
+      marker=[].slice.call(box.querySelectorAll(".mk"));
+      malen();
+    }
+    function malen(){
+      if(clip)clip.setAttribute("width",Math.max(0,X(bis)+11));
+      marker.forEach(function(m,i){m.classList.toggle("da",schritt>=MARKER[i].ab&&bis>=MARKER[i].x-2);});
+    }
+    function setze(i){
+      schritt=i;var nr=++lauf,ab=bis;
+      tween(ab,SCHRITTE[i],1100,function(v){if(nr!==lauf)return;bis=v;malen();});
+    }
+    bauen();addEventListener("resize",bauen);
+    var teile=[].slice.call(document.querySelectorAll(".erg-schritt"));
+    if(!("IntersectionObserver" in window)){teile.forEach(function(t){t.classList.add("an");});schritt=3;bis=ENDE;malen();return;}
+    var schmal=matchMedia("(max-width:860px)").matches;
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){setze(schritt);o.disconnect();}});},{threshold:.3}).observe(box);
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;var i=+e.target.dataset.i;
+      teile.forEach(function(t){t.classList.toggle("an",+t.dataset.i===i);});setze(i);
+    });},{rootMargin:schmal?"-68% 0px -30% 0px":"-49% 0px -49% 0px"});
+    teile.forEach(function(t){io.observe(t);});
+  })();
+})();
+</script>
+<script>
+/* 26.9.2026: Scroll-Geschichte, heller Abschnitt, Woche */
+(function(){
+  var teile=[].slice.call(document.querySelectorAll(".story-teil")),punkte=[].slice.call(document.querySelectorAll(".story-liste li"));
+  if(teile.length&&"IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var i=e.target.dataset.i;
+      teile.forEach(function(t){t.classList.toggle("an",t.dataset.i===i);});punkte.forEach(function(p){p.classList.toggle("an",p.dataset.i===i);});});},{rootMargin:"-45% 0px -45% 0px"});
+    teile.forEach(function(t){io.observe(t);});
+    /* Handy: einmalig einblenden, sobald ein Punkt ins Bild kommt */
+    var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("da");io2.unobserve(e.target);}});},{rootMargin:"0px 0px -12% 0px"});
+    teile.forEach(function(t){io2.observe(t);});
+  }
+  var wer=document.getElementById("claudio");
+  if(wer&&"IntersectionObserver" in window)new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){wer.classList.add("sk");o.disconnect();}});},{threshold:.4}).observe(wer);
+  var hell=document.getElementById("fuer-wen"),woche=document.getElementById("woche");
+  if(hell&&"IntersectionObserver" in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){woche.classList.add("da");o.disconnect();}});},{threshold:.35}).observe(woche);
+  }
+})();
+</script>
+<script>
+/* 26.9.2026: Karte fuer den hellen Teil + langsamer Zoom am Claudio-Bild, beides am Scroll */
+(function(){
+  var h=document.getElementById("fuer-wen"),w=document.getElementById("claudio"),ruhig=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(h)h.classList.add("an");
+  if(ruhig)return;
+  var laeuft=false;
+  function k(x){return x<0?0:x>1?1:x;}
+  function rechne(){laeuft=false;var vh=innerHeight;
+    if(h){var r=h.getBoundingClientRect();
+      var rein=k((vh-r.top)/vh), raus=k(r.bottom/vh), p=Math.min(rein,raus);
+      var rand=Math.min(72,innerWidth*.05);
+      h.style.setProperty("--hk-x",(rand*(1-p)).toFixed(1)+"px");h.style.setProperty("--hk-r",(56*(1-p)).toFixed(1)+"px");}
+  }
+  addEventListener("scroll",function(){if(!laeuft){laeuft=true;requestAnimationFrame(rechne);}},{passive:true});
+  addEventListener("resize",rechne);rechne();
+})();
+</script>
+<script src="/startseite-sterne.js?v=1" defer></script>
+<script>
+/* Buch im Fuss: Magnet, Neigung, Seiten oeffnen sich, Glanz folgt dem Zeiger.
+   Werte gleiten gedaempft nach und nur solange sich etwas bewegt. Ohne Maus
+   atmet das Buch langsam. */
+(function(){
+  var f=document.getElementById("fuss"), logo=document.getElementById("fuss-logo");
+  if(!f||!logo) return;
+  var buch=logo.querySelector(".buch3d"), l=logo.querySelector(".seite3d.l"), r=logo.querySelector(".seite3d.r");
+  var glanz=[].slice.call(logo.querySelectorAll(".glanz")), kante=[].slice.call(logo.querySelectorAll(".kante"));
+  var ruhig=matchMedia("(prefers-reduced-motion: reduce)").matches, maus=!matchMedia("(hover:none)").matches;
+  var ziel={x:0,y:0,n:0}, jetzt={x:0,y:0,n:0}, laeuft=false, drin=false, sicht=false, t0=performance.now();
+  function setze(){
+    var x=jetzt.x, y=jetzt.y, n=jetzt.n;
+    buch.style.transform="translate3d("+(x*40).toFixed(1)+"px,"+(y*26).toFixed(1)+"px,"+(n*60).toFixed(0)+"px) rotateY("+(x*24).toFixed(2)+"deg) rotateX("+(-y*18).toFixed(2)+"deg)";
+    /* Seiten: in Ruhe halb geschlossen, beim Naeherkommen flach aufgeschlagen */
+    var auf=32-28*n;
+    l.style.transform="rotateY("+(auf+x*6).toFixed(2)+"deg)";
+    r.style.transform="rotateY("+(-auf+x*6).toFixed(2)+"deg)";
+    var gx=16+x*6, gy=14+y*4; /* weites Flaechenlicht, wandert nur leicht mit */
+    glanz.forEach(function(g){ g.setAttribute("cx",gx.toFixed(2)); g.setAttribute("cy",gy.toFixed(2)); });
+    kante.forEach(function(g){ g.setAttribute("cx",gx.toFixed(2)); g.setAttribute("cy",gy.toFixed(2)); });
+    logo.style.setProperty("--s",(0.25+0.75*n).toFixed(3));
+  }
+  function schritt(t){
+    if(!sicht){ laeuft=false; return; }
+    if(!drin){ /* Atmen ohne Maus */
+      var s=(t-t0)/1000; ziel.x=Math.sin(s*.35)*.35; ziel.y=Math.cos(s*.28)*.22; ziel.n=.18+.12*Math.sin(s*.5);
+    }
+    var fertig=true;
+    ["x","y","n"].forEach(function(k){ var d=ziel[k]-jetzt[k]; if(Math.abs(d)>.0015){ jetzt[k]+=d*.085; fertig=false; } else jetzt[k]=ziel[k]; });
+    setze();
+    if(!fertig||!drin) requestAnimationFrame(schritt); else laeuft=false;
+  }
+  function an(){ if(!laeuft){ laeuft=true; requestAnimationFrame(schritt); } }
+  if(ruhig){ jetzt={x:0,y:0,n:.4}; setze(); return; }
+  if(maus){
+    f.addEventListener("mousemove",function(e){
+      var b=logo.getBoundingClientRect(), cx=b.left+b.width/2, cy=b.top+b.height/2;
+      var dx=(e.clientX-cx)/(b.width*.75), dy=(e.clientY-cy)/(b.height*.75);
+      var d=Math.min(1,Math.hypot(dx,dy));
+      drin=true;
+      ziel.x=Math.max(-1,Math.min(1,dx)); ziel.y=Math.max(-1,Math.min(1,dy)); ziel.n=1-d*d;
+      an();
+    });
+    f.addEventListener("mouseleave",function(){ drin=false; t0=performance.now(); an(); });
+  }
+  /* Nur rechnen, wenn der Fuss zu sehen ist */
+  new IntersectionObserver(function(e){ sicht=e[0].isIntersecting; if(sicht) an(); else drin=false; }).observe(f);
+})();
+</script>
+<script>
+(function(){var seite=document.querySelector(".seite");if(!seite||!("IntersectionObserver" in window))return;
+var aktiv=new Set();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?aktiv.add(e.target):aktiv.delete(e.target)});seite.classList.toggle("licht-aus",aktiv.size>0)},{rootMargin:"-30% 0px -30% 0px"});
+document.querySelectorAll(".stern").forEach(function(el){io.observe(el)})})();
+</script>
+<script>
+/* 3.10.2026: Wechselwort im Hero */
+(function(){
+  var w=document.getElementById("hero-wort"); if(!w) return;
+  var b=w.querySelector("b"), WOERTER=["Aktien","Krypto","die Makrolage","alle wichtigen Märkte"], i=0;
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches){ b.textContent="Aktien, Krypto und die Makrolage"; return; }
+  function breite(t){ var m=b.cloneNode(); m.textContent=t; m.style.cssText="position:absolute;visibility:hidden;transition:none"; w.appendChild(m); var x=m.getBoundingClientRect().width; w.removeChild(m); return x; }
+  w.style.width=breite(b.textContent)+"px";
+  setInterval(function(){
+    i=(i+1)%WOERTER.length; var neu=WOERTER[i];
+    b.classList.add("raus");
+    setTimeout(function(){
+      b.textContent=neu; w.style.width=breite(neu)+"px";
+      b.classList.remove("raus"); b.classList.add("unten"); void b.offsetWidth; b.classList.remove("unten");
+    },350);
+  },2400);
+  addEventListener("resize",function(){ w.style.width=breite(b.textContent)+"px"; });
+})();
+</script>
+</body>
 </html>
