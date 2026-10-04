@@ -7,10 +7,8 @@
     <link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/icon-tab.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/haus.css" />
+    <link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/recht.css" />
     <!--
       Neue Fassung, seit 30.8.2026 die Hauptfassung dieser Seite. Hausdesign statt Tailwind.
       Der Text ist unveraendert aus der Live-Fassung uebernommen und
@@ -56,6 +54,8 @@
   </head>
   <body>
     <div class="schein lese" aria-hidden="true"></div>
+
+    <header class="recht-kopf"><a class="marke" href="/"><img src="/logo-zeichen.svg" alt="" />Market Playbook</a><a class="zurueck" href="/">Zur Startseite</a></header>
 
     <main class="recht-seite">
       <h1>Datenschutz</h1>

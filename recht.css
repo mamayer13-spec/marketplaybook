@@ -1,0 +1,55 @@
+/* Rechtsseiten (Impressum, Datenschutz, AGB, Haftungsausschluss) im Stil der neuen Startseite — 4.10.2026.
+   Nur Gestaltung: der Wortlaut der Seiten ist abgestimmt und bleibt zeichengenau stehen. */
+@font-face { font-family: Archivo; src: url("/fonts/archivo-var.woff2") format("woff2"); font-weight: 100 900; font-stretch: 100%; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("/fonts/plex-mono-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("/fonts/plex-mono-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+:root {
+  --grund: #0b0d12; --kachel: #141827; --linie: rgba(240,242,246,.08);
+  --text: #f4f5f8; --lese: #c3c9d8; --muted: #a2aabd; --leise: #5f6675; --akzent: #b3c5ff;
+  --weich: cubic-bezier(.16,1,.3,1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--grund); color: var(--lese);
+  font-family: Archivo, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden;
+}
+/* Licht wie auf der Startseite: drei weiche Flächen, fest hinter dem Text */
+.schein { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(48% 42% at 12% 4%, rgba(52,80,196,.42), transparent 70%),
+    radial-gradient(40% 46% at 96% 46%, rgba(110,80,210,.26), transparent 72%),
+    radial-gradient(46% 40% at 40% 104%, rgba(60,150,140,.16), transparent 72%); }
+.recht-kopf { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; padding: 22px 24px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.recht-kopf .marke { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 17px; letter-spacing: -.02em; text-decoration: none; }
+.recht-kopf .marke img { width: 26px; height: 26px; display: block; }
+.recht-kopf .zurueck { display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 999px; color: var(--text); font-size: 14px; font-weight: 500; text-decoration: none;
+  background: rgba(179,197,255,.07); box-shadow: inset 0 0 0 1px rgba(179,197,255,.12); transition: background .3s; }
+.recht-kopf .zurueck:hover { background: rgba(179,197,255,.14); }
+main.recht-seite { position: relative; z-index: 1; max-width: 860px; margin: 34px auto 0; padding: clamp(24px, 5vw, 52px); border-radius: 28px;
+  background: linear-gradient(180deg, rgba(27,32,49,.78), rgba(20,24,39,.72)); box-shadow: inset 0 1px 0 rgba(179,197,255,.14), inset 0 0 0 1px rgba(179,197,255,.06), 0 40px 90px -50px rgba(0,0,0,.8); }
+main.recht-seite h1 { margin: 0 0 34px; padding: 0; color: var(--text); font-size: clamp(2.5rem, 7vw, 4.2rem); line-height: 1; font-weight: 500; letter-spacing: -.045em; }
+main.recht-seite h2 { margin: 44px 0 14px; padding-top: 34px; border-top: 1px solid var(--linie); color: var(--text); font-size: clamp(1.3rem, 2.6vw, 1.6rem); line-height: 1.2; font-weight: 500; letter-spacing: -.025em; }
+main.recht-seite > div > h2:first-child, main.recht-seite h2:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+main.recht-seite h3 { margin: 28px 0 10px; color: var(--text); font-size: 1.08rem; font-weight: 600; letter-spacing: -.015em; }
+main.recht-seite p { margin: 0 0 16px; max-width: 72ch; }
+main.recht-seite ul, main.recht-seite ol { margin: 0 0 18px; padding-left: 22px; max-width: 72ch; }
+main.recht-seite li { margin-bottom: 8px; }
+main.recht-seite li::marker { color: var(--akzent); }
+main.recht-seite strong { color: var(--text); font-weight: 600; }
+main.recht-seite a { color: var(--akzent); text-decoration: underline; text-decoration-color: rgba(179,197,255,.35); text-underline-offset: 3px; }
+main.recht-seite a:hover { text-decoration-color: var(--akzent); }
+main.recht-seite hr { border: 0; border-top: 1px solid var(--linie); margin: 40px 0 0; }
+main.recht-seite hr + h2 { border-top: 0; margin-top: 0; }
+.address-box { margin: 0 0 8px; padding: 20px 22px; border-radius: 18px; background: rgba(11,13,18,.5); box-shadow: inset 0 0 0 1px rgba(179,197,255,.10); color: var(--text); font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 14px; line-height: 1.75; }
+.address-box p { margin: 0; color: inherit; }
+footer.fuss { position: relative; z-index: 1; max-width: 860px !important; margin: 0 auto !important; padding: 44px 24px 60px !important; }
+footer.fuss .zeile { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; }
+footer.fuss .marke { color: var(--text); font-weight: 600; letter-spacing: -.02em; }
+footer.fuss nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+footer.fuss nav a { color: var(--muted); font-size: 14px; text-decoration: none; transition: color .3s; }
+footer.fuss nav a:hover { color: var(--text); }
+.recht { margin: 0; color: var(--leise); font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 12px; }
+@media (max-width: 640px) { body { font-size: 16px; } .recht-kopf { padding: 16px 18px 0; } main.recht-seite { margin: 18px 12px 0; width: calc(100% - 24px); border-radius: 22px; } main.recht-seite h1 { margin-bottom: 24px; } footer.fuss { padding: 34px 18px 48px !important; } }
+@media (min-width: 908px) { main.recht-seite { margin-left: auto; margin-right: auto; } }
