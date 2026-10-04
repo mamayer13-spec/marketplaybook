@@ -18,7 +18,7 @@
 
 /* Schriften liegen lokal. Ein Abruf vom Google-CDN uebertraegt die
    IP-Adresse und erzwingt ein Cookie-Banner — pruefen-portal.sh faengt das ab. */
-@font-face { font-family: Archivo; src: url("/fonts/archivo-var.woff2") format("woff2"); font-weight: 100 900; font-stretch: 100%; font-display: swap; }
+@font-face { font-family: Archivo; src: url("/fonts/archivo-breite.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
 @font-face { font-family: "IBM Plex Mono"; src: url("/fonts/plex-mono-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "IBM Plex Mono"; src: url("/fonts/plex-mono-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
 
@@ -708,3 +708,12 @@ ol.punkte li::before {
 .article .toc a, .article .toc a:hover { text-decoration: none; }
 .note { background: #e6eaf6; }
 @media (max-width: 640px) { .lede { font-size: 19px; } body { font-size: 17px; } }
+
+/* ---------- Überschriften schmal und hochgezogen (Manuel 4.10.2026, Variante 3 der Probe) ----------
+   Archivo auf 78 % Breite, halbfett. Dafür liegt Archivo mit Breiten-Achse in /fonts/archivo-breite.woff2.
+   Fließtext bleibt bei normaler Breite. */
+h1, h2, h3 { font-stretch: 78%; }
+.article h1, .article h2 { font-weight: 600; letter-spacing: -0.02em; }
+.article h1 { font-size: clamp(2.3rem, 6vw, 3.9rem); line-height: 1; }
+.article h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.06; }
+.article h3 { font-size: 1.22rem; letter-spacing: -0.01em; }

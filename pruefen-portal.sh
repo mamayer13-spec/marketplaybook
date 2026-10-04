@@ -251,7 +251,7 @@ pruef "portal.css vorhanden" 1 "$([ -f portal.css ] && echo 1 || echo 0)"
 # der Schriftschnitt aendert, und sagt nichts darueber, ob die richtige
 # Datei da ist. Am 17.8.2026 ersetzte Space Grotesk die vier
 # Barlow-Schnitte — der Zaehler stand da auf 5 und war nur noch Laerm.
-for f in archivo-var plex-mono-400 plex-mono-500; do
+for f in archivo-var archivo-breite plex-mono-400 plex-mono-500; do
   pruef "Schrift $f liegt lokal" 1 "$([ -s "fonts/$f.woff2" ] && echo 1 || echo 0)"
 done
 
