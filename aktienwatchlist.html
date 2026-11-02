@@ -133,6 +133,13 @@ dialog h2{font-size:27px;line-height:1.08;margin:6px 22px 8px}
 .feld input{display:block;width:100%;margin-top:6px;padding:14px 18px;border:0;border-radius:16px;background:var(--kachel);box-shadow:var(--kante);color:var(--text);font:inherit;font-size:16px;font-weight:400;outline:none;transition:box-shadow .2s}
 .feld input::placeholder{color:var(--leise)}
 .feld input:focus{box-shadow:inset 0 0 0 1.5px rgba(179,197,255,.7)}
+.nummer{display:flex;gap:8px;margin-top:6px}
+.feld .nummer input{margin-top:0;flex:1;min-width:0}
+.feld>label{display:block}
+.vorwahl{position:relative;flex:none;display:flex;align-items:center;gap:6px;padding:0 12px 0 14px;border-radius:16px;background:var(--kachel);box-shadow:var(--kante);color:var(--text);font-size:16px;font-weight:400;white-space:nowrap;transition:box-shadow .2s}
+.vorwahl svg{color:var(--muted);flex:none}
+.vorwahl:focus-within{box-shadow:inset 0 0 0 1.5px rgba(179,197,255,.7)}
+.vorwahl select{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer;border:0}
 .fehler{display:block;margin-top:6px;font-size:13px;font-weight:400;line-height:1.35;color:#ffb4a8}
 .senden{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:6px;padding:16px 18px;border:0;border-radius:999px;background:var(--text);color:#0b0d12;font-family:inherit;font-weight:700;font-size:16px;letter-spacing:-.01em;line-height:1.2;cursor:pointer;transition:transform .3s var(--weich),background .2s,color .2s}
 .senden svg{flex:none}
@@ -261,10 +268,18 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
       <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@beispiel.de" required aria-describedby="email-fehler" />
       <span class="fehler" id="email-fehler" role="alert" hidden></span>
     </label>
-    <label class="feld">Deine WhatsApp-Nummer
-      <input id="telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="+49 170 2345678" required aria-describedby="telefon-fehler" />
+    <div class="feld">
+      <label for="telefon">Deine WhatsApp-Nummer</label>
+      <div class="nummer">
+        <span class="vorwahl">
+          <span id="vorwahl-text" aria-hidden="true">🇩🇪 +49</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          <select id="land" aria-label="Ländervorwahl" autocomplete="off"></select>
+        </span>
+        <input id="telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="170 234 5678" required aria-describedby="telefon-fehler" />
+      </div>
       <span class="fehler" id="telefon-fehler" role="alert" hidden></span>
-    </label>
+    </div>
     <!-- Falle fuer Bots: Menschen sehen das Feld nicht. -->
     <input id="webseite" name="webseite" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
     <button type="submit" class="senden" id="senden" disabled>
@@ -282,6 +297,83 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   var name = document.getElementById("name");
   var email = document.getElementById("email");
   var telefon = document.getElementById("telefon");
+  var land = document.getElementById("land");
+  /* Kuerzel, Name, Vorwahl. Die Vorwahlen sind praefixfrei, deshalb laesst sich eine eingetippte +... eindeutig zuordnen. */
+  var LAENDER = "AF,Afghanistan,93;AL,Albanien,355;DZ,Algerien,213;AD,Andorra,376;AO,Angola,244;AR,Argentinien,54;AM,Armenien,374;AZ,Aserbaidschan,994;ET,Äthiopien,251;AU,Australien,61;BH,Bahrain,973;BD,Bangladesch,880;BE,Belgien,32;BJ,Benin,229;BO,Bolivien,591;BA,Bosnien und Herzegowina,387;BR,Brasilien,55;BG,Bulgarien,359;CL,Chile,56;CN,China,86;CR,Costa Rica,506;DK,Dänemark,45;DO,Dominikanische Republik,1;EC,Ecuador,593;EG,Ägypten,20;EE,Estland,372;FI,Finnland,358;FR,Frankreich,33;GE,Georgien,995;GH,Ghana,233;GR,Griechenland,30;GB,Großbritannien,44;IN,Indien,91;ID,Indonesien,62;IQ,Irak,964;IR,Iran,98;IE,Irland,353;IS,Island,354;IL,Israel,972;IT,Italien,39;JP,Japan,81;JO,Jordanien,962;KH,Kambodscha,855;CM,Kamerun,237;CA,Kanada,1;KZ,Kasachstan,7;QA,Katar,974;KE,Kenia,254;CO,Kolumbien,57;XK,Kosovo,383;HR,Kroatien,385;KW,Kuwait,965;LV,Lettland,371;LB,Libanon,961;LI,Liechtenstein,423;LT,Litauen,370;LU,Luxemburg,352;MY,Malaysia,60;MV,Malediven,960;MT,Malta,356;MA,Marokko,212;MU,Mauritius,230;MX,Mexiko,52;MD,Moldau,373;MC,Monaco,377;ME,Montenegro,382;NP,Nepal,977;NZ,Neuseeland,64;NL,Niederlande,31;NG,Nigeria,234;MK,Nordmazedonien,389;NO,Norwegen,47;OM,Oman,968;PK,Pakistan,92;PA,Panama,507;PE,Peru,51;PH,Philippinen,63;PL,Polen,48;PT,Portugal,351;RO,Rumänien,40;RU,Russland,7;SM,San Marino,378;SA,Saudi-Arabien,966;SE,Schweden,46;SN,Senegal,221;RS,Serbien,381;SG,Singapur,65;SK,Slowakei,421;SI,Slowenien,386;ES,Spanien,34;LK,Sri Lanka,94;ZA,Südafrika,27;KR,Südkorea,82;TW,Taiwan,886;TZ,Tansania,255;TH,Thailand,66;CZ,Tschechien,420;TN,Tunesien,216;TR,Türkei,90;UG,Uganda,256;UA,Ukraine,380;HU,Ungarn,36;UY,Uruguay,598;US,USA,1;UZ,Usbekistan,998;VE,Venezuela,58;AE,Vereinigte Arabische Emirate,971;VN,Vietnam,84;CY,Zypern,357".split(";").map(function (z) { var t = z.split(","); return { k: t[0], n: t[1], v: t[2] }; });
+  var VORNE = [{ k: "DE", n: "Deutschland", v: "49" }, { k: "AT", n: "Österreich", v: "43" }, { k: "CH", n: "Schweiz", v: "41" }];
+  function flagge(k) { return String.fromCodePoint(k.charCodeAt(0) + 127397, k.charCodeAt(1) + 127397); }
+  function zeile(l) { var o = document.createElement("option"); o.value = l.k; o.textContent = flagge(l.k) + " " + l.n + " +" + l.v; land.appendChild(o); }
+  VORNE.forEach(zeile);
+  var trenner = document.createElement("option"); trenner.disabled = true; trenner.textContent = "──────────"; land.appendChild(trenner);
+  LAENDER.forEach(zeile);
+  var ALLE = VORNE.concat(LAENDER);
+  function landDaten(k) { return ALLE.filter(function (l) { return l.k === k; })[0]; }
+  var MUSTER = { DE: "170 234 5678", AT: "664 234 5678", CH: "79 234 56 78" };
+  /* Laengen der Bloecke, der letzte Block nimmt den Rest. Eine fuehrende 0 gehoert zum ersten Block. */
+  var BLOECKE = { CH: [2, 3, 2, 2] };
+  function landSetzen(k) {
+    var l = landDaten(k);
+    if (!l) return;
+    land.value = k;
+    document.getElementById("vorwahl-text").textContent = flagge(k) + " +" + l.v;
+    telefon.placeholder = MUSTER[k] || "Handynummer";
+  }
+  function trennen(ziffern) {
+    var teile = (BLOECKE[land.value] || [3, 3, 4]).slice();
+    if (ziffern.charAt(0) === "0") teile[0]++;
+    var aus = [], i = 0, b = 0;
+    while (i < ziffern.length) {
+      var n = b < teile.length ? teile[b] : 4;
+      aus.push(ziffern.slice(i, i + n));
+      i += n; b++;
+    }
+    return aus.join(" ");
+  }
+  /* Bringt das Feld in Form: Vorwahl aus dem Getippten in die Auswahl, Ziffern in Bloecke. Der Cursor bleibt hinter derselben Ziffer. */
+  function ordnen() {
+    var roh = telefon.value;
+    var v = roh.trim().replace(/\(0\)/g, "");
+    var intl = v.charAt(0) === "+" ? v.slice(1).replace(/\D/g, "") : /^00/.test(v.replace(/\D/g, "")) ? v.replace(/\D/g, "").slice(2) : null;
+    if (intl !== null) {
+      var bevorzugt = ALLE.filter(function (l) { return intl.indexOf(l.v) === 0; });
+      /* Dieselbe Vorwahl (USA und Kanada): Eine schon passende Auswahl bleibt stehen. */
+      var treffer = bevorzugt.filter(function (l) { return l.k === land.value; })[0] || bevorzugt.filter(function (l) { return l.k === "US" || l.k === "RU"; })[0] || bevorzugt[0];
+      if (!treffer) return;
+      landGewaehlt = true;
+      landSetzen(treffer.k);
+      v = intl.slice(treffer.v.length);
+    }
+    var ziffern = v.replace(/\D/g, "");
+    /* Am Handyanfang eindeutig: 0664 ist Oesterreich, auch wenn die IP etwas anderes sagt. */
+    if (/^06[5-9]/.test(ziffern) && land.value !== "AT") { landGewaehlt = true; landSetzen("AT"); }
+    else if (/^01[567]/.test(ziffern) && land.value !== "DE") { landGewaehlt = true; landSetzen("DE"); }
+    else if (/^07[5-9]/.test(ziffern) && land.value !== "CH") { landGewaehlt = true; landSetzen("CH"); }
+    var neu = trennen(ziffern);
+    if (neu === roh) return;
+    var cursor = telefon.selectionStart == null ? roh.length : telefon.selectionStart;
+    var davor = intl !== null ? ziffern.length : roh.slice(0, cursor).replace(/\D/g, "").length;
+    telefon.value = neu;
+    var pos = 0, gezaehlt = 0;
+    while (pos < neu.length && gezaehlt < davor) { if (/\d/.test(neu.charAt(pos))) gezaehlt++; pos++; }
+    if (davor >= ziffern.length) pos = neu.length;
+    try { telefon.setSelectionRange(pos, pos); } catch (e) {}
+  }
+  function nummerVoll() {
+    var z = telefon.value.replace(/\D/g, "").replace(/^0+/, "");
+    return "+" + landDaten(land.value).v + z;
+  }
+  var landGewaehlt = false;
+  var sprache = ((navigator.language || "").split("-")[1] || "").toUpperCase();
+  landSetzen(landDaten(sprache) ? sprache : "DE");
+  land.addEventListener("change", function () { landGewaehlt = true; landSetzen(land.value); ordnen(); pruefe(); telefon.focus(); });
+  /* Das Land aus der IP. Klappt das nicht, bleibt es bei der Browsersprache. Eine eigene Wahl ueberschreibt es nie. */
+  (function () {
+    var ende = new AbortController();
+    setTimeout(function () { ende.abort(); }, 1500);
+    fetch("https://whatsapp.marketplaybook.de/api/land", { signal: ende.signal }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d.land && !landGewaehlt && !telefon.value.trim()) landSetzen(d.land);
+    }).catch(function () {});
+  })();
   var senden = document.getElementById("senden");
   function melde(n) { if (typeof window.va === "function") window.va("event", { name: n }); }
   /* Pruefung im Browser: fangt Tippfehler und offensichtlich Erfundenes ab. Ob es das Postfach wirklich gibt, kann
@@ -313,7 +405,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   /* Dieselbe Regel wie auf dem Server (telefonNormal in marketplaybook-whatsapp/lib/kurs-formular.ts). */
   function telefonFehler(wert) {
     var roh = wert.trim().replace(/\(0\)/g, "");
-    var meldung = "Bitte gib deine Handynummer mit Vorwahl ein, z. B. +49 170 2345678.";
+    var meldung = "Das sieht nicht nach einer Handynummer aus. Stimmen Vorwahl und Nummer?";
     if (!/^\+?[\d\s()\/.-]+$/.test(roh)) return meldung;
     var z = roh.replace(/\D/g, ""), n;
     if (roh.charAt(0) === "+") n = z;
@@ -334,19 +426,20 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   /* Waehrend des Abschickens bleibt der Knopf gesperrt: Zwei Formulare derselben Person wuerden sich gegenseitig blockieren. */
   var sendet = false;
   function pruefeNichtFehler() { sendet = false; senden.disabled = false; }
-  function gueltig() { return !nameFehler(name.value) && !mailFehler(email.value) && !telefonFehler(telefon.value); }
+  function gueltig() { return !nameFehler(name.value) && !mailFehler(email.value) && !telefonFehler(nummerVoll()); }
   /* Waehrend des Tippens sperrt nur der Knopf. Die Meldung kommt erst beim Verlassen des Feldes, sonst schimpft
      die Seite schon beim ersten Buchstaben. Ist der Fehler behoben, verschwindet sie sofort. */
   function pruefe() {
     if (sendet) return;
+    ordnen();
     senden.disabled = !gueltig();
     if (!nameFehler(name.value)) zeige("name-fehler", "");
     if (!mailFehler(email.value)) zeige("email-fehler", "");
-    if (!telefonFehler(telefon.value)) zeige("telefon-fehler", "");
+    if (!telefonFehler(nummerVoll())) zeige("telefon-fehler", "");
   }
   name.addEventListener("blur", function () { if (name.value.trim()) zeige("name-fehler", nameFehler(name.value)); });
   email.addEventListener("blur", function () { if (email.value.trim()) zeige("email-fehler", mailFehler(email.value)); });
-  telefon.addEventListener("blur", function () { if (telefon.value.trim()) zeige("telefon-fehler", telefonFehler(telefon.value)); });
+  telefon.addEventListener("blur", function () { if (telefon.value.trim()) zeige("telefon-fehler", telefonFehler(nummerVoll())); });
   /* Speichert Name, E-Mail und Nummer. Hakt der Server, geht es trotzdem weiter zu WhatsApp: Die Nummer ist mehr wert als
      das Formular. Nur eine klare Absage (422) haelt an, dann steht unter dem Feld, was nicht passt. */
   function speichern(daten) {
@@ -386,7 +479,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     if (sendet) return;
     sendet = true;
     senden.disabled = true;
-    speichern({ name: name.value.trim(), email: email.value.trim(), telefon: telefon.value.trim(), webseite: document.getElementById("webseite").value, suche: location.search }).then(function (weiter) {
+    speichern({ name: name.value.trim(), email: email.value.trim(), telefon: nummerVoll(), webseite: document.getElementById("webseite").value, suche: location.search }).then(function (weiter) {
       if (!weiter) { pruefeNichtFehler(); return; }
       melde("formular_abgeschickt");
       location.href = ziel;
