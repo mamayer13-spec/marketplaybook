@@ -261,6 +261,10 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
       <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@beispiel.de" required aria-describedby="email-fehler" />
       <span class="fehler" id="email-fehler" role="alert" hidden></span>
     </label>
+    <label class="feld">Deine WhatsApp-Nummer
+      <input id="telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="+49 170 2345678" required aria-describedby="telefon-fehler" />
+      <span class="fehler" id="telefon-fehler" role="alert" hidden></span>
+    </label>
     <!-- Falle fuer Bots: Menschen sehen das Feld nicht. -->
     <input id="webseite" name="webseite" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
     <button type="submit" class="senden" id="senden" disabled>
@@ -277,6 +281,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   var fenster = document.getElementById("fenster");
   var name = document.getElementById("name");
   var email = document.getElementById("email");
+  var telefon = document.getElementById("telefon");
   var senden = document.getElementById("senden");
   function melde(n) { if (typeof window.va === "function") window.va("event", { name: n }); }
   /* Pruefung im Browser: fangt Tippfehler und offensichtlich Erfundenes ab. Ob es das Postfach wirklich gibt, kann
@@ -305,6 +310,22 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     if (ERFUNDEN.test(teile[0]) || BEISPIEL.test(teile[1])) return "Bitte gib deine echte E-Mail ein.";
     return "";
   }
+  /* Dieselbe Regel wie auf dem Server (telefonNormal in marketplaybook-whatsapp/lib/kurs-formular.ts). */
+  function telefonFehler(wert) {
+    var roh = wert.trim().replace(/\(0\)/g, "");
+    var meldung = "Bitte gib deine Handynummer mit Vorwahl ein, z. B. +49 170 2345678.";
+    if (!/^\+?[\d\s()\/.-]+$/.test(roh)) return meldung;
+    var z = roh.replace(/\D/g, ""), n;
+    if (roh.charAt(0) === "+") n = z;
+    else if (z.indexOf("00") === 0) n = z.slice(2);
+    else if (/^06[5-9]/.test(z)) n = "43" + z.slice(1);
+    else if (/^01[567]/.test(z)) n = "49" + z.slice(1);
+    else if (/^07[5-9]/.test(z)) n = "41" + z.slice(1);
+    else return meldung;
+    n = n.replace(/^(43|49|41)0/, "$1");
+    if (!/^[1-9]\d{9,14}$/.test(n) || /(\d)\1{6,}/.test(n) || /1234567|7654321/.test(n)) return meldung;
+    return "";
+  }
   function zeige(id, text) {
     var el = document.getElementById(id);
     el.textContent = text;
@@ -313,7 +334,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   /* Waehrend des Abschickens bleibt der Knopf gesperrt: Zwei Formulare derselben Person wuerden sich gegenseitig blockieren. */
   var sendet = false;
   function pruefeNichtFehler() { sendet = false; senden.disabled = false; }
-  function gueltig() { return !nameFehler(name.value) && !mailFehler(email.value); }
+  function gueltig() { return !nameFehler(name.value) && !mailFehler(email.value) && !telefonFehler(telefon.value); }
   /* Waehrend des Tippens sperrt nur der Knopf. Die Meldung kommt erst beim Verlassen des Feldes, sonst schimpft
      die Seite schon beim ersten Buchstaben. Ist der Fehler behoben, verschwindet sie sofort. */
   function pruefe() {
@@ -321,10 +342,12 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     senden.disabled = !gueltig();
     if (!nameFehler(name.value)) zeige("name-fehler", "");
     if (!mailFehler(email.value)) zeige("email-fehler", "");
+    if (!telefonFehler(telefon.value)) zeige("telefon-fehler", "");
   }
   name.addEventListener("blur", function () { if (name.value.trim()) zeige("name-fehler", nameFehler(name.value)); });
   email.addEventListener("blur", function () { if (email.value.trim()) zeige("email-fehler", mailFehler(email.value)); });
-  /* Speichert Name und E-Mail. Hakt der Server, geht es trotzdem weiter zu WhatsApp: Die Nummer ist mehr wert als
+  telefon.addEventListener("blur", function () { if (telefon.value.trim()) zeige("telefon-fehler", telefonFehler(telefon.value)); });
+  /* Speichert Name, E-Mail und Nummer. Hakt der Server, geht es trotzdem weiter zu WhatsApp: Die Nummer ist mehr wert als
      das Formular. Nur eine klare Absage (422) haelt an, dann steht unter dem Feld, was nicht passt. */
   function speichern(daten) {
     var ende = new AbortController();
@@ -338,7 +361,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
       clearTimeout(uhr);
       if (r.status !== 422) return true;
       return r.json().then(function (d) {
-        zeige(d.feld === "name" ? "name-fehler" : "email-fehler", d.fehler || "Bitte prüfe deine Eingabe.");
+        zeige(d.feld === "name" ? "name-fehler" : d.feld === "telefon" ? "telefon-fehler" : "email-fehler", d.fehler || "Bitte prüfe deine Eingabe.");
         return false;
       });
     }).catch(function () { clearTimeout(uhr); return true; });
@@ -352,6 +375,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   ["input", "change", "keyup", "blur"].forEach(function (art) {
     name.addEventListener(art, pruefe);
     email.addEventListener(art, pruefe);
+    telefon.addEventListener(art, pruefe);
   });
   setInterval(function () { if (fenster.open) pruefe(); }, 400);
   document.getElementById("formular").addEventListener("submit", function (e) {
@@ -362,7 +386,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     if (sendet) return;
     sendet = true;
     senden.disabled = true;
-    speichern({ name: name.value.trim(), email: email.value.trim(), webseite: document.getElementById("webseite").value, suche: location.search }).then(function (weiter) {
+    speichern({ name: name.value.trim(), email: email.value.trim(), telefon: telefon.value.trim(), webseite: document.getElementById("webseite").value, suche: location.search }).then(function (weiter) {
       if (!weiter) { pruefeNichtFehler(); return; }
       melde("formular_abgeschickt");
       location.href = ziel;
