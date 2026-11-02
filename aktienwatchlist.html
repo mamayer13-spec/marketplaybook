@@ -253,8 +253,8 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   <h2 id="fenster-titel">Wohin dürfen wir dir die <span class="verlauf">Watchlist</span> schicken?</h2>
   <p class="unter-klein">Du bekommst sie direkt per WhatsApp.</p>
   <form id="formular" novalidate>
-    <label class="feld">Dein Name
-      <input id="name" name="name" type="text" autocomplete="name" autocapitalize="words" placeholder="Vor- und Nachname" required autofocus aria-describedby="name-fehler" />
+    <label class="feld">Dein Vorname
+      <input id="name" name="name" type="text" autocomplete="given-name" autocapitalize="words" placeholder="Vorname" required autofocus aria-describedby="name-fehler" />
       <span class="fehler" id="name-fehler" role="alert" hidden></span>
     </label>
     <label class="feld">Deine E-Mail
@@ -287,13 +287,13 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   var BEISPIEL = /^(beispiel|example|test|domain|email|mail|abc|xyz)\.[a-z.]+$/i;
   function nameFehler(wert) {
     var v = wert.trim();
-    if (!/\p{L}.*\p{L}/u.test(v)) return "Bitte gib deinen Namen ein.";
-    if (/[@\d]|https?:|www\./i.test(v)) return "Bitte gib deinen echten Namen ein.";
+    if (!/\p{L}.*\p{L}/u.test(v)) return "Bitte gib deinen Vornamen ein.";
+    if (/[@\d]|https?:|www\./i.test(v)) return "Bitte gib deinen echten Vornamen ein.";
     if (!/^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u.test(v)) return "Bitte nur Buchstaben.";
     var worte = v.toLowerCase().split(/\s+/);
     /* Max allein ist ein echter Name, nur „Max Mustermann" nicht. */
-    if (v.toLowerCase() === "max mustermann" || worte.every(function (w) { return /^(test|tester|asdf|abc|xxx|name|keine|fake|muster|mustermann)$/.test(w); })) return "Bitte gib deinen echten Namen ein.";
-    if (/^(.)\1+$/.test(v.replace(/\s/g, "").toLowerCase())) return "Bitte gib deinen echten Namen ein.";
+    if (v.toLowerCase() === "max mustermann" || worte.every(function (w) { return /^(test|tester|asdf|abc|xxx|name|keine|fake|muster|mustermann)$/.test(w); })) return "Bitte gib deinen echten Vornamen ein.";
+    if (/^(.)\1+$/.test(v.replace(/\s/g, "").toLowerCase())) return "Bitte gib deinen echten Vornamen ein.";
     return "";
   }
   function mailFehler(wert) {
