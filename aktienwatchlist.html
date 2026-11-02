@@ -344,8 +344,13 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
   document.getElementById("oeffnen").addEventListener("click", function () { fenster.showModal(); melde("formular_geoeffnet"); });
   document.getElementById("schliessen").addEventListener("click", function () { fenster.close(); });
   fenster.addEventListener("click", function (e) { if (e.target === fenster) fenster.close(); });
-  name.addEventListener("input", pruefe);
-  email.addEventListener("input", pruefe);
+  /* Das automatische Ausfuellen am Handy meldet sich nicht immer als Eingabe, dann bliebe der Knopf gesperrt, obwohl
+     alles dasteht. Deshalb zusaetzlich die anderen Ereignisse und ein kurzer Blick, solange das Fenster offen ist. */
+  ["input", "change", "keyup", "blur"].forEach(function (art) {
+    name.addEventListener(art, pruefe);
+    email.addEventListener(art, pruefe);
+  });
+  setInterval(function () { if (fenster.open) pruefe(); }, 400);
   document.getElementById("formular").addEventListener("submit", function (e) {
     e.preventDefault();
     if (!gueltig()) return;
