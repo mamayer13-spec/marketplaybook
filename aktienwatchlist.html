@@ -310,11 +310,14 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     el.textContent = text;
     el.hidden = !text;
   }
-  function pruefeNichtFehler() { senden.disabled = false; }
+  /* Waehrend des Abschickens bleibt der Knopf gesperrt: Zwei Formulare derselben Person wuerden sich gegenseitig blockieren. */
+  var sendet = false;
+  function pruefeNichtFehler() { sendet = false; senden.disabled = false; }
   function gueltig() { return !nameFehler(name.value) && !mailFehler(email.value); }
   /* Waehrend des Tippens sperrt nur der Knopf. Die Meldung kommt erst beim Verlassen des Feldes, sonst schimpft
      die Seite schon beim ersten Buchstaben. Ist der Fehler behoben, verschwindet sie sofort. */
   function pruefe() {
+    if (sendet) return;
     senden.disabled = !gueltig();
     if (!nameFehler(name.value)) zeige("name-fehler", "");
     if (!mailFehler(email.value)) zeige("email-fehler", "");
@@ -356,6 +359,8 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     if (!gueltig()) return;
     /* Ohne ?text=: Mit Text gaebe es den Startknopf nicht, die Nachricht stuende fertig im Eingabefeld. */
     var ziel = "https://wa.me/" + NUMMER;
+    if (sendet) return;
+    sendet = true;
     senden.disabled = true;
     speichern({ name: name.value.trim(), email: email.value.trim(), webseite: document.getElementById("webseite").value, suche: location.search }).then(function (weiter) {
       if (!weiter) { pruefeNichtFehler(); return; }
