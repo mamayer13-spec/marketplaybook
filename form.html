@@ -21,6 +21,7 @@
 
 <!-- Vercel Web Analytics, cookiefrei (siehe form.html) -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/einwilligung.js?v=1"></script>
 <script>
   addEventListener("click", function (e) {
     var a = e.target && e.target.closest && e.target.closest("a[href]");
@@ -357,7 +358,7 @@ footer nav a:hover{color:var(--text)}
             window.va("event", { name: name });
           }
           window.formularBereit = function () { melde("typeform_opened"); };
-          window.formularAbgeschickt = function () { melde("typeform_completed"); };
+          window.formularAbgeschickt = function () { melde("typeform_completed"); if (window.mpLead) window.mpLead(); };
         </script>
         <script src="//embed.typeform.com/next/embed.js"></script>
         <p class="klein">Name, E-Mail, Telefonnummer eingeben, dann kommt der Zugangslink per Mail.</p>

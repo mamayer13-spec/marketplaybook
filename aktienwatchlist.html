@@ -20,6 +20,7 @@
 
 <!-- Vercel Web Analytics, cookiefrei (siehe form.html) -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/einwilligung.js?v=1"></script>
 <script>
   addEventListener("click", function (e) {
     var a = e.target && e.target.closest && e.target.closest("a[href]");
@@ -479,10 +480,15 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     if (sendet) return;
     sendet = true;
     senden.disabled = true;
-    speichern({ name: name.value.trim(), email: email.value.trim(), telefon: nummerVoll(), webseite: document.getElementById("webseite").value, suche: location.search }).then(function (weiter) {
+    /* Gleiche ID fuer Pixel und Server, damit Meta Browser- und Serverereignis spaeter als eines zaehlt. */
+    var leadId = "lead-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+    speichern({ name: name.value.trim(), email: email.value.trim(), telefon: nummerVoll(), webseite: document.getElementById("webseite").value, suche: location.search, lead_id: leadId }).then(function (weiter) {
       if (!weiter) { pruefeNichtFehler(); return; }
       melde("formular_abgeschickt");
-      location.href = ziel;
+      /* Das Pixel braucht einen Moment zum Senden, bevor die Seite zu WhatsApp wechselt. */
+      var pixel = typeof window.fbq === "function";
+      if (window.mpLead) window.mpLead(leadId);
+      setTimeout(function () { location.href = ziel; }, pixel ? 350 : 0);
     });
   });
 })();

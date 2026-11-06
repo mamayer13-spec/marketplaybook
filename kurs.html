@@ -26,6 +26,7 @@
 
 <!-- Vercel Web Analytics, cookiefrei (siehe form.html) -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/einwilligung.js?v=1"></script>
 <script>
   addEventListener("click", function (e) {
     var a = e.target && e.target.closest && e.target.closest("a[href]");
@@ -232,7 +233,7 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
           window.va("event", { name: name });
         }
         window.formularBereit = function () { melde("typeform_opened"); };
-        window.formularAbgeschickt = function () { melde("typeform_completed"); };
+        window.formularAbgeschickt = function () { melde("typeform_completed"); if (window.mpLead) window.mpLead(); };
       </script>
       <!-- Gleiches Typeform wie auf /form (hdO58qyl), eigener Knopf statt Live-Embed. -->
       <div class="tf-block"><button type="button" data-tf-popup="hdO58qyl" data-tf-opacity="100" data-tf-size="100" data-tf-iframe-props="title=Market Playbook" data-tf-medium="snippet" data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign" data-tf-hidden="utm_source=,utm_medium=,utm_campaign=" data-tf-on-ready="formularBereit" data-tf-on-submit="formularAbgeschickt">Watchlist kostenlos freischalten</button></div>

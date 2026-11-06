@@ -23,6 +23,7 @@
          beschreibt, die es nicht gibt, ist derselbe Fehler wie eine
          Verarbeitung ohne Erklaerung, nur andersherum. -->
     <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/einwilligung.js?v=1"></script>
     <script>
       /* Klicks auf die Knöpfe zählen, die in den Trichter führen.
        *
@@ -124,9 +125,14 @@
                     deinen Browser so einstellen, dass du über das Setzen von Cookies informiert wirst.
                 </p>
                 <p>
-                    Einen Cookie-Hinweis gibt es seit dem 6.9.2026 nicht mehr, weil ich keinen Dienst mehr
-                    einsetze, der ohne technische Notwendigkeit Cookies setzt. Die Reichweitenmessung läuft
-                    cookiefrei über Vercel Web Analytics.
+                    Cookies, die nicht technisch notwendig sind, setze ich nur mit deiner Einwilligung. Das betrifft
+                    derzeit allein das Meta-Pixel (siehe unten). Beim ersten Besuch fragt dich ein Hinweis, ob du
+                    zustimmst. Deine Wahl speichere ich in deinem Browser (Local Storage) für 12 Monate. Die
+                    Reichweitenmessung über Vercel Web Analytics läuft cookiefrei und ohne Einwilligung.
+                </p>
+                <p>
+                    Du kannst deine Einwilligung jederzeit widerrufen oder ändern:
+                    <a href="#" onclick="if (window.mpEinwilligungAendern) window.mpEinwilligungAendern(); return false;">Cookie-Einstellungen öffnen</a>.
                 </p>
 
                 <h3>Server-Log-Dateien</h3>
@@ -144,6 +150,22 @@
                     täglich wechselt und sich nicht auf dich zurückführen lässt. Die Auswertung erfolgt nur in
                     Summe. Rechtsgrundlage ist mein berechtigtes Interesse an einer datensparsamen
                     Reichweitenmessung (Art. 6 Abs. 1 lit. f DSGVO).
+                </p>
+                <p>
+                    <strong>Meta-Pixel:</strong> Wenn du zustimmst, binde ich das Meta-Pixel von Meta Platforms
+                    Ireland Ltd., Merrion Road, Dublin 4, Irland, ein. Damit messe ich, ob Besucher über eine
+                    Werbeanzeige auf Facebook oder Instagram zu mir kommen und sich danach eintragen, und kann
+                    Anzeigen gezielter ausspielen. Dabei setzt Meta Cookies und erhält unter anderem deine
+                    IP-Adresse, Angaben zu Browser und Gerät, die aufgerufenen Seiten und das Ereignis
+                    „Eintragung“. Bist du bei Facebook oder Instagram angemeldet, kann Meta diese Daten deinem
+                    Konto zuordnen. Für die Erhebung und Übermittlung an Meta sind Meta und ich gemeinsam
+                    verantwortlich (Art. 26 DSGVO); die Vereinbarung dazu findest du unter
+                    <a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener">facebook.com/legal/controller_addendum</a>.
+                    Meta kann Daten auch in die USA übertragen; Meta Platforms, Inc. ist nach dem EU-US Data
+                    Privacy Framework zertifiziert. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a
+                    DSGVO, § 25 Abs. 1 TDDDG), die du jederzeit über die Cookie-Einstellungen oben widerrufen
+                    kannst. Mehr zur Datenverarbeitung bei Meta:
+                    <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener">facebook.com/privacy/policy</a>.
                 </p>
 
                 <h2>5. Newsletter</h2>
