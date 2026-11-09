@@ -226,18 +226,15 @@ main{flex:1;display:flex;align-items:center;overflow:clip}
     <p class="unter rein d3">Claudios Watchlist mit 194 Aktien. Kein Vorwissen nötig.</p>
     <div class="knopf-bereich rein d4">
       <script>
-        /* Rueckmeldungen an Vercel Web Analytics, gleiche Namen wie auf /form,
-           damit sich beide Varianten vergleichen lassen. Muss VOR embed.js stehen. */
-        function melde(name) {
-          if (typeof window.va !== "function") return;
-          window.va("event", { name: name });
-        }
-        window.formularBereit = function () { melde("typeform_opened"); };
-        window.formularAbgeschickt = function () { melde("typeform_completed"); if (window.mpLead) window.mpLead(); };
-      </script>
-      <!-- Gleiches Typeform wie auf /form (hdO58qyl), eigener Knopf statt Live-Embed. -->
-      <div class="tf-block"><button type="button" data-tf-popup="hdO58qyl" data-tf-opacity="100" data-tf-size="100" data-tf-iframe-props="title=Market Playbook" data-tf-medium="snippet" data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign" data-tf-hidden="utm_source=,utm_medium=,utm_campaign=" data-tf-on-ready="formularBereit" data-tf-on-submit="formularAbgeschickt">Watchlist kostenlos freischalten</button></div>
-      <script src="//embed.typeform.com/next/embed.js"></script>
+          /* Seit 9.11.2026 WhatsApp statt Typeform (gekuendigt): Der Knopf oeffnet das Fenster aus /wa-formular.js.
+             Die Ereignisse heissen weiter typeform_opened/typeform_completed, damit die Zahlen im Cockpit durchlaufen. */
+          function melde(name) {
+            if (typeof window.va !== "function") return;
+            window.va("event", { name: name });
+          }
+        </script>
+        <div class="tf-block"><button type="button" data-wa-formular>Watchlist kostenlos freischalten</button></div>
+        <script src="/wa-formular.js?v=1" data-angebot="Watchlist" data-artikel="die" data-auf="typeform_opened" data-ab="typeform_completed"></script>
       <p class="vertrauen">Kostenlos · Keine Kreditkarte · Kein Abo</p>
     </div>
   </section>

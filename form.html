@@ -329,7 +329,7 @@ footer nav a:hover{color:var(--text)}
 
   <div class="buehne rein d4">
     <div class="buehne-rahmen">
-      <p class="video-einordnung">Kurze Einführung von Claudio. <b>Darunter schaltest du die 10 Kursvideos frei, der Link kommt per Mail.</b></p>
+      <p class="video-einordnung">Kurze Einführung von Claudio. <b>Darunter schaltest du die 10 Kursvideos frei, der Link kommt per WhatsApp.</b></p>
 
       <div class="video-block">
         <div id="vidalytics_embed_EJ7szpetQsCXyrfK" style="width:100%;position:relative;padding-top:56.25%"></div>
@@ -348,20 +348,17 @@ footer nav a:hover{color:var(--text)}
 
       <div class="cta">
         <p class="hinweis">Kurs hier freischalten, dauert 30 Sekunden.</p>
-        <!-- Eigener Knopf statt Typeform-Live-Embed 01KWCA6TY1V0SVA1RCZSWJ0TA2:
-             dieselben Attribute, die das Live-Embed ausliefert, nur der Text
-             ist unserer (dort stand "Hier klicken" mit Emojis). -->
-        <div class="tf-block"><button type="button" data-tf-popup="hdO58qyl" data-tf-opacity="100" data-tf-size="100" data-tf-iframe-props="title=Market Playbook" data-tf-medium="snippet" data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign" data-tf-hidden="utm_source=,utm_medium=,utm_campaign=" data-tf-on-ready="formularBereit" data-tf-on-submit="formularAbgeschickt">Kurs kostenlos freischalten</button></div>
         <script>
+          /* Seit 9.11.2026 WhatsApp statt Typeform (gekuendigt): Der Knopf oeffnet das Fenster aus /wa-formular.js.
+             Die Ereignisse heissen weiter typeform_opened/typeform_completed, damit die Zahlen im Cockpit durchlaufen. */
           function melde(name) {
             if (typeof window.va !== "function") return;
             window.va("event", { name: name });
           }
-          window.formularBereit = function () { melde("typeform_opened"); };
-          window.formularAbgeschickt = function () { melde("typeform_completed"); if (window.mpLead) window.mpLead(); };
         </script>
-        <script src="//embed.typeform.com/next/embed.js"></script>
-        <p class="klein">Name, E-Mail, Telefonnummer eingeben, dann kommt der Zugangslink per Mail.</p>
+        <div class="tf-block"><button type="button" data-wa-formular>Kurs kostenlos freischalten</button></div>
+        <script src="/wa-formular.js?v=1" data-angebot="Videokurs" data-artikel="den" data-auf="typeform_opened" data-ab="typeform_completed"></script>
+        <p class="klein">Name, E-Mail und WhatsApp-Nummer eingeben, dann kommt der Zugangslink per WhatsApp.</p>
       </div>
     </div>
   </div>
@@ -437,7 +434,7 @@ footer nav a:hover{color:var(--text)}
   <section class="schluss">
     <div class="spalte">
       <h2 class="einblenden">Alle 10 Lektionen, <span class="verlauf">kostenlos.</span></h2>
-      <p class="einblenden">Name, E-Mail, Telefonnummer eingeben, dann kommt der Zugangslink per Mail.</p>
+      <p class="einblenden">Name, E-Mail und WhatsApp-Nummer eingeben, dann kommt der Zugangslink per WhatsApp.</p>
       <div class="einblenden"><button type="button" class="knopf glanz" data-cta style="height:54px;padding:0 30px;font-size:17px">Kurs kostenlos freischalten</button></div>
     </div>
   </section>
