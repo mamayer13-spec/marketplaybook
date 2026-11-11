@@ -6,7 +6,7 @@
    Envs im Vercel-Projekt: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME. */
 const crypto = require("crypto");
 
-const VIDEOS = { lang: "vsl/vsl-lang-2026-11-11.mp4" };
+const VIDEOS = { lang: "vsl/vsl-lang-2026-11-11b.mp4" };   // b: Ton/Bild bei 12:06 synchron, Kamera-Fix (11.11. mittags)
 const GUELTIG_S = 12 * 3600;
 
 const hmac = (k, s) => crypto.createHmac("sha256", k).update(s).digest();
