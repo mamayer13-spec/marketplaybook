@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Market Playbook | Wie wir arbeiten</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Claudio erklärt in 14 Minuten, wie wir bei Market Playbook arbeiten und für wen das passt." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="/mp-zeichen-verlauf.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/icon-tab.png" />
+<!--
+  Nur der VSL (Manuel 12.11.2026): experience.html ohne Client Breakdowns, Chat-Screenshots und Zitate,
+  die gehen wir erst gemeinsam durch. Aus experience.html abgeleitet, Styles unverändert übernommen.
+  Keine Renditezahlen in eigenen Texten (Rechtsrahmen Finanzwerbung).
+-->
+<!-- Vercel Web Analytics, cookiefrei (siehe form.html) -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/einwilligung.js?v=1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --grund:#0b0d12; --kachel:#14161c; --kachel-2:#1c1f27; --linie:rgba(240,242,246,.08);
+  --text:#f4f5f8; --muted:#9aa1ae; --leise:#5f6675; --akzent:#b3c5ff;
+  --weich:cubic-bezier(.16,1,.3,1);
+  --kante:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06);
+}
+*{box-sizing:border-box}
+html{background:var(--grund);overflow-x:clip}
+body{margin:0;background:var(--grund);color:var(--text);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-weight:700;letter-spacing:-.045em;margin:0}
+.spalte{max-width:1080px;margin:0 auto;padding-inline:20px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+.verlauf{background:linear-gradient(100deg,#eef2ff 0%,#b3c5ff 40%,#7288ce 75%,#b3c5ff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fliess 9s ease-in-out infinite}
+@keyframes fliess{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.leise-verlauf{background:linear-gradient(100deg,#eef2ff,#c8d4ff 50%,#a3b5f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ---------- Navigation ---------- */
+.kopf{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:60;width:min(560px,calc(100% - 32px));display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border-radius:999px;background:rgba(28,31,39,.62);backdrop-filter:blur(40px) saturate(1.4);-webkit-backdrop-filter:blur(40px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(203,217,255,.18),inset 0 0 0 1px rgba(179,197,255,.12),0 10px 40px -10px rgba(0,0,0,.6),0 0 40px -12px rgba(114,136,206,.35)}
+.marke{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.02em;margin-right:auto;white-space:nowrap}
+.marke img{width:22px;height:22px}
+.kopf a.link{padding:8px 14px;font-size:15px;font-weight:500;color:var(--muted)}
+.kopf a.link:hover{color:var(--text)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;text-align:center;padding:64px 0 0}
+.hero:before{content:"";position:absolute;left:50%;top:20px;width:min(1100px,100%);height:900px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 50% 22%,rgba(114,136,206,.26),transparent 70%),radial-gradient(30% 30% at 20% 55%,rgba(38,62,150,.28),transparent 70%),radial-gradient(30% 30% at 82% 50%,rgba(91,63,240,.16),transparent 70%)}
+main{position:relative;z-index:0}
+
+/* Logo-Kachel (wie Startseite) */
+.zeichen{position:relative;width:78px;height:78px;margin:0 auto 28px;border-radius:22px;display:grid;place-items:center;isolation:isolate;animation:landen 1.1s cubic-bezier(.2,1.3,.4,1) .1s both}
+@keyframes landen{0%{opacity:0;transform:translateY(30px) scale(.55);filter:blur(12px)}100%{opacity:1;transform:none;filter:blur(0)}}
+.zeichen .schein{position:absolute;inset:-36px;z-index:-2;border-radius:50%;background:radial-gradient(closest-side,rgba(114,136,206,.55),rgba(38,62,150,.18) 60%,transparent);filter:blur(10px);animation:schein-auf 1.6s ease-out 1.2s both,puls 5s ease-in-out 2.8s infinite}
+@keyframes schein-auf{0%{opacity:0;transform:scale(.5)}60%{opacity:1;transform:scale(1.25)}100%{opacity:.8;transform:scale(1)}}
+@keyframes puls{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+.zeichen .glas{position:absolute;inset:0;z-index:-1;border-radius:inherit;overflow:hidden;background:linear-gradient(160deg,#252c45,#10131c 70%);box-shadow:inset 0 1px 0 rgba(203,217,255,.22),0 24px 60px -24px rgba(114,136,206,.7)}
+.zeichen .glas:after{content:"";position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 38%,rgba(203,217,255,.28) 50%,transparent 62%);transform:translateX(-120%);animation:streif 6s var(--weich) 1.9s infinite}
+@keyframes streif{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+.zeichen .kante{position:absolute;inset:0;border-radius:inherit;padding:1.2px;background:conic-gradient(from var(--w),transparent 0 70%,rgba(179,197,255,.9) 82%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:kante 5s linear infinite}
+@property --w{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes kante{to{--w:360deg}}
+.zeichen .blitz{position:absolute;inset:0;border-radius:inherit;z-index:2;pointer-events:none;background:radial-gradient(closest-side,rgba(223,230,255,.9),rgba(179,197,255,.35) 55%,transparent);opacity:0;animation:blitz 1.2s ease-out 1.3s both}
+@keyframes blitz{0%{opacity:0;transform:scale(.6)}25%{opacity:.9}100%{opacity:0;transform:scale(1.9)}}
+.zeichen .ring{position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;box-shadow:0 0 0 1.5px rgba(179,197,255,.7);opacity:0;animation:ring 1.8s var(--weich) 1.35s both}
+@keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
+.buch{position:relative;width:44px;height:44px;perspective:240px;z-index:1}
+.buch svg{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 50%}
+.buch .l{animation:auf-l 1.8s cubic-bezier(.2,1.5,.35,1) .7s both}
+.buch .r{animation:auf-r 1.8s cubic-bezier(.2,1.5,.35,1) .7s both}
+@keyframes auf-l{0%{transform:rotateY(88deg);opacity:0}15%{opacity:1}100%{transform:rotateY(0)}}
+.buch .blatt{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform-origin:50% 50%}
+.zeichen:hover .blatt{animation:blatt .9s var(--weich)}
+@keyframes blatt{0%{opacity:1;transform:rotateY(0)}100%{opacity:0;transform:rotateY(-175deg)}}
+@keyframes auf-r{0%{transform:rotateY(-88deg);opacity:0}15%{opacity:1}100%{transform:rotateY(0)}}
+
+.rein{opacity:0;transform:translateY(20px);animation:rein 1.1s var(--weich) forwards}
+.rein.d1{animation-delay:.25s}.rein.d2{animation-delay:.35s}.rein.d3{animation-delay:.45s}.rein.d4{animation-delay:.6s}
+@keyframes rein{to{opacity:1;transform:none}}
+
+.etikett{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.16);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#c8d4ff;margin-bottom:22px}
+.etikett b{width:6px;height:6px;border-radius:50%;background:#b3c5ff;box-shadow:0 0 10px #b3c5ff}
+.hero h1{font-size:clamp(2.2rem,5.4vw,4rem);line-height:1.02;margin:0 auto 14px}
+.hero p.unter{color:var(--muted);font-size:clamp(1.05rem,2vw,1.25rem);margin:0 auto 26px;max-width:44ch}
+.marker{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0;padding:0;list-style:none}
+.marker li{display:flex;align-items:center;gap:8px;padding:9px 16px 9px 10px;border-radius:999px;background:var(--kachel);box-shadow:var(--kante);font-size:15px;font-weight:500}
+.marker li i{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:rgba(179,197,255,.1)}
+.marker li i:after{content:"";width:13px;height:13px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+
+/* ---------- Video + Formular ---------- */
+.buehne{max-width:1180px;margin:32px auto 0;padding-inline:10px}
+.buehne-rahmen{border-radius:34px;padding:28px 5% 36px;background:radial-gradient(60% 55% at 50% 0%,rgba(114,136,206,.22),transparent 70%),linear-gradient(180deg,#161a26,#0e1017 75%);box-shadow:inset 0 1px 0 rgba(179,197,255,.16),inset 0 0 0 1px rgba(179,197,255,.06)}
+.video-einordnung{text-align:center;color:var(--muted);margin:0 auto 18px;font-size:16px}
+.video-einordnung b{color:var(--text);font-weight:600}
+.video-block{max-width:900px;margin:0 auto;border-radius:18px;overflow:hidden;background:#0c0e13;box-shadow:0 0 0 1px rgba(179,197,255,.12),0 30px 100px -20px rgba(140,160,255,.3)}
+
+.cta{max-width:900px;margin:26px auto 0;text-align:center}
+.cta .hinweis{margin:0 0 14px;font-size:15px;font-weight:500}
+.cta .klein{margin:14px 0 0;font-size:12px;color:var(--leise);font-family:"IBM Plex Mono",monospace}
+.tf-block{position:relative;max-width:520px;margin:0 auto}
+.tf-block::before,.tf-block::after{content:"";position:absolute;inset:0;border-radius:999px;box-shadow:0 0 0 1.5px rgba(179,197,255,.8);opacity:0;pointer-events:none;animation:echo 3400ms var(--weich) infinite}
+.tf-block::after{animation-delay:900ms}
+@keyframes echo{0%{transform:scale(1);opacity:.7}60%{transform:scale(1.08,1.35);opacity:0}100%{opacity:0}}
+/* Typeform rendert einen echten <button> hinein, deshalb !important */
+.tf-block button{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;background:var(--text)!important;color:#0b0d12!important;border:0!important;border-radius:999px!important;font-family:Archivo,system-ui,sans-serif!important;font-weight:700!important;font-size:17px!important;letter-spacing:-.01em!important;padding:18px 24px!important;line-height:1.2!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 14px 40px -12px rgba(179,197,255,.55)!important;transition:transform .3s var(--weich)!important}
+.tf-block button:hover{transform:translateY(-2px)}
+
+/* ---------- Zahlen ---------- */
+.zahlen{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:90px auto 0}
+.zahl{border-radius:24px;padding:28px 26px;background:radial-gradient(70% 60% at 50% 0%,rgba(114,136,206,.12),transparent 70%),var(--kachel);box-shadow:var(--kante);text-align:center}
+.zahl .wert{font-size:clamp(2.6rem,6vw,4rem);font-weight:700;letter-spacing:-.05em;line-height:1;margin:0 0 10px}
+.zahl .label{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:640px){.zahlen{grid-template-columns:1fr}}
+
+/* ---------- Abschnitte ---------- */
+section.block{padding-top:120px}
+.kopfzeile{text-align:center;margin:0 auto 40px}
+.kopfzeile h2{font-size:clamp(2rem,5vw,3.4rem);line-height:1.02}
+.kopfzeile p{color:var(--muted);margin:14px auto 0;max-width:46ch}
+.einblenden{opacity:0;transform:translateY(28px);transition:opacity 1s var(--weich),transform 1s var(--weich)}
+.einblenden.da{opacity:1;transform:none}
+
+/* 2 Spalten: 10 Lektionen gehen darin glatt auf, bei 3 stand die letzte allein */
+.lektionen{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;list-style:none;margin:0;padding:0}
+.lektionen li{border-radius:24px;padding:26px;background:radial-gradient(70% 60% at 50% 0%,rgba(114,136,206,.10),transparent 70%),var(--kachel);box-shadow:var(--kante);display:flex;flex-direction:column;gap:16px;transition:transform .5s var(--weich)}
+.lektionen li:hover{transform:translateY(-4px)}
+.lektionen .kopf-l{display:flex;align-items:center;justify-content:space-between}
+.lektionen .ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.16)}
+.lektionen .ic:after{content:"";width:22px;height:22px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.lektionen .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--leise);letter-spacing:.08em}
+.lektionen p{margin:0;font-size:18px;line-height:1.4;font-weight:500;letter-spacing:-.015em}
+@media (max-width:860px){.lektionen{grid-template-columns:1fr}}
+
+.zweit{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 20px;margin:34px auto 0;text-align:center}
+.zweit p{margin:0;color:var(--muted)}
+.knopf{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--text);color:#0b0d12;font-family:inherit;font-weight:700;font-size:16px;letter-spacing:-.01em;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s var(--weich)}
+.knopf:hover{transform:translateY(-1px)}
+.knopf.glanz:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.85) 50%,transparent 70%);transform:translateX(-120%);animation:glanz 3.6s var(--weich) 1.2s infinite}
+@keyframes glanz{0%{transform:translateX(-120%)}40%,100%{transform:translateX(120%)}}
+.knopf.leise{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1px rgba(179,197,255,.3)}
+
+.clips{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.clip-kachel{border-radius:24px;padding:10px;background:var(--kachel);box-shadow:var(--kante)}
+.clip{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden}
+.clip iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:760px){.clips{grid-template-columns:1fr}}
+
+.faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq details{border-radius:20px;background:var(--kachel);box-shadow:var(--kante);transition:background .3s}
+.faq details[open]{background:radial-gradient(70% 80% at 0% 0%,rgba(114,136,206,.12),transparent 70%),var(--kachel)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 60px 20px 24px;position:relative;font-weight:600;font-size:17px;letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:18px;top:50%;width:30px;height:30px;margin-top:-15px;border-radius:50%;display:grid;place-items:center;background:rgba(179,197,255,.1);color:#b3c5ff;font-size:18px;font-weight:500;transition:transform .35s var(--weich)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .antwort{margin:0;padding:0 24px 22px;color:var(--muted);max-width:66ch}
+
+/* Schluss */
+.schluss{position:relative;text-align:center;padding:140px 0 110px;margin-top:40px;background:radial-gradient(45% 45% at 50% 45%,rgba(114,136,206,.24),transparent 72%),radial-gradient(35% 30% at 30% 80%,rgba(38,62,150,.25),transparent 70%)}
+.schluss h2{font-size:clamp(2.3rem,6vw,4.4rem);line-height:1;margin:0 auto 16px;max-width:15ch}
+.schluss p{color:var(--muted);margin:0 auto 30px;max-width:42ch;font-size:18px}
+
+footer{background:#050608;padding:70px 0 calc(34px + env(safe-area-inset-bottom,0px));color:var(--leise)}
+footer .reihe{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;font-size:13px}
+footer b{color:var(--text);font-size:24px;letter-spacing:-.04em}
+footer nav{display:flex;flex-wrap:wrap;gap:18px}
+footer nav a:hover{color:var(--text)}
+
+
+/* ---------- Experience-Seite (11.11.2026) ---------- */
+section.block{padding-top:110px}
+.hut{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#c8d4ff;margin:0 0 12px}
+
+/* Client Breakdowns: Video links, Aufschluesselung rechts */
+.faelle{display:flex;flex-direction:column;gap:22px}
+.fall{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:30px;align-items:center;border-radius:28px;padding:16px 30px 16px 16px;background:radial-gradient(70% 70% at 0% 0%,rgba(114,136,206,.12),transparent 70%),var(--kachel);box-shadow:var(--kante)}
+.fall:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);padding:16px 16px 16px 30px}
+.fall:nth-child(even) .yt{order:2}
+.yt{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0c0e13}
+.yt button{all:unset;position:absolute;inset:0;cursor:pointer;display:grid;place-items:center}
+.yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--weich),filter .6s}
+.yt button:hover img{transform:scale(1.04);filter:brightness(.85)}
+.yt .play{position:relative;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#3860EA;box-shadow:0 0 0 9px rgba(56,96,234,.25),0 18px 50px -10px rgba(56,96,234,.7)}
+.yt .play svg{width:28px;height:28px;margin-left:4px}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.fall .wer{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.fall h3{font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.08;margin:0 0 14px}
+.fall .vorher{margin:0 0 16px;color:var(--muted)}
+.fall .vorher b{color:var(--text);font-weight:600}
+.fall ul{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}
+.fall li{position:relative;padding-left:30px;line-height:1.45}
+.fall li:before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:7px;background:rgba(179,197,255,.12)}
+.fall li:after{content:"";position:absolute;left:6px;top:7px;width:8px;height:5px;border:solid #b3c5ff;border-width:0 0 2px 2px;transform:rotate(-45deg)}
+.fall blockquote{margin:0;padding:14px 18px;border-radius:16px;background:rgba(179,197,255,.06);font-size:16px;line-height:1.45;font-style:italic;color:#dfe6ff}
+@media (max-width:860px){
+  .fall,.fall:nth-child(even){grid-template-columns:1fr;gap:20px;padding:12px 12px 24px}
+  .fall:nth-child(even) .yt{order:0}
+  .fall > div:last-child{padding:0 10px}
+}
+
+/* Screenshots: Laufband wie auf der Startseite */
+.ks-reihe{overflow:hidden;padding:14px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ks-band{display:flex;gap:22px;width:max-content;animation:ks-lauf 70s linear infinite;will-change:transform}
+.ks-reihe:nth-of-type(even) .ks-band{animation-direction:reverse}
+.ks-reihe:hover .ks-band{animation-play-state:paused}
+@keyframes ks-lauf{to{transform:translateX(calc(-50% - 11px))}}
+.ks-bild{all:unset;cursor:zoom-in;flex:none;height:340px;border-radius:18px;overflow:hidden;border:1px solid var(--linie);opacity:.85;box-shadow:0 18px 50px rgba(0,0,0,.45);transition:opacity .5s var(--weich),transform .5s var(--weich),box-shadow .5s var(--weich)}
+.ks-bild img{display:block;height:100%;width:auto}
+.ks-bild:hover,.ks-bild:focus-visible{opacity:1;transform:scale(1.05);box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(179,197,255,.35)}
+.ks-gross{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(5,6,9,.86);backdrop-filter:blur(8px);cursor:zoom-out;padding:24px}
+.ks-gross[hidden]{display:none}
+.ks-gross img{max-height:calc(100vh - 48px);max-width:92vw;border-radius:18px}
+@media (max-width:640px){.ks-bild{height:250px;opacity:1}.ks-band{gap:14px;animation-duration:50s}.ks-reihe{-webkit-mask:none;mask:none}}
+@media (prefers-reduced-motion:reduce){.ks-band{animation:none}.ks-reihe{overflow-x:auto}}
+
+/* Testimonials: Zitat-Wand */
+.stimmen{columns:3 300px;column-gap:16px}
+.stimme{break-inside:avoid;margin:0 0 16px;border-radius:22px;padding:24px 24px 20px;background:radial-gradient(80% 70% at 50% 0%,rgba(114,136,206,.10),transparent 70%),var(--kachel);box-shadow:var(--kante)}
+.stimme p{margin:0 0 16px;font-size:18px;line-height:1.42;font-weight:500;letter-spacing:-.015em}
+.stimme p:before{content:"„";color:#b3c5ff}
+.stimme p:after{content:"“";color:#b3c5ff}
+.stimme footer{all:unset;padding:0;background:none;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.stimme footer i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px;color:#0b0d12;background:linear-gradient(135deg,#dfe6ff,#7288ce)}
+.stimme footer b{color:var(--text);font-weight:600;font-size:14px;letter-spacing:0}
+
+.hinweis-fuss{max-width:760px;margin:60px auto 0;text-align:center;color:var(--leise);font-size:13px;line-height:1.6}
+
+</style>
+</head>
+<body>
+<main>
+  <section class="hero spalte">
+    <a class="zeichen" href="/" aria-label="Market Playbook">
+      <div class="schein"></div><div class="ring"></div><div class="glas"></div><div class="kante"></div><div class="blitz"></div>
+      <div class="buch">
+        <svg class="l" viewBox="0 0 32 32"><defs><linearGradient id="bl" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient></defs><path transform="translate(0 .95)" d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#bl)" stroke="url(#bl)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <svg class="r" viewBox="0 0 32 32"><defs><linearGradient id="br" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient></defs><path transform="translate(0 .95)" d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#br)" stroke="url(#br)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <svg class="blatt" viewBox="0 0 32 32"><path transform="translate(0 .95)" d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#dfe6ff"/></svg>
+      </div>
+    </a>
+    <div class="rein d1"><span class="etikett"><b></b>Video · 14 Minuten</span></div>
+    <h1 class="rein d2">Wie wir arbeiten und <span class="verlauf">für wen</span> das passt.</h1>
+    <p class="unter rein d3">Claudio erklärt es dir in 14 Minuten.</p>
+  </section>
+
+  <div class="buehne rein d4">
+    <div class="buehne-rahmen">
+      <div class="video-block">
+        <div class="mp-player" data-name="vsl_video" data-src="/api/vsl?v=lang" data-poster="/vsl-poster.jpg"></div>
+      </div>
+      <script defer src="/vsl-player.js?v=1"></script>
+    </div>
+  </div>
+
+  <p class="hinweis-fuss spalte">Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse. Keine Anlageberatung: Jedes Mitglied entscheidet selbst über seine Geldanlage.</p>
+</main>
+
+<footer><div class="spalte reihe">
+  <b>Market Playbook</b>
+  <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a><a href="haftungsausschluss.html">Haftungsausschluss</a></nav>
+</div></footer>
+
+<script>
+(function(){
+  "use strict";
+  var ruhig = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var els = [].slice.call(document.querySelectorAll(".einblenden"));
+  if (ruhig || !("IntersectionObserver" in window)) { els.forEach(function(e){ e.classList.add("da"); }); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("da"); io.unobserve(e.target); } });
+    },{rootMargin:"0px 0px -10% 0px"});
+    els.forEach(function(e){ io.observe(e); });
+    setTimeout(function(){ els.forEach(function(e){ e.classList.add("da"); }); }, 4000);
+  }
+})();
+</script>
+</body>
+</html>
