@@ -12,7 +12,10 @@
 <!--
   Experience-Seite nach Vorbild gohconsulting.app/funnel/vsl (Manuel 11.11.2026):
   oben der VSL, dann Client Breakdowns (die 6 Kundenvideos vom YouTube-Kanal), dann
-  die Chat-Screenshots wie auf der Startseite, unten Zitate. Bewusst ohne Kalender/Buchung.
+  die Chat-Screenshots und Zitate. Bewusst ohne Kalender/Buchung.
+  Umbau 12.11.2026 (Manuel: Design gefiel nicht, Goh habe es gut gemacht): Anordnung wie dort,
+  Kundenvideos als dichtes 3er-Raster statt 6 seitenbreiter Karten, Chat-Bilder und Zitate als eine
+  Wand statt Laufband + Zitatblock. Inhalte unverändert.
   Basis-CSS, Logo und Fuss aus form.html, Laufband aus index.html. Gebaut mit bau_experience.py.
   Keine Renditezahlen in eigenen Texten (Rechtsrahmen Finanzwerbung).
 -->
@@ -173,64 +176,78 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
 footer nav a:hover{color:var(--text)}
 
 
-/* ---------- Experience-Seite (11.11.2026) ---------- */
-section.block{padding-top:110px}
+/* ---------- Experience-Seite (11.11.2026, Umbau 12.11.2026 nach Goh-Anordnung) ---------- */
+section.block{padding-top:96px}
+.breit{max-width:1280px;margin:0 auto;padding-inline:20px}
 .hut{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#c8d4ff;margin:0 0 12px}
+.kopfzeile{margin-bottom:34px}
+.kopfzeile h2{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.05;text-wrap:balance}
+.kopfzeile p{font-size:16px}
 
-/* Client Breakdowns: Video links, Aufschluesselung rechts */
-.faelle{display:flex;flex-direction:column;gap:22px}
-.fall{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:30px;align-items:center;border-radius:28px;padding:16px 30px 16px 16px;background:radial-gradient(70% 70% at 0% 0%,rgba(114,136,206,.12),transparent 70%),var(--kachel);box-shadow:var(--kante)}
-.fall:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);padding:16px 16px 16px 30px}
-.fall:nth-child(even) .yt{order:2}
-.yt{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0c0e13}
+/* Kopf kompakter, das Video ist der Held: kein Rahmen im Rahmen mehr */
+.hero{padding-top:44px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04;max-width:17em}
+.hero p.unter{margin-bottom:6px}
+.buehne{max-width:1000px;margin:22px auto 0;padding-inline:20px}
+.buehne-rahmen{border-radius:0;padding:0;background:none;box-shadow:none}
+.video-block{max-width:none;border-radius:20px}
+
+/* Client Breakdowns: 3er-Raster, je Karte Titel, Video, Vorher, 3 Punkte, Zitat */
+.faelle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.fall{display:flex;flex-direction:column;border-radius:22px;padding:18px 18px 20px;background:var(--kachel);box-shadow:var(--kante)}
+.fall .wer{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.fall h3{font-size:19px;line-height:1.18;letter-spacing:-.03em;margin:0 0 14px;min-height:2.36em;text-wrap:balance}
+.yt{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0c0e13;margin:0 0 16px}
 .yt button{all:unset;position:absolute;inset:0;cursor:pointer;display:grid;place-items:center}
 .yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--weich),filter .6s}
 .yt button:hover img{transform:scale(1.04);filter:brightness(.85)}
-.yt .play{position:relative;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#3860EA;box-shadow:0 0 0 9px rgba(56,96,234,.25),0 18px 50px -10px rgba(56,96,234,.7)}
-.yt .play svg{width:28px;height:28px;margin-left:4px}
+.yt .play{position:relative;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#3860EA;box-shadow:0 0 0 7px rgba(56,96,234,.25),0 14px 40px -10px rgba(56,96,234,.7)}
+.yt .play svg{width:21px;height:21px;margin-left:3px}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.fall .wer{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-.fall h3{font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.08;margin:0 0 14px}
-.fall .vorher{margin:0 0 16px;color:var(--muted)}
+.fall .vorher{margin:0 0 14px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .fall .vorher b{color:var(--text);font-weight:600}
-.fall ul{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}
-.fall li{position:relative;padding-left:30px;line-height:1.45}
-.fall li:before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:7px;background:rgba(179,197,255,.12)}
-.fall li:after{content:"";position:absolute;left:6px;top:7px;width:8px;height:5px;border:solid #b3c5ff;border-width:0 0 2px 2px;transform:rotate(-45deg)}
-.fall blockquote{margin:0;padding:14px 18px;border-radius:16px;background:rgba(179,197,255,.06);font-size:16px;line-height:1.45;font-style:italic;color:#dfe6ff}
-@media (max-width:860px){
-  .fall,.fall:nth-child(even){grid-template-columns:1fr;gap:20px;padding:12px 12px 24px}
-  .fall:nth-child(even) .yt{order:0}
-  .fall > div:last-child{padding:0 10px}
-}
+.fall ul{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:8px}
+.fall li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.45}
+.fall li:before{content:"";position:absolute;left:0;top:2px;width:17px;height:17px;border-radius:6px;background:rgba(179,197,255,.12)}
+.fall li:after{content:"";position:absolute;left:5px;top:6.5px;width:7px;height:4px;border:solid #b3c5ff;border-width:0 0 1.5px 1.5px;transform:rotate(-45deg)}
+.fall blockquote{margin:auto 0 0;padding:14px 0 0;border-top:1px solid var(--linie);font-size:14.5px;line-height:1.45;font-style:italic;color:#dfe6ff}
+@media (max-width:1000px){.faelle{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.faelle{grid-template-columns:1fr}.fall h3{min-height:0}}
 
-/* Screenshots: Laufband wie auf der Startseite */
-.ks-reihe{overflow:hidden;padding:14px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.ks-band{display:flex;gap:22px;width:max-content;animation:ks-lauf 70s linear infinite;will-change:transform}
-.ks-reihe:nth-of-type(even) .ks-band{animation-direction:reverse}
-.ks-reihe:hover .ks-band{animation-play-state:paused}
-@keyframes ks-lauf{to{transform:translateX(calc(-50% - 11px))}}
-.ks-bild{all:unset;cursor:zoom-in;flex:none;height:340px;border-radius:18px;overflow:hidden;border:1px solid var(--linie);opacity:.85;box-shadow:0 18px 50px rgba(0,0,0,.45);transition:opacity .5s var(--weich),transform .5s var(--weich),box-shadow .5s var(--weich)}
-.ks-bild img{display:block;height:100%;width:auto}
-.ks-bild:hover,.ks-bild:focus-visible{opacity:1;transform:scale(1.05);box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(179,197,255,.35)}
+/* Wand: Chat-Bilder und Zitate gemischt, wie Gohs Case-Study-Wand */
+.wand{columns:4 210px;column-gap:16px}
+.paar{display:contents}
+.wand .ks-bild,.wand .stimme{break-inside:avoid;margin:0 0 16px}
+.ks-bild{all:unset;display:block;box-sizing:border-box;width:100%;cursor:zoom-in;border-radius:18px;overflow:hidden;box-shadow:var(--kante);background:var(--kachel);transition:transform .5s var(--weich),box-shadow .5s var(--weich)}
+.ks-bild img{display:block;width:100%;height:auto}
+.ks-bild:hover,.ks-bild:focus-visible{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(179,197,255,.35),0 20px 50px rgba(0,0,0,.5)}
 .ks-gross{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(5,6,9,.86);backdrop-filter:blur(8px);cursor:zoom-out;padding:24px}
 .ks-gross[hidden]{display:none}
 .ks-gross img{max-height:calc(100vh - 48px);max-width:92vw;border-radius:18px}
-@media (max-width:640px){.ks-bild{height:250px;opacity:1}.ks-band{gap:14px;animation-duration:50s}.ks-reihe{-webkit-mask:none;mask:none}}
-@media (prefers-reduced-motion:reduce){.ks-band{animation:none}.ks-reihe{overflow-x:auto}}
-
-/* Testimonials: Zitat-Wand */
-.stimmen{columns:3 300px;column-gap:16px}
-.stimme{break-inside:avoid;margin:0 0 16px;border-radius:22px;padding:24px 24px 20px;background:radial-gradient(80% 70% at 50% 0%,rgba(114,136,206,.10),transparent 70%),var(--kachel);box-shadow:var(--kante)}
-.stimme p{margin:0 0 16px;font-size:18px;line-height:1.42;font-weight:500;letter-spacing:-.015em}
+.stimme{border-radius:18px;padding:20px 20px 18px;background:var(--kachel);box-shadow:var(--kante)}
+.stimme p{margin:0 0 14px;font-size:16.5px;line-height:1.42;font-weight:500;letter-spacing:-.015em}
 .stimme p:before{content:"„";color:#b3c5ff}
 .stimme p:after{content:"“";color:#b3c5ff}
-.stimme footer{all:unset;padding:0;background:none;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
-.stimme footer i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px;color:#0b0d12;background:linear-gradient(135deg,#dfe6ff,#7288ce)}
-.stimme footer b{color:var(--text);font-weight:600;font-size:14px;letter-spacing:0}
+.stimme footer{all:unset;padding:0;background:none;display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}
+.stimme footer i{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:12px;color:#0b0d12;background:linear-gradient(135deg,#dfe6ff,#7288ce)}
+.stimme footer b{color:var(--text);font-weight:600;font-size:13.5px;letter-spacing:0}
+.wisch{display:none}
+/* Handy: eine Wischreihe mit gleich hohen Karten statt einer 6.000 px langen Spalte */
+@media (max-width:700px){
+  .breit.wand-rahmen{padding-inline:0}
+  .wand{columns:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .wand::-webkit-scrollbar{display:none}
+  /* je Wischkarte ein Chat-Bild mit dem Zitat darunter */
+  .paar{display:flex;flex-direction:column;gap:10px;flex:none;width:76vw;max-width:330px;height:470px;scroll-snap-align:center}
+  .wand .ks-bild,.wand .stimme{margin:0}
+  .wand .ks-bild{flex:1;min-height:0}
+  .ks-bild img{height:100%;object-fit:cover;object-position:top}
+  .wand .stimme{flex:none;padding:16px 18px 14px}
+  .stimme p{font-size:15.5px;margin-bottom:10px}
+  .wisch{display:block;text-align:center;margin:6px 0 0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--leise)}
+}
 
 .hinweis-fuss{max-width:760px;margin:60px auto 0;text-align:center;color:var(--leise);font-size:13px;line-height:1.6}
-
 </style>
 </head>
 <body>
@@ -259,93 +276,75 @@ section.block{padding-top:110px}
     </div>
   </div>
 
-  <section class="block spalte" id="breakdowns">
+  <section class="block breit" id="breakdowns">
     <div class="kopfzeile einblenden"><p class="hut">Client Breakdowns</p><h2>Wo sie standen. <span class="leise-verlauf">Was sich geändert hat.</span></h2><p>Sechs Mitglieder erzählen im Gespräch mit Claudio, wie sie vorher investiert haben und was heute anders läuft.</p></div>
     <div class="faelle">
       <article class="fall einblenden">
+        <p class="wer">Stefan · 40 · Familienvater</p>
+        <h3>Vom Alleingang zum festen Ansprechpartner</h3>
         <div class="yt" data-yt="5UjOgsX_p6I"><button type="button" aria-label="Video abspielen: Vom Alleingang zum festen Ansprechpartner"><img src="/experience-bilder/5UjOgsX_p6I.jpg" alt="" loading="lazy" /><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span></button></div>
-        <div>
-          <p class="wer">Stefan · 40 · Familienvater</p>
-          <h3>Vom Alleingang zum festen Ansprechpartner</h3>
-          <p class="vorher"><b>Vorher:</b> Hat 5 Jahre allein in Krypto investiert, mit bezahlten Analysen ohne Erklärung und ohne zu wissen, wann er aussteigen soll.</p>
+        <p class="vorher"><b>Vorher:</b> Hat 5 Jahre allein in Krypto investiert, mit bezahlten Analysen ohne Erklärung und ohne zu wissen, wann er aussteigen soll.</p>
           <ul><li>Versteht jetzt, warum gekauft oder verkauft wird, statt nur Empfehlungen umzusetzen</li><li>Das Risiko passt jetzt zu seiner Familie, mit klarer Struktur</li><li>Fester Ansprechpartner, Antwort innerhalb weniger Stunden</li></ul>
           <blockquote>„Man fühlt sich so ein bisschen aufgefangen. Gut geborgen.“</blockquote>
-        </div>
       </article>
       <article class="fall einblenden">
+        <p class="wer">Jan · 23 · Profisportler und Student</p>
+        <h3>Klare Ausstiege neben Sport und Studium</h3>
         <div class="yt" data-yt="49srlf9BdSM"><button type="button" aria-label="Video abspielen: Klare Ausstiege neben Sport und Studium"><img src="/experience-bilder/49srlf9BdSM.jpg" alt="" loading="lazy" /><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span></button></div>
-        <div>
-          <p class="wer">Jan · 23 · Profisportler und Student</p>
-          <h3>Klare Ausstiege neben Sport und Studium</h3>
-          <p class="vorher"><b>Vorher:</b> War schon in Krypto aktiv, aber die Marktanalyse hat mehr Zeit und Energie gekostet, als neben Training und Studium übrig war.</p>
+        <p class="vorher"><b>Vorher:</b> War schon in Krypto aktiv, aber die Marktanalyse hat mehr Zeit und Energie gekostet, als neben Training und Studium übrig war.</p>
           <ul><li>10 bis 15 Minuten am Tag statt Stunden, um auf dem Stand zu sein</li><li>Eine klare Strategie für Einstieg und Ausstieg</li><li>Ruhiges Gefühl durch Streuung, er kann beruhigt schlafen</li></ul>
           <blockquote>„Ich nehme mir 10, 15 Minuten, bin up to date und kann gute Entscheidungen treffen.“</blockquote>
-        </div>
       </article>
       <article class="fall einblenden">
+        <p class="wer">Simon · Unternehmer in Dubai</p>
+        <h3>Vom Influencer-Lärm zum eigenen Verständnis</h3>
         <div class="yt" data-yt="ueHYNB8RIQQ"><button type="button" aria-label="Video abspielen: Vom Influencer-Lärm zum eigenen Verständnis"><img src="/experience-bilder/ueHYNB8RIQQ.jpg" alt="" loading="lazy" /><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span></button></div>
-        <div>
-          <p class="wer">Simon · Unternehmer in Dubai</p>
-          <h3>Vom Influencer-Lärm zum eigenen Verständnis</h3>
-          <p class="vorher"><b>Vorher:</b> Fand Krypto spannend, hatte neben seiner Agentur aber keine Zeit, keine Ahnung und Angst vor Scammern.</p>
+        <p class="vorher"><b>Vorher:</b> Fand Krypto spannend, hatte neben seiner Agentur aber keine Zeit, keine Ahnung und Angst vor Scammern.</p>
           <ul><li>Versteht über die Makro-Calls Zusammenhänge wie globale Liquidität</li><li>Blendet die Meinungen von Influencern aus und weiß, was er zu tun hat</li><li>Braucht höchstens eine Stunde pro Woche</li></ul>
           <blockquote>„Am Anfang alles Bahnhof, aber mit der Zeit versteht man die Zusammenhänge.“</blockquote>
-        </div>
       </article>
       <article class="fall einblenden">
+        <p class="wer">Lorenz · 21 · Angestellter</p>
+        <h3>Von Social-Media-Tipps zum eigenen System</h3>
         <div class="yt" data-yt="Tbs0cQkVidE"><button type="button" aria-label="Video abspielen: Von Social-Media-Tipps zum eigenen System"><img src="/experience-bilder/Tbs0cQkVidE.jpg" alt="" loading="lazy" /><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span></button></div>
-        <div>
-          <p class="wer">Lorenz · 21 · Angestellter</p>
-          <h3>Von Social-Media-Tipps zum eigenen System</h3>
-          <p class="vorher"><b>Vorher:</b> Investierte seit 3 Jahren ohne Strategie, mit vielen Aktien, die nicht zusammenpassten, und Infos nur von Social Media.</p>
+        <p class="vorher"><b>Vorher:</b> Investierte seit 3 Jahren ohne Strategie, mit vielen Aktien, die nicht zusammenpassten, und Infos nur von Social Media.</p>
           <ul><li>Ein System hinter dem Portfolio statt Einzeltipps</li><li>Kaum noch Suchen auf Social Media, weniger Bauchentscheidungen</li><li>Rund eine Stunde pro Woche reicht, um auf dem Stand zu sein</li></ul>
           <blockquote>„Ich habe eigentlich wirklich keine Strategie dahinter gehabt. Das war das größte Problem.“</blockquote>
-        </div>
       </article>
       <article class="fall einblenden">
+        <p class="wer">Max · 19 · gelernter Elektroniker</p>
+        <h3>Raus aus dem Nebel, rein ins Verständnis</h3>
         <div class="yt" data-yt="yvD4riRVdd4"><button type="button" aria-label="Video abspielen: Raus aus dem Nebel, rein ins Verständnis"><img src="/experience-bilder/yvD4riRVdd4.jpg" alt="" loading="lazy" /><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span></button></div>
-        <div>
-          <p class="wer">Max · 19 · gelernter Elektroniker</p>
-          <h3>Raus aus dem Nebel, rein ins Verständnis</h3>
-          <p class="vorher"><b>Vorher:</b> Hat ohne Vorwissen mit Swingtrading angefangen, ohne Blick auf Markt und Wirtschaft.</p>
+        <p class="vorher"><b>Vorher:</b> Hat ohne Vorwissen mit Swingtrading angefangen, ohne Blick auf Markt und Wirtschaft.</p>
           <ul><li>Versteht Unternehmen im Zusammenhang mit Markt und Wirtschaft</li><li>Kauft nicht mehr, nur weil er den Namen kennt</li><li>Weniger Unsicherheit, weil jederzeit jemand schnell antwortet</li></ul>
           <blockquote>„Ich habe mich im Nebel bewegt und wirklich nicht gewusst, was ich tue.“</blockquote>
-        </div>
       </article>
       <article class="fall einblenden">
+        <p class="wer">Manuel · 24 · aus Österreich</p>
+        <h3>Vom Coin-Sammeln zum aufgeräumten Portfolio</h3>
         <div class="yt" data-yt="BV5AjMEJeCQ"><button type="button" aria-label="Video abspielen: Vom Coin-Sammeln zum aufgeräumten Portfolio"><img src="/experience-bilder/BV5AjMEJeCQ.jpg" alt="" loading="lazy" /><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span></button></div>
-        <div>
-          <p class="wer">Manuel · 24 · aus Österreich</p>
-          <h3>Vom Coin-Sammeln zum aufgeräumten Portfolio</h3>
-          <p class="vorher"><b>Vorher:</b> Hatte nur Krypto, viel zu viele Coins gestreut und nach eigener Aussage überhaupt keine Ahnung.</p>
+        <p class="vorher"><b>Vorher:</b> Hatte nur Krypto, viel zu viele Coins gestreut und nach eigener Aussage überhaupt keine Ahnung.</p>
           <ul><li>Portfolio aufgeräumt: weniger Coins, gezielte Positionen</li><li>Versteht, warum ein Coin steigen könnte, und kauft keine Hype-Coins mehr</li><li>Der wöchentliche Makro-Call hält ihn bei Aktien und Krypto auf dem Stand</li></ul>
           <blockquote>„Du hast gleich am Anfang gesagt, wir müssen da ein wenig aufräumen, und das war eine der besten Entscheidungen.“</blockquote>
-        </div>
       </article>
     </div>
   </section>
 
-  <section class="block" id="nachrichten">
-    <div class="kopfzeile spalte einblenden"><p class="hut">Nachrichten</p><h2>Direkt aus dem <span class="leise-verlauf">Chat.</span></h2><p>Nachrichten, die uns Mitglieder geschickt haben. Zum Vergrößern antippen.</p></div>
-    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k1.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k2.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k3.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k4.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k5.jpg" alt="" loading="lazy" /></button></div></div>
-    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k6.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k7.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k8.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k9.jpg" alt="" loading="lazy" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true"><img src="/kundenstimmen/k10.jpg" alt="" loading="lazy" /></button></div></div>
-  </section>
-
-  <section class="block spalte" id="stimmen">
-    <div class="kopfzeile einblenden"><p class="hut">Testimonials</p><h2>In ihren <span class="leise-verlauf">eigenen Worten.</span></h2></div>
-    <div class="stimmen">
-      <figure class="stimme einblenden"><p>Zum ersten Mal habe ich das Gefühl, ich habe einen Plan an der Börse.</p><footer><i>M</i><span><b>Mitglied</b> · seit 3 Wochen dabei</span></footer></figure>
-      <figure class="stimme einblenden"><p>Nicht einfach: Ich kenne den Namen, deswegen kaufe ich es, sondern wirklich verstehen, was dahinter läuft.</p><footer><i>M</i><span><b>Max</b> · Elektroniker</span></footer></figure>
-      <figure class="stimme einblenden"><p>Wenn jetzt irgendein Influencer etwas sagt, das geht mir da rein und da raus.</p><footer><i>S</i><span><b>Simon</b> · Unternehmer</span></footer></figure>
-      <figure class="stimme einblenden"><p>Durch die wöchentlichen Infocalls bleibt man top informiert. Kurz, knapp und leicht verständlich.</p><footer><i>M</i><span><b>Marco</b> · seit Mai 2026 dabei</span></footer></figure>
-      <figure class="stimme einblenden"><p>Man hat meist nie verstanden, warum jetzt wieder Nachkauf ist.</p><footer><i>S</i><span><b>Stefan</b> · über die Zeit davor</span></footer></figure>
-      <figure class="stimme einblenden"><p>Ich weiß, dass ich gut aufgehoben bin, in guten Händen.</p><footer><i>L</i><span><b>Lorenz</b> · Angestellter</span></footer></figure>
-      <figure class="stimme einblenden"><p>Die Calls geben mir einen sehr guten Eindruck in die Finanzwelt, auch die Erklärungen dazu sind gut verständlich.</p><footer><i>A</i><span><b>Andre</b> · Mitglied</span></footer></figure>
-      <figure class="stimme einblenden"><p>Die größte Schwierigkeit war: Wann steige ich wirklich aus? Bin ich zu früh draußen? Zu spät?</p><footer><i>J</i><span><b>Jan</b> · über die Zeit davor</span></footer></figure>
-      <figure class="stimme einblenden"><p>Ich hätte einfach in gewisse Hype-Coins investiert.</p><footer><i>M</i><span><b>Manuel</b> · über die Zeit davor</span></footer></figure>
-      <figure class="stimme einblenden"><p>Ihr seid schnell in euren Antworten, gleichzeitig aber nicht aufdringlich. Man fühlt sich gut aufgehoben.</p><footer><i>A</i><span><b>Andre</b> · Mitglied</span></footer></figure>
-    </div>
-    <p class="hinweis-fuss">Einzelne Erfahrungen von Mitgliedern, aus Videogesprächen und Nachrichten an uns übernommen. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse. Keine Anlageberatung: Jedes Mitglied entscheidet selbst über seine Geldanlage.</p>
+  <section class="block" id="stimmen">
+    <div class="kopfzeile spalte einblenden"><p class="hut">Nachrichten und Stimmen</p><h2>Direkt aus dem Chat, <span class="leise-verlauf">in ihren eigenen Worten.</span></h2><p>Nachrichten, die uns Mitglieder geschickt haben, und Sätze aus den Gesprächen. Bilder zum Vergrößern antippen.</p></div>
+    <div class="breit wand-rahmen"><div class="wand">
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="738" /></button><figure class="stimme"><p>Zum ersten Mal habe ich das Gefühl, ich habe einen Plan an der Börse.</p><footer><i>M</i><span><b>Mitglied</b> · seit 3 Wochen dabei</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="871" /></button><figure class="stimme"><p>Nicht einfach: Ich kenne den Namen, deswegen kaufe ich es, sondern wirklich verstehen, was dahinter läuft.</p><footer><i>M</i><span><b>Max</b> · Elektroniker</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="550" /></button><figure class="stimme"><p>Wenn jetzt irgendein Influencer etwas sagt, das geht mir da rein und da raus.</p><footer><i>S</i><span><b>Simon</b> · Unternehmer</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="494" /></button><figure class="stimme"><p>Durch die wöchentlichen Infocalls bleibt man top informiert. Kurz, knapp und leicht verständlich.</p><footer><i>M</i><span><b>Marco</b> · seit Mai 2026 dabei</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="790" /></button><figure class="stimme"><p>Man hat meist nie verstanden, warum jetzt wieder Nachkauf ist.</p><footer><i>S</i><span><b>Stefan</b> · über die Zeit davor</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="1026" /></button><figure class="stimme"><p>Ich weiß, dass ich gut aufgehoben bin, in guten Händen.</p><footer><i>L</i><span><b>Lorenz</b> · Angestellter</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="737" /></button><figure class="stimme"><p>Die Calls geben mir einen sehr guten Eindruck in die Finanzwelt, auch die Erklärungen dazu sind gut verständlich.</p><footer><i>A</i><span><b>Andre</b> · Mitglied</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="752" /></button><figure class="stimme"><p>Die größte Schwierigkeit war: Wann steige ich wirklich aus? Bin ich zu früh draußen? Zu spät?</p><footer><i>J</i><span><b>Jan</b> · über die Zeit davor</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="776" /></button><figure class="stimme"><p>Ich hätte einfach in gewisse Hype-Coins investiert.</p><footer><i>M</i><span><b>Manuel</b> · über die Zeit davor</span></footer></figure></div>
+      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="771" /></button><figure class="stimme"><p>Ihr seid schnell in euren Antworten, gleichzeitig aber nicht aufdringlich. Man fühlt sich gut aufgehoben.</p><footer><i>A</i><span><b>Andre</b> · Mitglied</span></footer></figure></div>
+    </div><p class="wisch">Zur Seite wischen</p></div>
+    <p class="hinweis-fuss spalte">Einzelne Erfahrungen von Mitgliedern, aus Videogesprächen und Nachrichten an uns übernommen. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse. Keine Anlageberatung: Jedes Mitglied entscheidet selbst über seine Geldanlage.</p>
   </section>
 </main>
 
