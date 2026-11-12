@@ -40,7 +40,7 @@ h1,h2,h3{font-weight:700;letter-spacing:-.045em;margin:0}
 .spalte{max-width:1080px;margin:0 auto;padding-inline:20px}
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
 
-.verlauf{background:linear-gradient(100deg,#eef2ff 0%,#b3c5ff 40%,#7288ce 75%,#b3c5ff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fliess 9s ease-in-out infinite}
+.verlauf{background:linear-gradient(100deg,#5fb0ff 0%,#2f6bff 45%,#4d95ff 75%,#5fb0ff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fliess 9s ease-in-out infinite}
 @keyframes fliess{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .leise-verlauf{background:linear-gradient(100deg,#eef2ff,#c8d4ff 50%,#a3b5f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
@@ -55,7 +55,7 @@ h1,h2,h3{font-weight:700;letter-spacing:-.045em;margin:0}
 .hero{position:relative;text-align:center;padding:64px 22px 0}
 @media (max-width:700px){.hero{padding-inline:clamp(22px,7vw,48px)}}
 @media (min-width:1140px){.hero{padding-inline:0}}
-.hero:before{content:"";position:absolute;left:50%;top:20px;width:min(1100px,100%);height:900px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 50% 22%,rgba(114,136,206,.26),transparent 70%),radial-gradient(30% 30% at 20% 55%,rgba(38,62,150,.28),transparent 70%),radial-gradient(30% 30% at 82% 50%,rgba(91,63,240,.16),transparent 70%)}
+.hero:before{content:"";position:absolute;left:50%;top:20px;width:min(1100px,100%);height:900px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 50% 22%,rgba(47,107,255,.30),transparent 70%),radial-gradient(30% 30% at 20% 55%,rgba(47,107,255,.22),transparent 70%),radial-gradient(30% 30% at 82% 50%,rgba(91,63,240,.16),transparent 70%)}
 main{position:relative;z-index:0}
 
 /* Logo-Kachel (wie Startseite) */
@@ -190,7 +190,10 @@ section.block{padding-top:96px}
 .hero p.unter{margin-bottom:6px}
 .buehne{max-width:1000px;margin:22px auto 0;padding-inline:20px}
 .buehne-rahmen{border-radius:0;padding:0;background:none;box-shadow:none}
-.video-block{max-width:none;border-radius:20px}
+.video-block{max-width:none;border-radius:20px;box-shadow:0 0 0 1px rgba(77,149,255,.22),0 30px 100px -20px rgba(47,107,255,.45)}
+/* Elektrisches Blau (A2, Manuel 12.11.2026) auch im Player, nur auf dieser Seite */
+.buehne .mp-start-kreis,.buehne .mp-bahn-f{background:#2f6bff}
+.buehne .mp-start-kreis{box-shadow:0 0 0 10px rgba(47,107,255,.32),0 20px 60px -10px rgba(47,107,255,.75)}
 
 /* Client Breakdowns: 3er-Raster, je Karte Titel, Video, Vorher, 3 Punkte, Zitat */
 .faelle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -201,13 +204,13 @@ section.block{padding-top:96px}
 .yt button{all:unset;position:absolute;inset:0;cursor:pointer;display:grid;place-items:center}
 .yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--weich),filter .6s}
 .yt button:hover img{transform:scale(1.04);filter:brightness(.85)}
-.yt .play{position:relative;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#3860EA;box-shadow:0 0 0 7px rgba(56,96,234,.25),0 14px 40px -10px rgba(56,96,234,.7)}
+.yt .play{position:relative;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#2f6bff;box-shadow:0 0 0 7px rgba(47,107,255,.32),0 14px 40px -10px rgba(47,107,255,.75)}
 .yt .play svg{width:21px;height:21px;margin-left:3px}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .fall .vorher{margin:0 0 14px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .fall .vorher b{color:var(--text);font-weight:600}
 .fall ul{list-style:disc;margin:0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:6px;color:#d6d9e0}
-.fall li::marker{color:var(--muted)}
+.fall li::marker{color:#4d95ff}
 .fall li{font-size:14px;line-height:1.4}
 .fall blockquote{margin:auto 0 0;padding:14px 0 0;border-top:1px solid var(--linie);font-size:14.5px;line-height:1.45;font-style:italic;color:#dfe6ff}
 @media (max-width:1000px){.faelle{grid-template-columns:repeat(2,minmax(0,1fr))}}
