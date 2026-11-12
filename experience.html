@@ -216,36 +216,29 @@ section.block{padding-top:96px}
 @media (max-width:1000px){.faelle{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.faelle{grid-template-columns:1fr}.fall h3{min-height:0}}
 
-/* Wand: Chat-Bilder und Zitate gemischt, wie Gohs Case-Study-Wand */
-.wand{columns:4 210px;column-gap:16px}
-.paar{display:contents}
-.wand .ks-bild,.wand .stimme{break-inside:avoid;margin:0 0 16px}
-.ks-bild{all:unset;display:block;box-sizing:border-box;width:100%;cursor:zoom-in;border-radius:18px;overflow:hidden;box-shadow:var(--kante);background:var(--kachel);transition:transform .5s var(--weich),box-shadow .5s var(--weich)}
+/* Case Studies wie bei Goh: je Karte eine Person, Kopf mit Name, großer Satz in Blau, Strich, Screenshot (Umbau 12.11.2026) */
+.wand{columns:4 240px;column-gap:16px}
+.cs{break-inside:avoid;margin:0 0 16px;padding:16px 16px 14px;border-radius:16px;background:#0f1116;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);display:flex;flex-direction:column}
+.cs header{all:unset;display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.cs header i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,#5fb0ff,#2f6bff)}
+.cs header span{display:flex;flex-direction:column;font-size:12.5px;color:var(--muted);line-height:1.3}
+.cs header b{color:var(--text);font-size:14.5px;font-weight:600}
+.cs-satz{margin:0;font-size:21px;line-height:1.18;font-weight:700;letter-spacing:-.025em;color:#4d95ff;text-wrap:balance}
+.cs-satz:after{content:"";display:block;width:44px;height:2px;margin:14px 0 14px;background:#2f6bff;border-radius:2px}
+.ks-bild{all:unset;display:block;box-sizing:border-box;width:100%;cursor:zoom-in;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .5s var(--weich)}
 .ks-bild img{display:block;width:100%;height:auto}
-.ks-bild:hover,.ks-bild:focus-visible{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(179,197,255,.35),0 20px 50px rgba(0,0,0,.5)}
+.ks-bild:hover,.ks-bild:focus-visible{transform:translateY(-2px)}
 .ks-gross{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(5,6,9,.86);backdrop-filter:blur(8px);cursor:zoom-out;padding:24px}
 .ks-gross[hidden]{display:none}
 .ks-gross img{max-height:calc(100vh - 48px);max-width:92vw;border-radius:18px}
-.stimme{border-radius:18px;padding:20px 20px 18px;background:var(--kachel);box-shadow:var(--kante)}
-.stimme p{margin:0 0 14px;font-size:16.5px;line-height:1.42;font-weight:500;letter-spacing:-.015em}
-.stimme p:before{content:"„";color:#b3c5ff}
-.stimme p:after{content:"“";color:#b3c5ff}
-.stimme footer{all:unset;padding:0;background:none;display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}
-.stimme footer i{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:12px;color:#0b0d12;background:linear-gradient(135deg,#dfe6ff,#7288ce)}
-.stimme footer b{color:var(--text);font-weight:600;font-size:13.5px;letter-spacing:0}
 .wisch{display:none}
-/* Handy: eine Wischreihe mit gleich hohen Karten statt einer 6.000 px langen Spalte */
 @media (max-width:700px){
   .breit.wand-rahmen{padding-inline:0}
-  .wand{columns:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .wand{columns:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 14px;scrollbar-width:none}
   .wand::-webkit-scrollbar{display:none}
-  /* je Wischkarte ein Chat-Bild mit dem Zitat darunter */
-  .paar{display:flex;flex-direction:column;gap:10px;flex:none;width:76vw;max-width:330px;height:470px;scroll-snap-align:center}
-  .wand .ks-bild,.wand .stimme{margin:0}
-  .wand .ks-bild{flex:1;min-height:0}
-  .ks-bild img{height:100%;object-fit:cover;object-position:top}
-  .wand .stimme{flex:none;padding:16px 18px 14px}
-  .stimme p{font-size:15.5px;margin-bottom:10px}
+  .cs{flex:none;width:78vw;max-width:330px;height:520px;margin:0;scroll-snap-align:center}
+  .cs .ks-bild{flex:1;min-height:0}
+  .cs .ks-bild img{height:100%;object-fit:cover;object-position:top}
   .wisch{display:block;text-align:center;margin:6px 0 0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--leise)}
 }
 
@@ -315,17 +308,17 @@ section.block{padding-top:96px}
   <section class="block" id="stimmen">
     <div class="kopfzeile spalte einblenden"><h2>Was uns Mitglieder schreiben</h2></div>
     <div class="breit wand-rahmen"><div class="wand">
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="738" /></button><figure class="stimme"><p>Zum ersten Mal habe ich das Gefühl, ich habe einen Plan an der Börse.</p><footer><i>M</i><span><b>Mitglied</b> · seit 3 Wochen dabei</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="871" /></button><figure class="stimme"><p>Nicht einfach: Ich kenne den Namen, deswegen kaufe ich es, sondern wirklich verstehen, was dahinter läuft.</p><footer><i>M</i><span><b>Max</b> · Elektroniker</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="550" /></button><figure class="stimme"><p>Wenn jetzt irgendein Influencer etwas sagt, das geht mir da rein und da raus.</p><footer><i>S</i><span><b>Simon</b> · Unternehmer</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="494" /></button><figure class="stimme"><p>Durch die wöchentlichen Infocalls bleibt man top informiert. Kurz, knapp und leicht verständlich.</p><footer><i>M</i><span><b>Marco</b> · seit Mai 2026 dabei</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="790" /></button><figure class="stimme"><p>Man hat meist nie verstanden, warum jetzt wieder Nachkauf ist.</p><footer><i>S</i><span><b>Stefan</b> · über die Zeit davor</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="1026" /></button><figure class="stimme"><p>Ich weiß, dass ich gut aufgehoben bin, in guten Händen.</p><footer><i>L</i><span><b>Lorenz</b> · Angestellter</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="737" /></button><figure class="stimme"><p>Die Calls geben mir einen sehr guten Eindruck in die Finanzwelt, auch die Erklärungen dazu sind gut verständlich.</p><footer><i>A</i><span><b>Andre</b> · Mitglied</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="752" /></button><figure class="stimme"><p>Die größte Schwierigkeit war: Wann steige ich wirklich aus? Bin ich zu früh draußen? Zu spät?</p><footer><i>J</i><span><b>Jan</b> · über die Zeit davor</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="776" /></button><figure class="stimme"><p>Ich hätte einfach in gewisse Hype-Coins investiert.</p><footer><i>M</i><span><b>Manuel</b> · über die Zeit davor</span></footer></figure></div>
-      <div class="paar"><button class="ks-bild" type="button" aria-label="Nachricht vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="lazy" width="560" height="771" /></button><figure class="stimme"><p>Ihr seid schnell in euren Antworten, gleichzeitig aber nicht aufdringlich. Man fühlt sich gut aufgehoben.</p><footer><i>A</i><span><b>Andre</b> · Mitglied</span></footer></figure></div>
-    </div><p class="wisch">Zur Seite wischen</p></div>
+      <article class="cs"><header><i>M</i><span><b>Mitglied</b>seit 3 Wochen dabei</span></header><p class="cs-satz">„Zum ersten Mal einen Plan an der Börse“</p><button class="ks-bild" type="button" aria-label="Nachricht von Mitglied vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht von Mitglied" loading="lazy" width="560" height="738" /></button></article>
+      <article class="cs"><header><i>M</i><span><b>Marco</b>seit Mai 2026 dabei</span></header><p class="cs-satz">„Kurz, knapp und leicht verständlich“</p><button class="ks-bild" type="button" aria-label="Nachricht von Marco vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht von Marco" loading="lazy" width="560" height="790" /></button></article>
+      <article class="cs"><header><i>P</i><span><b>Phillip</b>in der WhatsApp-Gruppe</span></header><p class="cs-satz">„Du hast wirklich Ahnung davon“</p><button class="ks-bild" type="button" aria-label="Nachricht von Phillip vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht von Phillip" loading="lazy" width="560" height="871" /></button></article>
+      <article class="cs"><header><i>A</i><span><b>Andre</b>an den Kundenbetreuer</span></header><p class="cs-satz">„Schnell, aber nicht aufdringlich“</p><button class="ks-bild" type="button" aria-label="Nachricht von Andre vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht von Andre" loading="lazy" width="560" height="1026" /></button></article>
+      <article class="cs"><header><i>M</i><span><b>Mitglied</b>per Instagram</span></header><p class="cs-satz">„Anfangs vorsichtig, jetzt überzeugt“</p><button class="ks-bild" type="button" aria-label="Nachricht von Mitglied vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht von Mitglied" loading="lazy" width="560" height="550" /></button></article>
+      <article class="cs"><header><i>M</i><span><b>Mitglied</b>an Claudio</span></header><p class="cs-satz">„Top Analysen von dir“</p><button class="ks-bild" type="button" aria-label="Nachricht von Mitglied vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht von Mitglied" loading="lazy" width="560" height="752" /></button></article>
+      <article class="cs"><header><i>K</i><span><b>Kevin</b>teilt sein Depot</span></header><p class="cs-satz">„Nach 4 Wochen dabei“</p><button class="ks-bild" type="button" aria-label="Nachricht von Kevin vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht von Kevin" loading="lazy" width="560" height="494" /></button></article>
+      <article class="cs"><header><i>M</i><span><b>Mitglied</b>nach der Spätschicht</span></header><p class="cs-satz">„Gute Arbeit, Jungs“</p><button class="ks-bild" type="button" aria-label="Nachricht von Mitglied vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht von Mitglied" loading="lazy" width="560" height="737" /></button></article>
+      <article class="cs"><header><i>M</i><span><b>Mitglied</b>an Claudio</span></header><p class="cs-satz">„Det läuft, Claudio“</p><button class="ks-bild" type="button" aria-label="Nachricht von Mitglied vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht von Mitglied" loading="lazy" width="560" height="776" /></button></article>
+      <article class="cs"><header><i>M</i><span><b>Mitglied</b>teilt sein Depot</span></header><p class="cs-satz">„Hier mein aktuelles Portfolio“</p><button class="ks-bild" type="button" aria-label="Nachricht von Mitglied vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht von Mitglied" loading="lazy" width="560" height="771" /></button></article>
+      </div><p class="wisch">Zur Seite wischen</p></div>
     <p class="hinweis-fuss spalte">Einzelne Erfahrungen von Mitgliedern, aus Videogesprächen und Nachrichten an uns übernommen. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse. Keine Anlageberatung: Jedes Mitglied entscheidet selbst über seine Geldanlage.</p>
   </section>
 </main>
