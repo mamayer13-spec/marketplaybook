@@ -6,7 +6,14 @@
    Envs im Vercel-Projekt: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME. */
 const crypto = require("crypto");
 
-const VIDEOS = { lang: "vsl/vsl-lang-2026-11-11b.mp4" };   // b: Ton/Bild bei 12:06 synchron, Kamera-Fix (11.11. mittags)
+const VIDEOS = {
+  lang: "vsl/vsl-lang-2026-11-11b.mp4",   // b: Ton/Bild bei 12:06 synchron, Kamera-Fix (11.11. mittags)
+  /* Fallstudien auf /experience (14.11.2026): Loom links, Claudio rechts */
+  tomasz: "experience/breakdown-100k-portfolio-3-wochen-2026-11-14.mp4",
+  leonhard: "experience/breakdown-leonhard-finanzanfaenger-2026-11-14.mp4",
+  lorenz: "experience/breakdown-lorenz-chaos-zum-system-2026-11-14.mp4",
+  max: "experience/breakdown-max-portfolio-30-tage-2026-11-14.mp4",
+};
 const GUELTIG_S = 12 * 3600;
 
 const hmac = (k, s) => crypto.createHmac("sha256", k).update(s).digest();

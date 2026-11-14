@@ -246,6 +246,16 @@ section.block{padding-top:96px}
   .wisch{display:block;text-align:center;margin:6px 0 0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--leise)}
 }
 
+/* Fallstudien (14.11.2026): Claudio geht Depot und Verlauf eines Mitglieds durch. 2er-Raster, weil links
+   ein Bildschirm mit kleiner Schrift läuft; Karte wie bei den Kundengesprächen (Name, Video, 3 Punkte) */
+.studien{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.studie .mp-player{border-radius:12px;margin:0 0 14px}
+.studie .mp-start-kreis,.studie .mp-bahn-f{background:#2f6bff}
+.studie .mp-start-kreis{width:64px;height:64px;box-shadow:0 0 0 8px rgba(47,107,255,.32),0 14px 40px -10px rgba(47,107,255,.75)}
+.studie .mp-start-kreis svg{width:26px;height:26px;margin-left:4px}
+.studie .mp-start-text{display:none}
+@media (max-width:860px){.studien{grid-template-columns:1fr}}
+
 .hinweis-fuss{max-width:760px;margin:60px auto 0;text-align:center;color:var(--leise);font-size:13px;line-height:1.6}
 </style>
 </head>
@@ -272,6 +282,32 @@ section.block{padding-top:96px}
       <script defer src="/vsl-player.js?v=1"></script>
     </div>
   </div>
+
+  <section class="block breit" id="fallstudien">
+    <div class="kopfzeile einblenden"><h2>Fallstudien</h2></div>
+    <div class="studien">
+      <article class="fall studie einblenden">
+        <h3>Tomasz - Familienvater, 3 Kinder</h3>
+        <div class="mp-player" data-name="fall_tomasz" data-src="/api/vsl?v=tomasz" data-poster="/experience-bilder/breakdown-100k-portfolio-3-wochen.jpg"></div>
+        <ul><li>Null Vorerfahrung, kaum Zeit neben Job und Familie</li><li>Rund 1 Stunde pro Woche</li><li>Fester Ansprechpartner ab dem ersten Tag</li></ul>
+      </article>
+      <article class="fall studie einblenden">
+        <h3>Max - Elektroniker, 19</h3>
+        <div class="mp-player" data-name="fall_max" data-src="/api/vsl?v=max" data-poster="/experience-bilder/breakdown-max-portfolio-30-tage.jpg"></div>
+        <ul><li>Vorher nach Namen statt nach Daten gekauft</li><li>Weiß jetzt, warum er was hält</li><li>Rund 1 Stunde pro Woche</li></ul>
+      </article>
+      <article class="fall studie einblenden">
+        <h3>Lorenz - Angestellter, 21</h3>
+        <div class="mp-player" data-name="fall_lorenz" data-src="/api/vsl?v=lorenz" data-poster="/experience-bilder/breakdown-lorenz-chaos-zum-system.jpg"></div>
+        <ul><li>3 Jahre investiert, ohne System</li><li>Social Media als Quelle ersetzt</li><li>Rund 1 Stunde pro Woche</li></ul>
+      </article>
+      <article class="fall studie einblenden">
+        <h3>Leonhard - Angestellter, 24</h3>
+        <div class="mp-player" data-name="fall_leonhard" data-src="/api/vsl?v=leonhard" data-poster="/experience-bilder/breakdown-leonhard-finanzanfaenger.jpg"></div>
+        <ul><li>Vorher nur eine Lebensversicherung</li><li>Erstes eigenes Portfolio</li><li>Jede Firma einzeln erklärt</li></ul>
+      </article>
+    </div>
+  </section>
 
   <section class="block breit" id="breakdowns">
     <div class="kopfzeile einblenden"><h2>Kundengespräche</h2></div>
@@ -358,6 +394,10 @@ section.block{padding-top:96px}
       if (typeof window.va === "function") window.va("event", { name: "testimonial_start", data: { video: box.dataset.yt } });
     });
   });
+  /* Immer nur ein Video gleichzeitig: startet eines, halten die anderen an (VSL und Fallstudien) */
+  document.addEventListener("play", function(e){
+    document.querySelectorAll(".mp-player video").forEach(function(v){ if (v !== e.target && !v.paused) v.pause(); });
+  }, true);
   /* Screenshots gross */
   var g = document.getElementById("ks-gross"), bild = g.querySelector("img");
   document.querySelectorAll(".ks-bild").forEach(function(b){ b.addEventListener("click", function(){ bild.src = b.querySelector("img").src; g.hidden = false; }); });
