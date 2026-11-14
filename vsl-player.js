@@ -13,7 +13,7 @@
     ".mp-start-knopf{display:flex;flex-direction:column;align-items:center;gap:12px}" +
     ".mp-start-kreis{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:#3860EA;box-shadow:0 0 0 10px rgba(56,96,234,.25),0 20px 60px -10px rgba(56,96,234,.7);transition:transform .25s}" +
     ".mp-start:hover .mp-start-kreis{transform:scale(1.06)}" +
-    ".mp-start-kreis svg{width:36px;height:36px;margin-left:5px}" +
+    ".mp-start-kreis svg{width:36px;height:36px;margin-left:0}" +
     ".mp-start-text{font-size:15px;font-weight:600;padding:7px 14px;border-radius:999px;background:rgba(10,14,24,.7);backdrop-filter:blur(6px)}" +
     ".mp-leiste{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 10px;display:flex;align-items:center;gap:10px;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);opacity:0;transition:opacity .25s}" +
     ".mp-player.laeuft-nicht .mp-leiste,.mp-player.zeigen .mp-leiste{opacity:1}" +
@@ -31,7 +31,7 @@
     ".mp-laden{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;animation:mp-dreh 1s linear infinite;display:none;pointer-events:none}" +
     ".mp-player.laedt .mp-laden{display:block}" +
     "@keyframes mp-dreh{to{transform:rotate(360deg)}}" +
-    "@media (max-width:560px){.mp-start-knopf{gap:8px}.mp-start-kreis{width:56px;height:56px;box-shadow:0 0 0 6px rgba(56,96,234,.25),0 12px 40px -10px rgba(56,96,234,.7)}.mp-start-kreis svg{width:22px;height:22px;margin-left:3px}.mp-start-text{font-size:12px;padding:5px 10px}.mp-leiste{gap:4px;padding:20px 8px 6px}.mp-zeit{font-size:11px}.mp-k.mp-tempo{display:none}}" +
+    "@media (max-width:560px){.mp-start-knopf{gap:8px}.mp-start-kreis{width:56px;height:56px;box-shadow:0 0 0 6px rgba(56,96,234,.25),0 12px 40px -10px rgba(56,96,234,.7)}.mp-start-kreis svg{width:22px;height:22px;margin-left:0}.mp-start-text{font-size:12px;padding:5px 10px}.mp-leiste{gap:4px;padding:20px 8px 6px}.mp-zeit{font-size:11px}.mp-k.mp-tempo{display:none}}" +
     "@media (prefers-reduced-motion:reduce){.mp-start-kreis,.mp-leiste{transition:none}}";
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
