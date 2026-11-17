@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="/icon-tab.png?v=buch" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=Caveat:wght@500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300..500&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet" />
 <!--
   Startseite seit 3.10.2026 (vorher entwurf-mobbin.html auf Branch entwurf-mobbin-stil).
   Die Lizenzfassung Dubai (9.9.2026, ohne Krypto- und Prozentzahlen) ist damit auf der Startseite
@@ -44,20 +44,22 @@ addEventListener("click", function (e) {
 </script>
 <style>
 :root{
-  --grund:#0b0d12; --kachel:#141827; --kachel-2:#1b2031; --linie:rgba(240,242,246,.08);
-  --text:#f4f5f8; --muted:#a2aabd; --leise:#5f6675; --dunkelzahl:#252933;
-  --akzent:#b3c5ff; --gut:#7fd1a8; --bad:#f08279; --weich:cubic-bezier(.16,1,.3,1);
+  --grund:#0c0d11; --flaeche:#14161c; --linie:rgba(242,240,235,.1);
+  --text:#f2f0eb; --muted:#b0ada6; --leise:#77746e;
+  --akzent:#b3c5ff; --hand:#f08279; --gut:#7fd1a8; --weich:cubic-bezier(.16,1,.3,1);
+  --serif:"Newsreader",Georgia,serif; --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
 html{background:var(--grund);overflow-x:clip}
-body{margin:0;background:var(--grund);color:var(--text);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--grund);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-.spalte{max-width:1240px;margin:0 auto;padding-inline:20px}
-h1,h2,h3{font-weight:700;letter-spacing:-.045em}
-.verlauf{background:linear-gradient(100deg,#eef2ff 0%,#b3c5ff 40%,#7288ce 75%,#b3c5ff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:fliess 9s ease-in-out infinite}
-@keyframes fliess{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.kopfzeile h2 span,.zeile .n{background:linear-gradient(100deg,#eef2ff,#c8d4ff 50%,#a3b5f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-
+img{max-width:100%}
+.wrap{max-width:1440px;margin:0 auto;padding-inline:80px}
+@media (max-width:860px){.wrap{padding-inline:20px}}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.025em;font-optical-sizing:auto}
+.etikett{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--leise);margin:0 0 18px}
+.einblenden{opacity:0;transform:translateY(24px);transition:opacity 1s var(--weich),transform 1s var(--weich)}
+.einblenden.da{opacity:1;transform:none}
 /* ---------- Schwebende Glas-Navigation ---------- */
 .kopf{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:60;width:min(640px,calc(100% - 32px));display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border-radius:999px;background:rgba(28,31,39,.62);backdrop-filter:blur(40px) saturate(1.4);-webkit-backdrop-filter:blur(40px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(203,217,255,.18),inset 0 0 0 1px rgba(179,197,255,.12),0 10px 40px -10px rgba(0,0,0,.6),0 0 40px -12px rgba(114,136,206,.35)}
 .marke{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.02em;margin-right:auto;white-space:nowrap}
@@ -154,459 +156,110 @@ main{position:relative;z-index:0}
 .rein.d1{animation-delay:.1s}.rein.d2{animation-delay:.2s}.rein.d3{animation-delay:.3s}.rein.d4{animation-delay:.45s}
 @keyframes rein{to{opacity:1;transform:none}}
 
-/* ---------- Wortmarken-Band ---------- */
-.band{padding:64px 0 70px;text-align:center}
-.band .etikett{font-size:12px;color:var(--leise);margin-bottom:22px;font-family:"IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
-.laufband{overflow:hidden;max-width:760px;margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
-.laufband .reihe{display:flex;gap:52px;width:max-content;animation:lauf 36s linear infinite}
-@keyframes lauf{to{transform:translateX(-50%)}}
-.wort{display:flex;align-items:center;gap:8px;color:#7a8190;font-size:19px;font-weight:600;letter-spacing:-.03em;white-space:nowrap}
-.wort i{width:22px;height:22px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
 
-/* ---------- Produktbild ---------- */
-.cover{padding-inline:10px}
-.cover-rahmen{max-width:1480px;margin:0 auto;border-radius:34px;background:radial-gradient(60% 55% at 50% 0%,rgba(114,136,206,.22),transparent 70%),linear-gradient(180deg,#161a26,#0e1017 70%);padding:56px 5% 0;overflow:hidden;box-shadow:inset 0 1px 0 rgba(179,197,255,.16),inset 0 0 0 1px rgba(179,197,255,.06)}
-.fenster{max-width:1100px;margin:0 auto;border-radius:18px 18px 0 0;background:#0c0e13;box-shadow:0 -1px 0 rgba(255,255,255,.07),0 30px 120px -20px rgba(140,160,255,.22);overflow:hidden;transform:translateY(60px) scale(.96);opacity:.4;transition:transform 1.4s var(--weich),opacity 1.4s var(--weich)}
-.fenster.da{transform:none;opacity:1}
-/* ---------- App-Tour (entwurf-app-tour.js) ----------
-   Nachbau der Web-App: Seitenleiste mit fuenf Bereichen, Unterpunkte
-   klappen auf, duenne grosse Titel, Mono-Zeilen. Ein Zeiger klickt sich
-   selbst durch, wie ein kurzes Video. */
-.mp-app{position:relative;display:grid;grid-template-columns:232px 1fr;height:560px;overflow:hidden;background:radial-gradient(70% 90% at 70% 0%,rgba(91,63,240,.22),transparent 60%),radial-gradient(60% 80% at 40% 100%,rgba(38,62,150,.35),transparent 65%),#0c0f1d;text-align:left}
-.mp-seite{display:flex;flex-direction:column;gap:2px;padding:18px 12px;background:rgba(9,11,20,.72);border-right:1px solid rgba(179,197,255,.07)}
-.mp-marke{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;padding:4px 10px 18px}
-.mp-seite .punkt{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;font-size:14px;color:#aab1c0;transition:background .45s var(--weich),color .45s}
-.mp-seite .punkt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.mp-seite .punkt.an{background:rgba(179,197,255,.08);color:var(--text)}
-.mp-seite .punkt.drin{color:var(--text)}
-.mp-unter{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--weich);margin-left:20px;border-left:1px solid rgba(179,197,255,.12);padding-left:6px}
-.mp-unter > *{min-height:0}
-.mp-unter{overflow:hidden}
-.mp-unter.auf{grid-template-rows:1fr}
-.mp-unter .innen{min-height:0;overflow:hidden}
-.mp-seite .punkt.klein{font-size:13.5px;padding:8px 12px}
-.mp-fuss{margin-top:auto;display:flex;flex-direction:column;gap:12px;align-items:stretch}
-.mp-pille{align-self:center;display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:12.5px;background:rgba(179,197,255,.06);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
-.mp-pille i{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#8f7bff,#5b3ff0);box-shadow:0 0 12px rgba(143,123,255,.7);animation:puls 2.4s ease-in-out infinite}
-.mp-termin{padding:12px;border-top:1px solid rgba(179,197,255,.08);font-size:12px;color:var(--muted)}
-.mp-termin small{display:block;font-size:10.5px;color:var(--leise);margin-bottom:4px}
-.mp-termin b{display:block;color:var(--text);font-weight:500;font-size:14px}
-.mp-inhalt{position:relative;overflow:hidden}
-.mp-seite-i{position:absolute;inset:0;padding:34px 40px;opacity:0;transform:translateY(14px);filter:blur(6px);transition:opacity .6s var(--weich),transform .7s var(--weich),filter .6s var(--weich);pointer-events:none}
-.mp-seite-i.an{opacity:1;transform:none;filter:none}
-.mp-seite-i h4{margin:0;font-size:38px;font-weight:300;letter-spacing:-.04em}
-.mp-meta{margin:6px 0 22px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--leise)}
-.mp-monat{margin:18px 0 10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);padding-bottom:8px;border-bottom:1px solid rgba(179,197,255,.08)}
-.mp-zwei{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-bottom:14px}
-.mp-kasten{padding:14px 16px;border-radius:14px;background:rgba(18,21,38,.7);box-shadow:inset 0 0 0 1px rgba(179,197,255,.08)}
-.mp-kasten > small{display:block;font-size:11px;font-family:"IBM Plex Mono",monospace;color:var(--leise);margin-bottom:10px}
-.mp-weiter{display:flex;gap:12px;align-items:center}
-.mp-weiter b{display:block;font-size:13.5px;font-weight:500;line-height:1.3}
-.mp-weiter small{font-size:11px;color:var(--leise);font-family:"IBM Plex Mono",monospace}
-.mp-lauf{display:block;height:3px;border-radius:2px;background:#262b40;margin:8px 0 5px}
-.mp-lauf i{display:block;height:100%;border-radius:2px;background:var(--akzent)}
-.mp-zeile{display:flex;gap:12px;padding:7px 0;font-size:13px;color:var(--muted);border-top:1px solid rgba(179,197,255,.06)}
-.mp-zeile:first-of-type{border-top:0}
-.mp-zeile b{flex:none;width:52px;color:var(--text);font-weight:500}
-.mp-reihe{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.mp-vid{border-radius:12px;padding:6px 6px 10px;background:rgba(18,21,38,.7);box-shadow:inset 0 0 0 1px rgba(179,197,255,.08);transition:transform .45s var(--weich),box-shadow .45s}
-.mp-vid.hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(179,197,255,.28),0 18px 40px -18px rgba(114,136,206,.6)}
-.mp-vid b{display:block;font-size:12.5px;font-weight:500;line-height:1.3;margin:8px 4px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mp-vid small{margin:0 4px;font-size:11px;color:var(--leise);font-family:"IBM Plex Mono",monospace}
-.mp-bild{position:relative;aspect-ratio:16/9;border-radius:8px;background:var(--v);display:grid;place-items:center;overflow:hidden}
-.mp-bild.klein{width:92px;flex:none}
-.mp-bild em{position:absolute;right:6px;bottom:6px;font-style:normal;font-size:10.5px;font-family:"IBM Plex Mono",monospace;padding:2px 6px;border-radius:5px;background:rgba(0,0,0,.55)}
-.mp-play{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;transition:transform .4s var(--weich)}
-.mp-play:after{content:"";border-left:8px solid #0b0d12;border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:2px}
-.mp-vid.hover .mp-play{transform:scale(1.18)}
-.mp-eintrag{padding:4px 0 4px 16px;border-left:1px solid rgba(179,197,255,.25)}
-.mp-eintrag small{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--leise)}
-.mp-eintrag b{display:block;font-size:22px;font-weight:300;letter-spacing:-.02em;margin:6px 0 8px}
-.mp-eintrag span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--akzent)}
-.mp-kal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:12px;text-align:center;color:var(--leise)}
-.mp-kal span{padding:12px 0;border-radius:10px;background:rgba(18,21,38,.7)}
-.mp-kal span.wt{background:none;padding:4px 0;font-family:"IBM Plex Mono",monospace;font-size:11px}
-.mp-kal span.t{background:linear-gradient(135deg,#8f7bff,#5b3ff0);color:#fff;font-weight:600;box-shadow:0 8px 24px -10px rgba(143,123,255,.9)}
-.mp-kal span.heute{box-shadow:inset 0 0 0 1px rgba(179,197,255,.4);color:var(--text)}
-.mp-kal .legende{grid-column:1/-1;text-align:left;margin-top:8px;font-size:12.5px;color:var(--muted)}
-.mp-kal .legende b{color:var(--text);font-weight:500}
-.mp-zeiger{position:absolute;left:0;top:0;width:22px;height:22px;z-index:5;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6));transition:transform 1s cubic-bezier(.45,.05,.2,1);will-change:transform}
-.mp-klick{position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;z-index:4;pointer-events:none;box-shadow:0 0 0 1.5px rgba(179,197,255,.8);opacity:0}
-.mp-klick.los{animation:klick .6s ease-out}
-@keyframes klick{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(1.4)}}
-/* Schmaler als 1100 px: die ganze App verkleinert zeigen statt einer
-   Handy-Fassung ohne Seitenleiste (Manuel 24.9.: man sah nur den Kalender
-   halb und kannte sich nicht aus). --k setzt entwurf-app-tour.js. */
-.mp-app{width:calc(var(--app-breite,1100) * 1px);transform:scale(var(--k,1));transform-origin:0 0}
-@media (max-width:640px){.cover-rahmen{padding:28px 12px 0;border-radius:24px}.cover{padding-inline:8px}}
-.fenster{height:calc(560px * var(--k,1))}
-.app-kopf{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--linie)}
-.app-kopf .suche{flex:1;max-width:360px;margin:0 auto;height:34px;border-radius:999px;background:var(--kachel-2);color:var(--leise);font-size:13px;display:flex;align-items:center;padding:0 14px}
-.app-kopf .punkt{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#b3c5ff,#6d7fd6)}
-.app{display:grid;grid-template-columns:210px 1fr;min-height:470px}
-.app aside{border-right:1px solid var(--linie);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px;color:var(--muted)}
-.app aside div{padding:9px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .3s,color .3s}
-.app aside div b{width:8px;height:8px;border-radius:3px;background:var(--c,#444)}
-.app aside .aktiv{background:var(--kachel-2);color:var(--text)}
-.app main{padding:24px 28px}
-.app h3{margin:0 0 4px;font-size:22px}
-.app .unter{color:var(--leise);font-size:14px;margin:0 0 20px}
-.tafel{display:none}.tafel.an{display:block;animation:rein .5s var(--weich)}
-.karten{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.vid{border-radius:14px;overflow:hidden;background:var(--kachel)}
-.vid .bild{aspect-ratio:16/9;position:relative;background:var(--v);display:flex;align-items:flex-end;padding:10px}
-.vid .bild span{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.45);backdrop-filter:blur(8px)}
-.vid p{margin:0;padding:10px 12px 12px;font-size:13px;line-height:1.35;font-weight:500}
-.vid small{display:block;color:var(--leise);font-weight:400;margin-top:3px;font-family:"IBM Plex Mono",monospace;font-size:11px}
-.liste .z{display:grid;grid-template-columns:44px 1fr auto auto;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--linie);font-size:14px}
-.liste .z .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--bg)}
-.liste .z .ic i{width:18px;height:18px;background:var(--fg,#fff);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
-.liste .z .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;color:var(--leise)}
-.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--kachel-2);color:var(--muted)}
-.tag.s{background:rgba(240,130,121,.12);color:var(--bad)}.tag.k{background:rgba(127,209,168,.12);color:var(--gut)}
-.gitter{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.gitter .p{background:var(--kachel);border-radius:14px;padding:14px}
-.gitter .p .av{width:38px;height:38px;border-radius:50%;margin-bottom:10px;background:var(--a);display:grid;place-items:center;font-weight:700;font-size:14px;color:#0b0d12}
-.gitter .p b{display:block;font-weight:600;font-size:14px}
-.gitter .p span{font-size:12px;color:var(--leise)}
-@media (max-width:860px){.app{grid-template-columns:1fr}.app aside{display:none}.karten{grid-template-columns:1fr 1fr}.gitter{grid-template-columns:1fr 1fr}.liste .z{grid-template-columns:44px 1fr auto}.liste .z .mono{display:none}}
-
-/* ---------- Zahlen mit auffliegenden Icons ---------- */
-/* Zieht an den Hero heran: der Kleber zentriert den Inhalt, sonst stuende eine halbe Bildschirmhoehe Leere dazwischen */
-/* Handy: kurz halten - nach Explosion und Zaehlen direkt weiter (Manuel 24.9.) */
-@media (max-width:640px){.zahlen{height:100vh!important}}
-.zahlen{height:100vh;position:relative;margin-top:-12vh;pointer-events:none}
-.kleber{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center;background:radial-gradient(38% 42% at 50% 50%,rgba(38,62,150,.32),transparent 72%),radial-gradient(25% 30% at 50% 50%,rgba(179,197,255,.10),transparent 70%)}
-.zahl-text{position:relative;z-index:2;text-align:center}
-.zahl-text .vor{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:600;letter-spacing:-.02em;margin:0 0 10px}
-.zahl-text .nach{margin:24px auto 0;max-width:58ch;color:var(--muted);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.5}
-.zeile{font-size:clamp(2.2rem,6.2vw,5rem);line-height:1.06;font-weight:700;letter-spacing:-.05em;color:var(--dunkelzahl);white-space:nowrap}
-.zeile .n{font-variant-numeric:tabular-nums}
-.icons{position:absolute;inset:0;z-index:1;pointer-events:none}
-.app-icon{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:23%;background:var(--bg);display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 1px rgba(255,255,255,.06),0 18px 40px -12px rgba(0,0,0,.7);will-change:transform,opacity;opacity:0}
-.app-icon i{width:52%;height:52%;background:var(--fg,#fff);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
-@media (max-width:640px){
-  .app-icon{width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:16px}
-  /* Handy: Zahl gross, Beschriftung klein darunter - drei Bloecke statt drei langer Zeilen */
-  .zahl-text{display:flex;flex-direction:column;align-items:center;gap:10px}
-  .zahl-text .vor{font-size:14px;margin:0}
-  .zahl-text .nach{font-size:14px;margin:8px auto 0;max-width:30ch}
-  .zeile{display:flex;flex-direction:column;align-items:center;line-height:1;white-space:normal}
-  .zeile .n{font-size:min(11.5vw,64px);letter-spacing:-.05em}
-  .zeile .zeile-wort{font-size:13px;font-weight:500;letter-spacing:0;margin-top:4px;font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
-  .stichtag{font-size:10px;max-width:24ch;margin:4px auto 0;line-height:1.5;text-align:center}
-}
-.stichtag{margin-top:22px;font-size:12px;color:var(--leise);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-
-/* ---------- Abschnitte ---------- */
-section.block{padding-block:130px}
-/* Handy: 130 px oben und unten ergaben zwischen zusammengehoerigen Kacheln ~170 px Leere (Durchgang 24.9.) */
-@media (max-width:640px){section.block{padding-block:84px}section.cover{padding-top:84px!important}}
-.kopfzeile{text-align:center;margin:0 auto 40px}
-.kopfzeile h2{font-size:clamp(2.2rem,5.6vw,4rem);line-height:1;margin:0}
-.kopf-unter{margin:18px auto 0;max-width:640px;color:var(--leise);font-size:17px;line-height:1.5}
-
-.einblenden{opacity:0;transform:translateY(28px);transition:opacity 1s var(--weich),transform 1s var(--weich)}
-.einblenden.da{opacity:1;transform:none}
-
-/* Reiter */
-.reiter-wrap{text-align:center;margin-bottom:34px}
-.reiter{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--kachel)}
-.reiter button{all:unset;cursor:pointer;padding:9px 18px;border-radius:999px;font-size:15px;font-weight:500;color:var(--leise);transition:background .3s,color .3s}
-.reiter button[aria-selected=true]{background:linear-gradient(135deg,#cbd9ff,#8ea2e6);color:#0b0d12}
-
-/* Themen-Laufbaender */
-.baender{display:flex;flex-direction:column;gap:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);overflow:hidden}
-.baender .reihe{display:flex;gap:10px;width:max-content;animation:lauf 60s linear infinite}
-.baender .reihe:nth-child(2){animation-direction:reverse;animation-duration:70s}
-.baender .reihe:nth-child(3){animation-duration:80s}
-.chip{display:flex;align-items:center;gap:10px;padding:10px 18px 10px 10px;border-radius:999px;background:var(--kachel);box-shadow:inset 0 0 0 1px rgba(179,197,255,.08);font-size:16px;font-weight:500;white-space:nowrap;color:#d6d9e0}
-.chip b{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--bg,rgba(179,197,255,.08));box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
-.chip b i{width:16px;height:16px;background:var(--fg,#b3c5ff);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
-
-/* Grosse Kacheln */
-.zwei{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.drei{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media (max-width:860px){.zwei,.drei{grid-template-columns:1fr}}
-/* Text und Inhalt in EINER Kachel, Hoehe richtet sich nach dem Inhalt.
-   Vorher: feste Seitenverhaeltnisse -> grosse leere Flaechen, Text darunter weit weg. */
-.feld{display:flex;flex-direction:column;border-radius:26px;padding:26px;background:radial-gradient(70% 60% at 50% 0%,rgba(114,136,206,.10),transparent 70%),var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06)}
-.feld h3{order:0;font-size:21px;letter-spacing:-.025em;margin:0 0 6px;font-weight:600}
-.feld p{order:1;margin:0;color:var(--muted);max-width:40ch;line-height:1.45}
-.feld .flaeche{order:2;margin-top:22px;flex:1;display:flex;align-items:flex-end;justify-content:center}
-.feld .flaeche > *{width:100%;max-width:none}
-@media (max-width:640px){.feld{padding:22px}}
-
-.player{width:100%;max-width:440px;border-radius:18px;overflow:hidden;background:#0c0e13;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
-.player .vbild{aspect-ratio:16/9;background:radial-gradient(90% 90% at 70% 20%,#5b3ff0 0%,transparent 55%),radial-gradient(80% 80% at 10% 90%,#0fb5ae 0%,transparent 55%),#141a33;display:grid;place-items:center}
-.player .vbild i{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center}
-.player .vbild i:after{content:"";border-left:15px solid #0b0d12;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
-.player .unten{padding:12px 14px 14px}
-.kapitel{display:flex;gap:4px}
-.kapitel span{height:4px;border-radius:2px;background:#2a2e38;flex:1;overflow:hidden;position:relative}
-.kapitel span:after{content:"";position:absolute;inset:0;background:var(--akzent);transform:scaleX(0);transform-origin:left;animation:kap 8s linear infinite}
-.kapitel span:nth-child(2):after{animation-delay:2s}.kapitel span:nth-child(3):after{animation-delay:4s}.kapitel span:nth-child(4):after{animation-delay:6s}
-@keyframes kap{0%{transform:scaleX(0)}25%,100%{transform:scaleX(1)}}
-.kapitel-namen{display:flex;justify-content:space-between;font-size:12px;color:var(--leise);margin-top:8px}
-
-.schritte{width:100%;max-width:400px;display:flex;flex-direction:column;gap:10px}
-.schritte div{display:flex;gap:12px;align-items:center;padding:15px 18px;background:#0c0e13;border-radius:16px;font-size:15px;font-weight:500;color:var(--leise);transition:color .5s,transform .5s var(--weich),box-shadow .5s}
-.schritte div b{width:28px;height:28px;border-radius:50%;background:var(--kachel-2);display:grid;place-items:center;font-size:13px;color:var(--muted);flex:none;transition:background .5s,color .5s}
-.schritte div.an{color:var(--text);box-shadow:inset 0 0 0 1px rgba(179,197,255,.2)}
-.schritte div.an b{background:linear-gradient(135deg,#b3c5ff,#7d8ff0);color:#0b0d12}
-
-.mini{width:100%;max-width:300px;display:flex;flex-direction:column;gap:8px}
-.mini div{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;background:#0c0e13;font-size:14px;font-weight:500;text-align:left}
-.mini div .ic{width:30px;height:30px;border-radius:9px;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14);display:grid;place-items:center}
-.mini div .ic i{width:16px;height:16px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
-.mini div span{flex:1}
-.mini div .ic{flex:none}
-.mini div em{font-style:normal;font-size:12px;color:var(--leise)}
-.kal{width:100%;max-width:300px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px;font-size:12px;text-align:center;color:var(--leise)}
-.kal span{padding:9px 0;border-radius:10px;background:#0c0e13}
-.kal span.m{background:linear-gradient(135deg,#f7931a,#f05a28);color:#fff;font-weight:600}
-.kal span.f{background:linear-gradient(135deg,#5b3ff0,#8f7bff);color:#fff;font-weight:600}
-.kal-legende{grid-column:1/-1;display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:12px}
-.kal-legende b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
-
-/* Wand */
-.wand{display:flex;flex-direction:column;gap:16px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
-.wand .reihe{display:flex;gap:16px;width:max-content;animation:lauf 90s linear infinite}
-.wand .reihe.zurueck{animation-direction:reverse;animation-duration:100s}
-.karte{width:360px;background:var(--kachel);border-radius:22px;padding:22px;box-shadow:inset 0 1px 0 rgba(179,197,255,.14),inset 0 0 0 1px rgba(179,197,255,.06)}
-.karte .kopf-k{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.karte .kopf-k .av{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14)}
-.karte .kopf-k .av i{width:20px;height:20px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
-.karte .kopf-k b{display:block;font-weight:600;font-size:15px}
-.karte .kopf-k span{font-size:11px;color:var(--leise);font-family:"IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
-.karte p{margin:0;font-size:16px;line-height:1.45;color:#dfe2e8}
-
-/* Schluss */
-.schluss{padding:150px 0 0;text-align:center;background:radial-gradient(45% 40% at 50% 38%,rgba(114,136,206,.24),transparent 72%),radial-gradient(35% 30% at 30% 80%,rgba(38,62,150,.25),transparent 70%)}
-.schluss h2{font-size:clamp(2.4rem,6.4vw,4.8rem);line-height:.98;margin:0 auto 18px;max-width:14ch}
-.schluss p{color:var(--muted);margin:0 auto 32px;max-width:42ch;font-size:18px}
-.icon-baender{margin-top:90px;display:flex;flex-direction:column;gap:18px;overflow:hidden;padding:10px 0 30px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
-.icon-baender .reihe{display:flex;gap:18px;width:max-content;animation:lauf 50s linear infinite}
-.icon-baender .reihe:nth-child(2){animation-direction:reverse;animation-duration:58s}
-.icon-baender .app-icon{position:relative;left:auto;top:auto;margin:0;opacity:1;flex:none}
-
-/* Fuss: Seite endet gerundet, darunter die dunklere Flaeche */
-.seite{background:var(--grund);border-radius:0 0 36px 36px;position:relative;z-index:2;padding-bottom:80px}
-/* Lichtschicht: drei farbige Lichter aus dem Logo-Blau, stehen fest im Fenster und treiben langsam.
-   z-index -1 innerhalb von .seite = ueber dem Seitengrund, unter dem Inhalt. clip-path haelt sie vom Fuss fern.
-   Nur transform wird animiert, kein Blur-Filter. In den Sternen-Stationen gedimmt (deren Raender laufen auf --grund aus). */
-.seite{clip-path:inset(0 round 0 0 36px 36px)}
-.licht{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;transition:opacity 1.4s var(--weich)}
+/* Schimmer oben (Mobbin-Kopf bleibt) */
+.licht{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .licht i{position:absolute;width:75vmax;height:75vmax;border-radius:50%;will-change:transform}
-.licht i:nth-child(1){left:-28vmax;top:-30vmax;background:radial-gradient(closest-side,rgba(29,100,242,.30),rgba(29,100,242,.09) 55%,transparent);animation:treib-a 34s ease-in-out infinite alternate}
-.licht i:nth-child(2){right:-30vmax;top:5vh;background:radial-gradient(closest-side,rgba(91,63,240,.24),rgba(91,63,240,.07) 55%,transparent);animation:treib-b 41s ease-in-out infinite alternate}
-.licht i:nth-child(3){left:15vw;bottom:-45vmax;background:radial-gradient(closest-side,rgba(110,163,255,.22),rgba(15,181,174,.07) 60%,transparent);animation:treib-c 47s ease-in-out infinite alternate}
+.licht i:nth-child(1){left:-28vmax;top:-30vmax;background:radial-gradient(closest-side,rgba(29,100,242,.24),rgba(29,100,242,.07) 55%,transparent);animation:treib-a 34s ease-in-out infinite alternate}
+.licht i:nth-child(2){right:-30vmax;top:5vh;background:radial-gradient(closest-side,rgba(91,63,240,.18),rgba(91,63,240,.05) 55%,transparent);animation:treib-b 41s ease-in-out infinite alternate}
 @keyframes treib-a{to{transform:translate(18vw,22vh)}}
 @keyframes treib-b{to{transform:translate(-16vw,30vh)}}
-@keyframes treib-c{to{transform:translate(20vw,-18vh)}}
-.seite.licht-aus .licht{opacity:.15}
-@media (prefers-reduced-motion:reduce){.licht i{animation:none}}
-footer{background:#050608;margin-top:-36px;padding:96px 0 calc(36px + env(safe-area-inset-bottom,0px));color:var(--leise)}
-footer .oben{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px}
-footer .oben b{display:block;font-size:30px;color:var(--text);letter-spacing:-.04em;font-weight:700}
-footer .oben p{margin:8px 0 0;font-size:14px}
-footer nav{display:grid;grid-template-columns:repeat(2,minmax(140px,auto));gap:10px 60px;font-size:15px;font-weight:500;color:#d6d9e0}
-footer .unten{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;margin-top:90px;font-size:13px}
-
-/* ---------- Sternen-Stationen (entwurf-sterne.js) ----------
-   Der Abschnitt ist hoeher als das Fenster, die Leinwand klebt darin:
-   die Scrollstrecke wird zur Zeitachse. Texte steuert das Skript. */
-.stern{position:relative}
-.stern-klebe{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
-.stern-klebe canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-/* Weiche Kanten oben und unten: ohne sie endet der Himmel mit einer harten Linie, sobald der Abschnitt wegscrollt */
-/* Als stehende Verlaeufe darueber statt mask-image: eine Maske auf der
-   Leinwand wird bei jedem Frame neu verrechnet und liess den Rechner haken. */
-.stern-klebe:before,.stern-klebe:after{content:"";position:absolute;left:0;right:0;z-index:0;pointer-events:none}
-.stern-klebe:before{top:0;height:14%;background:linear-gradient(var(--grund),transparent)}
-.stern-klebe:after{bottom:0;height:22%;background:linear-gradient(transparent,var(--grund))}
-#st-flug .stern-klebe{background:radial-gradient(45% 55% at 50% 50%,rgba(38,62,150,.2),transparent 70%)}
-.stern-text{position:relative;z-index:1;text-align:center;pointer-events:none;padding-inline:20px}
-.stern-text p{margin:0}
-.stern-hut{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--leise);margin-bottom:22px!important}
-#st-flug{height:300vh}
-/* Ringflug seit 24.9.: jedes Wort sitzt an seinem Lichtpunkt, JS setzt die Lage */
-.flug-hut{position:absolute;top:12vh;left:0;right:0;z-index:1;text-align:center;opacity:0}
-.flug-marke{position:absolute;left:0;top:0;z-index:1;margin:0;white-space:nowrap;text-align:center;font-size:clamp(1.05rem,2vw,1.6rem);font-weight:300;letter-spacing:-.02em;opacity:0;will-change:transform,opacity}
-.flug-marke i{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--leise);margin-bottom:6px}
-.flug-schluss{position:absolute;left:0;right:0;top:calc(50% + 48px);z-index:1;margin:0;text-align:center;padding-inline:20px;font-size:clamp(1.5rem,3.4vw,2.8rem);font-weight:300;letter-spacing:-.03em;opacity:0}
-#st-sieb{height:300vh}
-/* Sieb seit 24.9.: Kopf oben, darunter vier Glasschichten mit je einem Kriterium */
-.sieb-kopf{position:absolute;left:0;right:0;top:13vh;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding-inline:20px;opacity:0}
-.sieb-kopf p{margin:0}
-/* Fazit direkt unter der Reihe der Uebrigen (L.ende = 74 %) statt oben */
-.sieb-kopf.sieb-nachher{top:calc(74vh + 30px)}
-/* unten weniger Abdunkelung, sonst laege das Fazit im Verlauf */
-#st-sieb .stern-klebe:after{height:8%}
-.sieb-gross{font-size:clamp(1.3rem,2.6vw,2.2rem);font-weight:300;letter-spacing:-.03em}
-.sieb-gross em{font-style:normal;color:var(--akzent)}
-.sieb-lage{position:absolute;left:50%;top:0;z-index:1;display:flex;align-items:center;gap:8px;padding:5px 13px 5px 5px;border-radius:999px;font-size:13px;white-space:nowrap;color:var(--muted);background:rgba(16,18,24,.94);box-shadow:inset 0 0 0 1px rgba(179,197,255,.1);opacity:0;transition:color .5s,box-shadow .5s}
-.sieb-lage b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;background:rgba(179,197,255,.08);color:var(--leise);transition:background .5s,color .5s}
-.sieb-lage.an{color:var(--text);box-shadow:inset 0 0 0 1px rgba(179,197,255,.45),0 10px 30px -12px rgba(114,136,206,.8)}
-.sieb-lage.an b{background:linear-gradient(135deg,#b3c5ff,#7d8ff0);color:#0b0d12}
-.sieb-lage.fertig{color:#d6d9e0}
-.sieb-lage.fertig b{background:rgba(127,209,168,.14);color:var(--gut);font-size:0}
-.sieb-lage.fertig b:after{content:"✓";font-size:12px}
-.sieb-schluss{text-align:center;margin-top:6px!important;font-size:clamp(1rem,1.6vw,1.2rem);color:var(--muted);max-width:40ch}
-.sieb-klein{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--leise)}
-#st-bild{height:360vh}
-.bild-titel{position:absolute;top:13vh;left:0;right:0;text-align:center;z-index:1;opacity:0}
-.bild-titel h2{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1;margin:0}
-.stern-marke{position:absolute;z-index:1;width:230px;transform:translate(-50%,28px);text-align:center;opacity:0;pointer-events:none}
-.stern-marke b{display:block;font-size:19px;font-weight:500;letter-spacing:-.02em;margin-bottom:4px;transform:translateY(calc((1 - var(--auf,0)) * 10px))}
-.stern-marke span{display:block;font-size:14px;color:var(--muted);line-height:1.4}
-.stern-marke i{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--akzent);margin-bottom:6px}
-.stern-marke.rechts{text-align:left;transform:translate(22px,-50%);width:min(210px,46vw)}
-.stern-marke.links{text-align:right;transform:translate(calc(-100% - 22px),-50%);width:min(210px,46vw)}
-/* Handy: Sterne untereinander links, Text rechts daneben - im Zickzack liefen die Linien durch die Schrift (Manuel 24.9.) */
-@media (max-width:719px){.stern-marke.rechts{width:calc(100vw - 15vw - 44px)}}
-#st-warp{height:300vh}
-.warp-satz{font-size:clamp(2rem,5.4vw,4.2rem);line-height:1.16;padding-bottom:.04em;font-weight:300;letter-spacing:-.045em;max-width:26ch;margin:0 auto!important}
-.warp-satz em{font-style:normal}
-#st-warp [data-warp]{opacity:0}
-.warp-unter{color:var(--muted);font-size:18px;max-width:42ch;margin:22px auto 30px!important}
-.warp-knoepfe{pointer-events:none}
-.warp-knoepfe.klickbar{pointer-events:auto}
-/* Fuss: grosses Logo, kaum sichtbar - die Maus leuchtet es an wie ein Scheinwerfer */
-footer{position:relative;overflow:hidden;min-height:540px}
-footer .spalte{position:relative;z-index:1}
-/* Buch im Fuss: zwei Seiten in echtem 3D. Die Maus zieht es wie ein Magnet
-   zu sich, neigt es, und die Seiten oeffnen sich, je naeher sie kommt.
-   Glanz und Kantenlicht wandern mit dem Zeiger ueber das Papier. */
-.fuss-logo{position:absolute;left:50%;top:calc(50% + 24px);width:min(430px,86vw);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;z-index:0;perspective:1100px}
-.fuss-logo .buch3d{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
-.fuss-logo .seite3d{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
-.fuss-logo .seite3d.l{transform-origin:45% 50%}
-.fuss-logo .seite3d.r{transform-origin:55% 50%}
-.fuss-logo svg{width:100%;height:100%;display:block;overflow:visible}
-.fuss-logo .schein3d{position:absolute;left:50%;top:52%;width:70%;height:70%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(114,136,206,.22),rgba(38,62,150,.08) 55%,transparent);opacity:var(--s,.25);transition:opacity .8s}
-.fuss-logo .ruecken{position:absolute;left:50%;top:30%;width:1px;height:48%;transform:translateX(-50%);background:linear-gradient(transparent,rgba(179,197,255,.55),transparent);opacity:var(--s,.25);filter:blur(.4px)}
-/* Handy: das Buch lag mitten hinter den Links - dort unter den Text setzen */
-@media (max-width:640px){footer{padding-bottom:calc(300px + env(safe-area-inset-bottom,0px))}.fuss-logo{top:auto;bottom:10px;width:min(260px,64vw);transform:translate(-50%,0)}}
-/* Statische Abschnitte aus der alten Startseite */
-.fuer-wen{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch}
-.fuer-wen .feld p{max-width:52ch}
-.fuer-wen .liste-f{order:2;display:flex;flex-direction:column;gap:10px;margin-top:18px}
-.fuer-wen .liste-f div{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:#0c0e13;font-size:15px;color:#d6d9e0}
-.fuer-wen .liste-f div b{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(179,197,255,.1);color:var(--akzent);font-size:12px;margin-top:1px}
-.passt{order:2;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-.passt-spalte{display:flex;flex-direction:column;gap:8px}
-.passt-spalte em,.liste-f em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--leise);margin-bottom:4px}
-.passt-spalte div{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#0c0e13;font-size:14.5px;line-height:1.4;color:#d6d9e0}
-.passt-spalte b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;margin-top:1px}
-.passt-spalte.ja b{background:rgba(127,209,168,.12);color:var(--gut)}
-.passt-spalte.nein b{background:rgba(240,130,121,.12);color:var(--bad)}
-.passt-spalte.nein div{color:var(--muted)}
-.liste-f em{margin-bottom:2px;color:var(--akzent)}
-.bild-fuss{position:absolute;bottom:9vh;left:0;right:0;text-align:center;z-index:1;margin:0;font-size:clamp(1.1rem,2vw,1.5rem);font-weight:300;letter-spacing:-.02em;color:var(--muted);opacity:0}
-.bild-fuss span{color:var(--text)}
-@media (max-width:640px){.passt{grid-template-columns:1fr}.bild-fuss{bottom:5vh}}
-.nicht{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.nicht .feld h3{font-size:18px}
-.nicht-ic{position:relative;width:44px;height:44px;border-radius:13px;margin-bottom:20px;display:grid;place-items:center;background:rgba(179,197,255,.08);box-shadow:inset 0 0 0 1px rgba(179,197,255,.14);order:-1}
-.nicht-ic i{width:20px;height:20px;background:#b3c5ff;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;transition:opacity .6s .5s,filter .6s .5s}
-.nicht-ic s{position:absolute;left:50%;top:50%;width:30px;height:1.6px;margin:-.8px 0 0 -15px;border-radius:2px;background:#f08279;transform:rotate(-45deg) scaleX(0);transform-origin:center;transition:transform .7s var(--weich) .55s}
-.nicht .feld.da .nicht-ic s{transform:rotate(-45deg) scaleX(1)}
-.nicht .feld.da .nicht-ic i{opacity:.45;filter:saturate(0)}
-.nicht .feld{transition-delay:0s}
-.nicht .feld:nth-child(2){transition-delay:.12s}.nicht .feld:nth-child(2) .nicht-ic s{transition-delay:.67s}
-.nicht .feld:nth-child(3){transition-delay:.24s}.nicht .feld:nth-child(3) .nicht-ic s{transition-delay:.79s}
-.nicht .feld:nth-child(4){transition-delay:.36s}.nicht .feld:nth-child(4) .nicht-ic s{transition-delay:.91s}
-.nicht .feld:hover .nicht-ic{box-shadow:inset 0 0 0 1px rgba(240,130,121,.35)}
-.nicht .feld p{font-size:15px}
-@media (max-width:860px){.fuer-wen{grid-template-columns:1fr}.nicht{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.nicht{grid-template-columns:1fr}}
-@media (max-width:640px){#st-flug{height:240vh}#st-sieb{height:290vh}#st-bild{height:340vh}#st-warp{height:260vh}.bild-titel{top:8vh}.stern-marke b{font-size:17px}.stern-marke span{font-size:13px}}
-@media (prefers-reduced-motion:reduce){
-  #st-flug,#st-sieb,#st-bild,#st-warp{height:100vh}
-  #st-warp [data-warp],.sieb-nachher,.bild-titel,.stern-marke,.bild-fuss{opacity:1!important}
-}
-
-@media (prefers-reduced-motion:reduce){
-  .rein,.einblenden,.fenster{animation:none;opacity:1;transform:none;transition:none}
-  .laufband .reihe,.baender .reihe,.wand .reihe,.icon-baender .reihe,.knopf.glanz:after,.kapitel span:after,.buch svg,.zeichen .schein,.zeichen .blitz,.zeichen .ring,.hero .zeichen.rein,.zeichen .glas:after,.zeichen .kante,.verlauf{animation:none}
-}
-/* Duenne Schrift (Standard, fette Fassung unter ?schrift=fett).
-   Grosse Zeilen leicht (300), Schluesselwoerter und Zahlen bleiben kraeftiger,
-   damit die Hierarchie nicht nur an der Groesse haengt. */
-html.duenn h1,html.duenn h2{font-weight:300;letter-spacing:-.04em}
-html.duenn .verlauf,html.duenn .kopfzeile h2 span{font-weight:400}
-html.duenn .zeile{font-weight:300}
-html.duenn .zeile .n{font-weight:500}
-html.duenn .feld h3,html.duenn .app h3,html.duenn .karte .kopf-k b{font-weight:500}
-html.duenn .zahl-text .vor{font-weight:400}
-
-/* Kundenstimmen */
-.ks{overflow:hidden}
-.ks-reihe{overflow:hidden;padding:14px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.ks-band{display:flex;gap:22px;width:max-content;animation:ks-lauf 70s linear infinite;will-change:transform}
-.ks-reihe:nth-of-type(odd) .ks-band{animation-direction:reverse}
-.ks-reihe:hover .ks-band{animation-play-state:paused}
-@keyframes ks-lauf{to{transform:translateX(calc(-50% - 11px))}}
-.ks-bild{all:unset;cursor:zoom-in;flex:none;height:340px;border-radius:18px;overflow:hidden;border:1px solid var(--linie);opacity:.82;box-shadow:0 18px 50px rgba(0,0,0,.45);transition:opacity .5s var(--weich),transform .5s var(--weich),box-shadow .5s var(--weich)}
-.ks-bild img{display:block;height:100%;width:auto}
-.ks-bild:hover,.ks-bild:focus-visible{opacity:1;transform:scale(1.06);box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(179,197,255,.35)}
-.ks-fuss{margin:34px auto 0;text-align:center;color:var(--leise);font-size:.78rem}
-.ks-gross{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(5,6,9,.86);backdrop-filter:blur(8px);cursor:zoom-out;padding:24px}
-.ks-gross[hidden]{display:none}
-.ks-gross img{max-height:calc(100vh - 48px);max-width:92vw;border-radius:18px}
-body.ks-offen .kopf{opacity:0;pointer-events:none}
-@media (max-width:640px){.ks-bild{height:250px;opacity:1}.ks-band{gap:14px;animation-duration:50s}.ks-reihe{-webkit-mask:none;mask:none}.ks-zitat{margin-bottom:34px}}
-@media (prefers-reduced-motion:reduce){.ks-band{animation:none}.ks-reihe{overflow-x:auto}}
-
-/* ---- 1.10.2026: Ergebnisse. Zwei Charts: (1) Vergleich aller Renditen, steht fest. (2) Bitcoin-Kurs mit unseren Ein- und Ausstiegen, zum Scrollen. ---- */
-.erg{padding-block:130px 0}
-.erg-eins{max-width:1120px;margin:0 auto}
-.erg-hinweis{max-width:1120px;margin:26px auto 0;color:var(--muted);font-size:14px;line-height:1.55}
-.erg-signale-kopf{max-width:1120px;margin:72px auto 24px}
-.erg-signale-kopf .st-hut{margin:0 0 12px}
-.erg-signale-kopf h3{margin:0;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.1;font-weight:500;letter-spacing:-.035em}
-.erg-signale-kopf p:last-child{margin:10px 0 0;max-width:56ch;color:var(--muted);font-size:16px;line-height:1.5}
-.erg-signale{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-/* Signal-Karten (3.10.2026, Manuel: Logos dazu, hochwertiger): Logo-Kachel oben, Markenfarbe als weiches Licht
-   in der Ecke und in der Zahl, unten ein duenner Balken im Verhaeltnis zum besten Signal. */
-.erg-sig{position:relative;overflow:hidden;padding:22px 22px 20px;border-radius:24px;background:radial-gradient(90% 70% at 100% 0%,color-mix(in srgb,var(--c) 16%,transparent),transparent 65%),linear-gradient(180deg,rgba(255,255,255,.025),transparent 40%),var(--kachel);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 60px -36px rgba(0,0,0,.8);transition:transform .5s var(--weich),box-shadow .5s var(--weich)}
-@media (hover:hover){.erg-sig.da:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 0 1px color-mix(in srgb,var(--c) 30%,transparent),0 40px 70px -36px rgba(0,0,0,.9)}}
+.seite{position:relative;z-index:0}
+.hero{text-align:center;padding:170px 20px 0;position:relative}
+.hero:before{content:"";position:absolute;left:50%;top:40px;width:min(1100px,100%);height:620px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:radial-gradient(40% 45% at 50% 30%,rgba(114,136,206,.24),transparent 70%),radial-gradient(30% 35% at 22% 60%,rgba(38,62,150,.24),transparent 70%)}
+.hero h1{font-size:clamp(2.8rem,6.6vw,5.8rem);line-height:1.02;letter-spacing:-.03em;margin:0 auto 26px;max-width:13ch}
+.hero p.intro{font-size:clamp(1.1rem,1.6vw,1.4rem);line-height:1.4;color:var(--muted);max-width:34ch;margin:0 auto 34px}
+.hero .intro b{color:var(--text);font-weight:500}
+.hero .frei{margin:18px auto 0;max-width:none;font-size:15px;color:var(--leise)}
+.knopf{font-family:var(--sans)}
+.rein{opacity:0;transform:translateY(20px);animation:rein 1.1s var(--weich) forwards}
+.rein.d1{animation-delay:.1s}.rein.d2{animation-delay:.2s}.rein.d3{animation-delay:.3s}.rein.d4{animation-delay:.45s}
+@keyframes rein{to{opacity:1;transform:none}}
+.hero-wechsel .wechselwort{display:inline-block;position:relative;vertical-align:baseline;transition:width .55s var(--weich);white-space:nowrap}
+.hero-wechsel .wechselwort b{display:inline-block;transition:opacity .35s ease,transform .45s var(--weich)}
+.hero-wechsel .wechselwort b.raus{opacity:0;transform:translateY(-.45em)}
+.hero-wechsel .wechselwort b.unten{opacity:0;transform:translateY(.45em);transition:none}
+/* Grosses echtes Bild unter dem Kopf, wie bei Dia */
+.titelbild{max-width:1100px;margin:90px auto 0;position:relative}
+.titelbild img{display:block;width:100%;border-radius:6px;box-shadow:0 40px 120px -40px rgba(0,0,0,.9)}
+.titelbild figcaption{display:flex;justify-content:space-between;gap:20px;margin-top:16px;font-size:15px;color:var(--leise);text-align:left}
+.titelbild figcaption a{color:var(--muted);white-space:nowrap}
+.notiz{font-family:Caveat,cursive;font-size:30px;line-height:1;color:var(--hand);position:absolute}
+.titelbild .notiz{right:-30px;top:-58px;transform:rotate(-5deg)}
+.titelbild .notiz svg{position:absolute;left:30px;top:30px;width:60px;height:50px;fill:none;stroke:var(--hand);stroke-width:2.4;stroke-linecap:round}
+@media (max-width:860px){.titelbild .notiz{display:none}.titelbild{margin-top:60px}.titelbild figcaption{flex-direction:column;gap:6px}}
+/* Zahlen als eine Zeile */
+.hero .vertrauen{max-width:none;display:flex;justify-content:center;flex-wrap:wrap;gap:10px 48px;margin:70px auto 0;font-size:17px;color:var(--muted)}
+.hero .vertrauen b{font-family:var(--serif);font-weight:400;font-size:34px;color:var(--text);margin-right:8px;vertical-align:-3px}
+.hero .stand{max-width:none;text-align:center;font-size:13px;color:var(--leise);margin:14px auto 0}
+/* Abschnitte */
+.abschnitt{padding-top:190px}
+@media (max-width:860px){.abschnitt{padding-top:120px}}
+.abschnitt h2{font-size:clamp(2.6rem,5vw,4.4rem);line-height:1.08;letter-spacing:-.01em;max-width:16ch}
+.text{font-size:20px;line-height:1.48;color:var(--muted);max-width:571px}
+.text b{color:var(--text);font-weight:500}
+.zweispaltig{display:grid;grid-template-columns:1fr 1fr;gap:40px 60px}
+@media (max-width:860px){.zweispaltig{grid-template-columns:1fr}}
+/* Brief */
+.brief{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:90px;align-items:start}
+.brief-bild{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5}
+.brief-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.brief h2{margin-bottom:34px}
+.brief p{font-size:20px;line-height:1.55;color:var(--muted);margin:0 0 20px;max-width:34em}
+.brief b.strich{color:var(--text);font-weight:500;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5 C30 5 60 8.5 95 6 S160 4.5 200 7 S265 8.8 298 5.5' fill='none' stroke='%23b3c5ff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 0 100%/100% 10px;padding-bottom:4px}
+.brief b.strich.rot{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5 C30 5 60 8.5 95 6 S160 4.5 200 7 S265 8.8 298 5.5' fill='none' stroke='%23f08279' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")}
+.unterschrift{font-family:Caveat,cursive;font-size:48px;line-height:1;color:var(--text);margin:30px 0 18px;transform:rotate(-4deg);transform-origin:left center}
+.absender{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--leise)}
+.absender img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 25%}
+.absender b{display:block;color:var(--text);font-weight:500}
+@media (max-width:860px){.brief{grid-template-columns:1fr;gap:40px}}
+/* Ergebnisse */
+.chart-flaeche{margin-top:60px;padding:40px 40px 28px;border-radius:6px;background:var(--flaeche)}
+.chart-flaeche .titel{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin:0 0 26px}
+.chart-flaeche .titel b{font-family:var(--serif);font-weight:400;font-size:30px}
+.chart-flaeche .titel span{font-size:15px;color:var(--leise)}
+@media (max-width:860px){.chart-flaeche{padding:24px 16px 18px}.chart-flaeche .titel{flex-direction:column;gap:4px}}
+.erg-leg{display:none;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:14px;color:var(--muted)}
+.erg-svg.schmal + .erg-leg{display:flex}
+.erg-leg span{display:inline-flex;align-items:center;gap:6px}
+.erg-leg span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.erg-leg b{color:var(--text);font-weight:500}
+.unter-chart{margin-top:50px}
+.liste-zeilen{border-top:1px solid var(--linie)}
+.zeile-t{display:grid;grid-template-columns:1fr 1fr;gap:12px 60px;padding:30px 0;border-bottom:1px solid var(--linie)}
+.zeile-t h3{font-family:var(--sans);font-size:25px;font-weight:400;letter-spacing:-.02em;line-height:1.3}
+.zeile-t p{margin:0;font-size:18px;line-height:1.5;color:var(--muted)}
+.zeile-t p b{color:var(--text);font-weight:500}
+@media (max-width:860px){.zeile-t{grid-template-columns:1fr;padding:24px 0}.zeile-t h3{font-size:21px}}
+.hinweis{font-size:14px;color:var(--leise);margin:22px 0 0}
+/* Positionen: flache Karten, Logos landen */
+.erg-signale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:40px}
+.erg-sig{padding:22px;border-radius:6px;background:var(--flaeche)}
 .sig-kopf{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:26px}
-.sig-logo{width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;background:var(--bg,#14161c);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 8px 20px -8px rgba(0,0,0,.7)}
+.sig-logo{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;background:var(--bg,#14161c)}
 .sig-logo i{width:24px;height:24px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
 .sig-logo.breit{width:84px}.sig-logo.breit i{width:62px;height:16px}
 .sig-logo.bild{overflow:hidden}.sig-logo.bild img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.16)}
 .sig-logo.bild[style] img{width:34px;height:34px;object-fit:contain;transform:none}
-.sig-art{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--leise);padding:5px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
-.erg-sig .erg-zahl{font-size:clamp(1.9rem,2.6vw,2.4rem)}
-.erg-sig .erg-name{font-size:15px;margin-top:8px}
-.sig-balken{display:block;margin-top:18px;height:3px;border-radius:999px;background:rgba(240,242,246,.06);overflow:hidden}
-.sig-balken i{display:block;height:100%;width:var(--bz);border-radius:inherit;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 40%,transparent),var(--c));transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--weich) .4s}
-.erg-sig.da .sig-balken i{transform:none}
-@media (max-width:860px){.erg-signale{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.erg-sig{padding:18px 16px 16px}.sig-kopf{margin-bottom:18px}.sig-logo{width:40px;height:40px;border-radius:12px}.sig-logo.breit{width:70px}.sig-logo.breit i{width:52px;height:14px}.sig-art{font-size:9.5px;padding:4px 7px;letter-spacing:.1em}.erg-sig:first-child{grid-column:span 2}}
-.erg-karte{border-radius:32px;padding:38px 38px 30px;background:radial-gradient(70% 60% at 30% 0%,rgba(114,136,206,.18),transparent 70%),radial-gradient(60% 60% at 90% 100%,rgba(92,70,220,.12),transparent 70%),var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),0 40px 90px -40px rgba(0,0,0,.8)}
-.erg-bento{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:20px}
-.erg-bento .erg-gross{grid-row:span 2;display:flex;flex-direction:column}
-.erg-bento .erg-gross .erg-svg{margin-top:auto;padding-top:22px}
-.erg-zahl{display:block;font-variant-numeric:tabular-nums;font-size:clamp(2.6rem,5vw,4.2rem);font-weight:300;letter-spacing:-.05em;line-height:.95;color:var(--c)}
-.erg-klein .erg-zahl{font-size:clamp(2.2rem,3.6vw,3rem)}
-.erg-name{display:block;margin-top:12px;font-size:17px;font-weight:500;letter-spacing:-.02em}
-.erg-seit{display:block;margin-top:2px;font-size:13px;color:var(--leise)}
-.erg-balken{margin-top:26px;display:grid;gap:14px}
-.erg-bz em{display:flex;justify-content:space-between;font-style:normal;font-size:13px;color:var(--muted);margin-bottom:6px}
-.erg-bz em b{font-weight:500;color:var(--text)}
-.erg-bz i{display:block;height:10px;border-radius:999px;background:rgba(240,242,246,.06);overflow:hidden}
-.erg-bz i::after{content:"";display:block;height:100%;width:var(--bz);border-radius:999px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--weich) .5s}
-.erg-bz.grau i::after{background:#7c8494}
-.einblenden.da .erg-bz i::after{transform:none}
-.erg-pillen{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0}
-.erg-pillen span{padding:6px 11px;border-radius:999px;background:rgba(240,242,246,.06);font-size:12.5px;color:var(--muted);white-space:nowrap}
-.erg-pillen span b{font-weight:500;color:var(--text)}
-.erg-leg{display:none;margin-top:14px}
+.sig-art{font-size:13px;color:var(--leise)}
+.erg-sig .erg-zahl{display:block;font-family:var(--serif);font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.erg-sig .erg-name{display:block;margin-top:8px;font-size:15px;color:var(--muted)}
+.sig-balken{display:none}
+.erg-sig .sig-logo{opacity:0;transform:translate(-26px,-70px) rotate(-14deg) scale(1.5);transition:opacity .5s ease,transform 1.1s cubic-bezier(.2,1.4,.4,1)}
+.erg-sig.da .sig-logo{opacity:1;transform:none}
+.erg-signale .erg-sig:nth-child(2) .sig-logo{transition-delay:.08s}.erg-signale .erg-sig:nth-child(3) .sig-logo{transition-delay:.16s}.erg-signale .erg-sig:nth-child(4) .sig-logo{transition-delay:.24s}.erg-signale .erg-sig:nth-child(5) .sig-logo{transition-delay:.32s}
+@media (max-width:640px){.erg-sig .erg-zahl{font-size:32px}.erg-sig{padding:18px 14px}.kopf .marke{font-size:14px;gap:7px}.kopf.voll .knopf{padding:0 12px!important}}
+@media (max-width:1100px){.erg-signale{grid-template-columns:repeat(2,minmax(0,1fr))}.erg-sig:first-child{grid-column:span 2}}
+/* Bitcoin: Text links scrollt, Chart rechts steht */
+.btc{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:70px;margin-top:20px}
+.erg-schritt{min-height:62vh;display:flex;flex-direction:column;justify-content:center;opacity:.28;transition:opacity .6s}
+.erg-schritt.an{opacity:1}
+.erg-schritt i{font-style:normal;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--leise)}
+.erg-schritt h3{font-size:clamp(1.9rem,2.8vw,2.6rem);line-height:1.1;margin:10px 0 14px}
+.erg-schritt p{margin:0;color:var(--muted);font-size:18px;line-height:1.5;max-width:30em}
+.erg-chart{position:sticky;top:14vh;align-self:start}
+@media (max-width:860px){.btc{grid-template-columns:1fr;gap:0}.erg-chart{top:70px;order:-1;z-index:1;background:var(--grund);padding-bottom:10px}.erg-schritt{min-height:46vh}}
 .erg-svg.schmal + .erg-leg{display:flex}
-.erg-leg span{display:inline-flex;align-items:center;gap:6px}
-.erg-leg span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
 .erg-svg .ende{opacity:0;transition:opacity .6s}
 .erg-svg .ende.da{opacity:1}
 .erg-svg .ende text{font-size:12.5px;font-weight:500;fill:#0b0d12}
@@ -621,316 +274,114 @@ body.ks-offen .kopf{opacity:0;pointer-events:none}
 .erg-svg .mk text{font-size:12.5px;font-weight:500;fill:#0b0d12}
 .erg-svg .mk text.klein{font-weight:500;fill:var(--muted)}
 .erg-svg .cash-t{font-size:11px;font-weight:600;fill:var(--akzent)}
-.erg-btc{padding-block:20px 40px}
-.erg-btc .erg-schritt:first-child{min-height:44vh}
-.erg-buehne{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:64px}
-.erg-schritt{min-height:56vh;display:flex;flex-direction:column;justify-content:center;opacity:.25;transition:opacity .6s}
-.erg-schritt.an{opacity:1}
-.erg-schritt:last-child{padding-bottom:10vh}
-.erg-schritt i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--akzent)}
-.erg-schritt h3{margin:10px 0 10px;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.08;font-weight:500;letter-spacing:-.035em}
-.erg-schritt p{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:36ch}
-.erg-chart{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;padding-top:60px}
-.erg-chart .erg-hut{margin:0 0 18px;font-size:17px;font-weight:500;letter-spacing:-.02em}
-.erg-chart .erg-hut span{color:var(--leise);font-weight:400}
-@media (max-width:860px){
-  .erg{padding-block:84px 0}
-  .erg-karte{border-radius:24px;padding:24px 18px 20px}
-  .erg-bento{grid-template-columns:1fr;gap:14px}
-  .erg-name{font-size:15px}
   .erg-svg .ende text{font-size:11px}
   .erg-svg text{font-size:10px}
-  .erg-btc{padding-block:44px 20px}
-  .erg-buehne{grid-template-columns:1fr;gap:0}
-  /* 3.10.2026: frueher deckte hier der volle Seitengrund ab - seit der Lichtschicht stand das als schwarzer Kasten im Licht.
-     Jetzt Milchglas: das Licht scheint durch, der Text, der unter dem Chart wegscrollt, verschwimmt. */
-  .erg-chart{order:-1;height:auto;justify-content:flex-start;padding:66px 0 14px;z-index:3;background:none;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
-  .erg-schritt{min-height:46vh;justify-content:flex-start;padding-top:26px}
-  .erg-schritt:last-child{padding-bottom:8vh;min-height:0}
-  .erg-schritt p{font-size:15px}
-}
-
-/* ---- 26.9.2026: Abwechslung ---- */
-.st-hut{margin:0 0 18px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--leise)}
-/* Scroll-Geschichte */
-.story{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:70px;padding-block:120px 60px}
-.story-links{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding-top:max(120px,17vh);box-sizing:border-box}
-.story-links h2{font-size:clamp(2.4rem,4.6vw,3.8rem);line-height:1;margin:0 0 44px;letter-spacing:-.035em;font-weight:500}
-.story-links h2 span{color:var(--leise)}
-.story-liste{list-style:none;margin:0;padding:0;border-top:1px solid var(--linie)}
-.story-liste li{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--linie);color:var(--leise);transition:color .5s}
-.story-liste li i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;padding-top:5px;transition:color .5s}
-.story-liste li b{display:block;font-size:20px;font-weight:500;letter-spacing:-.02em}
-.story-liste li p{margin:0;max-height:0;overflow:hidden;opacity:0;color:var(--muted);line-height:1.5;transition:max-height .6s var(--weich),opacity .6s,margin .6s}
-.story-liste li.an{color:var(--text)}
-.story-liste li.an i{color:var(--akzent)}
-.story-liste li.an p{max-height:120px;opacity:1;margin-top:8px}
-.story-teil{min-height:92vh;display:flex;flex-direction:column;justify-content:center}
-.story-buehne{aspect-ratio:5/4;border-radius:32px;display:grid;place-items:center;padding:40px;background:radial-gradient(70% 60% at 30% 0%,rgba(114,136,206,.18),transparent 70%),radial-gradient(60% 60% at 90% 100%,rgba(92,70,220,.12),transparent 70%),var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.14),0 40px 90px -40px rgba(0,0,0,.8);opacity:.3;transform:scale(.94);transition:opacity .8s var(--weich),transform .8s var(--weich)}
-.story-teil.an .story-buehne{opacity:1;transform:none}
-.story-bild{width:100%;display:flex;justify-content:center;transform:scale(1.22)}
-.story-bild > *{max-width:400px}
-.story-mobil{display:none}
-@media (max-width:900px){
-  .story{grid-template-columns:1fr;gap:0;padding-block:110px 20px}
-  .story-links{position:static;height:auto;padding-top:0}
-  .story-links h2{margin-bottom:10px}
-  .story-liste{display:none}
-  .story-teil{min-height:0;margin-top:44px}
-  .story-buehne{opacity:1;transform:none;aspect-ratio:auto;padding:36px 22px;border-radius:24px}
-  .story-bild{transform:none}
-  .story-mobil{display:block;margin:0 0 18px;order:-1}
-  .story-teil + .story-teil{border-top:1px solid var(--linie);padding-top:36px}
-  /* Handy: jeder Punkt gleitet beim Hereinscrollen rein, erst Text, dann die Bühne */
-  .story-teil .story-mobil,.story-teil .story-buehne{opacity:0;transform:translateY(26px);transition:opacity .9s var(--weich),transform 1s var(--weich)}
-  .story-teil .story-buehne{transform:translateY(26px) scale(.96);transition-delay:.12s}
-  .story-teil.da .story-mobil,.story-teil.da .story-buehne{opacity:1;transform:none}
-  .story-mobil i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--akzent)}
-  .story-mobil h3{margin:4px 0 6px;font-size:21px;font-weight:600;letter-spacing:-.025em}
-  .story-mobil p{margin:0;color:var(--muted)}
-}
-/* Heller Abschnitt */
-.hell-teil{--h-grund:#f3f2ee;--h-text:#12141a;--h-leise:#6b6f78;--h-linie:rgba(18,20,26,.1);padding-block:150px;background:var(--grund);transition:background-color 1s var(--weich),color 1s var(--weich)}
-.hell-teil.an{background:var(--h-grund);color:var(--h-text)}
-.hell-teil .st-hut{transition:color 1s}
-.hell-teil.an .st-hut{color:var(--h-leise)}
-.hell-titel{font-size:clamp(2.8rem,7vw,6rem);line-height:.95;letter-spacing:-.045em;font-weight:500;margin:0}
-.hell-lead{max-width:560px;font-size:19px;line-height:1.5;margin:28px 0 70px;color:var(--muted);transition:color 1s}
-.hell-teil.an .hell-lead{color:var(--h-leise)}
-.hell-listen{display:grid;grid-template-columns:1fr 1fr;gap:60px}
-.hell-listen em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:16px;border-bottom:1px solid currentColor;opacity:.55}
-.hell-listen p{margin:0;padding:22px 0 22px 44px;position:relative;font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.35;letter-spacing:-.015em;border-bottom:1px solid var(--linie);transition:border-color 1s}
-.hell-teil.an .hell-listen p{border-color:var(--h-linie)}
-.hell-listen p:before{position:absolute;left:0;top:22px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:600}
-.hell-listen p.ja:before{content:"✓";background:#1f7a55;color:#fff}
-.hell-listen p.nein:before{content:"×";background:rgba(128,128,128,.18);color:inherit}
-.hell-listen p.nein{opacity:.65}
-.woche-kopf{margin:130px 0 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
-.woche-kopf h3{font-size:clamp(2rem,4vw,3.2rem);line-height:1;letter-spacing:-.035em;font-weight:500;margin:0}
-.woche-kopf p{margin:0;max-width:380px;color:var(--muted);transition:color 1s}
-.hell-teil.an .woche-kopf p{color:var(--h-leise)}
-.woche{display:flex;flex-direction:column;border-top:1px solid var(--h-linie)}
-.w-zeile{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:40px;align-items:center;padding:34px 0;border-bottom:1px solid var(--h-linie)}
-.w-text em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#4a5fc1;margin-bottom:8px}
-.w-text strong{display:block;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.15;letter-spacing:-.025em;font-weight:600}
-.w-text span{display:block;margin-top:6px;color:var(--h-leise);font-size:16px}
-.w-ic{display:block;width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.w-tage{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.w-tag{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 0 16px;border-radius:16px;background:#fff;box-shadow:0 1px 0 rgba(18,20,26,.06),0 10px 24px -14px rgba(18,20,26,.25);color:#4a5fc1;opacity:0;transform:translateY(12px);transition:opacity .5s,transform .6s var(--weich)}
-.w-tag small{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--h-leise)}
-.woche.da .w-tag{opacity:1;transform:none}
-.w-tag:nth-child(2){transition-delay:.07s}.w-tag:nth-child(3){transition-delay:.14s}.w-tag:nth-child(4){transition-delay:.21s}.w-tag:nth-child(5){transition-delay:.28s}.w-tag:nth-child(6){transition-delay:.35s}.w-tag:nth-child(7){transition-delay:.42s}
-.w-karte{border-radius:20px;opacity:0;transform:translateY(12px);transition:opacity .6s .4s,transform .7s var(--weich) .4s}
-.woche.da .w-karte{opacity:1;transform:none}
-.w-aufz{display:flex;align-items:center;gap:18px;padding:18px 22px;background:#12141a;color:#f4f5f8}
-.w-aufz strong{display:block;font-size:17px;font-weight:600}
-.w-aufz span{display:block;font-size:13.5px;color:#9aa1ae;margin-top:3px}
-.w-play{flex:none;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#b3c5ff,#7d8ff0);position:relative}
-.w-play:after{content:"";position:absolute;left:19px;top:15px;border-left:13px solid #12141a;border-top:9px solid transparent;border-bottom:9px solid transparent}
-.w-lauf{display:flex;flex-wrap:wrap;gap:10px;padding:14px;background:linear-gradient(90deg,rgba(125,143,240,.16),rgba(127,209,168,.2))}
-.w-lauf span{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:12px;background:#fff;font-size:14.5px;font-weight:500;color:#12141a}
-.w-lauf .w-ic{color:#4a5fc1}
-/* Uebergang: der helle Teil ist eine Flaeche, die beim Hereinscrollen von einer runden Karte auf volle Breite aufgeht */
-.hell-teil{background:var(--h-grund)!important;color:var(--h-text)!important;clip-path:inset(0 var(--hk-x,24px) round var(--hk-r,48px));will-change:clip-path}
-.hell-teil > .spalte{position:relative;z-index:1}
-.hell-teil{padding-block:170px}
-@media (max-width:760px){
-  .hell-teil{padding-block:96px}
-  .hell-listen{grid-template-columns:1fr;gap:44px}
-  .hell-lead{margin-bottom:48px}
-  .woche-kopf{margin-top:90px}
-  .w-zeile{grid-template-columns:1fr;gap:18px;padding:26px 0}
-  .w-tage{gap:4px}
-  .w-tag{border-radius:11px;padding:10px 0 12px}
-  .hell-teil{padding-block:120px}
-}
-/* Zitat vor den Kundenstimmen */
-.ks-zitat{text-align:center;margin-bottom:70px}
-.ks-zitat blockquote{margin:0 auto;max-width:980px;font-size:clamp(2rem,4.6vw,3.8rem);line-height:1.08;letter-spacing:-.035em;font-weight:500}
-.ks-zitat blockquote span{background:linear-gradient(100deg,#eef2ff,#c8d4ff 50%,#a3b5f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.ks-zitat cite{display:block;margin-top:24px;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--leise)}
-/* Was wir nicht sind */
-.streich-titel{font-size:clamp(2.2rem,5.6vw,4rem);line-height:1;margin:0 0 50px;font-weight:500;letter-spacing:-.035em}
-/* Häufige Fragen (4.10.2026): vor dem Sternenflug am Schluss. Aufklappen über grid-template-rows 0fr → 1fr,
-   damit Auf- und Zugehen weich laufen (details kann das Zugehen nicht animieren). Immer nur eine Frage offen. */
-.fq{padding-top:clamp(90px,12vw,150px);padding-bottom:clamp(70px,9vw,120px)}
-.fq-raster{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:clamp(30px,6vw,90px);align-items:start}
-.fq-kopf{position:sticky;top:120px}
-.fq-kopf h2{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;margin:0 0 22px;font-weight:500;letter-spacing:-.035em}
-.fq-kopf p.unter{margin:0 0 26px;color:var(--muted);max-width:30ch;line-height:1.5}
-.fq-mehr{display:inline-flex;align-items:center;gap:8px;color:var(--akzent);font-size:15px;font-weight:500}
-.fq-mehr span{transition:transform .4s var(--weich)}
-.fq-mehr:hover span{transform:translateX(5px)}
-.fq-liste{display:flex;flex-direction:column;gap:10px}
-.fq-punkt{position:relative;border-radius:22px;background:var(--kachel);box-shadow:inset 0 1px 0 rgba(179,197,255,.10),inset 0 0 0 1px rgba(179,197,255,.05);transition:background .5s var(--weich),box-shadow .5s var(--weich),opacity 1s var(--weich),transform 1s var(--weich);transition-delay:0s,0s,calc(var(--i)*60ms),calc(var(--i)*60ms);overflow:hidden}
-.fq-punkt::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 0% 0%,rgba(114,136,206,.20),transparent 60%);opacity:0;transition:opacity .6s var(--weich);pointer-events:none}
-.fq-punkt.offen{background:var(--kachel-2);box-shadow:inset 0 1px 0 rgba(179,197,255,.22),inset 0 0 0 1px rgba(179,197,255,.10),0 24px 60px -30px rgba(0,0,0,.6)}
-.fq-punkt.offen::before{opacity:1}
-.fq-frage{position:relative;width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:22px 22px 22px 24px;background:none;border:0;color:var(--text);font:inherit;font-size:clamp(1.08rem,1.8vw,1.32rem);font-weight:500;letter-spacing:-.02em;text-align:left;cursor:pointer}
-.fq-frage .nr{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;color:var(--leise);transition:color .4s}
-.fq-punkt.offen .nr,.fq-frage:hover .nr{color:var(--akzent)}
-.fq-frage .plus{position:relative;width:36px;height:36px;border-radius:50%;background:rgba(179,197,255,.07);transition:transform .6s var(--weich),background .4s}
-.fq-frage .plus::before,.fq-frage .plus::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;border-radius:2px;background:var(--akzent);transform:translate(-50%,-50%)}
-.fq-frage .plus::after{transform:translate(-50%,-50%) rotate(90deg)}
-.fq-frage:hover .plus{background:rgba(179,197,255,.14)}
-.fq-punkt.offen .plus{transform:rotate(135deg);background:rgba(179,197,255,.18)}
-.fq-frage:focus-visible{outline:2px solid var(--akzent);outline-offset:-4px;border-radius:22px}
-.fq-antwort{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--weich)}
-.fq-punkt.offen .fq-antwort{grid-template-rows:1fr}
-.fq-antwort>div{overflow:hidden;min-height:0}
-.fq-antwort p{position:relative;margin:0;padding:0 76px 26px 62px;color:var(--muted);font-size:clamp(1rem,1.4vw,1.1rem);line-height:1.6;max-width:64ch;opacity:0;transform:translateY(-8px);transition:opacity .35s var(--weich),transform .6s var(--weich)}
-.fq-punkt.offen .fq-antwort p{opacity:1;transform:none;transition-delay:.12s}
-.fq-antwort .fq-knopf{display:flex;width:max-content;margin-top:18px}
-@media (max-width:900px){.fq-raster{grid-template-columns:1fr}.fq-kopf{position:static}}
-@media (max-width:700px){.fq-frage{grid-template-columns:1fr auto;padding:18px 16px 18px 18px;gap:12px}.fq-frage .plus{width:32px;height:32px}.fq-antwort p{padding:0 18px 22px 18px}.fq-frage .nr{display:none}}
-@media (prefers-reduced-motion:reduce){.fq-antwort,.fq-antwort p,.fq-frage .plus{transition:none}}
-.streich{list-style:none;margin:0;padding:0;border-top:1px solid var(--linie)}
-.streich li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center;padding:30px 0;border-bottom:1px solid var(--linie)}
-.streich li > s{display:block;text-decoration:none;font-size:clamp(1.8rem,4.2vw,3.4rem);line-height:1.12;letter-spacing:-.035em}
-.streich s b{position:relative;display:inline-block;font-weight:inherit;color:var(--leise)}
-/* Durchstreichen VOR dem Text: je Wort ein gezeichneter Strich, der ueber die Luecke zum naechsten Wort reicht */
-.streich s b:after{content:"";position:absolute;left:-3%;right:-.28em;top:50%;height:.3em;margin-top:-.1em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C40 5.5 80 9.5 120 6.5 S175 5 198 7.5' fill='none' stroke='%23f08279' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M8 9.5 C60 8 130 10 194 8.5' fill='none' stroke='%23f08279' stroke-width='1.2' stroke-linecap='round' opacity='.6'/%3E%3C/svg%3E") no-repeat 0 0/100% 100%;clip-path:inset(0 100% 0 0);transition:clip-path .55s cubic-bezier(.55,.1,.35,1);transition-delay:calc(.35s + var(--i) * .4s);pointer-events:none}
-.streich s b:last-child:after{right:-3%}
-.streich li.da s b:after{clip-path:inset(0 0 0 0)}
-.streich span{color:var(--muted);line-height:1.5}
-@media (max-width:760px){.streich li{grid-template-columns:1fr;gap:10px;padding:24px 0}}
-@media (prefers-reduced-motion:reduce){.story-teil .story-mobil,.story-teil .story-buehne{opacity:1!important;transform:none!important}.story-buehne,.w-tag,.w-karte,.streich s b:after{transition:none!important}}
-
-/* Claudios Geschichte: Foto als Karte links, Fliesstext rechts */
-.wer{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:80px;align-items:center;padding-block:150px 40px}
-.wer-bild{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 50px 100px -40px rgba(0,0,0,.9),inset 0 0 0 1px rgba(179,197,255,.12)}
-.wer-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-.wer-bild:after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(179,197,255,.14);background:linear-gradient(180deg,rgba(11,13,18,0) 60%,rgba(11,13,18,.45))}
-.wer-text h2{font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.02;letter-spacing:-.035em;font-weight:500;margin:0 0 34px}
-.wer-text h2 span{color:var(--leise)}
-.wer-fliess p{margin:0 0 18px;color:var(--muted);font-size:18px;line-height:1.65;max-width:52ch}
-.wer-fliess b{color:var(--text);font-weight:600}
-.wer-text{position:relative}
-/* Farbige Unterstreichung (Manuel mochte die) + Kritzeleien NEBEN dem Text, nie darueber */
-b.strich{position:relative;color:var(--text);font-weight:600;padding-bottom:5px;background:linear-gradient(var(--grund),var(--grund)) no-repeat 100% 100%/100% 12px,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5 C30 5 60 8.5 95 6 S160 4.5 200 7 S265 8.8 298 5.5' fill='none' stroke='%23a3b5f5' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12 9 C70 7.5 150 9.5 290 7.8' fill='none' stroke='%23a3b5f5' stroke-width='1' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E") no-repeat 0 100%/100% 11px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.2s cubic-bezier(.55,.1,.35,1) .4s}
-b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5 C30 5 60 8.5 95 6 S160 4.5 200 7 S265 8.8 298 5.5' fill='none' stroke='%23f08279' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12 9 C70 7.5 150 9.5 290 7.8' fill='none' stroke='%23f08279' stroke-width='1' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E")}
-.wer-fliess.da b.strich{background-size:0% 12px,100% 11px}
-.doodle{fill:none;stroke-linecap:round;stroke-linejoin:round;overflow:visible;pointer-events:none;filter:url(#kreide)}
-.doodle path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s cubic-bezier(.6,.05,.3,1)}
-.wer-fliess.da .doodle path,.wer.sk .pfeil path{stroke-dashoffset:0}
-.pfeil{position:absolute;left:-372px;top:58px;width:360px;height:190px;stroke:#f4f5f8;stroke-width:2.8;opacity:.92}
-.pfeil path:first-child,.pfeil path.nach{transition-duration:1.1s;transition-delay:.3s}.pfeil path.nach{stroke-width:1.2;opacity:.5;transition-delay:.45s}.pfeil path:last-child{transition-delay:1.3s;transition-duration:.35s}
-@media (max-width:900px){.pfeil{display:none}}
-.wer-rolle{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--linie);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--leise)}
-@media (max-width:900px){.wer{grid-template-columns:1fr;gap:44px;padding-block:96px 20px}.wer-bild{max-width:440px;width:100%;margin:0 auto}.wer-fliess p{font-size:17px}}
-
-/* Drei Striche ueber Claudios Kopf, laufen immer wieder weg */
-.strahlen{position:absolute;left:28%;top:28.3%;width:19%;height:auto;overflow:visible;fill:none;stroke:#4a64d8;stroke-width:3.6;stroke-linecap:round;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));pointer-events:none;will-change:transform;transform:translateZ(0)}
-.strahlen path{stroke-dasharray:1;stroke-dashoffset:1;animation:strahl 2.4s cubic-bezier(.5,.1,.3,1) infinite}
-.strahlen path:nth-child(2){animation-delay:.12s}.strahlen path:nth-child(3){animation-delay:.24s}
-/* Kein Kreidefilter hier: feTurbulence pro Frame hat in Safari geflackert. Striche wachsen hoch und
-   weichen nach oben weg; kurz vor dem Ende ausblenden, sonst blitzt die runde Linienkappe als Punkt auf. */
-@keyframes strahl{0%{stroke-dashoffset:.999;opacity:0}3%{opacity:1}35%{stroke-dashoffset:0;opacity:1}55%{opacity:1}62%{stroke-dashoffset:-.999;opacity:0}63%,100%{stroke-dashoffset:.999;opacity:0}}
-@media (prefers-reduced-motion:reduce){.strahlen path{animation:none;stroke-dashoffset:0}}
-
-/* ---- 17.11.2026: entkifizieren (Vorbilder Linkletter, Dia). Dunkler Grundstil bleibt. ---- */
-.kleber{background:none}
-.icons{display:none}
-.st-hut{display:none}
-.verlauf,.kopfzeile h2 span,.zeile .n,.ks-zitat blockquote span,.story-links h2 span{background:none!important;-webkit-text-fill-color:currentColor!important;color:inherit!important;animation:none!important}
 .erg-svg .mk .kringel{fill:none;stroke:#f4f5f8;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.85;transition:stroke-dashoffset .9s cubic-bezier(.6,.05,.3,1) .35s}
 .erg-svg .mk.da .kringel{stroke-dashoffset:0}
-/* Kundenstimmen: in Farbe und groesser */
-.ks-bild{height:420px;opacity:1}
+.erg-svg .ende-t{font-size:14px;font-weight:500}
+.erg-svg text{font-family:var(--sans)}
+.erg-svg .ende-t{font-size:14px;font-weight:500}
+.erg-svg .mk .kringel{fill:none;stroke:var(--hand);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s cubic-bezier(.6,.05,.3,1) .35s}
+.erg-svg .mk.da .kringel{stroke-dashoffset:0}
+/* Stimmen */
+.zitat{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.6rem);line-height:1.08;max-width:18ch;margin:0}
+.zitat-von{margin:22px 0 0;font-size:16px;color:var(--leise)}
+.ks{margin-top:70px}
+.ks-reihe{overflow:hidden;padding:10px 0}
+.ks-band{display:flex;gap:20px;width:max-content;animation:ks-lauf 80s linear infinite}
+.ks-reihe:nth-of-type(odd) .ks-band{animation-direction:reverse}
+.ks-reihe:hover .ks-band{animation-play-state:paused}
+@keyframes ks-lauf{to{transform:translateX(calc(-50% - 10px))}}
+.ks-bild{all:unset;cursor:zoom-in;flex:none;height:420px;border-radius:8px;overflow:hidden;transition:transform .5s var(--weich)}
+.ks-bild img{display:block;height:100%;width:auto}
+.ks-bild:hover{transform:scale(1.03)}
+.ks-gross{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(5,6,9,.9);cursor:zoom-out;padding:24px}
+.ks-gross[hidden]{display:none}
+.ks-gross img{max-height:calc(100vh - 48px);max-width:92vw;border-radius:8px}
 @media (max-width:640px){.ks-bild{height:300px}}
-/* Logos landen in ihren Ergebnis-Karten */
-.erg-sig .sig-logo{opacity:0;transform:translate(-26px,-70px) rotate(-14deg) scale(1.5);transition:opacity .5s ease,transform 1.1s cubic-bezier(.2,1.4,.4,1)}
-.erg-sig.da .sig-logo{opacity:1;transform:none}
-.erg-signale .erg-sig:nth-child(2) .sig-logo{transition-delay:.08s}.erg-signale .erg-sig:nth-child(3) .sig-logo{transition-delay:.16s}.erg-signale .erg-sig:nth-child(4) .sig-logo{transition-delay:.24s}.erg-signale .erg-sig:nth-child(5) .sig-logo{transition-delay:.32s}
-/* Unterschrift (Platzhalter bis zur echten) */
-.unterschrift{margin:26px 0 0;font-family:Caveat,cursive;font-size:44px;line-height:1;color:var(--text);transform:rotate(-4deg);transform-origin:left center}
-.wer-rolle{margin-top:18px}
-/* Ablauf */
-.ablauf h2{font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.02;letter-spacing:-.035em;font-weight:500;margin:0 0 70px}
+@media (prefers-reduced-motion:reduce){.ks-band{animation:none}.ks-reihe{overflow-x:auto}}
+.gespraeche{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:80px}
+.gespraeche a{display:block}
+.gespraeche img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;transition:opacity .4s}
+.gespraeche a:hover img{opacity:.85}
+.gespraeche b{display:block;margin-top:12px;font-weight:500;font-size:16px}
+.gespraeche span{font-size:14px;color:var(--leise)}
+.mehr{display:inline-block;margin-top:30px;font-size:17px;color:var(--text);border-bottom:1px solid var(--linie);padding-bottom:2px}
+@media (max-width:860px){.gespraeche{grid-template-columns:1fr 1fr}}
+/* Fuer wen */
+.passt h3{font-family:var(--sans);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--leise);font-weight:400;margin:0 0 6px}
+.passt ul{list-style:none;margin:0;padding:0}
+.passt li{position:relative;padding:18px 0 18px 40px;border-bottom:1px solid var(--linie);font-size:19px;color:var(--text)}
+.passt li svg{position:absolute;left:0;top:20px;width:24px;height:24px;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.passt .ja svg{stroke:var(--gut)}.passt .nein li{color:var(--muted)}.passt .nein svg{stroke:var(--hand)}
+/* Ablauf (aus Runde 1) */
+.ablauf h2{margin:0 0 70px}
 .ablauf-weg{position:relative}
-.ablauf-linie{position:absolute;left:0;right:0;top:-6px;width:100%;height:60px;fill:none;stroke:#a3b5f5;stroke-width:2;stroke-linecap:round;opacity:.7;overflow:visible}
+.ablauf-linie{position:absolute;left:0;right:0;top:-6px;width:100%;height:60px;fill:none;stroke:var(--akzent);stroke-width:2;stroke-linecap:round;opacity:.7;overflow:visible}
 .ablauf-linie path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s cubic-bezier(.6,.05,.3,1)}
 .ablauf.da .ablauf-linie path{stroke-dashoffset:0}
 .ablauf ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px}
 .ablauf li{position:relative;padding-top:64px}
-.ablauf li:before{content:"";position:absolute;left:0;top:18px;width:14px;height:14px;border-radius:50%;background:var(--grund);box-shadow:inset 0 0 0 2px #a3b5f5}
-.ablauf li b{display:block;font-size:19px;font-weight:500;letter-spacing:-.02em;margin-bottom:6px}
-.ablauf li span{display:block;color:var(--muted);font-size:15px;line-height:1.5}
+.ablauf li:before{content:"";position:absolute;left:0;top:18px;width:14px;height:14px;border-radius:50%;background:var(--grund);box-shadow:inset 0 0 0 2px var(--akzent)}
+.ablauf li b{display:block;font-family:var(--serif);font-weight:400;font-size:28px;margin-bottom:6px}
+.ablauf li span{display:block;color:var(--muted);font-size:16px;line-height:1.5}
 .ablauf li.einblenden{transition-delay:calc(var(--i)*.15s)}
-.ablauf-fuss{margin:60px 0 0;font-size:20px;color:var(--text)}
-@media (max-width:860px){.ablauf-linie{display:none}.ablauf ol{grid-template-columns:1fr;gap:0;border-left:2px solid rgba(163,181,245,.5);margin-left:6px}.ablauf li{padding:0 0 30px 28px}.ablauf li:before{left:-8px;top:4px}}
-/* Schluss */
-.schluss{padding:150px 20px 40px;background:none}
-.schluss .knoepfe{margin-top:6px}
-.schluss h2{max-width:20ch;font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.02;font-weight:500;letter-spacing:-.035em}
-
-/* ---- 17.11.2026 abends, Runde 2 (Manuel): Karten-Optik, Pillen und Mono-Schrift raus, Schimmer oben bleibt ---- */
-/* Navigation: nichts darf umbrechen */
-.kopf{width:min(780px,calc(100% - 32px))}
-.kopf a.link,.marke{white-space:nowrap}
-/* Mono-Kleinschrift ueberall in normale Schrift */
-.hero .hero-frei,.stichtag,.sig-art,.erg-schritt i,.story-liste li i,.story-mobil i,.hell-listen em,.w-text em,.w-tag small,.ks-zitat cite,.fq-frage .nr,.wer-rolle,.zeile .zeile-wort,.passt-spalte em,.liste-f em{font-family:inherit!important;text-transform:none!important;letter-spacing:0!important}
-.hero .hero-frei{font-size:14px;color:var(--muted)}
-.erg-schritt i{font-size:14px;color:var(--muted)}
-.ks-zitat cite,.wer-rolle{font-size:14px}
-.sig-art{box-shadow:none;padding:0;font-size:13px}
-.hell-listen em,.w-text em{font-size:13px;font-weight:500}
-/* Zahlen: eine ruhige Reihe direkt unter dem Hero */
-.zahlen,.zahlen[style]{height:auto!important;margin-top:0;pointer-events:auto}
-.kleber{position:static;height:auto;overflow:visible;display:block;padding:70px 20px 40px}
-.zahl-text{max-width:1000px;margin:0 auto;display:grid!important;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);padding:34px 0}
-.zahl-text .nach{display:none}
-.zeile{font-size:clamp(2rem,4vw,3.2rem)!important;white-space:normal;display:flex!important;flex-direction:column;align-items:center;gap:6px;color:var(--text)!important}
-.zeile .n{opacity:1!important;font-weight:400}
-.zeile .zeile-wort{font-size:16px!important;font-weight:400;color:var(--muted);letter-spacing:0}
-.stichtag{grid-column:1/-1;margin:6px 0 0;font-size:12px;max-width:none!important}
-@media (max-width:640px){.zahl-text{grid-template-columns:1fr;gap:22px;padding:28px 0}.zeile .n{font-size:44px!important}}
-/* Ergebnisse: kein Kartenrahmen, Zahlen in Weiss, Text statt Balken und Pillen */
-.erg-bento{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:56px;align-items:start}
-.erg-bento .erg-karte{background:none;box-shadow:none;padding:0;border-radius:0}
-.erg-bento .erg-zahl{color:var(--text);font-weight:400}
-.erg-svg .ende-t{font-size:14px;font-weight:500}
-.erg-zeilen{display:flex;flex-direction:column}
-.erg-zeile{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:26px 0;border-top:1px solid var(--linie)}
-.erg-zeile:last-child{border-bottom:1px solid var(--linie)}
-.erg-zeile b{display:block;font-size:19px;font-weight:500;letter-spacing:-.02em}
-.erg-zeile span{display:block;font-size:14px;color:var(--leise);margin-top:2px}
-.erg-zeile strong{font-size:clamp(2rem,3vw,2.6rem);font-weight:400;letter-spacing:-.04em;line-height:1}
-.erg-zeile p{grid-column:1/-1;margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.55;max-width:42ch}
-@media (max-width:860px){.erg-bento{grid-template-columns:1fr;gap:30px}}
-/* Positionskarten ohne Farbschimmer */
-.erg-sig{background:var(--kachel)!important;box-shadow:inset 0 0 0 1px var(--linie)!important}
-.erg-sig .erg-zahl{color:var(--text)}
-.sig-balken{display:none}
-.erg-leg span{background:none!important;padding:0 10px 0 0!important}
+.ablauf-fuss{margin:60px 0 0;font-size:20px}
+@media (max-width:860px){.ablauf-linie{display:none}.ablauf ol{grid-template-columns:1fr;gap:0;border-left:2px solid rgba(179,197,255,.5);margin-left:6px}.ablauf li{padding:0 0 30px 28px}.ablauf li:before{left:-8px;top:8px}}
+/* Was wir nicht sind: Wort mit Handstrich */
+.weg-wort{position:relative;display:inline-block}
+.weg-wort:after{content:"";position:absolute;left:-4px;right:-4px;top:52%;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C60 4 120 9 180 5 S260 6 298 4' fill='none' stroke='%23f08279' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 0 0/100% 100%}
+/* Fragen */
+.fq{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:60px}
+.fq .text a{color:var(--text);border-bottom:1px solid var(--linie)}
+.fq-liste{border-top:1px solid var(--linie)}
+.fq-punkt{border-bottom:1px solid var(--linie)}
+.fq-frage{all:unset;cursor:pointer;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-size:20px}
+.fq-frage .plus{position:relative;width:16px;height:16px;flex:none;transition:transform .4s var(--weich)}
+.fq-frage .plus:before,.fq-frage .plus:after{content:"";position:absolute;left:0;top:7px;width:16px;height:1.6px;background:var(--muted)}
+.fq-frage .plus:after{transform:rotate(90deg)}
+.fq-punkt.offen .plus{transform:rotate(45deg)}
+.fq-antwort{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--weich)}
+.fq-antwort > div{overflow:hidden}
+.fq-punkt.offen .fq-antwort{grid-template-rows:1fr}
+.fq-antwort p{margin:0 0 26px;color:var(--muted);font-size:18px;line-height:1.55;max-width:40em}
+@media (max-width:860px){.fq{grid-template-columns:1fr;gap:30px}.fq-frage{font-size:18px}}
+/* Schluss + Fuss */
+.schluss{text-align:center;padding:200px 20px 160px}
+.schluss h2{font-size:clamp(2.6rem,5.4vw,4.8rem);line-height:1.05;max-width:16ch;margin:0 auto 22px}
+.schluss p{color:var(--muted);font-size:20px;margin:0 0 34px}
+.knoepfe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--linie);padding:70px 0 calc(40px + env(safe-area-inset-bottom,0px));color:var(--leise);font-size:15px}
+footer .oben{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px}
+footer .oben b{display:block;font-family:var(--serif);font-weight:400;font-size:34px;color:var(--text)}
+footer .oben p{margin:6px 0 0}
+footer nav{display:grid;grid-template-columns:repeat(2,minmax(140px,auto));gap:10px 60px;color:var(--muted)}
+footer .unten{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;margin-top:70px;font-size:13px}
 </style>
-<!-- Duenne Schrift ist seit 15.9.2026 Standard (Manuel). Die fette Fassung bleibt zum Vergleich unter ?schrift=fett. -->
-<script>if(!/schrift=fett/.test(location.search))document.documentElement.classList.add("duenn");</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Brauche ich Vorwissen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein, Profi musst du keiner sein. Ein eigenes Depot und die Grundbegriffe solltest du aber kennen, damit du den Analysen gut folgen kannst."}}, {"@type": "Question", "name": "Wie viel Zeit brauche ich?", "acceptedAnswer": {"@type": "Answer", "text": "Unser System ist so gebaut, dass auch sehr beschäftigte Leute mitkommen. Mit höchstens 30 Minuten pro Woche bist du auf dem neuesten Stand."}}, {"@type": "Question", "name": "Für wen ist das gedacht?", "acceptedAnswer": {"@type": "Answer", "text": "Für Leute, die schon investiert sind, aber bisher eher raten und kaum Zeit haben, sich selbst durch alles durchzuarbeiten. Für komplette Neueinsteiger ist es noch nichts."}}, {"@type": "Question", "name": "Wie viel sollte ich schon investiert haben?", "acceptedAnswer": {"@type": "Answer", "text": "Am meisten bringt es dir, wenn du schon 10.000 bis 20.000 Euro investiert hast. Liegst du deutlich darunter, ist es ehrlich gesagt noch zu früh, dann starte lieber erst mit dem kostenlosen Videokurs."}}, {"@type": "Question", "name": "Was bekomme ich als Mitglied?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt davon ab, was du brauchst: Wir haben 2 Programme und stimmen im Gespräch ab, was zu dir passt. Im Kern bekommst du jede Woche Claudios Einordnung der Märkte, seine Analysen und einen Blick in sein Portfolio, also genau das, wofür du allein viele Stunden bräuchtest."}}, {"@type": "Question", "name": "Habe ich einen festen Ansprechpartner?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Bei uns gibt es keine Massenabfertigung: Du bekommst deinen eigenen Customer Success Manager, dem du jederzeit schreiben kannst. Und deine Fragen an Claudio kannst du natürlich auch stellen."}}, {"@type": "Question", "name": "Ist das eine Anlageberatung?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Claudio zeigt dir in seinen Makro-Calls und Analysen, wie er die Märkte sieht und was er selbst macht. Was du daraus machst, entscheidest immer du."}}, {"@type": "Question", "name": "Wie fange ich an?", "acceptedAnswer": {"@type": "Answer", "text": "Klick einfach auf den Button hier und hol dir den kostenlosen Videokurs und die Aktien-Watchlist. Da findest du schon die ersten Inhalte und Analysen von Claudio. Wenn dir das gefällt und du mehr willst, buchst du dir einfach ein Strategiegespräch."}}, {"@type": "Question", "name": "Was ist Market Playbook überhaupt?", "acceptedAnswer": {"@type": "Answer", "text": "Market Playbook ist Claudios Mitgliedschaft für alle, die an der Börse nicht mehr raten wollen. Er schaut sich jede Woche Aktien, Krypto und die große Wirtschaftslage an und zeigt dir, worauf es gerade ankommt."}}, {"@type": "Question", "name": "Wer ist Claudio Fürsatz?", "acceptedAnswer": {"@type": "Answer", "text": "Claudio ist 2020 mit 19 Jahren an den Märkten eingestiegen und führt heute Market Playbook. Geprägt hat ihn ein Verlust von über 111.000 Euro an einem einzigen Tag, aus dem seine heutige Systematik entstanden ist."}}]}</script>
 </head>
 <body>
-
 <header class="kopf" id="kopf">
   <a class="marke" href="/"><img src="/logo-zeichen.svg" alt="" />Market Playbook</a>
-  <a class="link weg-mobil" href="#story">Inhalte</a>
-  <a class="link weg-mobil" href="/erfahrungen">Erfahrungen</a>
-  <a class="link weg-mobil" href="#fragen">FAQ</a>
+  <a class="link" href="#ergebnisse">Ergebnisse</a>
+  <a class="link" href="/experience">Erfahrungen</a>
+  <a class="link" href="#fragen">FAQ</a>
   <a class="link" href="/ueber-uns">Über uns</a>
   <a class="knopf" href="/form">Kostenlos starten</a>
   <button class="menue" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menue-flaeche"><span></span><span></span></button>
 </header>
 <nav class="menue-flaeche" id="menue-flaeche" aria-label="Menü">
-  <a class="punkt" href="#story">Inhalte</a>
-  <a class="punkt" href="/erfahrungen">Erfahrungen</a>
+  <a class="punkt" href="#ergebnisse">Ergebnisse</a>
+  <a class="punkt" href="/experience">Erfahrungen</a>
   <a class="punkt" href="#fragen">FAQ</a>
   <a class="punkt" href="/ueber-uns">Über uns</a>
-  <a class="knopf glanz" href="/form">Kostenlos starten</a>
+  <a class="knopf" href="/form">Kostenlos starten</a>
 </nav>
 
 <div class="seite">
-<div class="licht" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="licht" aria-hidden="true"><i></i><i></i></div>
 <main>
-  <section class="hero spalte">
+  <section class="hero">
     <div class="zeichen rein" aria-hidden="true">
       <div class="schein"></div><div class="ring"></div><div class="glas"></div><div class="kante"></div><div class="blitz"></div>
       <div class="buch">
@@ -939,158 +390,121 @@ b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("da
         <svg class="blatt" viewBox="0 0 32 32"><path transform="translate(0 .95)" d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="#dfe6ff"/></svg>
       </div>
     </div>
-    <h1 class="rein d1">Jede Woche wissen,<br />was an den Märkten passiert.</h1>
-    <p class="rein d2 hero-wechsel">Wir analysieren jede Woche <span class="wechselwort" id="hero-wort"><b>Aktien</b></span> und zeigen dir, worauf es ankommt.</p>
+    <h1 class="rein d1">Jede Woche wissen, was an den Märkten passiert.</h1>
+    <p class="intro rein d2 hero-wechsel">Claudio analysiert jede Woche <span class="wechselwort" id="hero-wort"><b>Aktien</b></span> und zeigt dir, worauf es ankommt.</p>
     <div class="knoepfe rein d3">
-      <a class="knopf gross glanz" href="/form">Kostenlos starten</a>
-      <a class="knopf gross leise" href="#story">Was drin ist &nbsp;→</a>
+      <a class="knopf gross" href="/form">Kostenlos starten</a>
+      <a class="knopf gross leise" href="#claudio">Wer dahinter steht</a>
     </div>
-    <p class="hero-frei rein d4">Kostenlos: Videokurs + Aktien-Watchlist</p>
+    <p class="frei rein d4">Kostenlos: Videokurs und Aktien-Watchlist</p>
+    <figure class="titelbild rein d4">
+      <span class="notiz" aria-hidden="true">so sieht das aus<svg viewBox="0 0 60 50"><path d="M50 4 C40 18 26 28 8 40 M8 40 C14 40 20 41 25 43 M8 40 C9 34 10 29 12 24"/></svg></span>
+      <img src="/experience-bilder/breakdown-max-portfolio-30-tage.jpg" alt="Claudio geht im Video das Portfolio eines Mitglieds durch" />
+      <figcaption><span>Claudio geht mit Max sein Portfolio durch. 19 Jahre, Elektroniker aus Bayern.</span><a href="/experience">Ganze Fallstudie ansehen →</a></figcaption>
+    </figure>
+    <p class="vertrauen"><span><b>200+</b>Mitglieder</span><span><b>18.500+</b>Follower auf Instagram</span><span><b>seit 2020</b>an den Märkten</span></p>
+    <p class="stand">Mitglieder Stand August 2026, Follower Stand 15.9.2026</p>
   </section>
 
-  <section class="zahlen" id="zahlen">
-    <div class="kleber">
-      <div class="icons" id="icons"></div>
-      <div class="zahl-text">
-        
-        <div class="zeile" data-ziel="200" data-plus="+"><span class="n">0</span> <span class="zeile-wort">Mitgliedern</span></div>
-        <div class="zeile" data-ziel="18500" data-plus="+"><span class="n">0</span> <span class="zeile-wort">Followern</span></div>
-        <div class="zeile" data-ziel="6" data-plus="+"><span class="n">0</span> <span class="zeile-wort">Jahren Erfahrung</span></div>
-        <p class="nach">Market Playbook ist die Mitgliedschaft von Claudio Fürsatz: Analysen zu Aktien, Krypto und allen weiteren wichtigen Märkten.</p>
-        <div class="stichtag">Mitglieder und Erfahrung Stand August 2026 · Follower Stand 15.9.2026</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 26.9.2026: Claudios Geschichte direkt nach den Zahlen - Besucher kommen aus seinen Videos.
-       Foto von der alten Capital-Council-Seite (diekundenmaschine/assets/img/claudio.png). Text gekuerzt aus claudio-fuersatz.de. -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="kreide" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
-  <section class="wer spalte" id="claudio">
-    <div class="wer-bild einblenden"><img src="/claudio-palme.jpg" alt="Claudio Fürsatz" /><svg class="strahlen" viewBox="0 0 100 60" aria-hidden="true"><path pathLength="1" d="M30 50 C27 42 23 36 18 29"/><path pathLength="1" d="M50 44 C50.5 35 50 26 51 16"/><path pathLength="1" d="M70 50 C73 42 77 36 83 30"/></svg></div>
-    <div class="wer-text">
-      <svg class="doodle pfeil" viewBox="0 0 220 160" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M214 24 C160 8 104 26 76 64 C56 92 46 120 40 146"/><path class="nach" pathLength="1" d="M210 27 C162 13 108 29 80 66 C61 93 50 119 43 143"/><path pathLength="1" d="M24 126 C30 133 35 140 40 149 C47 141 54 135 63 130"/></svg>
-      <p class="st-hut">Wer dahinter steht</p>
-      <h2 class="einblenden">Hi, ich bin Claudio.</h2>
-      <div class="wer-fliess einblenden">
+  <section class="abschnitt wrap" id="claudio">
+    <div class="brief">
+      <div class="brief-bild einblenden"><img src="/claudio-palme.jpg" alt="Claudio Fürsatz" /></div>
+      <div class="einblenden">
+        <h2>Hi, ich bin Claudio.</h2>
         <p>Ich bin 2020 mit 19 an die Märkte gekommen. Zuerst über Bitcoin, kurz darauf kam die erste Aktie. Heute liegt mein Schwerpunkt auf dem Aktienmarkt.</p>
         <p>An einem einzigen Tag habe ich <b class="strich rot" style="white-space:nowrap">über&nbsp;111.000&nbsp;€</b> verloren. Eigenes Geld, und es kam nicht zurück. Ich hatte damals kein festes Regelwerk.</p>
         <p>Daraus ist die Systematik hinter Market Playbook entstanden: <b class="strich">feste Kriterien, bevor eine Entscheidung ansteht.</b> Die gebe ich heute an dich weiter.</p>
+        <p class="unterschrift" aria-label="Claudio">Claudio</p>
+        <div class="absender"><img src="/claudio-palme.jpg" alt="" /><div><b>Claudio Fürsatz</b>Geschäftsführer, Market Playbook</div></div>
       </div>
-      <p class="unterschrift einblenden" aria-label="Claudio">Claudio</p>
-      <p class="wer-rolle einblenden">Claudio Fürsatz · Geschäftsführer Market Playbook</p>
     </div>
   </section>
 
-  <!-- Kundenstimmen (26.9.2026): zwei Laufbaender gegenlaeufig, grau bis zum Drueberfahren, Klick vergroessert.
-       Namen/Nummern/Profilbilder in den Bildern entfernt. Seit 30.9.2026 (Claudio) direkt nach dem Steckbrief, vor dem App-Fenster. -->
-  <section class="block ks" id="kundenstimmen" style="padding-top:20px;padding-bottom:0">
-    <div class="ks-zitat spalte einblenden">
-      <p class="st-hut">Was Mitglieder schreiben</p>
-      <blockquote>„Zum ersten Mal habe ich das Gefühl, ich habe einen <span>Plan an der Börse.</span>“</blockquote>
-      <cite>Mitglied, seit 3 Wochen dabei</cite>
+  <section class="abschnitt wrap" id="ergebnisse">
+    <h2 class="einblenden">So haben sich unsere Portfolios entwickelt.</h2>
+    <div class="chart-flaeche einblenden">
+      <p class="titel"><b>Krypto-Portfolio +515&nbsp;%</b><span>seit Januar 2024, neben Bitcoin, S&amp;P 500 und Altcoins</span></p>
+      <div class="erg-svg" id="erg-svg" role="img" aria-label="Wertentwicklung seit Januar 2024: Krypto-Portfolio +515 %, Bitcoin +82 %, S&amp;P 500 +61 %, Altcoin-Korb −2 %"></div>
+      <p class="erg-leg"><span style="--c:#b3c5ff">Krypto-Portfolio <b>+515&nbsp;%</b></span><span style="--c:#f7931a">Bitcoin <b>+82&nbsp;%</b></span><span style="--c:#e8eaf0">S&amp;P 500 <b>+61&nbsp;%</b></span><span style="--c:#7c8494">Altcoins <b>−2&nbsp;%</b></span></p>
     </div>
-    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button></div></div>
-    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button></div></div>
-    <p class="ks-fuss spalte">Einzelne Erfahrungen von Mitgliedern. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse.</p>
+    <div class="unter-chart liste-zeilen einblenden">
+      <div class="zeile-t"><h3>Aktienportfolio</h3><p>Seit dem 16.12.2025 liegt es bei <b>+67&nbsp;%</b>. Der S&amp;P 500 hat im selben Zeitraum 12&nbsp;% gemacht. Größte Gewinner waren Micron und Robinhood.</p></div>
+      <div class="zeile-t"><h3>Meme Coins</h3><p>6 Positionen 2026, im Schnitt <b>+253&nbsp;%</b>. Bitcoin steht 2026 bei −10&nbsp;%. Die beste Position lag bei 468&nbsp;%.</p></div>
+    </div>
+    <p class="hinweis">Wertentwicklung jeweils seit dem Start des Portfolios. Ein Rückblick, kein Versprechen.</p>
   </section>
 
-  <!-- Ergebnisse (1.10.2026, Manuel): zwei Charts.
-       1) Vergleich, steht fest: unsere 3 Portfolios neben Bitcoin, S&P 500 und Altcoin-Korb (echte Wochenschlusskurse, Yahoo Finance,
-          1.1.2024 bis 11.9.2026). Krypto-Verlauf schematisch wie auf der alten Startseite, Aktien und Meme Coins gestrichelt (nur Start/Endstand).
-       2) Bitcoin-Kurs (Tagesschluss) mit unseren Ein- und Ausstiegen, zum Scrollen. Daten der Entscheidungen nach Kursniveau gesetzt,
-          genaue Tage bei Claudio offen. Offen ausserdem: Einstiegspreise der Aktien, Otto-Pruefung. -->
-  <section class="erg spalte" id="ergebnisse">
-    <div class="kopfzeile einblenden"><p class="st-hut">Ergebnisse</p><h2>So haben sich unsere Portfolios entwickelt.</h2><p class="kopf-unter">Wertentwicklung unserer Portfolios, jeweils seit ihrem Start. Ein Rückblick, kein Versprechen.</p></div>
-    <div class="erg-eins">
-      <div class="erg-bento">
-        <div class="erg-karte erg-gross einblenden" style="--c:#b3c5ff">
-          <b class="erg-zahl" data-ziel="515">+515&nbsp;%</b><span class="erg-name">Unser Krypto-Portfolio</span><small class="erg-seit">seit Januar 2024, neben Bitcoin, S&amp;P 500 und Altcoins im selben Zeitraum</small>
-          <div class="erg-svg" id="erg-svg" role="img" aria-label="Wertentwicklung seit Januar 2024: Krypto-Portfolio +515 %, Bitcoin +82 %, S&amp;P 500 +61 %, Altcoin-Korb −2 %"></div>
-          <p class="erg-pillen erg-leg"><span style="--c:#b3c5ff">Krypto-Portfolio <b>+515&nbsp;%</b></span><span style="--c:#f7931a">Bitcoin <b>+82&nbsp;%</b></span><span style="--c:#e8eaf0">S&amp;P 500 <b>+61&nbsp;%</b></span><span style="--c:#7c8494">Altcoins <b>−2&nbsp;%</b></span></p>
-        </div>
-        <div class="erg-zeilen einblenden">
-          <div class="erg-zeile"><div><b>Aktienportfolio</b><span>seit 16.12.2025</span></div><strong>+67&nbsp;%</strong><p>Der S&amp;P 500 hat im selben Zeitraum 12&nbsp;% gemacht. Größte Gewinner: Micron mit 302,5&nbsp;% und Robinhood mit 81&nbsp;%.</p></div>
-          <div class="erg-zeile"><div><b>Meme Coins</b><span>6 Positionen 2026, im Schnitt</span></div><strong>+253&nbsp;%</strong><p>Bitcoin steht 2026 bei −10&nbsp;%. Die beste Position lag bei 468&nbsp;%.</p></div>
-        </div>
-      </div>
+  <section class="abschnitt wrap">
+    <div class="zweispaltig einblenden">
+      <h2>Was einzelne Positionen gebracht haben.</h2>
+      <p class="text">Ein paar der Aktien und Kryptowerte, die wir mit unseren Mitgliedern besprochen haben. Die Zahl zeigt den Kursanstieg seit der Besprechung. Nicht jede Position hat sich so entwickelt.</p>
     </div>
-    <!-- 3.10.2026 (Claudio, Sprachnachricht): einzelne Signale mit Zahlen, damit man sofort Ergebnisse sieht. Zahlen wie von Claudio genannt, Belege offen. -->
-    <div class="erg-signale-kopf einblenden"><p class="st-hut">Einzelne Positionen</p><h3>Was einzelne Positionen gebracht haben.</h3><p>Ein paar der Aktien und Kryptowerte, die wir mit unseren Mitgliedern besprochen haben. Die Zahl zeigt den Kursanstieg seit der Besprechung. Nicht jede Position hat sich so entwickelt.</p></div>
     <div class="erg-signale"><div class="erg-karte erg-sig einblenden" style="--c:#f3b724"><div class="sig-kopf"><span class="sig-logo" style="--bg:#f3b724"><i style="--m:url(/icons/marken/zcash.svg);color:#1a1405"></i></span><span class="sig-art">Krypto</span></div><b class="erg-zahl" data-ziel="307">+307&nbsp;%</b><span class="erg-name">ZCash</span><span class="sig-balken"><i style="--bz:100.0%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#7fa6ff"><div class="sig-kopf"><span class="sig-logo breit" style="--bg:#0f1f44"><i style="--m:url(/icons/marken/micron-wortmarke.svg);color:#fff"></i></span><span class="sig-art">Aktie</span></div><b class="erg-zahl" data-ziel="302.5" data-dez="1">+302,5&nbsp;%</b><span class="erg-name">Micron</span><span class="sig-balken"><i style="--bz:98.5%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#97fce4"><div class="sig-kopf"><span class="sig-logo bild"><img src="/icons/marken/hyperliquid.png" alt="" /></span><span class="sig-art">Krypto</span></div><b class="erg-zahl" data-ziel="113">+113&nbsp;%</b><span class="erg-name">Hyperliquid</span><span class="sig-balken"><i style="--bz:36.8%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#ff6a3d"><div class="sig-kopf"><span class="sig-logo bild" style="--bg:#1b1210"><img src="/icons/marken/venice.png" alt="" /></span><span class="sig-art">Krypto</span></div><b class="erg-zahl" data-ziel="104">+104&nbsp;%</b><span class="erg-name">Venice Token</span><span class="sig-balken"><i style="--bz:33.9%"></i></span></div><div class="erg-karte erg-sig einblenden" style="--c:#ccff00"><div class="sig-kopf"><span class="sig-logo" style="--bg:#ccff00"><i style="--m:url(/icons/marken/robinhood.svg);color:#0b0d06"></i></span><span class="sig-art">Aktie</span></div><b class="erg-zahl" data-ziel="81">+81&nbsp;%</b><span class="erg-name">Robinhood</span><span class="sig-balken"><i style="--bz:26.4%"></i></span></div></div>
   </section>
 
-  <section class="erg-btc spalte" id="bitcoin">
-    <div class="erg-buehne">
+  <section class="abschnitt wrap" id="bitcoin">
+    <h2 class="einblenden">Unsere Ein- und Ausstiege bei Bitcoin.</h2>
+    <div class="btc">
       <div class="erg-schritte">
         <div class="erg-schritt an" data-i="0"><i>Januar 2025</i><h3>Ausstieg bei rund 107.000.</h3><p>Die On-Chain-Daten zeigen Überhitzung, wir gehen in Cash. Bitcoin fällt danach bis April auf unter 75.000 US-Dollar.</p></div>
         <div class="erg-schritt" data-i="1"><i>April 2025</i><h3>Wiedereinstieg bei rund 82.000.</h3><p>Der Boden ist bestätigt, wir kaufen zurück. Von hier läuft Bitcoin um mehr als 50&nbsp;% nach oben.</p></div>
         <div class="erg-schritt" data-i="2"><i>September 2025</i><h3>Ausstieg bei rund 112.000, vor dem Top.</h3><p>Wir steigen aus, bevor Bitcoin im Oktober sein Hoch bei 126.000 US-Dollar erreicht. Die letzten Prozent lassen wir bewusst liegen.</p></div>
         <div class="erg-schritt" data-i="3"><i>Bis Ende 2025</i><h3>Danach geht es abwärts.</h3><p>Bitcoin fällt im November bis auf rund 81.000 US-Dollar, mehr als ein Drittel unter dem Hoch. Wir sind in dieser Zeit in Cash.</p></div>
       </div>
-      <div class="erg-chart">
-        <div class="erg-karte">
-        <p class="erg-hut">Bitcoin <span>· unsere Ein- und Ausstiege</span></p>
+      <div class="erg-chart"><div class="chart-flaeche" style="margin-top:0">
         <div class="erg-svg" id="erg-btc" role="img" aria-label="Bitcoin-Kurs Dezember 2024 bis Dezember 2025 mit Ausstieg bei rund 107.000, Wiedereinstieg bei rund 82.000 und Ausstieg bei rund 112.000 US-Dollar"></div>
-        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="kundenstimmen">
+    <div class="wrap einblenden">
+      <blockquote class="zitat">„Zum ersten Mal habe ich das Gefühl, ich habe einen Plan an der Börse.“</blockquote>
+      <p class="zitat-von">Ein Mitglied, seit 3 Wochen dabei</p>
+    </div>
+    <div class="ks">
+    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k1.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k2.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k3.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k4.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k5.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button></div></div>
+    <div class="ks-reihe"><div class="ks-band"><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k6.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k7.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k8.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k9.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button><button class="ks-bild" type="button" tabindex="-1" aria-hidden="true" aria-label="Kundenstimme vergrößern"><img src="/kundenstimmen/k10.jpg" alt="Nachricht eines Mitglieds" loading="eager" /></button></div></div>
+    </div>
+    <div class="wrap">
+      <div class="gespraeche">
+        <a class="einblenden" href="/experience"><img src="/experience-bilder/5UjOgsX_p6I.jpg" alt="" loading="lazy" /><b>Stefan</b><span>Familienvater, 40</span></a>
+        <a class="einblenden" href="/experience"><img src="/experience-bilder/49srlf9BdSM.jpg" alt="" loading="lazy" /><b>Jan</b><span>Profisportler und Student, 23</span></a>
+        <a class="einblenden" href="/experience"><img src="/experience-bilder/ueHYNB8RIQQ.jpg" alt="" loading="lazy" /><b>Simon</b><span>Unternehmer in Dubai</span></a>
+        <a class="einblenden" href="/experience"><img src="/experience-bilder/Tbs0cQkVidE.jpg" alt="" loading="lazy" /><b>Lorenz</b><span>Angestellter, 21</span></a>
       </div>
+      <a class="mehr" href="/experience">Alle Gespräche ansehen →</a>
+      <p class="hinweis">Einzelne Erfahrungen von Mitgliedern. Vergangene Entwicklungen sind kein verlässlicher Hinweis auf künftige Ergebnisse.</p>
     </div>
   </section>
-
-  <!-- 26.9.2026: Scroll-Geschichte statt Kachelraster. Links steht die Ueberschrift, rechts wechselt je Punkt die Buehne. -->
-  <section class="story spalte" id="story">
-    <div class="story-links">
-      <p class="st-hut">So arbeitest du mit uns</p>
-      <h2>So arbeitest du<br />mit uns.</h2>
-      <ol class="story-liste"><li data-i="0" class="an"><i>01</i><div><b>Aufzeichnungen</b><p>Claudio geht Aktien, Krypto und die Makrolage in Aufzeichnungen durch. Jede Aufzeichnung ist in Kapitel geteilt.</p></div></li><li data-i="1"><i>02</i><div><b>Strategie-Updates</b><p>Ändert sich etwas an der Ausrichtung, steht dort was und warum. Schritt für Schritt nachvollziehbar.</p></div></li><li data-i="2"><i>03</i><div><b>Persönlich betreut</b><p>Fragen direkt an Claudio und ein fester Customer Success Manager an deiner Seite.</p></div></li><li data-i="3"><i>04</i><div><b>Kalender</b><p>Termine, die auf die Märkte wirken, bevor sie passieren.</p></div></li><li data-i="4"><i>05</i><div><b>Immer auf dem Stand</b><p>Neue Calls, Meldungen und Updates, ohne etwas zu verpassen.</p></div></li></ol>
-    </div>
-    <div class="story-rechts"><div class="story-teil an" data-i="0"><div class="story-buehne"><div class="story-bild"><div class="player"><div class="vbild"><i></i></div><div class="unten"><div class="kapitel"><span></span><span></span><span></span><span></span></div><div class="kapitel-namen"><span>Fed</span><span>Arbeitsmarkt</span><span>Ölpreis</span><span>Eli Lilly</span></div></div></div></div></div><div class="story-mobil"><i>01</i><h3>Aufzeichnungen</h3><p>Claudio geht Aktien, Krypto und die Makrolage in Aufzeichnungen durch. Jede Aufzeichnung ist in Kapitel geteilt.</p></div></div><div class="story-teil" data-i="1"><div class="story-buehne"><div class="story-bild"><div class="schritte" id="schritte"><div class="an"><b>1</b>Marktphase einordnen</div><div><b>2</b>Risiken benennen</div><div><b>3</b>Ausrichtung anpassen</div><div><b>4</b>Begründung festhalten</div></div></div></div><div class="story-mobil"><i>02</i><h3>Strategie-Updates</h3><p>Ändert sich etwas an der Ausrichtung, steht dort was und warum. Schritt für Schritt nachvollziehbar.</p></div></div><div class="story-teil" data-i="2"><div class="story-buehne"><div class="story-bild"><div class="mini" id="mini-portfolio"></div></div></div><div class="story-mobil"><i>03</i><h3>Persönlich betreut</h3><p>Fragen direkt an Claudio und ein fester Customer Success Manager an deiner Seite.</p></div></div><div class="story-teil" data-i="3"><div class="story-buehne"><div class="story-bild"><div class="kal"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span><span>14</span><span>15</span><span class="f">16</span><span>17</span><span class="m">18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span class="f">24</span><span>25</span><span>26</span><span>27</span><div class="kal-legende"><span><b style="--c:#8f7bff"></b>Makro-Termin</span><span><b style="--c:#f7931a"></b>Quartalszahlen</span></div></div></div></div><div class="story-mobil"><i>04</i><h3>Kalender</h3><p>Termine, die auf die Märkte wirken, bevor sie passieren.</p></div></div><div class="story-teil" data-i="4"><div class="story-buehne"><div class="story-bild"><div class="mini" id="mini-neu"></div></div></div><div class="story-mobil"><i>05</i><h3>Immer auf dem Stand</h3><p>Neue Calls, Meldungen und Updates, ohne etwas zu verpassen.</p></div></div></div>
-  </section>
-
-
   <div class="ks-gross" id="ks-gross" hidden><img alt="" /></div>
 
-  <!-- 26.9.2026: heller Abschnitt. Der Grund blendet beim Hereinscrollen auf hell (.an). Texte wie vorher. -->
-  <section class="hell-teil" id="fuer-wen">
-    <div class="spalte">
-      <p class="st-hut">Für wen</p>
-      <h2 class="hell-titel">Für wen das<br />gemacht ist.</h2>
-      <p class="hell-lead">Für Menschen, die schon investiert sind und den Markt verstehen wollen, ohne jeden Abend selbst Charts zu lesen.</p>
-      <div class="hell-listen">
-        <div><em>Passt, wenn</em>
-          <p class="ja">du schon Geld angelegt hast und verstehen willst, was damit passiert.</p>
-          <p class="ja">dir die Zeit fehlt, dich selbst stundenlang einzuarbeiten.</p>
-          <p class="ja">du bisher ohne festen Plan investierst.</p>
-        </div>
-        <div><em>Passt nicht, wenn</em>
-          <p class="nein">du noch gar nicht investiert hast.</p>
-          <p class="nein">du dich mit deinem Geld gar nicht beschäftigen willst.</p>
-          <p class="nein">du jemanden suchst, der dein Geld verwaltet.</p>
-        </div>
-      </div>
+  <section class="abschnitt wrap" id="inhalte">
+    <div class="zweispaltig einblenden">
+      <h2>So arbeitest du mit uns.</h2>
+      <p class="text">Du musst nicht jeden Tag den Markt verfolgen. Mit höchstens 30 Minuten pro Woche bist du auf dem neuesten Stand.</p>
+    </div>
+    <div class="liste-zeilen einblenden" style="margin-top:60px">
+      <div class="zeile-t"><h3>Jeden Tag die wichtigsten Nachrichten.</h3><p>Kurz zusammengefasst, damit du weißt, was an den Märkten los ist.</p></div>
+      <div class="zeile-t"><h3>Jede Woche Claudios Einordnung.</h3><p>Aktien, Krypto und die Makrolage als Aufzeichnung zum Nachschauen. Jede Aufzeichnung ist in Kapitel geteilt.</p></div>
+      <div class="zeile-t"><h3>Strategie-Updates.</h3><p>Ändert sich etwas an der Ausrichtung, steht dort was und warum. Schritt für Schritt nachvollziehbar.</p></div>
+      <div class="zeile-t"><h3>Persönlich betreut.</h3><p>Deine Fragen gehen direkt an Claudio. Dazu hast du einen festen Customer Success Manager.</p></div>
+      <div class="zeile-t"><h3>Ein Kalender für die wichtigen Termine.</h3><p>Termine, die auf die Märkte wirken, siehst du, bevor sie passieren.</p></div>
+      <div class="zeile-t"><h3>Die WhatsApp-Gruppe.</h3><p>Analysen zum ganzen Markt und deine Fragen, an einem Ort.</p></div>
+    </div>
+  </section>
 
-      <div class="woche-kopf">
-        <h3>So läuft deine Woche.</h3>
-        <p>Du musst nicht jeden Tag den Markt verfolgen. Die Einordnung kommt zu dir.</p>
-      </div>
-      <div class="woche" id="woche">
-        <div class="w-zeile">
-          <div class="w-text"><em>Täglich</em><strong>Die wichtigsten Marktnachrichten</strong><span>kurz zusammengefasst</span></div>
-          <div class="w-tage"><div class="w-tag"><small>Mo</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Di</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Mi</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Do</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Fr</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>Sa</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div><div class="w-tag"><small>So</small><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></div></div>
-        </div>
-        <div class="w-zeile">
-          <div class="w-text"><em>Wöchentlich</em><strong>Claudios Markteinordnung</strong><span>als Aufzeichnung zum Nachschauen</span></div>
-          <div class="w-karte w-aufz"><b class="w-play"></b><div><strong>Markteinordnung der Woche</strong><span>Makro, Zinsen, einzelne Unternehmen · in Kapiteln</span></div></div>
-        </div>
-        <div class="w-zeile">
-          <div class="w-text"><em>Laufend</em><strong>Analysen und deine Fragen</strong><span>zum ganzen Markt, direkt in der WhatsApp-Gruppe</span></div>
-          <div class="w-karte w-lauf"><span><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v4" /><rect x="7" y="9" rx="1" /><path d="M9 15v2" /><path d="M17 3v2" /><rect x="15" y="5" rx="1" /><path d="M17 13v3" /><path d="M3 3v16a2 2 0 0 0 2 2h16" /></svg>Analysen</span><span><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg>Fragen an Claudio</span><span><svg class="w-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 11 2 2 4-4" /><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>Customer Success Manager</span></div>
-        </div>
-      </div>
+  <section class="abschnitt wrap" id="fuer-wen">
+    <h2 class="einblenden" style="margin-bottom:24px">Für wen das gemacht ist.</h2>
+    <p class="text einblenden" style="margin:0 0 60px">Für Menschen, die schon investiert sind und den Markt verstehen wollen, ohne jeden Abend selbst Charts zu lesen.</p>
+    <div class="zweispaltig passt einblenden">
+      <div class="ja"><h3>Passt, wenn</h3><ul><li><svg viewBox="0 0 24 24"><path d="M3 13 C6 15 8 18 9.5 20 C13 13 17 8 22 4"/></svg>du schon Geld angelegt hast und verstehen willst, was damit passiert.</li><li><svg viewBox="0 0 24 24"><path d="M3 13 C6 15 8 18 9.5 20 C13 13 17 8 22 4"/></svg>dir die Zeit fehlt, dich selbst stundenlang einzuarbeiten.</li><li><svg viewBox="0 0 24 24"><path d="M3 13 C6 15 8 18 9.5 20 C13 13 17 8 22 4"/></svg>du bisher ohne festen Plan investierst.</li></ul></div>
+      <div class="nein"><h3>Passt nicht, wenn</h3><ul><li><svg viewBox="0 0 24 24"><path d="M5 5 C10 10 14 14 19 19 M19 5 C14 10 10 14 5 19"/></svg>du noch gar nicht investiert hast.</li><li><svg viewBox="0 0 24 24"><path d="M5 5 C10 10 14 14 19 19 M19 5 C14 10 10 14 5 19"/></svg>du dich mit deinem Geld gar nicht beschäftigen willst.</li><li><svg viewBox="0 0 24 24"><path d="M5 5 C10 10 14 14 19 19 M19 5 C14 10 10 14 5 19"/></svg>du jemanden suchst, der dein Geld verwaltet.</li></ul></div>
     </div>
   </section>
 
   <!-- 17.11.2026: Sternbild ersetzt. Fuenf Schritte, verbunden durch eine gezeichnete Linie, die beim Hereinscrollen waechst -->
-  <section class="block spalte ablauf" id="ablauf">
+  <section class="abschnitt wrap ablauf" id="ablauf">
     <h2 class="einblenden">So läuft es ab.</h2>
     <div class="ablauf-weg">
       <svg class="ablauf-linie" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M8 34 C90 18 150 46 230 30 S380 14 460 32 S610 48 700 28 S860 16 992 30"/></svg>
@@ -1099,50 +513,47 @@ b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("da
     <p class="ablauf-fuss einblenden">Die Entscheidungen triffst du selbst.</p>
   </section>
 
-  <!-- Was wir nicht sind: Wortlaut der alten Startseite. Erste Kachel hiess "Keine Anlageberatung nach KWG" -
-       Otto 23.9.2026: die KWG-Einordnung ist anwaltlich ungeklaert (meta-ads-handbuch Kap. 12/15), darf nicht als Fakt stehen. -->
-  <section class="block spalte streich-teil">
-    <p class="st-hut">Zur Einordnung</p>
-    <h2 class="streich-titel einblenden">Was wir nicht sind.</h2>
-    <ul class="streich"><li class="einblenden"><s><b style="--i:0">Individuelle</b> <b style="--i:1">Anlageempfehlung</b></s><span>Es findet keine auf persönliche Verhältnisse zugeschnittene Empfehlung statt.</span></li><li class="einblenden"><s><b style="--i:0">Fremdes</b> <b style="--i:1">Kapital</b></s><span>Wir verwalten kein Vermögen Dritter und nehmen keine Gelder entgegen.</span></li><li class="einblenden"><s><b style="--i:0">Renditegarantie</b></s><span>Es werden weder Gewinne noch bestimmte Wertentwicklungen zugesagt.</span></li><li class="einblenden"><s><b style="--i:0">Vermittlung</b></s><span>Wir vermitteln keine Finanzinstrumente und keine Verträge über Finanzprodukte.</span></li></ul>
+
+  <section class="abschnitt wrap">
+    <h2 class="einblenden" style="margin-bottom:50px">Was wir nicht sind.</h2>
+    <div class="liste-zeilen einblenden">
+      <div class="zeile-t"><h3><span class="weg-wort">Individuelle Anlageempfehlung</span></h3><p>Es findet keine auf persönliche Verhältnisse zugeschnittene Empfehlung statt.</p></div>
+      <div class="zeile-t"><h3><span class="weg-wort">Fremdes Kapital</span></h3><p>Wir verwalten kein Vermögen Dritter und nehmen keine Gelder entgegen.</p></div>
+      <div class="zeile-t"><h3><span class="weg-wort">Renditegarantie</span></h3><p>Es werden weder Gewinne noch bestimmte Wertentwicklungen zugesagt.</p></div>
+      <div class="zeile-t"><h3><span class="weg-wort">Vermittlung</span></h3><p>Wir vermitteln keine Finanzinstrumente und keine Verträge über Finanzprodukte.</p></div>
+    </div>
   </section>
 
-  <!-- Häufige Fragen: vor dem Sternenflug, dazu „FAQ“ im Menü (Manuel 4.10.2026). Antworten gekürzt aus /haeufige-fragen, damit nichts widerspricht -->
-  <section class="block spalte fq" id="fragen">
-    <div class="fq-raster">
-      <div class="fq-kopf">
-        <p class="st-hut">Häufige Fragen</p>
-        <h2 class="einblenden">Kurz beantwortet.</h2>
-        <p class="unter einblenden">Die 10 Fragen, die wir am häufigsten hören.</p>
-        <a class="fq-mehr einblenden" href="/haeufige-fragen">Alle Fragen und Antworten <span>→</span></a>
+  <section class="abschnitt wrap" id="fragen">
+    <div class="fq">
+      <div class="einblenden">
+        <h2 style="margin-bottom:24px">Häufige Fragen.</h2>
+        <p class="text">Die 10 Fragen, die wir am häufigsten hören. Alle weiteren stehen auf der <a href="/haeufige-fragen">Fragen-Seite</a>.</p>
       </div>
       <div class="fq-liste" id="fq-liste">
-        <div class="fq-punkt einblenden" style="--i:0"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a1"><span class="nr">01</span><span>Brauche ich Vorwissen?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a1" role="region"><div><p>Nein, Profi musst du keiner sein. Ein eigenes Depot und die Grundbegriffe solltest du aber kennen, damit du den Analysen gut folgen kannst.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:1"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a2"><span class="nr">02</span><span>Wie viel Zeit brauche ich?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a2" role="region"><div><p>Unser System ist so gebaut, dass auch sehr beschäftigte Leute mitkommen. Mit höchstens 30 Minuten pro Woche bist du auf dem neuesten Stand.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:2"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a3"><span class="nr">03</span><span>Für wen ist das gedacht?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a3" role="region"><div><p>Für Leute, die schon investiert sind, aber bisher eher raten und kaum Zeit haben, sich selbst durch alles durchzuarbeiten. Für komplette Neueinsteiger ist es noch nichts.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:3"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a4"><span class="nr">04</span><span>Wie viel sollte ich schon investiert haben?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a4" role="region"><div><p>Am meisten bringt es dir, wenn du schon 10.000 bis 20.000 Euro investiert hast. Liegst du deutlich darunter, ist es ehrlich gesagt noch zu früh, dann starte lieber erst mit dem kostenlosen Videokurs.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:4"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a5"><span class="nr">05</span><span>Was bekomme ich als Mitglied?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a5" role="region"><div><p>Das hängt davon ab, was du brauchst: Wir haben 2 Programme und stimmen im Gespräch ab, was zu dir passt. Im Kern bekommst du jede Woche Claudios Einordnung der Märkte, seine Analysen und einen Blick in sein Portfolio, also genau das, wofür du allein viele Stunden bräuchtest.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:5"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a6"><span class="nr">06</span><span>Habe ich einen festen Ansprechpartner?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a6" role="region"><div><p>Ja. Bei uns gibt es keine Massenabfertigung: Du bekommst deinen eigenen Customer Success Manager, dem du jederzeit schreiben kannst. Und deine Fragen an Claudio kannst du natürlich auch stellen.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:6"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a7"><span class="nr">07</span><span>Ist das eine Anlageberatung?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a7" role="region"><div><p>Nein. Claudio zeigt dir in seinen Makro-Calls und Analysen, wie er die Märkte sieht und was er selbst macht. Was du daraus machst, entscheidest immer du.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:7"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a8"><span class="nr">08</span><span>Wie fange ich an?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a8" role="region"><div><p>Klick einfach auf den Button hier und hol dir den kostenlosen Videokurs und die Aktien-Watchlist. Da findest du schon die ersten Inhalte und Analysen von Claudio. Wenn dir das gefällt und du mehr willst, buchst du dir einfach ein Strategiegespräch.<a class="knopf glanz fq-knopf" href="/form">Kostenlosen Kurs holen</a></p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:8"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a9"><span class="nr">09</span><span>Was ist Market Playbook überhaupt?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a9" role="region"><div><p>Market Playbook ist Claudios Mitgliedschaft für alle, die an der Börse nicht mehr raten wollen. Er schaut sich jede Woche Aktien, Krypto und die große Wirtschaftslage an und zeigt dir, worauf es gerade ankommt.</p></div></div></div>
-        <div class="fq-punkt einblenden" style="--i:9"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a10"><span class="nr">10</span><span>Wer ist Claudio Fürsatz?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a10" role="region"><div><p>Claudio ist 2020 mit 19 Jahren an den Märkten eingestiegen und führt heute Market Playbook. Geprägt hat ihn ein Verlust von über 111.000 Euro an einem einzigen Tag, aus dem seine heutige Systematik entstanden ist.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:0"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a1"><span>Brauche ich Vorwissen?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a1" role="region"><div><p>Nein, Profi musst du keiner sein. Ein eigenes Depot und die Grundbegriffe solltest du aber kennen, damit du den Analysen gut folgen kannst.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:1"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a2"><span>Wie viel Zeit brauche ich?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a2" role="region"><div><p>Unser System ist so gebaut, dass auch sehr beschäftigte Leute mitkommen. Mit höchstens 30 Minuten pro Woche bist du auf dem neuesten Stand.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:2"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a3"><span>Für wen ist das gedacht?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a3" role="region"><div><p>Für Leute, die schon investiert sind, aber bisher eher raten und kaum Zeit haben, sich selbst durch alles durchzuarbeiten. Für komplette Neueinsteiger ist es noch nichts.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:3"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a4"><span>Wie viel sollte ich schon investiert haben?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a4" role="region"><div><p>Am meisten bringt es dir, wenn du schon 10.000 bis 20.000 Euro investiert hast. Liegst du deutlich darunter, ist es ehrlich gesagt noch zu früh, dann starte lieber erst mit dem kostenlosen Videokurs.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:4"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a5"><span>Was bekomme ich als Mitglied?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a5" role="region"><div><p>Das hängt davon ab, was du brauchst: Wir haben 2 Programme und stimmen im Gespräch ab, was zu dir passt. Im Kern bekommst du jede Woche Claudios Einordnung der Märkte, seine Analysen und einen Blick in sein Portfolio, also genau das, wofür du allein viele Stunden bräuchtest.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:5"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a6"><span>Habe ich einen festen Ansprechpartner?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a6" role="region"><div><p>Ja. Bei uns gibt es keine Massenabfertigung: Du bekommst deinen eigenen Customer Success Manager, dem du jederzeit schreiben kannst. Und deine Fragen an Claudio kannst du natürlich auch stellen.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:6"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a7"><span>Ist das eine Anlageberatung?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a7" role="region"><div><p>Nein. Claudio zeigt dir in seinen Makro-Calls und Analysen, wie er die Märkte sieht und was er selbst macht. Was du daraus machst, entscheidest immer du.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:7"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a8"><span>Wie fange ich an?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a8" role="region"><div><p>Klick einfach auf den Button hier und hol dir den kostenlosen Videokurs und die Aktien-Watchlist. Da findest du schon die ersten Inhalte und Analysen von Claudio. Wenn dir das gefällt und du mehr willst, buchst du dir einfach ein Strategiegespräch.<a class="knopf glanz fq-knopf" href="/form">Kostenlosen Kurs holen</a></p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:8"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a9"><span>Was ist Market Playbook überhaupt?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a9" role="region"><div><p>Market Playbook ist Claudios Mitgliedschaft für alle, die an der Börse nicht mehr raten wollen. Er schaut sich jede Woche Aktien, Krypto und die große Wirtschaftslage an und zeigt dir, worauf es gerade ankommt.</p></div></div></div>
+        <div class="fq-punkt einblenden" style="--i:9"><button class="fq-frage" type="button" aria-expanded="false" aria-controls="fq-a10"><span>Wer ist Claudio Fürsatz?</span><i class="plus" aria-hidden="true"></i></button><div class="fq-antwort" id="fq-a10" role="region"><div><p>Claudio ist 2020 mit 19 Jahren an den Märkten eingestiegen und führt heute Market Playbook. Geprägt hat ihn ein Verlust von über 111.000 Euro an einem einzigen Tag, aus dem seine heutige Systematik entstanden ist.</p></div></div></div>
       </div>
     </div>
-    <noscript><style>.fq-antwort{grid-template-rows:1fr}.fq-antwort p{opacity:1;transform:none}</style></noscript>
   </section>
 
-  <!-- 17.11.2026: Sternenflug ersetzt -->
-  <section class="schluss spalte">
+  <section class="schluss">
     <h2 class="einblenden">Fang mit dem kostenlosen Videokurs an.</h2>
     <p class="einblenden">Dazu bekommst du die Aktien-Watchlist. Ohne Kosten, ohne Abo.</p>
-    <div class="knoepfe einblenden"><a class="knopf gross glanz" href="/form">Kostenlos starten</a><a class="knopf gross leise" href="/erfahrungen">Erfahrungen lesen</a></div>
+    <div class="knoepfe einblenden"><a class="knopf gross" href="/form">Kostenlos starten</a><a class="knopf gross leise" href="/experience">Erfahrungen ansehen</a></div>
   </section>
-
 </main>
 </div>
 
-<footer id="fuss"><div class="fuss-logo" id="fuss-logo" aria-hidden="true"><div class="schein3d"></div><div class="buch3d"><div class="seite3d l"><svg viewBox="0 0 32 32"><defs><linearGradient id="fbl" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7288CE"/></linearGradient><radialGradient id="fgl" class="glanz" cx="16" cy="14" r="22" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#dfe6ff" stop-opacity=".2"/><stop offset=".35" stop-color="#c3d0ff" stop-opacity=".13"/><stop offset=".7" stop-color="#b3c5ff" stop-opacity=".06"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".02"/></radialGradient><radialGradient id="fkl" class="kante" cx="16" cy="14" r="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e8edff" stop-opacity=".6"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".16"/></radialGradient></defs><g transform="translate(0 .95)"><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#fbl)" opacity=".07"/><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="url(#fgl)"/><path d="M14.4 9 C 10 5.5, 6.2 4.6, 2.8 5.5 V21.5 C 6.2 20.8, 10 21.6, 14.4 25.5 Z" fill="none" stroke="url(#fkl)" stroke-width=".12" stroke-linejoin="round"/></g></svg></div><div class="seite3d r"><svg viewBox="0 0 32 32"><defs><linearGradient id="fbr" x1="2.8" y1="4.6" x2="29.2" y2="26.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CBD9FF"/><stop offset="1" stop-color="#263E96"/></linearGradient><radialGradient id="fgr" class="glanz" cx="16" cy="14" r="22" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#dfe6ff" stop-opacity=".2"/><stop offset=".35" stop-color="#c3d0ff" stop-opacity=".13"/><stop offset=".7" stop-color="#b3c5ff" stop-opacity=".06"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".02"/></radialGradient><radialGradient id="fkr" class="kante" cx="16" cy="14" r="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e8edff" stop-opacity=".6"/><stop offset="1" stop-color="#b3c5ff" stop-opacity=".16"/></radialGradient></defs><g transform="translate(0 .95)"><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#fbr)" opacity=".07"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="url(#fgr)"/><path d="M17.6 9 C 22 5.5, 25.8 4.6, 29.2 5.5 V21.5 C 25.8 20.8, 22 21.6, 17.6 25.5 Z" fill="none" stroke="url(#fkr)" stroke-width=".12" stroke-linejoin="round"/></g></svg></div><div class="ruecken"></div></div></div><div class="spalte">
+<footer><div class="wrap">
   <div class="oben">
     <div><b>Market Playbook</b><p>Jede Woche wissen, was an den Märkten passiert.</p></div>
     <nav><a href="/form">Videokurs</a><a href="/erfahrungen">Erfahrungen</a><a href="/haeufige-fragen">Häufige Fragen</a><a href="/ueber-uns">Über uns</a><a href="/magazin">Magazin</a><a href="/impressum.html">Kontakt</a></nav>
@@ -1150,241 +561,6 @@ b.strich.rot{background-image:linear-gradient(var(--grund),var(--grund)),url("da
   <div class="unten"><span>© 2026 THE MARKET PLAYBOOK - FZCO</span><span><a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a> &nbsp;·&nbsp; <a href="/agb.html">AGB</a> &nbsp;·&nbsp; <a href="/haftungsausschluss.html">Haftungsausschluss</a></span></div>
 </div></footer>
 
-<script>
-(function(){
-  "use strict";
-  var ruhig = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var ICON = "/icons/marken/";
-  function m(slug){ return "--m:url(" + ICON + slug + ".svg)"; }
-
-  /* Markenfarben als App-Icon: [slug, Name, Kachel, Zeichen] */
-  var MARKEN = {
-    nvidia:["nvidia","Nvidia","#111","#76b900"], apple:["apple","Apple","linear-gradient(160deg,#3a3a3c,#0b0b0c)","#fff"],
-    bitcoin:["bitcoin","Bitcoin","linear-gradient(160deg,#ffab3d,#f7931a)","#fff"], tesla:["tesla","Tesla","linear-gradient(160deg,#ff2f4b,#c8102e)","#fff"],
-    meta:["meta","Meta","#fff","#0866ff"], ethereum:["ethereum","Ethereum","linear-gradient(160deg,#8a9bff,#4f64d9)","#fff"],
-    google:["google","Google","#fff","#4285f4"], palantir:["palantir","Palantir","#f2f2f2","#101113"],
-    solana:["solana","Solana","#0d0d12","linear-gradient(135deg,#9945ff,#14f195)"], netflix:["netflix","Netflix","#000","#e50914"],
-    broadcom:["broadcom","Broadcom","linear-gradient(160deg,#e8233f,#b0062a)","#fff"], amd:["amd","AMD","#0e0e0e","#fff"],
-    chainlink:["chainlink","Chainlink","linear-gradient(160deg,#4a6ff0,#2a4bbd)","#fff"], samsung:["samsung","Samsung","linear-gradient(160deg,#2a47c9,#1428a0)","#fff"],
-    visa:["visa","Visa","linear-gradient(160deg,#2a3290,#141a5e)","#fff"], sap:["sap","SAP","linear-gradient(160deg,#27c5ff,#0a6fd6)","#fff"],
-    paypal:["paypal","PayPal","#fff","#003087"], spacex:["spacex","SpaceX","#0b0b0b","#fff"]
-  };
-  function kachel(k, extra){ var b = MARKEN[k]; return '<div class="app-icon" style="--bg:'+b[2]+';--fg:'+b[3]+'"'+(extra||"")+' title="'+b[1]+'"><i style="'+m(b[0])+'"></i></div>'; }
-
-  /* Das Wortmarken-Band unter dem Hero ist am 24.9. raus (Manuel): dieselben
-     Logos kamen direkt danach bei den Zahlen noch einmal. */
-
-  /* Icons, die aus der Mitte auffliegen: Zielpunkt in Viewport-Anteilen */
-  var FLUG = [["bitcoin",-.36,-.3,-8],["apple",-.2,-.33,4],["nvidia",.08,-.37,-3],["tesla",.3,-.32,7],["ethereum",.42,-.06,-6],
-              ["meta",.36,.2,5],["solana",.24,.41,-4],["google",-.02,.44,3],["palantir",-.26,.41,-7],["broadcom",-.42,.14,6],
-              ["chainlink",-.43,-.08,-2],["netflix",.44,-.28,9],["samsung",-.44,.38,-5],["visa",.46,.4,4]];
-  var iconsEl = document.getElementById("icons");
-  iconsEl.innerHTML = FLUG.map(function(f){ return kachel(f[0]); }).join("");
-  var iconEls = [].slice.call(iconsEl.children);
-  var textEl = document.querySelector(".zahl-text");
-
-  var zahlen = document.getElementById("zahlen");
-  var zeilen = [].slice.call(zahlen.querySelectorAll(".zeile"));
-  var fmt = new Intl.NumberFormat("de-DE");
-  var hell = [37,41,51], voll = [244,245,248];
-  function weich(x){ return x<=0?0:x>=1?1:1-Math.pow(1-x,3); }
-  function mix(a,b,t){ return "rgb("+a.map(function(v,i){ return Math.round(v+(b[i]-v)*t); }).join(",")+")"; }
-
-  /* Ruckeln (Manuel 24.9.): vorher lief alles direkt im Scroll-Ereignis. Ein
-     Mausrad springt in ~100-px-Stufen, die Zahlen sprangen mit; dazu las der
-     Handy-Zweig pro Icon die Texthoehe neu (erzwungenes Layout pro Icon), und
-     nach dem Anflug standen die Icons kurz still, bevor das Driften einsetzte.
-     Jetzt: Fortschritt gedaempft pro Frame wie bei den Sternen-Stationen,
-     Texthoehe nur bei Groessenaenderung, Driften laeuft von Anfang an mit. */
-  var textH = textEl.offsetHeight, zuletzt = [];
-  /* Ring am Handy: Superellipse um den Textblock (Ecken ruecken nach aussen,
-     weil der Text eckig ist), nach Bogenlaenge abgetastet - so liegen die
-     Icons in gleichen Abstaenden. Start oben in der Mitte, im Uhrzeigersinn. */
-  var ring = null;
-  function ringBauen(vw, vh){
-    var rx = vw/2 - 38, ry = Math.min(textH/2 + 62, vh/2 - 100), P = [], L = [0], N = 720;
-    for (var k = 0; k <= N; k++) {
-      var w = -Math.PI/2 + k / N * Math.PI * 2, c = Math.cos(w), s2 = Math.sin(w);
-      P.push([Math.sign(c) * Math.sqrt(Math.abs(c)) * rx, Math.sign(s2) * Math.sqrt(Math.abs(s2)) * ry]);
-      if (k) L.push(L[k-1] + Math.hypot(P[k][0]-P[k-1][0], P[k][1]-P[k-1][1]));
-    }
-    ring = { P: P, L: L, ges: L[N], vw: vw, vh: vh, th: textH };
-  }
-  function ringPunkt(anteil, vw, vh){
-    if (!ring || ring.vw !== vw || ring.vh !== vh || ring.th !== textH) ringBauen(vw, vh);
-    var ziel = ((anteil % 1) + 1) % 1 * ring.ges, lo = 0, hi = ring.L.length - 1;
-    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (ring.L[m] < ziel) lo = m; else hi = m; }
-    var t = (ziel - ring.L[lo]) / ((ring.L[hi] - ring.L[lo]) || 1);
-    return [ring.P[lo][0] + (ring.P[hi][0] - ring.P[lo][0]) * t, ring.P[lo][1] + (ring.P[hi][1] - ring.P[lo][1]) * t];
-  }
-  function ziel(){
-    var r = zahlen.getBoundingClientRect();
-    var strecke = zahlen.offsetHeight - innerHeight;
-    /* Startet schon beim Hereinscrollen, sobald der Block unter dem Hero auftaucht */
-    /* am Handy spaeter anfangen, damit die Explosion im Bild passiert und nicht halb unter dem Rand */
-    var vor = innerHeight * (innerWidth < 640 ? 0.35 : 0.6);
-    /* 17.11.2026: Abschnitt klebt nicht mehr - zaehlt hoch, waehrend er von unten ins Bild kommt */
-    return ruhig ? 1 : Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.55)));
-  }
-  function zeichne(p){
-    var vw = innerWidth, vh = innerHeight;
-    iconEls.forEach(function(el,i){
-      var f = FLUG[i], verz = i*0.012;
-      var e = weich((p - verz) / 0.3);
-      var fy = f[2], x, y;
-      if (vw < 640) {
-        /* Handy wie am Laptop (Manuel 24.9.): kleine Explosion aus der Mitte
-           nach aussen auf den Ring, die Icons laufen dabei hinter den Zahlen
-           durch. Danach dreht sich der Ring nur noch leicht mit. */
-        var AM_HANDY = 10;
-        if (i >= AM_HANDY) { el.style.opacity = 0; return; }
-        /* Gleichmaessig ueber den Umfang verteilt (Manuel 24.9.): vorher gleiche
-           WINKEL auf der Superellipse - dadurch je zwei in jeder Ecke und die
-           Seitenmitten allein. Jetzt gleiche BOGENLAENGE, siehe ringPunkt(). */
-        /* Handy: Explosion langsamer und gleichzeitig mit den Zahlen fertig (bei p ~ 0,78) */
-        e = weich((p - 0.05 - i * 0.02) / 0.55);
-        var pt = ringPunkt(i / AM_HANDY + p * 0.05, vw, vh), weg = 0.12 + 0.88 * e;
-        x = pt[0] * weg; y = pt[1] * weg;
-        el.style.transform = "translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px) rotate("+(f[3]*e).toFixed(2)+"deg) scale("+(0.35+0.65*e).toFixed(3)+")";
-        el.style.opacity = Math.min(1, e * 1.6).toFixed(3);
-        return;
-      } else {
-        /* Endlage 0,9 wie in der abgenommenen Fassung - mit 0,22*p drifteten sie bis an und ueber den Rand (Manuel 24.9.) */
-        var weit = 0.5 + 0.32*e + 0.08*p;
-        x = f[1]*vw*weit; y = fy*vh*weit;
-      }
-      el.style.transform = "translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px) rotate("+(f[3]*e).toFixed(2)+"deg) scale("+(0.35+0.65*e).toFixed(3)+")";
-      el.style.opacity = e.toFixed(3);
-    });
-    zeilen.forEach(function(z,i){
-      var lokal = innerWidth < 640 ? weich((p - (0.08 + i*0.1)) / 0.5) : weich((p - (0.14 + i*0.1)) / 0.25);
-      var n = Math.round(+z.dataset.ziel * lokal);
-      var text = fmt.format(n) + (lokal>=1 && z.dataset.plus ? z.dataset.plus : "");
-      if (zuletzt[i] === text) return;
-      zuletzt[i] = text;
-      z.querySelector(".n").textContent = text;
-      z.style.color = mix(hell, voll, lokal);
-      z.querySelector(".n").style.opacity = (0.18 + 0.82*lokal).toFixed(3);
-    });
-  }
-  var jetztZ = ziel(), offenZ = false;
-  function schrittZ(){
-    offenZ = false;
-    var z = ziel(), d = z - jetztZ;
-    /* am Handy etwas traeger, damit ein Wisch nicht in Spruengen ankommt */
-    jetztZ = Math.abs(d) < 0.0005 ? z : jetztZ + d * (innerWidth < 640 ? 0.1 : 0.16);
-    zeichne(jetztZ);
-    if (jetztZ !== z) rahmen();
-  }
-  function rahmen(){ if (!offenZ) { offenZ = true; requestAnimationFrame(schrittZ); } }
-  addEventListener("resize", function(){ textH = textEl.offsetHeight; zeichne(jetztZ); });
-  zeichne(jetztZ);
-
-  /* Themen-Laufbaender je Reiter, mit farbigem Zeichen */
-  /* Themen ohne Marke tragen ein Linien-Icon in Periwinkle auf dunkler Kachel,
-     Marken ihr eigenes Zeichen. Bunte Punkte sahen nach Platzhalter aus. */
-  var LUC = "/icons/linien/";
-  function lm(n){ return "--m:url(" + LUC + n + ".svg)"; }
-  var THEMEN = {
-    makro:[["Fed",0,"landmark"],["Inflation",0,"trending-up"],["Arbeitsmarkt",0,"briefcase"],["Ölpreis",0,"droplet"],["Liquidität",0,"waves"],["Kreditspreads",0,"activity"],["Dollar-Stärke",0,"dollar-sign"],["Yen-Carry-Trade",0,"repeat"],["Private Credit",0,"building-2"],["Schwellenländer",0,"globe"],["Immobilienmarkt",0,"house"],["Gold",0,"gem"],["Quartalsausblick",0,"calendar-range"],["Regimewechsel",0,"shuffle"],["Zinsausblick",0,"percent"]],
-    aktien:[["Nvidia","nvidia"],["Meta","meta"],["Halbleiter",0,"cpu"],["Pharma",0,"pill"],["Samsung","samsung"],["SpaceX-IPO","spacex"],["KI-Zyklus",0,"brain-circuit"],["Agentic AI",0,"bot"],["Apple","apple"],["Tesla","tesla"],["Palantir","palantir"],["Broadcom","broadcom"],["Alphabet","google"],["Insider-Meldungen",0,"file-text"],["13F-Meldungen",0,"files"]],
-    krypto:[["Bitcoin","bitcoin"],["Ethereum","ethereum"],["Solana","solana"],["Chainlink","chainlink"],["Kryptoausblick",0,"telescope"],["Liquiditätszyklen",0,"refresh-cw"],["Risk-On-Rallye",0,"rocket"],["RSI-Extreme",0,"gauge"],["Marktphasen",0,"chart-candlestick"]]
-  };
-  function chip(t){
-    var k = t[1] && MARKEN[t[1]];
-    var b = k ? '<b style="--bg:'+k[2]+';--fg:'+k[3]+'"><i style="'+m(k[0])+'"></i></b>'
-              : '<b><i style="'+lm(t[2])+'"></i></b>';
-    return '<span class="chip">'+b+t[0]+'</span>';
-  }
-  function baender(th){
-    var l = THEMEN[th], drittel = Math.ceil(l.length/3), html = "";
-    for (var r=0;r<3;r++){
-      var teil = l.slice(r*drittel,(r+1)*drittel).concat(l.slice(0,r*drittel)).concat(l.slice((r+1)*drittel));
-      var s = teil.map(chip).join("");
-      html += '<div class="reihe">'+s+s+'</div>';
-    }
-    var ziel = document.getElementById("baender"); if (ziel) ziel.innerHTML = html;
-  }
-  document.querySelectorAll(".reiter button").forEach(function(b){
-    b.addEventListener("click", function(){
-      document.querySelectorAll(".reiter button").forEach(function(x){ x.setAttribute("aria-selected", x===b); });
-      baender(b.dataset.thema);
-    });
-  });
-  baender("makro");
-
-  /* Kleine Listen in den Kacheln, ohne erfundene Stueckzahlen */
-  function miniListe(id, zeilen){
-    var el = document.getElementById(id); if (!el) return;
-    el.innerHTML = zeilen.map(function(r){
-      return '<div><span class="ic"><i style="'+lm(r[0])+'"></i></span><span>'+r[1]+'</span><em>'+r[2]+'</em></div>';
-    }).join("");
-  }
-  miniListe("mini-portfolio", [["message-circle","Fragen an Claudio","›"],["user-check","Customer Success Manager","›"],["video","Aufzeichnungen","›"]]);
-  miniListe("mini-neu", [["video","Neue Aufzeichnung","neu"],["bell","Insider-Meldungen","neu"],["sparkles","Strategie-Update","neu"]]);
-
-  /* Wand: allgemeine Formate statt einzelner Call-Titel. Die App zeigt nur
-     einen Teil der Aufzeichnungen, konkrete Titel wuerden veralten. */
-  var FORMATE = [
-    ["Makro Deep Dive","Zinsen, Liquidität und Konjunktur eingeordnet.","landmark","Aufzeichnung"],
-    ["Unternehmen im Fokus","Zahlen und Bewertung einzelner Aktien durchgesprochen.","building-2","Aufzeichnung"],
-    ["Strategie-Update","Was sich an der Ausrichtung ändert und warum.","sparkles","Community"],
-    ["Smart Money","Was Insider, Fonds und Politiker gemeldet haben.","file-text","Community"],
-    ["Marktphasen","Wo der Markt im Zyklus steht und was das bedeutet.","chart-candlestick","Aufzeichnung"],
-    ["Customer Success","Ein fester Ansprechpartner, der regelmäßig nachfragt.","user-check","Betreuung"],
-    ["Kapitel & Zeitmarken","Jede Aufzeichnung in Kapitel geteilt, direkt anspringbar.","video","Aufzeichnungen"],
-    ["Kalender","Termine, die auf die Märkte wirken, vorab im Blick.","calendar-range","Community"]
-  ];
-  function karte(f){ return '<div class="karte"><div class="kopf-k"><div class="av"><i style="'+lm(f[2])+'"></i></div><div><b>'+f[0]+'</b><span>'+f[3]+'</span></div></div><p>'+f[1]+'</p></div>'; }
-  var a = FORMATE.slice(0,4).map(karte).join(""), b2 = FORMATE.slice(4).map(karte).join("");
-  /* 3.10.2026: Wand-Abschnitt "Was du bekommst" entfernt (doppelt mit der Story) */
-  if (document.getElementById("wand")) document.getElementById("wand").innerHTML = '<div class="reihe">'+a+a+a+'</div><div class="reihe zurueck">'+b2+b2+b2+'</div>';
-
-  /* Einblenden */
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("da"); io.unobserve(e.target); } });
-  },{rootMargin:"0px 0px -12% 0px"});
-  document.querySelectorAll(".einblenden,#fenster,#ablauf").forEach(function(el){ io.observe(el); });
-
-  /* Handy-Menue */
-  var menueKnopf = document.querySelector(".menue"), flaeche = document.getElementById("menue-flaeche");
-  function menue(auf){
-    document.getElementById("kopf").classList.toggle("offen", auf);
-    flaeche.classList.toggle("offen", auf);
-    menueKnopf.setAttribute("aria-expanded", auf);
-    menueKnopf.setAttribute("aria-label", auf ? "Menü schließen" : "Menü öffnen");
-    document.documentElement.style.overflow = auf ? "hidden" : "";
-  }
-  menueKnopf.addEventListener("click", function(){ menue(!flaeche.classList.contains("offen")); });
-  flaeche.addEventListener("click", function(e){ if (e.target.closest("a")) menue(false); });
-  addEventListener("keydown", function(e){ if (e.key === "Escape") menue(false); });
-
-  /* Knopf in der Navigation erst nach dem Hero */
-  var kopf = document.getElementById("kopf");
-  /* Beim Runterscrollen einklappen, beim Hochscrollen wieder da */
-  var kopfY = scrollY;
-  function scroll(){
-    var y = scrollY, d = y - kopfY;
-    kopf.classList.toggle("voll", y > 420);
-    if (y < 420 || kopf.classList.contains("offen")) kopf.classList.remove("weg");
-    else if (d > 6) kopf.classList.add("weg");
-    else if (d < -6) kopf.classList.remove("weg");
-    if (Math.abs(d) > 6) kopfY = y;
-    rahmen();
-  }
-  addEventListener("scroll", scroll, {passive:true}); addEventListener("resize", rahmen); scroll();
-
-  /* Strategie-Schritte laufen durch */
-  var schritte = [].slice.call(document.querySelectorAll("#schritte div")), s = 0;
-  if (!ruhig) setInterval(function(){ s = (s+1) % (schritte.length+1); schritte.forEach(function(d,i){ d.classList.toggle("an", i<s); }); }, 1100);
-})();
-</script>
-<script>
-/* Kundenstimmen: Klick vergroessert, Klick/Escape schliesst */
-(function(){var g=document.getElementById("ks-gross");if(!g)return;var bild=g.querySelector("img");document.body.appendChild(g);
-document.querySelectorAll(".ks-bild").forEach(function(b){b.addEventListener("click",function(){bild.src=b.querySelector("img").src;g.hidden=false;document.body.classList.add("ks-offen");});});
-function zu(){g.hidden=true;document.body.classList.remove("ks-offen");}g.addEventListener("click",zu);document.addEventListener("keydown",function(e){if(e.key==="Escape")zu();});})();
-</script>
 <script>
 /* 1.10.2026: Ergebnis-Charts, bewusst schlicht: kein Gitter, weiche Linien, Flaeche unter der Hauptlinie.
    (1) Vergleich in % seit 1.1.2024 (x = Monate seit Start), zeichnet sich einmal auf.
@@ -1529,99 +705,10 @@ function zu(){g.hidden=true;document.body.classList.remove("ks-offen");}g.addEve
 })();
 </script>
 <script>
-/* 26.9.2026: Scroll-Geschichte, heller Abschnitt, Woche */
-(function(){
-  var teile=[].slice.call(document.querySelectorAll(".story-teil")),punkte=[].slice.call(document.querySelectorAll(".story-liste li"));
-  if(teile.length&&"IntersectionObserver" in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var i=e.target.dataset.i;
-      teile.forEach(function(t){t.classList.toggle("an",t.dataset.i===i);});punkte.forEach(function(p){p.classList.toggle("an",p.dataset.i===i);});});},{rootMargin:"-45% 0px -45% 0px"});
-    teile.forEach(function(t){io.observe(t);});
-    /* Handy: einmalig einblenden, sobald ein Punkt ins Bild kommt */
-    var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("da");io2.unobserve(e.target);}});},{rootMargin:"0px 0px -12% 0px"});
-    teile.forEach(function(t){io2.observe(t);});
-  }
-  var wer=document.getElementById("claudio");
-  if(wer&&"IntersectionObserver" in window)new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){wer.classList.add("sk");o.disconnect();}});},{threshold:.4}).observe(wer);
-  var hell=document.getElementById("fuer-wen"),woche=document.getElementById("woche");
-  if(hell&&"IntersectionObserver" in window){
-    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){woche.classList.add("da");o.disconnect();}});},{threshold:.35}).observe(woche);
-  }
-})();
-</script>
-<script>
-/* 26.9.2026: Karte fuer den hellen Teil + langsamer Zoom am Claudio-Bild, beides am Scroll */
-(function(){
-  var h=document.getElementById("fuer-wen"),w=document.getElementById("claudio"),ruhig=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(h)h.classList.add("an");
-  if(ruhig)return;
-  var laeuft=false;
-  function k(x){return x<0?0:x>1?1:x;}
-  function rechne(){laeuft=false;var vh=innerHeight;
-    if(h){var r=h.getBoundingClientRect();
-      var rein=k((vh-r.top)/vh), raus=k(r.bottom/vh), p=Math.min(rein,raus);
-      var rand=Math.min(72,innerWidth*.05);
-      h.style.setProperty("--hk-x",(rand*(1-p)).toFixed(1)+"px");h.style.setProperty("--hk-r",(56*(1-p)).toFixed(1)+"px");}
-  }
-  addEventListener("scroll",function(){if(!laeuft){laeuft=true;requestAnimationFrame(rechne);}},{passive:true});
-  addEventListener("resize",rechne);rechne();
-})();
-</script>
-<script src="/startseite-sterne.js?v=1" defer></script>
-<script>
-/* Buch im Fuss: Magnet, Neigung, Seiten oeffnen sich, Glanz folgt dem Zeiger.
-   Werte gleiten gedaempft nach und nur solange sich etwas bewegt. Ohne Maus
-   atmet das Buch langsam. */
-(function(){
-  var f=document.getElementById("fuss"), logo=document.getElementById("fuss-logo");
-  if(!f||!logo) return;
-  var buch=logo.querySelector(".buch3d"), l=logo.querySelector(".seite3d.l"), r=logo.querySelector(".seite3d.r");
-  var glanz=[].slice.call(logo.querySelectorAll(".glanz")), kante=[].slice.call(logo.querySelectorAll(".kante"));
-  var ruhig=matchMedia("(prefers-reduced-motion: reduce)").matches, maus=!matchMedia("(hover:none)").matches;
-  var ziel={x:0,y:0,n:0}, jetzt={x:0,y:0,n:0}, laeuft=false, drin=false, sicht=false, t0=performance.now();
-  function setze(){
-    var x=jetzt.x, y=jetzt.y, n=jetzt.n;
-    buch.style.transform="translate3d("+(x*40).toFixed(1)+"px,"+(y*26).toFixed(1)+"px,"+(n*60).toFixed(0)+"px) rotateY("+(x*24).toFixed(2)+"deg) rotateX("+(-y*18).toFixed(2)+"deg)";
-    /* Seiten: in Ruhe halb geschlossen, beim Naeherkommen flach aufgeschlagen */
-    var auf=32-28*n;
-    l.style.transform="rotateY("+(auf+x*6).toFixed(2)+"deg)";
-    r.style.transform="rotateY("+(-auf+x*6).toFixed(2)+"deg)";
-    var gx=16+x*6, gy=14+y*4; /* weites Flaechenlicht, wandert nur leicht mit */
-    glanz.forEach(function(g){ g.setAttribute("cx",gx.toFixed(2)); g.setAttribute("cy",gy.toFixed(2)); });
-    kante.forEach(function(g){ g.setAttribute("cx",gx.toFixed(2)); g.setAttribute("cy",gy.toFixed(2)); });
-    logo.style.setProperty("--s",(0.25+0.75*n).toFixed(3));
-  }
-  function schritt(t){
-    if(!sicht){ laeuft=false; return; }
-    if(!drin){ /* Atmen ohne Maus */
-      var s=(t-t0)/1000; ziel.x=Math.sin(s*.35)*.35; ziel.y=Math.cos(s*.28)*.22; ziel.n=.18+.12*Math.sin(s*.5);
-    }
-    var fertig=true;
-    ["x","y","n"].forEach(function(k){ var d=ziel[k]-jetzt[k]; if(Math.abs(d)>.0015){ jetzt[k]+=d*.085; fertig=false; } else jetzt[k]=ziel[k]; });
-    setze();
-    if(!fertig||!drin) requestAnimationFrame(schritt); else laeuft=false;
-  }
-  function an(){ if(!laeuft){ laeuft=true; requestAnimationFrame(schritt); } }
-  if(ruhig){ jetzt={x:0,y:0,n:.4}; setze(); return; }
-  if(maus){
-    f.addEventListener("mousemove",function(e){
-      var b=logo.getBoundingClientRect(), cx=b.left+b.width/2, cy=b.top+b.height/2;
-      var dx=(e.clientX-cx)/(b.width*.75), dy=(e.clientY-cy)/(b.height*.75);
-      var d=Math.min(1,Math.hypot(dx,dy));
-      drin=true;
-      ziel.x=Math.max(-1,Math.min(1,dx)); ziel.y=Math.max(-1,Math.min(1,dy)); ziel.n=1-d*d;
-      an();
-    });
-    f.addEventListener("mouseleave",function(){ drin=false; t0=performance.now(); an(); });
-  }
-  /* Nur rechnen, wenn der Fuss zu sehen ist */
-  new IntersectionObserver(function(e){ sicht=e[0].isIntersecting; if(sicht) an(); else drin=false; }).observe(f);
-})();
-</script>
-<script>
-(function(){var seite=document.querySelector(".seite");if(!seite||!("IntersectionObserver" in window))return;
-var aktiv=new Set();
-var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?aktiv.add(e.target):aktiv.delete(e.target)});seite.classList.toggle("licht-aus",aktiv.size>0)},{rootMargin:"-30% 0px -30% 0px"});
-document.querySelectorAll(".stern").forEach(function(el){io.observe(el)})})();
+/* Kundenstimmen: Klick vergroessert, Klick/Escape schliesst */
+(function(){var g=document.getElementById("ks-gross");if(!g)return;var bild=g.querySelector("img");document.body.appendChild(g);
+document.querySelectorAll(".ks-bild").forEach(function(b){b.addEventListener("click",function(){bild.src=b.querySelector("img").src;g.hidden=false;document.body.classList.add("ks-offen");});});
+function zu(){g.hidden=true;document.body.classList.remove("ks-offen");}g.addEventListener("click",zu);document.addEventListener("keydown",function(e){if(e.key==="Escape")zu();});})();
 </script>
 <script>
 /* 3.10.2026: Wechselwort im Hero */
@@ -1652,6 +739,20 @@ document.querySelectorAll(".stern").forEach(function(el){io.observe(el)})})();
     liste.querySelectorAll(".fq-punkt.offen").forEach(function(x){ x.classList.remove("offen"); x.querySelector(".fq-frage").setAttribute("aria-expanded","false"); });
     if(auf){ p.classList.add("offen"); k.setAttribute("aria-expanded","true"); }
   });
+})();
+</script>
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("da");io.unobserve(e.target);}});},{rootMargin:"0px 0px -12% 0px"});
+  document.querySelectorAll(".einblenden,#ablauf").forEach(function(el){io.observe(el);});
+  var kopf=document.getElementById("kopf"),knopf=kopf.querySelector(".menue"),fl=document.getElementById("menue-flaeche"),y0=scrollY;
+  function menue(auf){kopf.classList.toggle("offen",auf);fl.classList.toggle("offen",auf);knopf.setAttribute("aria-expanded",auf);document.documentElement.style.overflow=auf?"hidden":"";}
+  knopf.addEventListener("click",function(){menue(!fl.classList.contains("offen"));});
+  fl.addEventListener("click",function(e){if(e.target.closest("a"))menue(false);});
+  addEventListener("keydown",function(e){if(e.key==="Escape")menue(false);});
+  addEventListener("scroll",function(){var y=scrollY,d=y-y0;kopf.classList.toggle("voll",y>420);
+    if(y<420||kopf.classList.contains("offen"))kopf.classList.remove("weg");else if(d>6)kopf.classList.add("weg");else if(d<-6)kopf.classList.remove("weg");
+    if(Math.abs(d)>6)y0=y;},{passive:true});
 })();
 </script>
 </body>
