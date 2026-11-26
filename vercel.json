@@ -2,6 +2,11 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/kurs-tim",
+      "destination": "/kurs?utm_source=tim&utm_medium=team",
+      "permanent": false
+    },
+    {
       "source": "/form1",
       "destination": "/form",
       "permanent": true
